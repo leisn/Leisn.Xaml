@@ -2,6 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
   <Color x:Key="PrimaryColor">#326cf3</Color>
+  <Color x:Key="PrimaryDarkerColor">#1060FD</Color>
+  <Color x:Key="PrimaryLighterColor">#4575E5</Color>
   <Color x:Key="AccentColor">#f8491e</Color>
   <Color x:Key="InfoColor">#00bcd4</Color>
   <Color x:Key="SuccessColor">#2db84d</Color>
@@ -20,8 +22,11 @@
   <Color x:Key="ControlLighterColor">#656565</Color>
   <Color x:Key="ControlAccentColor">#797979</Color>
 
+  <Color x:Key="NightSkyColor">#05112c</Color>
 
   <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}"/>
+  <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{DynamicResource PrimaryDarkerColor}"/>
+  <SolidColorBrush x:Key="PrimaryLighterBrush" Color="{DynamicResource PrimaryLighterColor}"/>
   <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}"/>
   <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}"/>
   <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}"/>
@@ -40,4 +45,5 @@
   <SolidColorBrush x:Key="ControlLighterBrush" Color="{DynamicResource ControlLighterColor}"/>
   <SolidColorBrush x:Key="ControlAccentBrush" Color="{DynamicResource ControlAccentColor}"/>
 
+  <SolidColorBrush x:Key="NightSkyBrush" Color="{DynamicResource NightSkyColor}"/>
 </ResourceDictionary>

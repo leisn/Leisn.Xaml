@@ -5,8 +5,10 @@ Assets/Values.xaml
 Assets/Geometries.xaml
 
 Styles/TextBlock.xaml
+Styles/ToolTip.xaml
 Styles/Button.xaml
 Styles/TextBox.xaml
+Styles/ComboBox.xaml
 Styles/GroupBox.xaml
 
 Styles/NumericBox.xaml

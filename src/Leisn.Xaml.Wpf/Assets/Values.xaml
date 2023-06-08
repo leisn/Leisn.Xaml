@@ -9,7 +9,7 @@
   <Thickness x:Key="DialogMargin">15,10,15,20</Thickness>
   <Thickness x:Key="DialogButtonAreaMargin">0,15,0,0</Thickness>
 
-  <CornerRadius x:Key="DefaultCornerRadius">4</CornerRadius>
+  <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>
 
   <sys:Double x:Key="InputMinHeight">25</sys:Double>
 </ResourceDictionary>

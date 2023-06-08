@@ -83,9 +83,9 @@
         <ControlTemplate TargetType="local:NumericUpDown">
           <DockPanel>
             <RepeatButton x:Name="PART_Minus" Content="{DynamicResource LeftGeometry}" DockPanel.Dock="Left" Style="{DynamicResource NumericDownButtonStyle}"
-                          local:BorderAttach.CornerRadius="4,0,0,4" />
+                          local:BorderAttach.CornerRadius="3,0,0,3" />
             <RepeatButton x:Name="PART_Increase" Content="{DynamicResource RightGeometry}" DockPanel.Dock="Right" Style="{DynamicResource NumericDownButtonStyle}"
-                          local:BorderAttach.CornerRadius="0,4,4,0" />
+                          local:BorderAttach.CornerRadius="0,3,3,0" />
             <local:NumericBox x:Name="PART_TextBox"
                      NumericType="{TemplateBinding NumericType}"
                      Background="{TemplateBinding Background}" Margin="-1,0" InputScope="Number"
@@ -105,19 +105,19 @@
             <Trigger Property="IsEditing" Value="True">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase"/>
-              <Setter Property="local:BorderAttach.CornerRadius" Value="4" TargetName="PART_TextBox"/>
+              <Setter Property="local:BorderAttach.CornerRadius" Value="3" TargetName="PART_TextBox"/>
               <Setter Property="HorizontalContentAlignment" Value="Left" TargetName="PART_TextBox"/>
             </Trigger>
 
             <Trigger Property="IsReadOnly" Value="True">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase"/>
-              <Setter Property="local:BorderAttach.CornerRadius" Value="4" TargetName="PART_TextBox"/>
+              <Setter Property="local:BorderAttach.CornerRadius" Value="3" TargetName="PART_TextBox"/>
             </Trigger>
             <Trigger Property="Increment" Value="0">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase"/>
-              <Setter Property="local:BorderAttach.CornerRadius" Value="4" TargetName="PART_TextBox"/>
+              <Setter Property="local:BorderAttach.CornerRadius" Value="3" TargetName="PART_TextBox"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

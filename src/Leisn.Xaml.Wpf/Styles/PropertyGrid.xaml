@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
 
-  <Style x:Key="PropertyItemToolTipBaseStyle" BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
+  <Style x:Key="PropertyItemToolTipBaseStyle" BasedOn="{StaticResource ToolTipBaseStyle}" TargetType="ToolTip">
     <Setter Property="Padding" Value="10"/>
     <Setter Property="Template">
       <Setter.Value>

@@ -134,25 +134,32 @@ namespace Leisn.Xaml.Wpf.Controls
             return (IPropertyEditor)Activator.CreateInstance(editorType)!;
         }
 
-        protected virtual IPropertyEditor CreateDefalutEditor(PropertyDescriptor propertyDescriptor) =>
-        Type.GetTypeCode(propertyDescriptor.PropertyType) switch
+        protected virtual IPropertyEditor CreateDefalutEditor(PropertyDescriptor propertyDescriptor)
         {
-            TypeCode.Boolean => new BoolEditor(),
-            TypeCode.SByte => new NumberEditor(sbyte.MinValue, sbyte.MaxValue, 1, NumericType.Int),
-            TypeCode.Int16 => new NumberEditor(short.MinValue, short.MaxValue, 1, NumericType.Int),
-            TypeCode.UInt16 => new NumberEditor(ushort.MinValue, ushort.MaxValue, 1, NumericType.UInt),
-            TypeCode.Int32 => new NumberEditor(int.MinValue, int.MaxValue, 1, NumericType.Int),
-            TypeCode.UInt32 => new NumberEditor(uint.MinValue, uint.MaxValue, 1, NumericType.UInt),
-            TypeCode.Int64 => new NumberEditor(long.MinValue, long.MaxValue, 1, NumericType.Int),
-            TypeCode.UInt64 => new NumberEditor(ulong.MinValue, ulong.MaxValue, 1, NumericType.UInt),
-            TypeCode.Single => new NumberEditor(float.MinValue, float.MaxValue, 1, NumericType.Float),
-            TypeCode.Double => new NumberEditor(double.MinValue, double.MaxValue, 1, NumericType.Float),
-            TypeCode.Decimal => new NumberEditor(Convert.ToDouble(decimal.MinValue), Convert.ToDouble(decimal.MaxValue), 1, NumericType.Float),
-            TypeCode.DateTime => new DateTimeEditor(),
-            TypeCode.String => CreatStringEditor(propertyDescriptor),
-            TypeCode.Object => CreateObjectEditor(propertyDescriptor),
-            _ => new ReadOnlyTextEditor()
-        };
+            if(propertyDescriptor.PropertyType.IsEnum)
+                return new EnumEditor();
+            return Type.GetTypeCode(propertyDescriptor.PropertyType) switch
+            {
+                TypeCode.Boolean => new BoolEditor(),
+                TypeCode.SByte => new NumberEditor(sbyte.MinValue, sbyte.MaxValue, 1, NumericType.Int),
+                TypeCode.Byte => new NumberEditor(byte.MinValue, byte.MaxValue, 1, NumericType.UInt),
+                TypeCode.Int16 => new NumberEditor(short.MinValue, short.MaxValue, 1, NumericType.Int),
+                TypeCode.UInt16 => new NumberEditor(ushort.MinValue, ushort.MaxValue, 1, NumericType.UInt),
+                TypeCode.Int32 => new NumberEditor(int.MinValue, int.MaxValue, 1, NumericType.Int),
+                TypeCode.UInt32 => new NumberEditor(uint.MinValue, uint.MaxValue, 1, NumericType.UInt),
+                TypeCode.Int64 => new NumberEditor(long.MinValue, long.MaxValue, 1, NumericType.Int),
+                TypeCode.UInt64 => new NumberEditor(ulong.MinValue, ulong.MaxValue, 1, NumericType.UInt),
+                TypeCode.Single => new NumberEditor(float.MinValue, float.MaxValue, 1, NumericType.Float),
+                TypeCode.Double => new NumberEditor(double.MinValue, double.MaxValue, 1, NumericType.Float),
+                TypeCode.Decimal => new NumberEditor(Convert.ToDouble(decimal.MinValue), Convert.ToDouble(decimal.MaxValue), 1, NumericType.Float),
+                TypeCode.DateTime => new DateTimeEditor(),
+                TypeCode.String => CreatStringEditor(propertyDescriptor),
+                TypeCode.Object => CreateObjectEditor(propertyDescriptor),
+                _ => new ReadOnlyTextEditor()
+            };
+        }
+
+
 
         protected virtual IPropertyEditor CreatStringEditor(PropertyDescriptor propertyDescriptor)
         {
@@ -162,11 +169,6 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         protected virtual IPropertyEditor CreateObjectEditor(PropertyDescriptor propertyDescriptor)
         {
-            if (propertyDescriptor.PropertyType.IsSubclassOf(typeof(Enum)))
-            {
-                return new EnumEditor();
-            }
-
             if (propertyDescriptor.PropertyType.IsAssignableTo(typeof(IEnumerable)))
             {
                 return new CollectionEditor();
