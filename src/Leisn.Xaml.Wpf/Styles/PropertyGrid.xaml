@@ -1,0 +1,164 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
+
+  <Style x:Key="PropertyItemToolTipBaseStyle" BasedOn="{StaticResource {x:Type ToolTip}}" TargetType="ToolTip">
+    <Setter Property="Padding" Value="10"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToolTip">
+          <Border Margin="8" Background="{DynamicResource RegionBrush}" Padding="{TemplateBinding Padding}" BorderThickness="1"
+                  CornerRadius="{Binding Path=(local:BorderAttach.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}"
+                  BorderBrush="{DynamicResource BorderBrush}"
+                  TextElement.Foreground="{DynamicResource TextBrush}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <ContentPresenter x:Name="Presenter" Margin="0,0,0,8"/>
+              <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock FontWeight="Bold" Text="{Binding PropertyTypeName,RelativeSource={RelativeSource AncestorType=local:PropertyItem}}"/>
+                <TextBlock Text="{Binding PropertyName,RelativeSource={RelativeSource AncestorType=local:PropertyItem}}" Margin="6,0,0,0"/>
+              </StackPanel>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="Content" Value="{x:Null}">
+              <Setter TargetName="Presenter" Property="Visibility" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="Content" Value="">
+              <Setter TargetName="Presenter" Property="Visibility" Value="Collapsed"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="PropertyItemBaseStyle" TargetType="local:PropertyItem">
+    <!--<Setter Property="Focusable" Value="False"/>-->
+    <Setter Property="Margin" Value="0,0,0,7"/>
+    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:PropertyItem">
+          <Border x:Name="bd" Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid Margin="{TemplateBinding Padding}">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width=".3*" MinWidth="100"/>
+                <ColumnDefinition Width=".7*"/>
+              </Grid.ColumnDefinitions>
+              <TextBlock Margin="0,0,10,0" Text="{TemplateBinding DisplayName}"
+                         TextTrimming="CharacterEllipsis" TextAlignment="Right">
+                <TextBlock.ToolTip>
+                  <ToolTip Style="{StaticResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
+                </TextBlock.ToolTip>
+              </TextBlock>
+              <ContentPresenter Grid.Column="1" ContentSource="EditorElement"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+            </Grid>
+          </Border>
+          <!--<ControlTemplate.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter Property="BorderThickness" TargetName="bd" Value="3,0,0,0"/>
+              <Setter Property="Margin" TargetName="bd" Value="-3,0,0,0"/>
+            </Trigger>
+          </ControlTemplate.Triggers>-->
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="PropertyItemsControlBaseStyle" TargetType="local:PropertyItemsControl">
+    <Setter Property="ItemContainerStyle" Value="{StaticResource PropertyItemBaseStyle}"/>
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:PropertyItemsControl">
+          <ScrollViewer Focusable="false" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+          </ScrollViewer>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsGrouping" Value="False">
+              <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="PropertyGroupItemBaseStyle" TargetType="GroupItem">
+    <Setter Property="Margin" Value="0,0,0,6"/>
+    <Setter Property="Padding" Value="8,5"/>
+    <Setter Property="Background" Value="{DynamicResource RegionLighterBrush}"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="GroupItem">
+          <Expander Header="{Binding Name}" IsExpanded="True"
+                    Padding="{TemplateBinding Padding}"
+                    Background="{TemplateBinding Background}"
+                    Foreground="{TemplateBinding Foreground}">
+            <ItemsPresenter/>
+          </Expander>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="PropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="Padding" Value="7"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+    <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:PropertyGrid">
+          <Border SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <DockPanel>
+              <Grid DockPanel.Dock="Bottom" Margin="{TemplateBinding Padding}">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{Binding ElementName=PART_ItemsControl,Path=SelectedItem.Description}" />
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,6,0,0">
+                  <TextBlock FontWeight="Bold" Margin="0,0,6,0"
+                             Text="{Binding ElementName=PART_ItemsControl,Path=SelectedItem.PropertyTypeName}" />
+                  <TextBlock Text="{Binding ElementName=PART_ItemsControl,Path=SelectedItem.PropertyName}" />
+                </StackPanel>
+              </Grid>
+              <local:PropertyItemsControl x:Name="PART_ItemsControl"
+                                             Margin="{TemplateBinding Padding}"
+                                             Style="{StaticResource PropertyItemsControlBaseStyle}">
+                <local:PropertyItemsControl.GroupStyle>
+                  <GroupStyle ContainerStyle="{StaticResource PropertyGroupItemBaseStyle}"/>
+                </local:PropertyItemsControl.GroupStyle>
+              </local:PropertyItemsControl>
+            </DockPanel>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="{x:Type local:PropertyGrid}" BasedOn="{StaticResource PropertyGridBaseStyle}"/>
+
+</ResourceDictionary>

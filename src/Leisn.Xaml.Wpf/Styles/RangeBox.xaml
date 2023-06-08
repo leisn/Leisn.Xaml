@@ -1,0 +1,63 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
+  
+  <Style x:Key="RangeBoxBaseStyle" TargetType="local:RangeBox" >
+    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
+    <Setter Property="MinWidth" Value="100"/>
+    <Setter Property="Padding" Value="5,0"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+    <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
+    <Setter Property="ThumbBackground" Value="{DynamicResource PrimaryBrush}"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:RangeBox">
+          <Border x:Name="RootBorder" ClipToBounds="True" SnapsToDevicePixels="True"
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+              <Border x:Name="PART_Thumb" HorizontalAlignment="Left" BorderThickness="0"
+                      Background="{TemplateBinding ThumbBackground}"
+                      SnapsToDevicePixels="True"/>
+              <local:NumericBox x:Name="PART_TextBox" Visibility="Collapsed" NumericType="UFloat"
+                       Padding="5,1" BorderThickness="0" IsReadOnly="{TemplateBinding IsReadOnly}"
+                       VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+                       InputScope="Number" TextWrapping="NoWrap" SnapsToDevicePixels="True"
+                       Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource Mode=TemplatedParent}}">
+              </local:NumericBox>
+              <Grid Margin="{TemplateBinding Padding}" x:Name="InfoGrid">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition/>
+                  <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center"
+                           Text="{TemplateBinding Title}"/>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Text="{Binding Text,RelativeSource={RelativeSource Mode=TemplatedParent},Mode=OneWay,StringFormat={}{0:F3}}"/>
+              </Grid>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value="0.5" TargetName="RootBorder"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" TargetName="RootBorder" Value="{DynamicResource ControlAccentBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEditing" Value="True">
+              <Setter Property="Visibility" Value="Collapsed" TargetName="InfoGrid"/>
+              <Setter Property="Visibility" Value="Visible" TargetName="PART_TextBox"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style TargetType="{x:Type local:RangeBox}" BasedOn="{StaticResource RangeBoxBaseStyle}"/>
+</ResourceDictionary>

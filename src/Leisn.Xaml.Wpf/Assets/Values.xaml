@@ -1,0 +1,15 @@
+﻿<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+  <sys:Double x:Key="DefaultFontSize">14</sys:Double>
+  <sys:Double x:Key="SmallFontSize">10</sys:Double>
+  <sys:Double x:Key="DialogButtonSpacing">30</sys:Double>
+  <Thickness x:Key="DialogMargin">15,10,15,20</Thickness>
+  <Thickness x:Key="DialogButtonAreaMargin">0,15,0,0</Thickness>
+
+  <CornerRadius x:Key="DefaultCornerRadius">4</CornerRadius>
+
+  <sys:Double x:Key="InputMinHeight">25</sys:Double>
+</ResourceDictionary>
