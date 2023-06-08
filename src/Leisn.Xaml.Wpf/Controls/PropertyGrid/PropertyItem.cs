@@ -1,7 +1,4 @@
-﻿using Leisn.Common;
-using Leisn.Xaml.Wpf.Attributes;
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -117,21 +114,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 Path = new PropertyPath(PropertyName),
                 Mode = IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
-                StringFormat = PropertyDescriptor.Attr<StringFormatAttribute>()?.Format
             };
-
-            if (PropertyDescriptor?.Attr<BindingModeAttribute>() is BindingModeAttribute bAttr)
-            {
-                binding.Mode = bAttr.Mode;
-            }
-            if (PropertyDescriptor?.Attr<UpdateSourceTriggerAttribute>() is UpdateSourceTriggerAttribute uAttr)
-            {
-                binding.UpdateSourceTrigger = uAttr.Trigger;
-            }
-            if (PropertyDescriptor?.Attr<ValueConverterAttribute>() is ValueConverterAttribute vAttr)
-            {
-                binding.Converter = Activator.CreateInstance(vAttr.Type) as IValueConverter;
-            }
             BindingOperations.SetBinding(EditorElement, Editor.GetBindingProperty(), binding);
         }
     }

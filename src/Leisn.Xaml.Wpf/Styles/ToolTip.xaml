@@ -12,7 +12,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToolTip">
-          <Border Margin="8" Background="{DynamicResource RegionBrush}"
+          <Border x:Name="templateRoot" Margin="8" Background="{DynamicResource RegionBrush}"
                   Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
                   BorderBrush="{DynamicResource BorderBrush}"

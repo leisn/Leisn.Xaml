@@ -12,7 +12,7 @@
               <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="PART_TextBox" Text="{TemplateBinding Path}" IsReadOnly="{TemplateBinding IsTextReadOnly}"/>
-            <Button x:Name="PART_Button" Margin="10,0,0,0" Content="..." Grid.Column="2" Padding="5,0"
+            <Button x:Name="PART_Button" Margin="8,0,0,0" Content="..." Grid.Column="2" Padding="5,0"
                     Width="{Binding RelativeSource={RelativeSource Self},Path=ActualHeight}"/>
           </Grid>
           <ControlTemplate.Triggers>

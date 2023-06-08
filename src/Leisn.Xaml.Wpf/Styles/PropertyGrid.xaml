@@ -37,7 +37,7 @@
   </Style>
 
   <Style x:Key="PropertyItemBaseStyle" TargetType="local:PropertyItem">
-    <!--<Setter Property="Focusable" Value="False"/>-->
+    <Setter Property="Focusable" Value="False"/>
     <Setter Property="Margin" Value="0,0,0,7"/>
     <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
     <Setter Property="Padding" Value="0"/>
@@ -68,12 +68,6 @@
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
             </Grid>
           </Border>
-          <!--<ControlTemplate.Triggers>
-            <Trigger Property="IsSelected" Value="True">
-              <Setter Property="BorderThickness" TargetName="bd" Value="3,0,0,0"/>
-              <Setter Property="Margin" TargetName="bd" Value="-3,0,0,0"/>
-            </Trigger>
-          </ControlTemplate.Triggers>-->
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -133,7 +127,7 @@
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}">
             <DockPanel>
-              <Grid DockPanel.Dock="Bottom" Margin="{TemplateBinding Padding}">
+              <!--<Grid DockPanel.Dock="Bottom" Margin="{TemplateBinding Padding}">
                 <Grid.RowDefinitions>
                   <RowDefinition Height="Auto"/>
                   <RowDefinition Height="Auto"/>
@@ -144,7 +138,7 @@
                              Text="{Binding ElementName=PART_ItemsControl,Path=SelectedItem.PropertyTypeName}" />
                   <TextBlock Text="{Binding ElementName=PART_ItemsControl,Path=SelectedItem.PropertyName}" />
                 </StackPanel>
-              </Grid>
+              </Grid>-->
               <local:PropertyItemsControl x:Name="PART_ItemsControl"
                                              Margin="{TemplateBinding Padding}"
                                              Style="{StaticResource PropertyItemsControlBaseStyle}">
