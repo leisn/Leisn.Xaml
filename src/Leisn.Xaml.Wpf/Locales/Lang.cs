@@ -37,9 +37,8 @@ namespace Leisn.Xaml.Wpf.Locales
         public event PropertyChangedEventHandler? PropertyChanged;
         public IReadOnlyList<string> Langs => _langDict.Keys.ToList();
         public IReadOnlyDictionary<string, string> Values => _values;
-        public string CurrentLang => _currentLang;
+        public string CurrentLang { get; private set; } = null!;
 
-        private string _currentLang = null!;
         private string _defaultLang = null!;
 
         private readonly LangDict _values = new();
@@ -54,7 +53,7 @@ namespace Leisn.Xaml.Wpf.Locales
                 throw new ArgumentOutOfRangeException(nameof(lang));
             }
 
-            _currentLang = lang;
+            CurrentLang = lang;
             LoadValues(_langDict[lang]);
             NotifyLocalesChagned();
         }
@@ -62,7 +61,7 @@ namespace Leisn.Xaml.Wpf.Locales
         private void LoadLocales(string currentLang, string folder = "./locales", string fileFilter = "*.lang", string? defalutLang = null)
         {
             _defaultLang = string.IsNullOrEmpty(defalutLang) ? CultureInfo.CurrentCulture.Name.ToLower() : defalutLang;
-            _currentLang = string.IsNullOrEmpty(currentLang) ? _defaultLang : currentLang;
+            CurrentLang = string.IsNullOrEmpty(currentLang) ? _defaultLang : currentLang;
             _values.Clear();
             _langDict.Clear();
             DirectoryInfo dir = new(folder);
@@ -75,7 +74,7 @@ namespace Leisn.Xaml.Wpf.Locales
             {
                 string langName = Path.GetFileNameWithoutExtension(item.Name);
                 _langDict.Add(langName, item.FullName);
-                if (langName.Equals(_currentLang))
+                if (langName.Equals(CurrentLang))
                 {
                     LoadValues(item.FullName);
                 }
@@ -118,15 +117,7 @@ namespace Leisn.Xaml.Wpf.Locales
 
             public string this[string key]
             {
-                get
-                {
-                    if (_values.TryGetValue(key, out string? value))
-                    {
-                        return value;
-                    }
-
-                    return key;
-                }
+                get => _values.TryGetValue(key, out string? value) ? value : key;
                 set => _values[key] = value;
             }
 

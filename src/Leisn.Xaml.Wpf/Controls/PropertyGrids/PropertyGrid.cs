@@ -7,12 +7,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -136,8 +136,10 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual IPropertyEditor CreateDefalutEditor(PropertyDescriptor propertyDescriptor)
         {
-            if(propertyDescriptor.PropertyType.IsEnum)
+            if (propertyDescriptor.PropertyType.IsEnum)
                 return new EnumEditor();
+            if (propertyDescriptor.Attr<DataProviderAttribute>() is not null)
+                return new ComboEditor();
             return Type.GetTypeCode(propertyDescriptor.PropertyType) switch
             {
                 TypeCode.Boolean => new BoolEditor(),
@@ -159,8 +161,6 @@ namespace Leisn.Xaml.Wpf.Controls
             };
         }
 
-
-
         protected virtual IPropertyEditor CreatStringEditor(PropertyDescriptor propertyDescriptor)
         {
             if (propertyDescriptor.Attr<PathSelectAttribute>() != null)
@@ -169,10 +169,10 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         protected virtual IPropertyEditor CreateObjectEditor(PropertyDescriptor propertyDescriptor)
         {
+            if (propertyDescriptor.PropertyType == typeof(Color))
+                return new ColorPickerEditor();
             if (propertyDescriptor.PropertyType.IsAssignableTo(typeof(IEnumerable)))
-            {
                 return new CollectionEditor();
-            }
             return new ReadOnlyTextEditor();
         }
     }

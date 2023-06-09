@@ -170,8 +170,8 @@ namespace Leisn.Xaml.Wpf.Controls
                     col = i % _columns;
                 }
 
-                row = row > _rows - 1 ? (_rows - 1) : row; //keep in cells
-                col = col > _columns - 1 ? (_columns - 1) : col;
+                row = row > _rows - 1 ? _rows - 1 : row; //keep in cells
+                col = col > _columns - 1 ? _columns - 1 : col;
 
                 //if (IsTortuous)
                 //{
@@ -192,8 +192,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
                 int rowSpan = Grid.GetRowSpan(child);
                 int columnSpan = Grid.GetColumnSpan(child);
-                width = columnSpan > 1 ? (columnSpan * cellWidth + (columnSpan - 1) * hspace) : cellWidth;
-                height = rowSpan > 1 ? (rowSpan * cellHeight + (rowSpan - 1) * vspace) : cellHeight;
+                width = columnSpan > 1 ? columnSpan * cellWidth + (columnSpan - 1) * hspace : cellWidth;
+                height = rowSpan > 1 ? rowSpan * cellHeight + (rowSpan - 1) * vspace : cellHeight;
 
                 child.Arrange(new Rect(left, top, width, height));
             }

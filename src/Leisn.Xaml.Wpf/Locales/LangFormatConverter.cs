@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace Leisn.Xaml.Wpf.Locales
@@ -23,9 +20,9 @@ namespace Leisn.Xaml.Wpf.Locales
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var dict = (IReadOnlyDictionary<string, string>)value;
-            var format = (LangFormat)parameter;
-            var values = new string[format.Keys.Length];
+            IReadOnlyDictionary<string, string> dict = (IReadOnlyDictionary<string, string>)value;
+            LangFormat format = (LangFormat)parameter;
+            string[] values = new string[format.Keys.Length];
             for (int i = 0; i < values.Length; i++)
             {
                 values[i] = dict[format.Keys[i]];

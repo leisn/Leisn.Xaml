@@ -36,7 +36,7 @@ namespace Leisn.Xaml.Wpf.Controls
             if (!IsKeyboardFocusWithin)
             {
                 e.Handled = true;
-                Focus();
+                _ = Focus();
             }
         }
 
@@ -61,8 +61,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual bool AcceptInput(string input, string originalText, int selectedIndex, int selectedLength, string seletedText)
         {
-            bool allowSub = NumericType == NumericType.Int || NumericType == NumericType.Float;
-            bool allowDot = NumericType == NumericType.Float || NumericType == NumericType.UFloat;
+            bool allowSub = NumericType is NumericType.Int or NumericType.Float;
+            bool allowDot = NumericType is NumericType.Float or NumericType.UFloat;
 
             string regex = string.Format(@"^{0}\d?{1}\d?$", allowSub ? "-?" : "", allowDot ? @"\.?" : "");
             if (!Regex.IsMatch(input, regex))

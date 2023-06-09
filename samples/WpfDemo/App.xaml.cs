@@ -1,5 +1,7 @@
 ﻿using Leisn.Xaml.Wpf.Locales;
 
+using Leisn.Common.Interfaces;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;

@@ -1,9 +1,9 @@
 ﻿using Leisn.Common;
 using Leisn.Common.Attributes;
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
@@ -25,7 +25,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            var propertyDescriptor = item.PropertyDescriptor;
+            PropertyDescriptor propertyDescriptor = item.PropertyDescriptor;
             if (propertyDescriptor.Attr<NumericUpDownAttribute>() is NumericUpDownAttribute attr)
             {
                 Maximum = attr.Maximum;
@@ -69,7 +69,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public DependencyProperty GetBindingProperty()
         {
-            return RangeBox.ValueProperty;
+            return System.Windows.Controls.Primitives.RangeBase.ValueProperty;
         }
     }
 }

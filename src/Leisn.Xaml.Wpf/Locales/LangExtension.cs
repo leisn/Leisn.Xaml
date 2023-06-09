@@ -1,8 +1,6 @@
 ﻿using Leisn.Common.Helpers;
 
 using System;
-using System.ComponentModel;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
@@ -75,12 +73,12 @@ namespace Leisn.Xaml.Wpf.Locales
                 Path = new PropertyPath($"Values[{key}]"),
                 Mode = BindingMode.OneWay,
             };
-            BindingOperations.SetBinding(targetObject, targetProperty, binding);
+            _ = BindingOperations.SetBinding(targetObject, targetProperty, binding);
         }
 
         public static void SetBindingFormat(DependencyObject targetObject, DependencyProperty targetProperty, string format)
         {
-            var keys = StringHelper.ParseFormat(format, out var convertedFormat);
+            string[] keys = StringHelper.ParseFormat(format, out string? convertedFormat);
             Binding binding = new()
             {
                 Source = Lang.Current,
@@ -89,7 +87,7 @@ namespace Leisn.Xaml.Wpf.Locales
                 ConverterParameter = new LangFormat { Format = convertedFormat, Keys = keys },
                 Converter = LangFormatConverter.Instance
             };
-            BindingOperations.SetBinding(targetObject, targetProperty, binding);
+            _ = BindingOperations.SetBinding(targetObject, targetProperty, binding);
         }
     }
 }

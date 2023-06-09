@@ -21,7 +21,7 @@ namespace Leisn.Xaml.Wpf.Converters
                 }
 
                 double min = Math.Min(width, height);
-                return new CornerRadius(min / 2 - 1);
+                return new CornerRadius((min / 2) - 1);
             }
             return DependencyProperty.UnsetValue;
 

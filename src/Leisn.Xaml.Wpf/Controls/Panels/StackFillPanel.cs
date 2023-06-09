@@ -81,14 +81,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 double maxHeight = maxChildSize.Height * count + vspace;
                 double desiredHeight = desiredSize.Height + vspace;
                 result.Width = maxChildSize.Width + Padding.Left + Padding.Right;
-                if (!double.IsInfinity(availableSize.Height) && availableSize.Height >= maxHeight)
-                {
-                    result.Height = availableSize.Height;
-                }
-                else
-                {
-                    result.Height = desiredHeight;
-                }
+                result.Height = !double.IsInfinity(availableSize.Height) && availableSize.Height >= maxHeight ? availableSize.Height : desiredHeight;
             }
             else
             {
@@ -96,14 +89,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 double maxWidth = maxChildSize.Width * count + hspace;
                 double desiredWidth = desiredSize.Width + hspace;
                 result.Height = maxChildSize.Height + Padding.Top + Padding.Bottom;
-                if (!double.IsInfinity(availableSize.Width) && availableSize.Width >= maxWidth)
-                {
-                    result.Width = availableSize.Width;
-                }
-                else
-                {
-                    result.Width = desiredWidth;
-                }
+                result.Width = !double.IsInfinity(availableSize.Width) && availableSize.Width >= maxWidth ? availableSize.Width : desiredWidth;
             }
 
             return result;

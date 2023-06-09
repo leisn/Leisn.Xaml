@@ -178,7 +178,7 @@ namespace Leisn.Xaml.Wpf.Controls
             IsEditing = true;
             if (!textBox.IsKeyboardFocusWithin)
             {
-                textBox.Focus();
+                _ = textBox.Focus();
             }
         }
 

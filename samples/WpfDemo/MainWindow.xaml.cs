@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Leisn.Common.Attributes;
 
 namespace WpfDemo
 {
@@ -76,6 +77,7 @@ namespace WpfDemo
             [ReadOnly(true)]
             public string ReadOnlyText { get; set; } = "ReadOnlyText 1";
 
+            //[DataProvider(typeof(MainWindow))]
             public string Text { get; set; } = "Text 1";
 
             [Category("sbyte value")]

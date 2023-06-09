@@ -1,11 +1,6 @@
 ﻿using Leisn.Common;
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,7 +10,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            var element = new TextBox { IsReadOnly = item.IsReadOnly, };
+            TextBox element = new() { IsReadOnly = item.IsReadOnly, };
             if (item.PropertyDescriptor.Attr<StringLengthAttribute>() is StringLengthAttribute len)
             {
                 element.MaxLength = len.MaximumLength;
@@ -23,6 +18,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return element;
         }
 
-        public DependencyProperty GetBindingProperty() => TextBox.TextProperty;
+        public DependencyProperty GetBindingProperty()
+        {
+            return TextBox.TextProperty;
+        }
     }
 }

@@ -50,8 +50,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 Size childSize = child.DesiredSize;
                 if (Orientation == System.Windows.Controls.Orientation.Vertical)
                 {
-                    bool needWrap = (WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0)
-                                        || (wrapHeight + childSize.Height + vspace > availableSize.Height);
+                    bool needWrap = WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0
+                                        || wrapHeight + childSize.Height + vspace > availableSize.Height;
                     if (needWrap)
                     {
                         _rowOrColumMaxLenght.Add(wrapWidth);
@@ -68,8 +68,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 }
                 else
                 {
-                    bool needWrap = (WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0)
-                                         || (wrapWidth + childSize.Width + hspace > availableSize.Width);
+                    bool needWrap = WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0
+                                         || wrapWidth + childSize.Width + hspace > availableSize.Width;
                     if (needWrap)
                     {
                         _rowOrColumMaxLenght.Add(wrapHeight);
@@ -135,8 +135,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 Size childSize = child!.DesiredSize;
                 if (Orientation == System.Windows.Controls.Orientation.Vertical)
                 {
-                    bool needWrap = (WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0)
-                                        || (wrapHeight + childSize.Height + vspace > finalSize.Height && row != 0);
+                    bool needWrap = WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0
+                                        || wrapHeight + childSize.Height + vspace > finalSize.Height && row != 0;
                     double maxWidth = _rowOrColumMaxLenght[column];
                     if (needWrap)
                     {
@@ -154,8 +154,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 }
                 else
                 {
-                    bool needWrap = (WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0)
-                                         || (wrapWidth + childSize.Width + hspace > finalSize.Width && column != 0);
+                    bool needWrap = WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0
+                                         || wrapWidth + childSize.Width + hspace > finalSize.Width && column != 0;
                     double maxHeight = _rowOrColumMaxLenght[row];
                     if (needWrap)
                     {

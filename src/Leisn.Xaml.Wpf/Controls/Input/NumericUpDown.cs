@@ -1,12 +1,9 @@
 ﻿using Leisn.Xaml.Wpf.Converters;
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-
-using static System.Resources.ResXFileRef;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -51,29 +48,37 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static object CoerceNumericType(DependencyObject d, object baseValue)
         {
-            var control = (NumericUpDown)d;
-            var value = (NumericType)baseValue;
+            NumericUpDown control = (NumericUpDown)d;
+            NumericType value = (NumericType)baseValue;
             if (control.Minimum < 0)
             {
                 if (value == NumericType.UInt)
+                {
                     value = NumericType.Int;
+                }
                 else if (value == NumericType.UFloat)
+                {
                     value = NumericType.Float;
+                }
             }
             else
             {
                 if (value == NumericType.Int)
+                {
                     value = NumericType.UInt;
+                }
                 else if (value == NumericType.Float)
+                {
                     value = NumericType.UFloat;
+                }
             }
             return value;
         }
 
         public NumericFormat Format
         {
-            get { return (NumericFormat)GetValue(FormatProperty); }
-            set { SetValue(FormatProperty, value); }
+            get => (NumericFormat)GetValue(FormatProperty);
+            set => SetValue(FormatProperty, value);
         }
         public static readonly DependencyProperty FormatProperty =
             DependencyProperty.Register("Format", typeof(NumericFormat), typeof(NumericUpDown),
@@ -81,7 +86,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnFormatChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var box = (NumericUpDown)d;
+            NumericUpDown box = (NumericUpDown)d;
             box.OnFormatChanged();
         }
 
@@ -185,9 +190,12 @@ namespace Leisn.Xaml.Wpf.Controls
         private void OnFormatChanged()
         {
             if (_textBox == null)
+            {
                 return;
+            }
+
             BindingOperations.ClearBinding(_textBox, TextBox.TextProperty);
-            var binding = new Binding("Value")
+            Binding binding = new("Value")
             {
                 Source = this,
                 Mode = BindingMode.TwoWay,
@@ -197,7 +205,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 binding.Converter = NumericFormatConverter.Instance;
                 binding.ConverterParameter = Format;
             }
-            BindingOperations.SetBinding(_textBox, TextBox.TextProperty, binding);
+            _ = BindingOperations.SetBinding(_textBox, TextBox.TextProperty, binding);
         }
 
 

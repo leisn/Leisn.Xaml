@@ -70,7 +70,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 MultiBinding binding = new() { Converter = new BorderCircleConverter() };
                 binding.Bindings.Add(new Binding(FrameworkElement.ActualWidthProperty.Name) { Source = border });
                 binding.Bindings.Add(new Binding(FrameworkElement.ActualHeightProperty.Name) { Source = border });
-                border.SetBinding(CornerRadiusProperty, binding);
+                _ = border.SetBinding(CornerRadiusProperty, binding);
             }
             else
             {

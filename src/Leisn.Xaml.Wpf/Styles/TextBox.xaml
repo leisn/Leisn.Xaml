@@ -24,7 +24,7 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">
-              <Setter Property="Opacity" Value=".5" TargetName="root"/>
+              <Setter Property="Opacity" Value=".56" TargetName="root"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
               <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root"/>
@@ -34,6 +34,7 @@
             </Trigger>
             <Trigger Property="IsReadOnly" Value="True">
               <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root"/>
+              <Setter Property="Foreground" Value="{DynamicResource TextDarkerBrush}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
