@@ -46,14 +46,11 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 Increment = (Maximum - Minimum) / 10;
             }
 
-            NumericFormat? numberFormat = null;
+            NumericFormat numberFormat = new();
             if (propertyDescriptor.Attr<NumericFormatAttribute>() is NumericFormatAttribute format)
             {
-                numberFormat = new NumericFormat
-                {
-                    Unit = format.Unit,
-                    Decimals = format.Decimals,
-                };
+                numberFormat.Unit = format.Unit;
+                numberFormat.Decimals = format.Decimals;
             }
 
             return new NumericUpDown
@@ -63,7 +60,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 Minimum = Minimum,
                 Maximum = Maximum,
                 Increment = Increment,
-                Format = numberFormat!
+                Format = numberFormat
             };
         }
 

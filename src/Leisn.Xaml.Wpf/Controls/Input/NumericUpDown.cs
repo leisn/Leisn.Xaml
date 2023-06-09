@@ -7,16 +7,21 @@ using System.Windows.Data;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
-    public class NumericFormat
+    public struct NumericFormat
     {
         /// <summary>
         /// 单位
         /// </summary>
-        public string? Unit { get; set; }
+        public string Unit { get; set; }
         /// <summary>
         /// 小数位数
         /// </summary>
-        public byte Decimals { get; set; }
+        public int Decimals { get; set; }
+        public NumericFormat()
+        {
+            Unit = string.Empty;
+            Decimals = -1;
+        }
     }
 
 
@@ -199,12 +204,9 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 Source = this,
                 Mode = BindingMode.TwoWay,
+                Converter = NumericFormatConverter.Instance,
+                ConverterParameter = Format
             };
-            if (Format != null)
-            {
-                binding.Converter = NumericFormatConverter.Instance;
-                binding.ConverterParameter = Format;
-            }
             _ = BindingOperations.SetBinding(_textBox, TextBox.TextProperty, binding);
         }
 
