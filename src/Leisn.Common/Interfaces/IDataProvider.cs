@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Leisn.Common.Interfaces
 {
 
-    public interface IDataProvider
+    public interface IDataProvider<out T>
     {
-        IEnumerable<object> GetData();
-    }
+        IEnumerable<T> GetData();
 
-    public interface IDataProvider<T> : IDataProvider
-    {
-        new IEnumerable<T> GetData();
+        public Type GetDataType() => typeof(T);
     }
 }

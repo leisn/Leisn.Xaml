@@ -13,15 +13,15 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class EditorHelper
     {
-        public static ComboBox CreateComboBox(IEnumerable<IDataDeclaration> datas)
+        public static ComboBox CreateComboBox(IEnumerable<IDataDeclaration<object>> datas)
         {
             var contaniner = new FrameworkElementFactory(typeof(Border));
             contaniner.SetValue(Border.BackgroundProperty, Brushes.Transparent);
             contaniner.SetValue(Border.HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
-            contaniner.SetBinding(Border.ToolTipProperty, new Binding(nameof(IDataDeclaration.Description)));
+            contaniner.SetBinding(Border.ToolTipProperty, new Binding("Description"));
             contaniner.SetValue(ToolTip.PlacementProperty, PlacementMode.Top);
             var textBlock = new FrameworkElementFactory(typeof(TextBlock));
-            textBlock.SetBinding(TextBlock.TextProperty, new Binding(nameof(IDataDeclaration.DisplayName)));
+            textBlock.SetBinding(TextBlock.TextProperty, new Binding("DisplayName"));
             contaniner.AppendChild(textBlock);
             var dataTemplate = new DataTemplate { VisualTree = contaniner };
 
@@ -29,8 +29,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             {
                 HorizontalContentAlignment = HorizontalAlignment.Stretch,
                 ItemsSource = datas,
-                //DisplayMemberPath = nameof(IDataDeclaration.DisplayName),
-                SelectedValuePath = nameof(IDataDeclaration.Value),
+                SelectedValuePath = "Value",
                 ItemTemplate = dataTemplate,
             };
             return box;

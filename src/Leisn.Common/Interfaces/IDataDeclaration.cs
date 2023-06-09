@@ -4,16 +4,10 @@ using System.Text;
 
 namespace Leisn.Common.Interfaces
 {
-    public interface IDataDeclaration
+    public interface IDataDeclaration<out T>
     {
-        object Value { get; }
-
+        T Value { get; }
         string DisplayName { get; }
         string Description { get; }
-    }
-
-    public interface IDataDeclaration<T> : IDataDeclaration
-    {
-        new T Value { get; }
     }
 }

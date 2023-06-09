@@ -21,6 +21,7 @@ namespace WpfDemo.Providers
                 new string[] { "Sample Text4", "Name4","Sample Desc 4" },
             };
         }
-        IEnumerable<object> IDataProvider.GetData() => GetData();
+
+
     }
 }

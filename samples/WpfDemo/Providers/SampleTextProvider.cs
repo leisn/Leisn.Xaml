@@ -21,6 +21,5 @@ namespace WpfDemo.Providers
                 "Sample Text5",
             };
         }
-        IEnumerable<object> IDataProvider.GetData() => GetData();
     }
 }

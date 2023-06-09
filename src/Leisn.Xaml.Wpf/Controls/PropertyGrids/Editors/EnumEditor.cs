@@ -1,6 +1,7 @@
 ﻿using Leisn.Common;
 
 using Leisn.Common.Interfaces;
+using Leisn.Common.Models;
 
 using System;
 using System.ComponentModel;
@@ -12,18 +13,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class EnumEditor : IPropertyEditor
     {
-        private class EnumDesc : IDataDeclaration<Enum>
-        {
-            public Enum Value { get; set; } = null!;
-            public string DisplayName { get; set; } = null!;
-            public string Description { get; set; } = null!;
-
-            object IDataDeclaration.Value => Value;
-        }
-
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            var values = Enum.GetValues(item.PropertyType).OfType<Enum>().Select(x => new EnumDesc
+            var values = Enum.GetValues(item.PropertyType).OfType<Enum>().Select(x => new DataDeclaration
             {
                 Value = x,
                 DisplayName = x.Attr<CategoryAttribute>()?.Category ?? x.ToString(),

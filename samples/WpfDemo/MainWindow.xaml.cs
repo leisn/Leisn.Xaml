@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Leisn.Common.Attributes;
+using WpfDemo.Providers;
 
 namespace WpfDemo
 {
@@ -47,7 +48,7 @@ namespace WpfDemo
             perpertyGrid.Source = new PgTest();
         }
 
-        public enum Enumv:byte
+        public enum Enumv : byte
         {
             [Category("V1")]
             [Description("V1 desc")]
@@ -77,8 +78,12 @@ namespace WpfDemo
             [ReadOnly(true)]
             public string ReadOnlyText { get; set; } = "ReadOnlyText 1";
 
-            //[DataProvider(typeof(MainWindow))]
-            public string Text { get; set; } = "Text 1";
+            [DataProvider(typeof(SampleTextProvider))]
+            public string SampleTextProvider { get; set; } = "Text 1";
+            [DataProvider(typeof(SampleTextWidthDescProvider))]
+            public string ArrayTextProvider { get; set; } = "Text 1";
+            [DataProvider(typeof(SampleObjectProvider))]
+            public SampleObject ObjectProvider { get; set; } = null!;
 
             [Category("sbyte value")]
             [DisplayName("sbyte value 1")]
