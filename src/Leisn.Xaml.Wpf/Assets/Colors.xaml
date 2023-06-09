@@ -11,6 +11,8 @@
   <Color x:Key="DangerColor">#db3340</Color>
 
   <Color x:Key="TextColor">#DEDEDE</Color>
+  <Color x:Key="TextAccentColor">#FFFFFF</Color>
+  <Color x:Key="TextDarkerColor">#C0C0C0</Color>
 
   <Color x:Key="BorderColor">#404040</Color>
 
@@ -34,6 +36,8 @@
   <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}"/>
 
   <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}"/>
+  <SolidColorBrush x:Key="TextAccentBrush" Color="{DynamicResource TextAccentColor}"/>
+  <SolidColorBrush x:Key="TextDarkerBrush" Color="{DynamicResource TextDarkerColor}"/>
 
   <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}"/>
 

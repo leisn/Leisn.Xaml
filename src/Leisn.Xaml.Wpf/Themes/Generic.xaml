@@ -10,6 +10,8 @@
   <Color x:Key="WarningColor">#e9af20</Color>
   <Color x:Key="DangerColor">#db3340</Color>
   <Color x:Key="TextColor">#DEDEDE</Color>
+  <Color x:Key="TextAccentColor">#FFFFFF</Color>
+  <Color x:Key="TextDarkerColor">#C0C0C0</Color>
   <Color x:Key="BorderColor">#404040</Color>
   <Color x:Key="RegionColor">#303030</Color>
   <Color x:Key="RegionLighterColor">#3d3d3d</Color>
@@ -27,6 +29,8 @@
   <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
   <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}" />
   <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}" />
+  <SolidColorBrush x:Key="TextAccentBrush" Color="{DynamicResource TextAccentColor}" />
+  <SolidColorBrush x:Key="TextDarkerBrush" Color="{DynamicResource TextDarkerColor}" />
   <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}" />
   <SolidColorBrush x:Key="RegionBrush" Color="{DynamicResource RegionColor}" />
   <SolidColorBrush x:Key="RegionLighterBrush" Color="{DynamicResource RegionLighterColor}" />
@@ -41,7 +45,20 @@
   <Thickness x:Key="DialogMargin">15,10,15,20</Thickness>
   <Thickness x:Key="DialogButtonAreaMargin">0,15,0,0</Thickness>
   <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>
+  <CornerRadius x:Key="DefaultLeftCornerRadius">3,0,0,3</CornerRadius>
+  <CornerRadius x:Key="DefaultTopCornerRadius">3,3,0,0</CornerRadius>
+  <CornerRadius x:Key="DefaultBottomCornerRadius">0,0,3,3</CornerRadius>
+  <CornerRadius x:Key="DefaultRightCornerRadius">0,3,3,0</CornerRadius>
+  <CornerRadius x:Key="SmallCornerRadius">2</CornerRadius>
+  <CornerRadius x:Key="SmallLeftCornerRadius">2,0,0,2</CornerRadius>
+  <CornerRadius x:Key="SmallTopCornerRadius">2,2,0,0</CornerRadius>
+  <CornerRadius x:Key="SmallBottomCornerRadius">0,0,2,2</CornerRadius>
+  <CornerRadius x:Key="SmallRightCornerRadius">0,2,2,0</CornerRadius>
   <sys:Double x:Key="InputMinHeight">25</sys:Double>
+  <sys:Double x:Key="ScrollBarMinWidth">6</sys:Double>
+  <sys:Double x:Key="ScrollBarWidth">8</sys:Double>
+  <sys:Double x:Key="ExpenderArrowWidth">7</sys:Double>
+  <Thickness x:Key="ComboBoxItemPadding">5,2</Thickness>
   <PathGeometry x:Key="SpannerGeometry" o:Freeze="True" Figures="M1024.999766 343.865677c0 190.125732-155.339321 344.665365-345.465053 343.865678-24.290512-0.099961-47.981257-2.698946-70.772355-7.597032-21.091761-4.498243-43.083171 2.09918-58.377196 17.393205L270.094651 977.81804c-30.787973 30.787973-71.37212 46.18196-111.956268 46.18196s-81.168294-15.393987-111.956267-46.18196-46.18196-71.37212-46.18196-111.956267c0-40.584147 15.393987-81.168294 46.18196-111.956267l280.990239-280.990239c15.194065-15.194065 21.791488-37.085513 17.393205-58.077313-4.798126-22.791097-7.29715-46.481843-7.297149-70.672394C337.068489 154.539633 491.508161 0 681.134088 0c24.790316 0 48.980867 2.598985 72.37173 7.597032 6.197579 1.299492 12.395158 2.798907 18.492776 4.498243 23.590785 6.497462 31.387739 36.085904 14.094495 53.47911l-13.59469 13.59469-159.237798 159.137836c-22.991019 22.991019-35.68606 53.778993-35.68606 86.766107 0 32.887153 12.695041 63.675127 35.68606 86.666146 22.991019 22.991019 53.778993 35.68606 86.666146 35.686061 32.887153 0 63.675127-12.695041 86.766107-35.686061L959.425381 238.906677c17.293245-17.293245 46.981648-9.596251 53.479109 14.094494 1.699336 6.097618 3.19875 12.295197 4.498243 18.492777 4.998048 23.390863 7.597032 47.581414 7.597033 72.371729z" />
   <PathGeometry x:Key="RunGeometry" o:Freeze="True" Figures="M510.545882 63.815421c-246.710938 0-446.708971 199.999057-446.708971 446.708971S263.834944 957.234387 510.545882 957.234387 957.255877 757.23533 957.255877 510.525416 757.25682 63.815421 510.545882 63.815421zM754.661715 441.875896 400.205844 796.310278c-4.02364 4.02364-9.382695 6.109138-14.762215 6.109138-3.856841 0-7.756661-1.063215-11.197016-3.231601-8.257058-5.254677-11.738345-15.533788-8.402367-24.707728l73.226768-201.330378L281.192264 573.149708c-8.423857 0-16.034185-5.087878-19.265786-12.885472-3.231601-7.797593-1.438769-16.805758 4.52506-22.768563L579.205635 224.740554c6.547113-6.589069 16.638959-7.985882 24.77015-3.523243 8.132214 4.461615 12.322653 13.761422 10.321066 22.810518l-36.050054 162.319899 161.652703 0c8.423857 0 16.054651 5.045923 19.265786 12.82305C762.396887 426.968371 760.604054 435.913091 754.661715 441.875896z" />
   <PathGeometry x:Key="SettingsGeometry" o:Freeze="True" Figures="M967.882752 603.308032c26.207232-104.832-2.62144-173.251584-2.62144-173.251584l-100.272128-4.922368c-8.786944-31.470592-21.655552-61.147136-38.00576-88.600576l67.64544-76.797952c-55.595008-92.654592-124.363776-120.651776-124.363776-120.651776l-74.48064 67.513344c-27.746304-16.140288-57.759744-28.643328-89.506816-37.108736l-6.390784-100.893696c-104.827904-26.211328-173.251584 2.625536-173.251584 2.625536l-4.7616 96.979968c-31.289344 7.86432-61.060096 19.470336-88.580096 34.787328l-70.501376-63.904768c0 0-68.768768 27.997184-124.363776 120.651776 17.671168 20.058112 52.43904 43.088896 54.524928 72.580096 0.514048 7.28064-33.462272 93.239296-34.927616 93.313024l-90.230784 4.427776c0 0-28.828672 68.41856-2.625536 173.251584l89.423872 5.666816c8.444928 35.557376 21.997568 69.04832 39.94112 99.762176l-58.875904 64.949248c0 0 27.997184 68.768768 120.651776 124.363776l67.101696-59.101184c30.400512 18.198528 63.587328 32.063488 98.861056 40.890368l4.36224 88.844288c0 0 68.422656 28.832768 173.251584 2.625536l5.876736-92.72832c35.72224-9.469952 69.250048-24.103936 99.827712-43.199488l71.151616 62.669824c92.658688-55.590912 120.655872-124.363776 120.655872-124.363776l-64.81408-71.501824c15.968256-28.69248 27.952128-59.809792 35.791872-92.572672L967.882752 603.308032zM516.528128 735.343616c-118.956032 0-215.389184-96.433152-215.389184-215.39328 0-118.956032 96.433152-215.389184 215.389184-215.389184s215.39328 96.433152 215.39328 215.389184C731.921408 638.911488 635.48416 735.343616 516.528128 735.343616z" />
@@ -92,6 +109,319 @@
     </Setter>
   </Style>
   <Style TargetType="ToolTip" BasedOn="{StaticResource ToolTipBaseStyle}" />
+  <Style x:Key="ScrollBarThumbVertical" TargetType="{x:Type Thumb}">
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="IsTabStop" Value="false" />
+    <Setter Property="Background" Value="{DynamicResource RegionLighterBrush}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <Rectangle x:Name="rectangle" Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}" />
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlBrush}" />
+            </Trigger>
+            <Trigger Property="IsDragging" Value="true">
+              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlLighterBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="ScrollBarThumbHorizontal" TargetType="{x:Type Thumb}">
+    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="IsTabStop" Value="false" />
+    <Setter Property="Background" Value="{DynamicResource RegionLighterBrush}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Thumb}">
+          <Rectangle x:Name="rectangle" Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}" />
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlBrush}" />
+            </Trigger>
+            <Trigger Property="IsDragging" Value="true">
+              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlLighterBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="ScrollBarBaseStyle" TargetType="{x:Type ScrollBar}">
+    <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
+    <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+    <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Width" Value="{DynamicResource ScrollBarWidth}" />
+    <Setter Property="MinWidth" Value="{DynamicResource ScrollBarMinWidth}" />
+    <Setter Property="Height" Value="Auto" />
+    <Setter Property="Margin" Value="3,1,0,1" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ScrollBar}">
+          <Grid x:Name="Bg" SnapsToDevicePixels="true">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="auto" />
+              <RowDefinition Height="0.00001*" />
+              <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Row="1" />
+            <Track x:Name="PART_Track" IsDirectionReversed="true" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="1">
+              <Track.Thumb>
+                <Thumb Style="{StaticResource ScrollBarThumbVertical}" />
+              </Track.Thumb>
+            </Track>
+          </Grid>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value=".56" TargetName="Bg" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <Trigger Property="Orientation" Value="Horizontal">
+        <Setter Property="Margin" Value="1,3,1,0" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="{DynamicResource ScrollBarWidth}" />
+        <Setter Property="MinHeight" Value="{DynamicResource ScrollBarMinWidth}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ScrollBar}">
+              <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="auto" />
+                  <ColumnDefinition Width="0.00001*" />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="1" />
+                <Track x:Name="PART_Track" Grid.Column="1" IsEnabled="{TemplateBinding IsMouseOver}">
+                  <Track.Thumb>
+                    <Thumb Style="{StaticResource ScrollBarThumbHorizontal}" />
+                  </Track.Thumb>
+                </Track>
+              </Grid>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="false">
+                  <Setter Property="Opacity" Value=".56" TargetName="Bg" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarBaseStyle}" />
+  <Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ToggleButton}">
+          <Border Padding="{TemplateBinding Padding}">
+            <Grid Background="Transparent" SnapsToDevicePixels="False">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1" />
+              <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="true">
+              <Setter Property="Data" TargetName="arrow" Value="M 1,4.5 L 4.5,1 L 8,4.5" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextAccentBrush }" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextDarkerBrush }" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value=".56" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ToggleButton}">
+          <Border Padding="{TemplateBinding Padding}">
+            <Grid Background="Transparent" SnapsToDevicePixels="False">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Grid>
+                <Path x:Name="arrow" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1" />
+              </Grid>
+              <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="true">
+              <Setter Property="Data" TargetName="arrow" Value="M 1,4.5 L 4.5,1 L 8,4.5" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextAccentBrush }" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextDarkerBrush }" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value=".56" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="ExpanderRightHeaderStyle" TargetType="{x:Type ToggleButton}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ToggleButton}">
+          <Border Padding="{TemplateBinding Padding}">
+            <Grid Background="Transparent" SnapsToDevicePixels="False">
+              <Grid.LayoutTransform>
+                <TransformGroup>
+                  <TransformGroup.Children>
+                    <TransformCollection>
+                      <RotateTransform Angle="90" />
+                    </TransformCollection>
+                  </TransformGroup.Children>
+                </TransformGroup>
+              </Grid.LayoutTransform>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Grid HorizontalAlignment="Left">
+                <Grid.LayoutTransform>
+                  <TransformGroup>
+                    <TransformGroup.Children>
+                      <TransformCollection>
+                        <RotateTransform Angle="180" />
+                      </TransformCollection>
+                    </TransformGroup.Children>
+                  </TransformGroup>
+                </Grid.LayoutTransform>
+                <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1" />
+              </Grid>
+              <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Row="1" Grid.Column="1" SnapsToDevicePixels="True" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="true">
+              <Setter Property="Data" TargetName="arrow" Value="M 1,4.5 L 4.5,1 L 8,4.5" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextAccentBrush }" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextDarkerBrush }" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value=".56" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="ExpanderLeftHeaderStyle" TargetType="{x:Type ToggleButton}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ToggleButton}">
+          <Border Padding="{TemplateBinding Padding}">
+            <Grid Background="Transparent" SnapsToDevicePixels="False">
+              <Grid.LayoutTransform>
+                <TransformGroup>
+                  <TransformGroup.Children>
+                    <TransformCollection>
+                      <RotateTransform Angle="90" />
+                    </TransformCollection>
+                  </TransformGroup.Children>
+                </TransformGroup>
+              </Grid.LayoutTransform>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+              </Grid.ColumnDefinitions>
+              <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1" />
+              <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Column="1" SnapsToDevicePixels="True" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="true">
+              <Setter Property="Data" TargetName="arrow" Value="M 1,4.5 L 4.5,1 L 8,4.5" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextAccentBrush }" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextDarkerBrush }" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value=".56" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="ExpanderBaseStyle" TargetType="{x:Type Expander}">
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Expander}">
+          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3" SnapsToDevicePixels="true">
+            <DockPanel>
+              <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}" Foreground="{TemplateBinding Foreground}" FontStyle="{TemplateBinding FontStyle}" FontFamily="{TemplateBinding FontFamily}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+              <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed" />
+            </DockPanel>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsExpanded" Value="true">
+              <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible" />
+            </Trigger>
+            <Trigger Property="ExpandDirection" Value="Right">
+              <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Right" />
+              <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left" />
+              <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderRightHeaderStyle}" />
+            </Trigger>
+            <Trigger Property="ExpandDirection" Value="Up">
+              <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top" />
+              <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom" />
+              <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderUpHeaderStyle}" />
+            </Trigger>
+            <Trigger Property="ExpandDirection" Value="Left">
+              <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Left" />
+              <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right" />
+              <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="Expander" BasedOn="{StaticResource ExpanderBaseStyle}" />
   <Style x:Key="ButtonBaseStyle" TargetType="Button">
     <Setter Property="Background" Value="{DynamicResource ControlBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
@@ -169,7 +499,6 @@
     </Setter>
   </Style>
   <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}" />
-  <Thickness x:Key="ComboBoxItemPadding">5,2</Thickness>
   <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
     <Setter Property="OverridesDefaultStyle" Value="true" />
     <Setter Property="IsTabStop" Value="false" />
@@ -189,7 +518,7 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="True">
-              <Setter Property="local:BorderAttach.CornerRadius" Value="3,3,0,0" />
+              <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultTopCornerRadius}" />
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
               <Setter Property="Background" Value="{DynamicResource ControlAccentBrush}" TargetName="templateRoot" />
@@ -213,7 +542,7 @@
       </Grid.ColumnDefinitions>
       <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
         <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MinWidth="{Binding ActualWidth, ElementName=templateRoot}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-          <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0,0,3,3">
+          <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}">
             <ScrollViewer x:Name="DropDownScrollViewer">
               <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                 <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -262,7 +591,7 @@
       </Grid.ColumnDefinitions>
       <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
         <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MinWidth="{Binding ActualWidth, ElementName=templateRoot}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-          <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0,0,3,3">
+          <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}">
             <ScrollViewer x:Name="DropDownScrollViewer">
               <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                 <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -474,10 +803,9 @@
       <Setter.Value>
         <ControlTemplate TargetType="local:NumericUpDown">
           <DockPanel>
-            <RepeatButton x:Name="PART_Minus" Content="{DynamicResource LeftGeometry}" DockPanel.Dock="Left" Style="{DynamicResource NumericDownButtonStyle}" local:BorderAttach.CornerRadius="3,0,0,3" />
-            <RepeatButton x:Name="PART_Increase" Content="{DynamicResource RightGeometry}" DockPanel.Dock="Right" Style="{DynamicResource NumericDownButtonStyle}" local:BorderAttach.CornerRadius="0,3,3,0" />
+            <RepeatButton x:Name="PART_Minus" Content="{DynamicResource LeftGeometry}" DockPanel.Dock="Left" Style="{DynamicResource NumericDownButtonStyle}" local:BorderAttach.CornerRadius="{DynamicResource DefaultLeftCornerRadius}" />
+            <RepeatButton x:Name="PART_Increase" Content="{DynamicResource RightGeometry}" DockPanel.Dock="Right" Style="{DynamicResource NumericDownButtonStyle}" local:BorderAttach.CornerRadius="{DynamicResource DefaultRightCornerRadius}" />
             <local:NumericBox x:Name="PART_TextBox" NumericType="{TemplateBinding NumericType}" Background="{TemplateBinding Background}" Margin="-1,0" InputScope="Number" HorizontalContentAlignment="Center" local:BorderAttach.CornerRadius="0" IsReadOnly="{TemplateBinding IsReadOnly}" Style="{StaticResource NumericDownTextBoxStyle}" />
-            <!--Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource Mode=TemplatedParent}}"-->
           </DockPanel>
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">
@@ -491,18 +819,18 @@
             <Trigger Property="IsEditing" Value="True">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus" />
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase" />
-              <Setter Property="local:BorderAttach.CornerRadius" Value="3" TargetName="PART_TextBox" />
+              <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" TargetName="PART_TextBox" />
               <Setter Property="HorizontalContentAlignment" Value="Left" TargetName="PART_TextBox" />
             </Trigger>
             <Trigger Property="IsReadOnly" Value="True">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus" />
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase" />
-              <Setter Property="local:BorderAttach.CornerRadius" Value="3" TargetName="PART_TextBox" />
+              <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" TargetName="PART_TextBox" />
             </Trigger>
             <Trigger Property="Increment" Value="0">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus" />
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase" />
-              <Setter Property="local:BorderAttach.CornerRadius" Value="3" TargetName="PART_TextBox" />
+              <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" TargetName="PART_TextBox" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -520,7 +848,7 @@
               <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <TextBox x:Name="PART_TextBox" Text="{TemplateBinding Path}" IsReadOnly="{TemplateBinding IsTextReadOnly}" />
-            <Button x:Name="PART_Button" Margin="10,0,0,0" Content="..." Grid.Column="2" Padding="5,0" Width="{Binding RelativeSource={RelativeSource Self},Path=ActualHeight}" />
+            <Button x:Name="PART_Button" Margin="8,0,0,0" Content="..." Grid.Column="2" Padding="5,0" Width="{Binding RelativeSource={RelativeSource Self},Path=ActualHeight}" />
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">
@@ -564,7 +892,7 @@
   </Style>
   <Style x:Key="PropertyItemBaseStyle" TargetType="local:PropertyItem">
     <Setter Property="Focusable" Value="False" />
-    <Setter Property="Margin" Value="0,0,0,7" />
+    <Setter Property="Margin" Value="0,0,0,6" />
     <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}" />
     <Setter Property="Padding" Value="0" />
     <Setter Property="Background" Value="Transparent" />
@@ -611,7 +939,7 @@
     </Setter>
   </Style>
   <Style x:Key="PropertyGroupItemBaseStyle" TargetType="GroupItem">
-    <Setter Property="Margin" Value="0,0,0,6" />
+    <Setter Property="Margin" Value="0,0,0,2" />
     <Setter Property="Padding" Value="8,5" />
     <Setter Property="Background" Value="{DynamicResource RegionLighterBrush}" />
     <Setter Property="Template">
@@ -637,18 +965,6 @@
         <ControlTemplate TargetType="local:PropertyGrid">
           <Border SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" CornerRadius="{TemplateBinding CornerRadius}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
             <DockPanel>
-              <!--<Grid DockPanel.Dock="Bottom" Margin="{TemplateBinding Padding}">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="Auto"/>
-                  <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Text="{Binding ElementName=PART_ItemsControl,Path=SelectedItem.Description}" />
-                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,6,0,0">
-                  <TextBlock FontWeight="Bold" Margin="0,0,6,0"
-                             Text="{Binding ElementName=PART_ItemsControl,Path=SelectedItem.PropertyTypeName}" />
-                  <TextBlock Text="{Binding ElementName=PART_ItemsControl,Path=SelectedItem.PropertyName}" />
-                </StackPanel>
-              </Grid>-->
               <local:PropertyItemsControl x:Name="PART_ItemsControl" Margin="{TemplateBinding Padding}" Style="{StaticResource PropertyItemsControlBaseStyle}">
                 <local:PropertyItemsControl.GroupStyle>
                   <GroupStyle ContainerStyle="{StaticResource PropertyGroupItemBaseStyle}" />

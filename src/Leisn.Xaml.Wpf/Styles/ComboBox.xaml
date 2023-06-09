@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls"
                     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
-  <Thickness x:Key="ComboBoxItemPadding">5,2</Thickness>
   <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
     <Setter Property="OverridesDefaultStyle" Value="true"/>
     <Setter Property="IsTabStop" Value="false"/>
@@ -27,7 +26,7 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="True">
-              <Setter Property="local:BorderAttach.CornerRadius" Value="3,3,0,0"/>
+              <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultTopCornerRadius}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
               <Setter Property="Background" Value="{DynamicResource ControlAccentBrush}" TargetName="templateRoot"/>
@@ -60,7 +59,7 @@
                    Background="{TemplateBinding Background}"
                    BorderBrush="{TemplateBinding BorderBrush}"
                    BorderThickness="{TemplateBinding BorderThickness}"
-                   CornerRadius="0,0,3,3">
+                   CornerRadius="{DynamicResource DefaultBottomCornerRadius}">
             <ScrollViewer x:Name="DropDownScrollViewer">
               <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                 <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -127,7 +126,7 @@
                    Background="{TemplateBinding Background}"
                    BorderBrush="{TemplateBinding BorderBrush}"
                    BorderThickness="{TemplateBinding BorderThickness}"
-                   CornerRadius="0,0,3,3">
+                   CornerRadius="{DynamicResource DefaultBottomCornerRadius}">
             <ScrollViewer x:Name="DropDownScrollViewer">
               <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                 <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">

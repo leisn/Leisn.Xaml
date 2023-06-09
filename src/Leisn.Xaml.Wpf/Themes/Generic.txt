@@ -7,10 +7,12 @@ Assets/Geometries.xaml
 Styles/TextBlock.xaml
 Styles/ToolTip.xaml
 Styles/ScrollBar.xaml
+Styles/GroupBox.xaml
+Styles/Expander.xaml
 Styles/Button.xaml
 Styles/TextBox.xaml
 Styles/ComboBox.xaml
-Styles/GroupBox.xaml
+
 
 Styles/NumericBox.xaml
 Styles/RangeBox.xaml

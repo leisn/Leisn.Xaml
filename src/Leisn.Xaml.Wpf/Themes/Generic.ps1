@@ -11,6 +11,9 @@ Out-File -FilePath $genericFile -InputObject $schema -Encoding utf8
 $genericXaml = [xml] (Get-Content $genericFile)
 $doc = $genericXaml.DocumentElement
 
+$readerSettings = New-Object -TypeName System.Xml.XmlReaderSettings
+$readerSettings.IgnoreComments = {true}
+
 $i = 0
 $xamlList = Get-Content $listFile
 foreach($line in $xamlList)
@@ -20,7 +23,13 @@ foreach($line in $xamlList)
   }
   $i = $i+1
   Write-Host "Combining" $line
-  $xmldata = [xml](Get-Content $line)
+  #$xmldata = [xml](Get-Content $line)
+
+  $xmldata = New-Object -TypeName System.Xml.XmlDocument
+  $xmlReader = [System.Xml.XmlReader]::Create($line,$readerSettings)
+  $xmldata.Load($xmlReader)
+  $xmlReader.Dispose()
+
   $dataDoc = $xmldata.DocumentElement
   foreach($attr in $dataDoc.Attributes){
     $doc.SetAttribute($attr.Name,$attr.'#text')

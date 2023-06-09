@@ -10,6 +10,23 @@
   <Thickness x:Key="DialogButtonAreaMargin">0,15,0,0</Thickness>
 
   <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>
+  <CornerRadius x:Key="DefaultLeftCornerRadius">3,0,0,3</CornerRadius>
+  <CornerRadius x:Key="DefaultTopCornerRadius">3,3,0,0</CornerRadius>
+  <CornerRadius x:Key="DefaultBottomCornerRadius">0,0,3,3</CornerRadius>
+  <CornerRadius x:Key="DefaultRightCornerRadius">0,3,3,0</CornerRadius>
+
+  <CornerRadius x:Key="SmallCornerRadius">2</CornerRadius>
+  <CornerRadius x:Key="SmallLeftCornerRadius">2,0,0,2</CornerRadius>
+  <CornerRadius x:Key="SmallTopCornerRadius">2,2,0,0</CornerRadius>
+  <CornerRadius x:Key="SmallBottomCornerRadius">0,0,2,2</CornerRadius>
+  <CornerRadius x:Key="SmallRightCornerRadius">0,2,2,0</CornerRadius>
 
   <sys:Double x:Key="InputMinHeight">25</sys:Double>
+
+  <sys:Double x:Key="ScrollBarMinWidth">6</sys:Double>
+  <sys:Double x:Key="ScrollBarWidth">8</sys:Double>
+
+  <sys:Double x:Key="ExpenderArrowWidth">7</sys:Double>
+  
+  <Thickness x:Key="ComboBoxItemPadding">5,2</Thickness>
 </ResourceDictionary>
