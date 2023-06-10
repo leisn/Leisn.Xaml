@@ -10,14 +10,14 @@ namespace Leisn.Common.Attributes
         /// <summary>
         /// 单位
         /// </summary>
-        public string? Unit { get; set; }
+        public string Unit { get; set; } = string.Empty;
         /// <summary>
         /// 小数位数
         /// </summary>
-        public byte Decimals { get; set; }
+        public int Decimals { get; set; } = -1;
 
         public NumericFormatAttribute() { }
-        public NumericFormatAttribute(byte decimals, string unit)
+        public NumericFormatAttribute(string unit, int decimals = -1)
         {
             Decimals = decimals;
             Unit = unit;

@@ -1,7 +1,10 @@
 ﻿using Leisn.Xaml.Wpf.Controls;
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Leisn.Xaml.Wpf.Converters
@@ -20,8 +23,11 @@ namespace Leisn.Xaml.Wpf.Converters
             }
 
             double v = (double)value;
-            vstring = string.Format($"{{0:N{format.Decimals}}}", v);
-            if (format.Unit != null)
+            if (format.Decimals >= 0)
+            {
+                vstring = string.Format($"{{0:N{format.Decimals}}}", v);
+            }
+            if (!string.IsNullOrEmpty(format.Unit))
             {
                 vstring += $" {format.Unit}";
             }
@@ -31,16 +37,45 @@ namespace Leisn.Xaml.Wpf.Converters
         //to decimal
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string vstring = value.ToString()!;
-            if (parameter is NumericFormat format && format.Unit != null)
+            string vstring = value.ToString()!.Trim();
+            if (string.IsNullOrEmpty(vstring))
+                vstring = "0";
+            if (parameter is not NumericFormat format)
             {
-                int index = vstring.IndexOf(format.Unit);
-                if (index > -1)
+                if (double.TryParse(vstring, out var val1))
+                    return val1;
+                return DependencyProperty.UnsetValue;
+            }
+
+            if (!string.IsNullOrEmpty(format.Unit))
+            {
+                var set = new HashSet<char> { ' ' };
+                for (int i = 0; i < format.Unit.Length; i++)
                 {
-                    vstring = vstring.Remove(index).Trim();
+                    var ch = format.Unit[i];
+                    if (!char.IsDigit(ch))
+                    {
+                        set.Add(ch);
+                    }
+                }
+                Regex regex = new($"[{string.Join("", set)}]", RegexOptions.IgnoreCase);
+                var match = regex.Match(vstring);
+                if (match.Success)
+                {
+                    vstring = vstring[..match.Index].Trim();
                 }
             }
-            return double.Parse(vstring);
+
+            if (double.TryParse(vstring, out var val))
+            {
+                if (format.Decimals >= 0)
+                {
+                    val = Math.Round(val, format.Decimals);
+                }
+                return val;
+            }
+
+            return DependencyProperty.UnsetValue;
         }
     }
 }
