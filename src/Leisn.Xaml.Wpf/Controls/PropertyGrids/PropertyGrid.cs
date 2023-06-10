@@ -1,6 +1,7 @@
 ﻿using Leisn.Common;
 using Leisn.Common.Attributes;
 using Leisn.Xaml.Wpf.Controls.Editors;
+using Leisn.Xaml.Wpf.Controls.PropertyGrids;
 using Leisn.Xaml.Wpf.Locales;
 
 using System;
@@ -42,6 +43,23 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             add => AddHandler(SourceChangedEvent, value);
             remove => RemoveHandler(SourceChangedEvent, value);
+        }
+
+        public IPropertyEditorSelector EditorSelector
+        {
+            get { return (IPropertyEditorSelector)GetValue(EditorSelectorProperty); }
+            set { SetValue(EditorSelectorProperty, value); }
+        }
+        public static readonly DependencyProperty EditorSelectorProperty =
+            DependencyProperty.Register("EditorSelector", typeof(IPropertyEditorSelector), typeof(PropertyGrid),
+                new PropertyMetadata(new PropertyEditorSelector(), new PropertyChangedCallback(OnEditorSelectorChanged)));
+
+        private static void OnEditorSelectorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue is null)
+                throw new ArgumentNullException(nameof(EditorSelector), "Editor Selector cannot be null");
+            var pg = (PropertyGrid)d;
+            pg.UpdateItems(pg.Source);
         }
 
         public object Source { get => GetValue(SourceProperty); set => SetValue(SourceProperty, value); }
@@ -101,7 +119,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 Source = Source,
                 DefaultValue = propertyDescriptor.Attr<DefaultValueAttribute>()?.Value!,
                 IsReadOnly = propertyDescriptor.IsReadOnly,
-                Editor = CreateEditor(propertyDescriptor)
+                Editor = EditorSelector.CreateEditor(propertyDescriptor)
             };
             var displayName = propertyDescriptor.DisplayName ?? propertyDescriptor.Name;
             if (propertyDescriptor.IsLocalizable)
@@ -117,63 +135,6 @@ namespace Leisn.Xaml.Wpf.Controls
                 LangExtension.SetBindingFormat(item, PropertyItem.DescriptionProperty, propertyDescriptor.Description);
             }
             return item;
-        }
-
-        private IPropertyEditor CreateEditor(PropertyDescriptor propertyDescriptor)
-        {
-            EditorAttribute? editorAttr = propertyDescriptor.Attr<EditorAttribute>();
-            if (editorAttr is null || string.IsNullOrEmpty(editorAttr.EditorTypeName))
-            {
-                return CreateDefalutEditor(propertyDescriptor);
-            }
-            return CreateEditor(Type.GetType(editorAttr.EditorTypeName)!, propertyDescriptor);
-        }
-
-        protected virtual IPropertyEditor CreateEditor(Type editorType, PropertyDescriptor propertyDescriptor)
-        {
-            return (IPropertyEditor)Activator.CreateInstance(editorType)!;
-        }
-
-        protected virtual IPropertyEditor CreateDefalutEditor(PropertyDescriptor propertyDescriptor)
-        {
-            if (propertyDescriptor.PropertyType.IsEnum)
-                return new EnumEditor();
-            if (propertyDescriptor.Attr<DataProviderAttribute>() is not null)
-                return new ComboEditor();
-            return Type.GetTypeCode(propertyDescriptor.PropertyType) switch
-            {
-                TypeCode.Boolean => new BoolEditor(),
-                TypeCode.SByte => new NumberEditor(sbyte.MinValue, sbyte.MaxValue, 1, NumericType.Int),
-                TypeCode.Byte => new NumberEditor(byte.MinValue, byte.MaxValue, 1, NumericType.UInt),
-                TypeCode.Int16 => new NumberEditor(short.MinValue, short.MaxValue, 1, NumericType.Int),
-                TypeCode.UInt16 => new NumberEditor(ushort.MinValue, ushort.MaxValue, 1, NumericType.UInt),
-                TypeCode.Int32 => new NumberEditor(int.MinValue, int.MaxValue, 1, NumericType.Int),
-                TypeCode.UInt32 => new NumberEditor(uint.MinValue, uint.MaxValue, 1, NumericType.UInt),
-                TypeCode.Int64 => new NumberEditor(long.MinValue, long.MaxValue, 1, NumericType.Int),
-                TypeCode.UInt64 => new NumberEditor(ulong.MinValue, ulong.MaxValue, 1, NumericType.UInt),
-                TypeCode.Single => new NumberEditor(float.MinValue, float.MaxValue, 1, NumericType.Float),
-                TypeCode.Double => new NumberEditor(double.MinValue, double.MaxValue, 1, NumericType.Float),
-                TypeCode.Decimal => new NumberEditor(Convert.ToDouble(decimal.MinValue), Convert.ToDouble(decimal.MaxValue), 1, NumericType.Float),
-                TypeCode.DateTime => new DateTimeEditor(),
-                TypeCode.String => CreatStringEditor(propertyDescriptor),
-                TypeCode.Object => CreateObjectEditor(propertyDescriptor),
-                _ => new ReadOnlyTextEditor()
-            };
-        }
-
-        protected virtual IPropertyEditor CreatStringEditor(PropertyDescriptor propertyDescriptor)
-        {
-            if (propertyDescriptor.Attr<PathSelectAttribute>() != null)
-                return new PathSelectEditor();
-            return new TextEditor();
-        }
-        protected virtual IPropertyEditor CreateObjectEditor(PropertyDescriptor propertyDescriptor)
-        {
-            if (propertyDescriptor.PropertyType == typeof(Color))
-                return new ColorPickerEditor();
-            if (propertyDescriptor.PropertyType.IsAssignableTo(typeof(IEnumerable)))
-                return new CollectionEditor();
-            return new ReadOnlyTextEditor();
         }
     }
 }

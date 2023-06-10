@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WpfDemo.Providers
 {
-    internal class SampleObject
+    internal class SampleObject/* : IDataDeclaration<int>*/
     {
         public int Value { get; set; }
     }
