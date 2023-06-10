@@ -2,15 +2,11 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
 
-  <Style x:Key="TextBoxBaseStyle" TargetType="TextBox">
+  <Style x:Key="TextBoxBaseStyle" TargetType="TextBox" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="CaretBrush" Value="{DynamicResource TextBrush}"/>
     <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}"/>
     <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
     <Setter Property="Padding" Value="5,2"/>
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="Template">
       <Setter.Value>

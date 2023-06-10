@@ -1,12 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
-  <Style x:Key="ButtonBaseStyle" TargetType="Button">
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource  BorderBrush}"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
+  <Style x:Key="ButtonBaseStyle" TargetType="Button" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Padding" Value="5,1"/>
     <Setter Property="Template">
       <Setter.Value>

@@ -63,11 +63,7 @@ namespace WpfDemo
 
             [PathSelect(IsSelectFolder = true)]
             [DisplayName("{Ask} him {Ok}")]
-            public string Folder
-            {
-                get;
-                set;
-            }
+            public string Folder { get; set; } = "";
             [PathSelect(IsSelectFolder = false)]
             public string File { get; set; } = "D://";
 
@@ -77,6 +73,8 @@ namespace WpfDemo
 
             [ReadOnly(true)]
             public string ReadOnlyText { get; set; } = "ReadOnlyText 1";
+
+            public string Text { get; set; } = "input text";
 
             [DataProvider(typeof(SampleTextProvider))]
             public string SampleTextProvider { get; set; } = "Text 1";

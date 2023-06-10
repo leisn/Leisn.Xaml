@@ -3,11 +3,17 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:sys="clr-namespace:System;assembly=mscorlib">
 
-  <sys:Double x:Key="DefaultFontSize">14</sys:Double>
-  <sys:Double x:Key="SmallFontSize">10</sys:Double>
-  <sys:Double x:Key="DialogButtonSpacing">30</sys:Double>
-  <Thickness x:Key="DialogMargin">15,10,15,20</Thickness>
-  <Thickness x:Key="DialogButtonAreaMargin">0,15,0,0</Thickness>
+  <sys:Double x:Key="DefaultFontSize">12</sys:Double>
+  <sys:Double x:Key="FontSize80">9</sys:Double>
+  <sys:Double x:Key="FontSize50">6</sys:Double>
+  <sys:Double x:Key="FontSize120">14</sys:Double>
+  <sys:Double x:Key="FontSize140">16</sys:Double>
+  <sys:Double x:Key="FontSize160">20</sys:Double>
+  <sys:Double x:Key="FontSize180">22</sys:Double>
+  <sys:Double x:Key="FontSize200">24</sys:Double>
+  <sys:Double x:Key="FontSize250">30</sys:Double>
+  <sys:Double x:Key="FontSize300">36</sys:Double>
+  <sys:Double x:Key="FontSize400">48</sys:Double>
 
   <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>
   <CornerRadius x:Key="DefaultLeftCornerRadius">3,0,0,3</CornerRadius>
@@ -27,6 +33,6 @@
   <sys:Double x:Key="ScrollBarWidth">8</sys:Double>
 
   <sys:Double x:Key="ExpenderArrowWidth">7</sys:Double>
-  
+
   <Thickness x:Key="ComboBoxItemPadding">5,2</Thickness>
 </ResourceDictionary>

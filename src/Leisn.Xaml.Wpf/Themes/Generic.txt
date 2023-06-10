@@ -4,6 +4,8 @@ Assets/Colors.xaml
 Assets/Values.xaml
 Assets/Geometries.xaml
 
+Styles/___.xaml
+
 Styles/TextBlock.xaml
 Styles/ToolTip.xaml
 Styles/ScrollBar.xaml

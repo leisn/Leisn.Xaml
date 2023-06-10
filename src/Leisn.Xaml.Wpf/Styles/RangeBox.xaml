@@ -1,16 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
-  
-  <Style x:Key="RangeBoxBaseStyle" TargetType="local:RangeBox" >
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
+
+  <Style x:Key="RangeBoxBaseStyle" TargetType="local:RangeBox"  BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="MinWidth" Value="100"/>
     <Setter Property="Padding" Value="5,0"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
     <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
     <Setter Property="ThumbBackground" Value="{DynamicResource PrimaryBrush}"/>
     <Setter Property="Template">
       <Setter.Value>

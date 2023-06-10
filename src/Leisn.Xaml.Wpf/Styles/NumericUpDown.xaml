@@ -72,9 +72,7 @@
     </Setter>
   </Style>
 
-  <Style x:Key="NumericUpDownBaseStyle" TargetType="local:NumericUpDown">
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+  <Style x:Key="NumericUpDownBaseStyle" TargetType="local:NumericUpDown" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Minimum" Value="0"/>
     <Setter Property="Maximum" Value="100"/>
     <Setter Property="Increment" Value="1"/>
@@ -124,7 +122,6 @@
       </Setter.Value>
     </Setter>
   </Style>
-
   <Style TargetType="local:NumericUpDown" BasedOn="{StaticResource NumericUpDownBaseStyle}"/>
 
 </ResourceDictionary>

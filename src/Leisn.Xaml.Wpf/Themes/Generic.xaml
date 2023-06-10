@@ -16,6 +16,7 @@
   <Color x:Key="TextAccentColor">#FFFFFF</Color>
   <Color x:Key="TextDarkerColor">#C0C0C0</Color>
   <Color x:Key="BorderColor">#404040</Color>
+  <Color x:Key="BorderLighterColor">#979899</Color>
   <Color x:Key="ControlColor">#545454</Color>
   <Color x:Key="ControlLighterColor">#656565</Color>
   <Color x:Key="ControlAccentColor">#797979</Color>
@@ -35,15 +36,22 @@
   <SolidColorBrush x:Key="TextAccentBrush" Color="{DynamicResource TextAccentColor}" />
   <SolidColorBrush x:Key="TextDarkerBrush" Color="{DynamicResource TextDarkerColor}" />
   <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}" />
+  <SolidColorBrush x:Key="BorderLighterBrush" Color="{DynamicResource BorderLighterColor}" />
   <SolidColorBrush x:Key="ControlBrush" Color="{DynamicResource ControlColor}" />
   <SolidColorBrush x:Key="ControlLighterBrush" Color="{DynamicResource ControlLighterColor}" />
   <SolidColorBrush x:Key="ControlAccentBrush" Color="{DynamicResource ControlAccentColor}" />
   <SolidColorBrush x:Key="NightSkyBrush" Color="{DynamicResource NightSkyColor}" />
-  <sys:Double x:Key="DefaultFontSize">14</sys:Double>
-  <sys:Double x:Key="SmallFontSize">10</sys:Double>
-  <sys:Double x:Key="DialogButtonSpacing">30</sys:Double>
-  <Thickness x:Key="DialogMargin">15,10,15,20</Thickness>
-  <Thickness x:Key="DialogButtonAreaMargin">0,15,0,0</Thickness>
+  <sys:Double x:Key="DefaultFontSize">12</sys:Double>
+  <sys:Double x:Key="FontSize80">9</sys:Double>
+  <sys:Double x:Key="FontSize50">6</sys:Double>
+  <sys:Double x:Key="FontSize120">14</sys:Double>
+  <sys:Double x:Key="FontSize140">16</sys:Double>
+  <sys:Double x:Key="FontSize160">20</sys:Double>
+  <sys:Double x:Key="FontSize180">22</sys:Double>
+  <sys:Double x:Key="FontSize200">24</sys:Double>
+  <sys:Double x:Key="FontSize250">30</sys:Double>
+  <sys:Double x:Key="FontSize300">36</sys:Double>
+  <sys:Double x:Key="FontSize400">48</sys:Double>
   <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>
   <CornerRadius x:Key="DefaultLeftCornerRadius">3,0,0,3</CornerRadius>
   <CornerRadius x:Key="DefaultTopCornerRadius">3,3,0,0</CornerRadius>
@@ -80,8 +88,41 @@
   <PathGeometry x:Key="RightGeometry" o:Freeze="True" Figures="M4.1666641,0 C5.2083321,0 6.25,0.41666794 7.0833321,1.25 L57.083331,46.666664 C57.916664,47.499998 58.33333,48.749998 58.333329,49.999998 58.33333,51.249997 57.916664,52.499997 57.083331,53.333331 L7.0833321,98.749996 C5.4166641,100.41666 2.9166641,100.41666 1.2499962,98.749996 -0.41666794,97.083328 -0.41666794,94.583328 1.2499962,92.916664 L48.333331,49.999998 1.2499962,7.0833321 C-0.41666794,5.4166641 -0.41666794,2.9166641 1.2499962,1.25 2.0833282,0.41666794 3.1249962,0 4.1666641,0 z" />
   <PathGeometry x:Key="DownGeometry" o:Freeze="True" Figures="M512 801.6896L5.12 282.0096l58.1632-59.5968L512 682.3936l448.7168-460.0832 58.1632 59.5968-506.88 519.7824z" />
   <PathGeometry x:Key="UpGeometry" o:Freeze="True" Figures="M50.000001,0 L100,51.262779 94.262627,57.141584 50.000001,11.767713 5.7373757,57.151686 0,51.27288 z" />
+  <Style x:Key="RectangleFocusVisual" TargetType="Rectangle">
+    <Setter Property="Margin" Value="-2" />
+    <Setter Property="Opacity" Value=".6" />
+    <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Setter Property="Stroke" Value="{DynamicResource BorderLighterBrush}" />
+    <Setter Property="StrokeThickness" Value="2" />
+    <Setter Property="StrokeDashArray" Value="1 1" />
+  </Style>
+  <Style x:Key="FocusVisual">
+    <Setter Property="Control.Template">
+      <Setter.Value>
+        <ControlTemplate>
+          <Rectangle Style="{DynamicResource RectangleFocusVisual}" RadiusX="3" RadiusY="3" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="BaseControlStyle" TargetType="Control">
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
+    <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}" />
+  </Style>
+  <Style TargetType="Control" BasedOn="{StaticResource BaseControlStyle}" />
+  <Style x:Key="BaseInputStyle" TargetType="Control" BasedOn="{StaticResource BaseControlStyle}">
+    <Setter Property="Background" Value="{DynamicResource ControlBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
+    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}" />
+  </Style>
   <Style TargetType="TextBlock">
     <Setter Property="VerticalAlignment" Value="Center" />
+    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
   </Style>
   <Style TargetType="ToolTip" x:Key="ToolTipBaseStyle">
     <Setter Property="Padding" Value="6" />
@@ -423,12 +464,7 @@
     </Setter>
   </Style>
   <Style TargetType="Expander" BasedOn="{StaticResource ExpanderBaseStyle}" />
-  <Style x:Key="ButtonBaseStyle" TargetType="Button">
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}" />
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-    <Setter Property="BorderBrush" Value="{DynamicResource  BorderBrush}" />
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
+  <Style x:Key="ButtonBaseStyle" TargetType="Button" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Padding" Value="5,1" />
     <Setter Property="Template">
       <Setter.Value>
@@ -465,15 +501,11 @@
       </Trigger>
     </Style.Triggers>
   </Style>
-  <Style x:Key="TextBoxBaseStyle" TargetType="TextBox">
+  <Style x:Key="TextBoxBaseStyle" TargetType="TextBox" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="CaretBrush" Value="{DynamicResource TextBrush}" />
     <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}" />
     <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}" />
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
     <Setter Property="Padding" Value="5,2" />
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
       <Setter.Value>
@@ -668,12 +700,8 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ComboBoxBaseStyle" TargetType="ComboBox">
+  <Style x:Key="ComboBoxBaseStyle" TargetType="ComboBox" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="ItemContainerStyle" Value="{DynamicResource ComboBoxItemBaseStyle}" />
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}" />
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-    <Setter Property="BorderThickness" Value="0" />
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
     <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
@@ -682,7 +710,6 @@
     <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Padding" Value="3" />
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}" />
     <Style.Triggers>
       <Trigger Property="IsEditable" Value="True">
         <Setter Property="IsTabStop" Value="false" />
@@ -693,15 +720,10 @@
   <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxBaseStyle}" />
   <Style x:Key="NumericBoxBaseStyle" TargetType="local:NumericBox" BasedOn="{StaticResource TextBoxBaseStyle}" />
   <Style TargetType="local:NumericBox" BasedOn="{StaticResource NumericBoxBaseStyle}" />
-  <Style x:Key="RangeBoxBaseStyle" TargetType="local:RangeBox">
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}" />
+  <Style x:Key="RangeBoxBaseStyle" TargetType="local:RangeBox" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="MinWidth" Value="100" />
     <Setter Property="Padding" Value="5,0" />
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
     <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}" />
     <Setter Property="ThumbBackground" Value="{DynamicResource PrimaryBrush}" />
     <Setter Property="Template">
       <Setter.Value>
@@ -795,9 +817,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="NumericUpDownBaseStyle" TargetType="local:NumericUpDown">
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}" />
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+  <Style x:Key="NumericUpDownBaseStyle" TargetType="local:NumericUpDown" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Minimum" Value="0" />
     <Setter Property="Maximum" Value="100" />
     <Setter Property="Increment" Value="1" />
@@ -840,7 +860,7 @@
     </Setter>
   </Style>
   <Style TargetType="local:NumericUpDown" BasedOn="{StaticResource NumericUpDownBaseStyle}" />
-  <Style x:Key="PathSelectorBaseStyle" TargetType="local:PathSelector">
+  <Style x:Key="PathSelectorBaseStyle" TargetType="local:PathSelector" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:PathSelector">

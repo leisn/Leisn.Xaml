@@ -216,12 +216,8 @@
     </Setter>
   </Style>
 
-  <Style x:Key="ComboBoxBaseStyle" TargetType="ComboBox">
+  <Style x:Key="ComboBoxBaseStyle" TargetType="ComboBox" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="ItemContainerStyle" Value="{DynamicResource ComboBoxItemBaseStyle}"/>
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-    <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
     <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
@@ -230,7 +226,6 @@
     <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="Padding" Value="3"/>
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
     <Style.Triggers>
       <Trigger Property="IsEditable" Value="True">
         <Setter Property="IsTabStop" Value="false"/>

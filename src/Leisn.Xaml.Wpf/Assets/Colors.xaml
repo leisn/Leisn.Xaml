@@ -13,12 +13,13 @@
   <Color x:Key="RegionColor">#303030</Color>
   <Color x:Key="RegionLighterColor">#3d3d3d</Color>
   <Color x:Key="RegionDarkerColor">#282828</Color>
-  
+
   <Color x:Key="TextColor">#DEDEDE</Color>
   <Color x:Key="TextAccentColor">#FFFFFF</Color>
   <Color x:Key="TextDarkerColor">#C0C0C0</Color>
 
   <Color x:Key="BorderColor">#404040</Color>
+  <Color x:Key="BorderLighterColor">#979899</Color>
   <Color x:Key="ControlColor">#545454</Color>
   <Color x:Key="ControlLighterColor">#656565</Color>
   <Color x:Key="ControlAccentColor">#797979</Color>
@@ -43,6 +44,7 @@
   <SolidColorBrush x:Key="TextDarkerBrush" Color="{DynamicResource TextDarkerColor}"/>
 
   <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}"/>
+  <SolidColorBrush x:Key="BorderLighterBrush" Color="{DynamicResource BorderLighterColor}"/>
   <SolidColorBrush x:Key="ControlBrush" Color="{DynamicResource ControlColor}"/>
   <SolidColorBrush x:Key="ControlLighterBrush" Color="{DynamicResource ControlLighterColor}"/>
   <SolidColorBrush x:Key="ControlAccentBrush" Color="{DynamicResource ControlAccentColor}"/>
