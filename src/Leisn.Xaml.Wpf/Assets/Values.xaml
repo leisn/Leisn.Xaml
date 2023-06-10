@@ -15,12 +15,14 @@
   <sys:Double x:Key="FontSize300">36</sys:Double>
   <sys:Double x:Key="FontSize400">48</sys:Double>
 
+  <sys:Double x:Key="DefaultRadius">3</sys:Double>
   <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>
   <CornerRadius x:Key="DefaultLeftCornerRadius">3,0,0,3</CornerRadius>
   <CornerRadius x:Key="DefaultTopCornerRadius">3,3,0,0</CornerRadius>
   <CornerRadius x:Key="DefaultBottomCornerRadius">0,0,3,3</CornerRadius>
   <CornerRadius x:Key="DefaultRightCornerRadius">0,3,3,0</CornerRadius>
 
+  <sys:Double x:Key="SmallRadius">2</sys:Double>
   <CornerRadius x:Key="SmallCornerRadius">2</CornerRadius>
   <CornerRadius x:Key="SmallLeftCornerRadius">2,0,0,2</CornerRadius>
   <CornerRadius x:Key="SmallTopCornerRadius">2,2,0,0</CornerRadius>

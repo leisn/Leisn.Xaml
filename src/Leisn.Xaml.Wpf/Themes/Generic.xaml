@@ -1,6 +1,5 @@
 ﻿<!--This file is auto-generated, any changes of this file will lost after regenerated.-->
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:converters="clr-namespace:Leisn.Xaml.Wpf.Converters" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls" xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
-  <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter" />
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" xmlns:converters="clr-namespace:Leisn.Xaml.Wpf.Converters" xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls" xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
   <Color x:Key="PrimaryColor">#326cf3</Color>
   <Color x:Key="PrimaryDarkerColor">#1060FD</Color>
   <Color x:Key="PrimaryLighterColor">#4575E5</Color>
@@ -21,26 +20,6 @@
   <Color x:Key="ControlLighterColor">#656565</Color>
   <Color x:Key="ControlAccentColor">#797979</Color>
   <Color x:Key="NightSkyColor">#05112c</Color>
-  <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
-  <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{DynamicResource PrimaryDarkerColor}" />
-  <SolidColorBrush x:Key="PrimaryLighterBrush" Color="{DynamicResource PrimaryLighterColor}" />
-  <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />
-  <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}" />
-  <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
-  <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
-  <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}" />
-  <SolidColorBrush x:Key="RegionBrush" Color="{DynamicResource RegionColor}" />
-  <SolidColorBrush x:Key="RegionLighterBrush" Color="{DynamicResource RegionLighterColor}" />
-  <SolidColorBrush x:Key="RegionDarkerBrush" Color="{DynamicResource RegionDarkerColor}" />
-  <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}" />
-  <SolidColorBrush x:Key="TextAccentBrush" Color="{DynamicResource TextAccentColor}" />
-  <SolidColorBrush x:Key="TextDarkerBrush" Color="{DynamicResource TextDarkerColor}" />
-  <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}" />
-  <SolidColorBrush x:Key="BorderLighterBrush" Color="{DynamicResource BorderLighterColor}" />
-  <SolidColorBrush x:Key="ControlBrush" Color="{DynamicResource ControlColor}" />
-  <SolidColorBrush x:Key="ControlLighterBrush" Color="{DynamicResource ControlLighterColor}" />
-  <SolidColorBrush x:Key="ControlAccentBrush" Color="{DynamicResource ControlAccentColor}" />
-  <SolidColorBrush x:Key="NightSkyBrush" Color="{DynamicResource NightSkyColor}" />
   <sys:Double x:Key="DefaultFontSize">12</sys:Double>
   <sys:Double x:Key="FontSize80">9</sys:Double>
   <sys:Double x:Key="FontSize50">6</sys:Double>
@@ -52,11 +31,13 @@
   <sys:Double x:Key="FontSize250">30</sys:Double>
   <sys:Double x:Key="FontSize300">36</sys:Double>
   <sys:Double x:Key="FontSize400">48</sys:Double>
+  <sys:Double x:Key="DefaultRadius">3</sys:Double>
   <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>
   <CornerRadius x:Key="DefaultLeftCornerRadius">3,0,0,3</CornerRadius>
   <CornerRadius x:Key="DefaultTopCornerRadius">3,3,0,0</CornerRadius>
   <CornerRadius x:Key="DefaultBottomCornerRadius">0,0,3,3</CornerRadius>
   <CornerRadius x:Key="DefaultRightCornerRadius">0,3,3,0</CornerRadius>
+  <sys:Double x:Key="SmallRadius">2</sys:Double>
   <CornerRadius x:Key="SmallCornerRadius">2</CornerRadius>
   <CornerRadius x:Key="SmallLeftCornerRadius">2,0,0,2</CornerRadius>
   <CornerRadius x:Key="SmallTopCornerRadius">2,2,0,0</CornerRadius>
@@ -88,6 +69,27 @@
   <PathGeometry x:Key="RightGeometry" o:Freeze="True" Figures="M4.1666641,0 C5.2083321,0 6.25,0.41666794 7.0833321,1.25 L57.083331,46.666664 C57.916664,47.499998 58.33333,48.749998 58.333329,49.999998 58.33333,51.249997 57.916664,52.499997 57.083331,53.333331 L7.0833321,98.749996 C5.4166641,100.41666 2.9166641,100.41666 1.2499962,98.749996 -0.41666794,97.083328 -0.41666794,94.583328 1.2499962,92.916664 L48.333331,49.999998 1.2499962,7.0833321 C-0.41666794,5.4166641 -0.41666794,2.9166641 1.2499962,1.25 2.0833282,0.41666794 3.1249962,0 4.1666641,0 z" />
   <PathGeometry x:Key="DownGeometry" o:Freeze="True" Figures="M512 801.6896L5.12 282.0096l58.1632-59.5968L512 682.3936l448.7168-460.0832 58.1632 59.5968-506.88 519.7824z" />
   <PathGeometry x:Key="UpGeometry" o:Freeze="True" Figures="M50.000001,0 L100,51.262779 94.262627,57.141584 50.000001,11.767713 5.7373757,57.151686 0,51.27288 z" />
+  <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}" />
+  <SolidColorBrush x:Key="PrimaryDarkerBrush" Color="{DynamicResource PrimaryDarkerColor}" />
+  <SolidColorBrush x:Key="PrimaryLighterBrush" Color="{DynamicResource PrimaryLighterColor}" />
+  <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}" />
+  <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}" />
+  <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}" />
+  <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
+  <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}" />
+  <SolidColorBrush x:Key="RegionBrush" Color="{DynamicResource RegionColor}" />
+  <SolidColorBrush x:Key="RegionLighterBrush" Color="{DynamicResource RegionLighterColor}" />
+  <SolidColorBrush x:Key="RegionDarkerBrush" Color="{DynamicResource RegionDarkerColor}" />
+  <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}" />
+  <SolidColorBrush x:Key="TextAccentBrush" Color="{DynamicResource TextAccentColor}" />
+  <SolidColorBrush x:Key="TextDarkerBrush" Color="{DynamicResource TextDarkerColor}" />
+  <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}" />
+  <SolidColorBrush x:Key="BorderLighterBrush" Color="{DynamicResource BorderLighterColor}" />
+  <SolidColorBrush x:Key="ControlBrush" Color="{DynamicResource ControlColor}" />
+  <SolidColorBrush x:Key="ControlLighterBrush" Color="{DynamicResource ControlLighterColor}" />
+  <SolidColorBrush x:Key="ControlAccentBrush" Color="{DynamicResource ControlAccentColor}" />
+  <SolidColorBrush x:Key="NightSkyBrush" Color="{DynamicResource NightSkyColor}" />
+  <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter" />
   <Style x:Key="FocusVisual">
     <Setter Property="Control.Template">
       <Setter.Value>

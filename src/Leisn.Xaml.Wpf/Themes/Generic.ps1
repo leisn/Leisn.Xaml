@@ -1,9 +1,19 @@
-﻿$listFile = "Themes\Generic.txt"
+﻿$listFile = "Themes\Generic.ls"
 $genericFile = "Themes\Generic.xaml"
+
+#$schema = @'
+#<!--This file is auto-generated, any changes of this file will lost after regenerated.--> 
+#<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+#  <ResourceDictionary.MergedDictionaries>
+#    <ResourceDictionary Source="/Leisn.Xaml.Wpf;component/Assets/Colors.xaml"/>
+#  </ResourceDictionary.MergedDictionaries>
+#</ResourceDictionary>
+#'@
 
 $schema = @'
 <!--This file is auto-generated, any changes of this file will lost after regenerated.--> 
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"></ResourceDictionary>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"> 
+</ResourceDictionary>
 '@
 
 Out-File -FilePath $genericFile -InputObject $schema -Encoding utf8

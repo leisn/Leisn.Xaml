@@ -12,20 +12,19 @@ namespace Leisn.Xaml.Wpf.Locales
 {
     public class Lang : INotifyPropertyChanged
     {
-        private Lang() { }
-
         #region static
+        public static Lang Current { get; } = new Lang();
 
-        private static Lang? _current;
-        public static Lang Current => _current ??= new Lang();
         public static event Action? LangChanged;
+        public static IReadOnlyList<string> Languages => Current._langDict.Keys.ToList().AsReadOnly();
+        public static string CurrentLanguage => Current._currentLang;
         public static string Get(string key)
         {
             return Current.Values[key];
         }
-        public static void ChangeLang(string lang)
+        public static void SetLanguage(string language)
         {
-            Current.SetLang(lang);
+            Current.SetCurrentLang(language);
             LangChanged?.Invoke();
         }
         public static void Initialize(string currentLang, string folder = "./locales", string fileFilter = "*.lang", string? defalutLang = null)
@@ -35,17 +34,16 @@ namespace Leisn.Xaml.Wpf.Locales
         #endregion
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public IReadOnlyList<string> Langs => _langDict.Keys.ToList();
         public IReadOnlyDictionary<string, string> Values => _values;
-        public string CurrentLang { get; private set; } = null!;
 
         private string _defaultLang = null!;
+        private string _currentLang = null!;
 
         private readonly LangDict _values = new();
 
         private readonly Dictionary<string, string> _langDict = new();
-
-        private void SetLang(string lang)
+        private Lang() { }
+        private void SetCurrentLang(string lang)
         {
             lang = lang.ToLowerInvariant();
             if (!_langDict.ContainsKey(lang))
@@ -53,7 +51,7 @@ namespace Leisn.Xaml.Wpf.Locales
                 throw new ArgumentOutOfRangeException(nameof(lang));
             }
 
-            CurrentLang = lang;
+            _currentLang = lang;
             LoadValues(_langDict[lang]);
             NotifyLocalesChagned();
         }
@@ -61,7 +59,7 @@ namespace Leisn.Xaml.Wpf.Locales
         private void LoadLocales(string currentLang, string folder = "./locales", string fileFilter = "*.lang", string? defalutLang = null)
         {
             _defaultLang = string.IsNullOrEmpty(defalutLang) ? CultureInfo.CurrentCulture.Name.ToLower() : defalutLang;
-            CurrentLang = string.IsNullOrEmpty(currentLang) ? _defaultLang : currentLang;
+            _currentLang = string.IsNullOrEmpty(currentLang) ? _defaultLang : currentLang;
             _values.Clear();
             _langDict.Clear();
             DirectoryInfo dir = new(folder);
@@ -74,7 +72,7 @@ namespace Leisn.Xaml.Wpf.Locales
             {
                 string langName = Path.GetFileNameWithoutExtension(item.Name);
                 _langDict.Add(langName, item.FullName);
-                if (langName.Equals(CurrentLang))
+                if (langName.Equals(_currentLang))
                 {
                     LoadValues(item.FullName);
                 }

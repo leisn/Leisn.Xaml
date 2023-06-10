@@ -31,12 +31,6 @@ namespace Leisn.Xaml.Wpf.Locales
         private BindingExpressionBase? _bindingExpression;
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            //if (serviceProvider.GetService(typeof(IProvideValueTarget)) is not IProvideValueTarget provideValueTarget)
-            //    return this;
-            //if (provideValueTarget.TargetObject is not DependencyObject targetObject)
-            //    return this;
-            //if (provideValueTarget.TargetProperty is not DependencyProperty targetProperty)
-            //    return this;
             if (Binding == null)
             {
                 Binding binding = new()
@@ -45,7 +39,6 @@ namespace Leisn.Xaml.Wpf.Locales
                     Path = new PropertyPath($"Values[{Key}]"),
                     Mode = BindingMode.OneWay
                 };
-                //BindingOperations.SetBinding(targetObject, targetProperty, binding);
                 return binding.ProvideValue(serviceProvider);
             }
             if (Binding is Binding b)

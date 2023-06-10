@@ -9,6 +9,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Diagnostics;
+using System.Windows.Media;
+using Leisn.Xaml.Wpf;
 
 namespace WpfDemo
 {
@@ -21,5 +24,6 @@ namespace WpfDemo
         {
             Lang.Initialize("en-us");
         }
+
     }
 }

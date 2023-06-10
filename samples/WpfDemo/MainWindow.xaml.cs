@@ -17,8 +17,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Leisn.Common.Attributes;
 using WpfDemo.Providers;
+using System.Diagnostics;
+using Leisn.Xaml.Wpf;
+using System.Globalization;
 
 namespace WpfDemo
 {
@@ -36,13 +38,15 @@ namespace WpfDemo
 
         private void LangsBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Lang.ChangeLang(langsBox.SelectedItem.ToString()!);
+            Lang.SetLanguage(((CultureInfo)langsBox.SelectedItem).Name);
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            langsBox.ItemsSource = Lang.Current.Langs;
-            langsBox.SelectedItem = Lang.Current.CurrentLang;
+            var list = Lang.Languages.Select(x => new CultureInfo(x)).ToList();
+            langsBox.DisplayMemberPath = "NativeName";
+            langsBox.ItemsSource = list;
+            langsBox.SelectedItem = new CultureInfo(Lang.CurrentLanguage);
             langsBox.SelectionChanged += LangsBox_SelectionChanged;
 
             perpertyGrid.Source = new PgTest();
@@ -110,5 +114,6 @@ namespace WpfDemo
         private void Button_Click(object sender, RoutedEventArgs e)
         {
         }
+
     }
 }
