@@ -88,19 +88,11 @@
   <PathGeometry x:Key="RightGeometry" o:Freeze="True" Figures="M4.1666641,0 C5.2083321,0 6.25,0.41666794 7.0833321,1.25 L57.083331,46.666664 C57.916664,47.499998 58.33333,48.749998 58.333329,49.999998 58.33333,51.249997 57.916664,52.499997 57.083331,53.333331 L7.0833321,98.749996 C5.4166641,100.41666 2.9166641,100.41666 1.2499962,98.749996 -0.41666794,97.083328 -0.41666794,94.583328 1.2499962,92.916664 L48.333331,49.999998 1.2499962,7.0833321 C-0.41666794,5.4166641 -0.41666794,2.9166641 1.2499962,1.25 2.0833282,0.41666794 3.1249962,0 4.1666641,0 z" />
   <PathGeometry x:Key="DownGeometry" o:Freeze="True" Figures="M512 801.6896L5.12 282.0096l58.1632-59.5968L512 682.3936l448.7168-460.0832 58.1632 59.5968-506.88 519.7824z" />
   <PathGeometry x:Key="UpGeometry" o:Freeze="True" Figures="M50.000001,0 L100,51.262779 94.262627,57.141584 50.000001,11.767713 5.7373757,57.151686 0,51.27288 z" />
-  <Style x:Key="RectangleFocusVisual" TargetType="Rectangle">
-    <Setter Property="Margin" Value="-2" />
-    <Setter Property="Opacity" Value=".6" />
-    <Setter Property="SnapsToDevicePixels" Value="True" />
-    <Setter Property="Stroke" Value="{DynamicResource BorderLighterBrush}" />
-    <Setter Property="StrokeThickness" Value="2" />
-    <Setter Property="StrokeDashArray" Value="1 1" />
-  </Style>
   <Style x:Key="FocusVisual">
     <Setter Property="Control.Template">
       <Setter.Value>
         <ControlTemplate>
-          <Rectangle Style="{DynamicResource RectangleFocusVisual}" RadiusX="3" RadiusY="3" />
+          <Rectangle RadiusX="3" RadiusY="3" Margin="-2" Opacity=".6" SnapsToDevicePixels="True" Stroke="{DynamicResource BorderLighterBrush}" StrokeThickness="2" StrokeDashArray="1 1" />
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -927,8 +919,8 @@
           <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
             <Grid Margin="{TemplateBinding Padding}">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".3*" MinWidth="100" />
-                <ColumnDefinition Width=".7*" />
+                <ColumnDefinition Width=".4*" MinWidth="100" />
+                <ColumnDefinition Width=".6*" />
               </Grid.ColumnDefinitions>
               <TextBlock Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
                 <TextBlock.ToolTip>

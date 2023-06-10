@@ -20,8 +20,6 @@
     <ln:StackPanel Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
       <ComboBox x:Name="langsBox"/>
       <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="200"/>
-      <Button Content="{ln:Lang Ask}" Click="Button_Click" HorizontalAlignment="Center" Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
-      <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
       <ComboBox IsEditable="True">
         <ComboBox.ItemsSource>
           <x:Array Type="sys:String">
@@ -32,6 +30,8 @@
           </x:Array>
         </ComboBox.ItemsSource>
       </ComboBox>
+      <Button Content="{ln:Lang Ask}" Click="Button_Click" HorizontalAlignment="Center" Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
+      <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
     </ln:StackPanel>
     <ln:PropertyGrid Grid.Column="1" x:Name="perpertyGrid"/>
   </Grid>

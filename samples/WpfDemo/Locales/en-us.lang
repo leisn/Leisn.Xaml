@@ -5,3 +5,6 @@ Confirm=Confirm
 Close=Close
 Misc=Miscellaneous
 Select=Select
+ValueRange= Value range:
+Ask=Ask him are you ok?
+ValueFormat= This value is {0}

@@ -58,8 +58,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             if (e.NewValue is null)
                 throw new ArgumentNullException(nameof(EditorSelector), "Editor Selector cannot be null");
-            var pg = (PropertyGrid)d;
-            pg.UpdateItems(pg.Source);
+            (d as PropertyGrid)?.UpdateItems();
         }
 
         public object Source { get => GetValue(SourceProperty); set => SetValue(SourceProperty, value); }
@@ -73,7 +72,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual void OnSourceChanged(object oldValue, object newValue)
         {
-            UpdateItems(newValue);
+            UpdateItems();
             RaiseEvent(new RoutedPropertyChangedEventArgs<object>(oldValue, newValue, SourceChangedEvent));
         }
 
@@ -84,14 +83,14 @@ namespace Leisn.Xaml.Wpf.Controls
         }
 
         const string OTHER_KEY = "Misc";
-        protected virtual void UpdateItems(object newValue)
+        protected virtual void UpdateItems()
         {
-            if (newValue is null || _itemsControl is null)
+            if (Source is null || _itemsControl is null || EditorSelector is null)
             {
                 return;
             }
 
-            List<PropertyItem> items = TypeDescriptor.GetProperties(newValue.GetType())
+            List<PropertyItem> items = TypeDescriptor.GetProperties(Source.GetType())
                  .OfType<PropertyDescriptor>()
                  .Where(x => x.IsBrowsable)
                  .Select(CreatePropertyItem).ToList();

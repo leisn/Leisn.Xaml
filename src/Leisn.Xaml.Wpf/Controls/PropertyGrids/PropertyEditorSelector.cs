@@ -60,7 +60,7 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
             if (propertyDescriptor.PropertyType.IsEnum)
                 return new EnumEditor();
             if (propertyDescriptor.Attr<DataProviderAttribute>() is not null)
-                return new ComboEditor();
+                return new ComboDataEditor();
             return null;
         }
 

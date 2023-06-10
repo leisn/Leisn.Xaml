@@ -53,8 +53,8 @@
                   BorderThickness="{TemplateBinding BorderThickness}">
             <Grid Margin="{TemplateBinding Padding}">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".3*" MinWidth="100"/>
-                <ColumnDefinition Width=".7*"/>
+                <ColumnDefinition Width=".4*" MinWidth="100"/>
+                <ColumnDefinition Width=".6*"/>
               </Grid.ColumnDefinitions>
               <TextBlock Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
                 <TextBlock.ToolTip>

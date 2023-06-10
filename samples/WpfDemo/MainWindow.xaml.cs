@@ -74,6 +74,7 @@ namespace WpfDemo
             [ReadOnly(true)]
             public string ReadOnlyText { get; set; } = "ReadOnlyText 1";
 
+            [DisplayName("最多可以输入几个字呢")]
             public string Text { get; set; } = "input text";
 
             [DataProvider(typeof(SampleTextProvider))]

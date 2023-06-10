@@ -11,4 +11,13 @@
     <ProjectReference Include="..\..\src\Leisn.Xaml.Wpf\Leisn.Xaml.Wpf.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Locales\en-us.lang">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Locales\zh-cn.lang">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

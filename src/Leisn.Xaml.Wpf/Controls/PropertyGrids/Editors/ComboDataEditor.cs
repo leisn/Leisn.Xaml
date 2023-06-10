@@ -12,11 +12,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-using static Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System;
-
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
-    internal class ComboEditor : IPropertyEditor
+    internal class ComboDataEditor : IPropertyEditor
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
@@ -53,6 +51,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 }
             }
             var box = EditorHelper.CreateComboBox(data);
+            box.IsEditable = false; //Cannot edit
             box.IsReadOnly = item.IsReadOnly;
             return box;
         }
