@@ -12,10 +12,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="WindowsAPICodePack" Version="7.0.4" />
-  </ItemGroup>
-  
-  <ItemGroup>
     <None Update="Locales\en-us.lang">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,4 +1,6 @@
-﻿using Microsoft.WindowsAPICodePack.Dialogs;
+﻿using Leisn.Common.Models;
+
+using Microsoft.Win32;
 
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +17,13 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private TextBox _textBox = null!;
         private ButtonBase _button = null!;
+        public PathSelectMode Mode
+        {
+            get { return (PathSelectMode)GetValue(ModeProperty); }
+            set { SetValue(ModeProperty, value); }
+        }
+        public static readonly DependencyProperty ModeProperty =
+            DependencyProperty.Register("Mode", typeof(PathSelectMode), typeof(PathSelector), new PropertyMetadata(PathSelectMode.Folder));
 
         public string Path
         {
@@ -31,15 +40,6 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty IsTextReadOnlyProperty =
             DependencyProperty.Register("IsTextReadOnly", typeof(bool), typeof(PathSelector), new PropertyMetadata(true));
-
-        public bool IsSelectFolder
-        {
-            get => (bool)GetValue(IsSelectFolderProperty);
-            set => SetValue(IsSelectFolderProperty, value);
-        }
-
-        public static readonly DependencyProperty IsSelectFolderProperty =
-            DependencyProperty.Register("IsSelectFolder", typeof(bool), typeof(PathSelector), new PropertyMetadata(false));
 
         public string DialogTitle
         {
@@ -72,25 +72,43 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void OnButtonClicked(object sender, RoutedEventArgs e)
         {
-            CommonOpenFileDialog dialog = new()
+            if (Mode == PathSelectMode.OpenFile || Mode == PathSelectMode.SaveFile)
             {
-                IsFolderPicker = IsSelectFolder,
-                Title = DialogTitle ?? "选择",
-            };
-            if (!IsSelectFolder && !string.IsNullOrEmpty(FileFilter))
-            {
-                string[] ts = FileFilter.Split('|');
-                for (int i = 1; i <= ts.Length; i += 2)
-                {
-                    dialog.Filters.Add(new CommonFileDialogFilter(ts[i - 1], ts[i]));
-                }
-            }
-            if (dialog.ShowDialog(Application.Current.MainWindow) != CommonFileDialogResult.Ok)
-            {
+                FileDialog fileDialog = Mode == PathSelectMode.SaveFile ?
+                    new Microsoft.Win32.SaveFileDialog() : new Microsoft.Win32.OpenFileDialog();
+                if (!string.IsNullOrEmpty(FileFilter))
+                    fileDialog.Filter = FileFilter;
+                if (!string.IsNullOrEmpty(DialogTitle))
+                    fileDialog.Title = DialogTitle;
+                if (fileDialog.ShowDialog(Application.Current.MainWindow) == true)
+                    Path = fileDialog.FileName;
                 return;
             }
+            else if (Mode == PathSelectMode.Folder)
+            {
+                var dialog = new FolderSelectDialog { Description = DialogTitle };
+                if (dialog.ShowDialog(Application.Current.MainWindow) == true)
+                    Path = dialog.SelectedFolder;
+            }
 
-            Path = dialog.FileName!;
+            //CommonOpenFileDialog dialog = new()
+            //{
+            //    IsFolderPicker = IsSelectFolder,
+            //    Title = DialogTitle ?? "选择",
+            //};
+            //if (!IsSelectFolder && !string.IsNullOrEmpty(FileFilter))
+            //{
+            //    string[] ts = FileFilter.Split('|');
+            //    for (int i = 1; i <= ts.Length; i += 2)
+            //    {
+            //        dialog.Filters.Add(new CommonFileDialogFilter(ts[i - 1], ts[i]));
+            //    }
+            //}
+            //if (dialog.ShowDialog(Application.Current.MainWindow) != CommonFileDialogResult.Ok)
+            //{
+            //    return;
+            //}
+            //Path = dialog.FileName!;
         }
     }
 }

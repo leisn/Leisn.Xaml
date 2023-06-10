@@ -21,6 +21,7 @@ using WpfDemo.Providers;
 using System.Diagnostics;
 using Leisn.Xaml.Wpf;
 using System.Globalization;
+using Leisn.Common.Models;
 
 namespace WpfDemo
 {
@@ -65,10 +66,10 @@ namespace WpfDemo
         {
             public Enumv EunmV { get; set; }
 
-            [PathSelect(IsSelectFolder = true)]
+            [PathSelect(Mode = PathSelectMode.Folder)]
             [DisplayName("{Ask} him {Ok}")]
             public string Folder { get; set; } = "";
-            [PathSelect(IsSelectFolder = false)]
+            [PathSelect(Mode = PathSelectMode.OpenFile)]
             public string File { get; set; } = "D://";
 
             [NumericUpDown(Increment = 0.1, Maximum = 1, Minimum = -1)]
