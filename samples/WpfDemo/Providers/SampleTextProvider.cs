@@ -10,6 +10,13 @@ namespace WpfDemo.Providers
 {
     internal class SampleTextProvider : IDataProvider<string>
     {
+        private static SampleTextProvider _instance = null!;
+        public SampleTextProvider()
+        {
+            if (_instance != null)
+                throw new InvalidOperationException("Already has a instance.");
+            _instance = this;
+        }
         public IEnumerable<string> GetData()
         {
             return new List<string>()

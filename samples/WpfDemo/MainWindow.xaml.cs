@@ -83,7 +83,9 @@ namespace WpfDemo
             public string Text { get; set; } = "input text";
 
             [DataProvider(typeof(SampleTextProvider))]
-            public string SampleTextProvider { get; set; } = "Text 1";
+            public string TextProvider { get; set; } = "Text 1";
+            [DataProvider(typeof(SampleTextProvider))]
+            public string TextProvider2 { get; set; } = "Text 2";
             [DataProvider(typeof(SampleTextWidthDescProvider))]
             public string ArrayTextProvider { get; set; } = "Text 1";
             [DataProvider(typeof(SampleObjectProvider))]

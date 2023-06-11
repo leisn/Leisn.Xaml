@@ -14,6 +14,7 @@ using System.Windows.Media;
 using Leisn.Xaml.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using WpfDemo.Providers;
 
 namespace WpfDemo
 {
@@ -27,6 +28,8 @@ namespace WpfDemo
             Lang.Initialize("en-us");
 
             var sevices = new ServiceCollection();
+            sevices.AddSingleton<SampleTextProvider>()
+                   .AddSingleton<SampleTextWidthDescProvider>();
 
             UIContext.Initialize(sevices.BuildServiceProvider());
         }
