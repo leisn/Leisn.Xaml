@@ -14,5 +14,15 @@ namespace Leisn.Common
             return enmu?.GetType().GetMember(enmu.ToString()).FirstOrDefault()?
                 .GetCustomAttribute<T>();
         }
+
+        public static bool TryParse<TEnum>(object? obj, out TEnum @enum) where TEnum : struct
+        {
+            if (obj is TEnum e)
+            {
+                @enum = e;
+                return true;
+            }
+            return Enum.TryParse(obj?.ToString(), true, out @enum);
+        }
     }
 }

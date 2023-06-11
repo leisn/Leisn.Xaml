@@ -1,5 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:Leisn.Xaml.Wpf.Converters">
+  <converters:BoolReverseConverter x:Key="BoolReverseConverter"/>
   <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter"/>
+  <converters:ObjectVisibilityConverter x:Key="ObjectVisibilityConverter"/>
+  <converters:ObjectBoolConverter x:Key="ObjectBoolConverter"/> 
+  <converters:NumberOperateConverter x:Key="NumberOperateConverter"/>
 </ResourceDictionary>

@@ -90,6 +90,9 @@
   <SolidColorBrush x:Key="ControlAccentBrush" Color="{DynamicResource ControlAccentColor}" />
   <SolidColorBrush x:Key="NightSkyBrush" Color="{DynamicResource NightSkyColor}" />
   <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter" />
+  <converters:ObjectVisibilityConverter x:Key="ObjectVisibilityConverter" />
+  <converters:ObjectBoolConverter x:Key="ObjectBoolConverter" />
+  <converters:NumberOperateConverter x:Key="NumberOperateConverter" />
   <Style x:Key="FocusVisual">
     <Setter Property="Control.Template">
       <Setter.Value>

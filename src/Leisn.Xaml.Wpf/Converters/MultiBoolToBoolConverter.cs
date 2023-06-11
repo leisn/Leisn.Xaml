@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Leisn.Common;
+
+using System;
 using System.Globalization;
 using System.Windows.Data;
 
@@ -43,13 +45,8 @@ namespace Leisn.Xaml.Wpf.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter is not MultiBoolToBoolMode mode)
-            {
-                if (!Enum.TryParse(parameter?.ToString()?.Trim(), true, out mode))
-                {
-                    mode = MultiBoolToBoolMode.And;
-                }
-            }
+            if (!EnumEx.TryParse<MultiBoolToBoolMode>(parameter, out var mode))
+                mode = MultiBoolToBoolMode.And;
 
             bool result = (bool)values[0];
 
