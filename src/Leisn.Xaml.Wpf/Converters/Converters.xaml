@@ -4,6 +4,8 @@
   <converters:BoolReverseConverter x:Key="BoolReverseConverter"/>
   <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter"/>
   <converters:ObjectVisibilityConverter x:Key="ObjectVisibilityConverter"/>
-  <converters:ObjectBoolConverter x:Key="ObjectBoolConverter"/> 
+  <converters:ObjectBoolConverter x:Key="ObjectBoolConverter"/>
   <converters:NumberOperateConverter x:Key="NumberOperateConverter"/>
+  <converters:StringCompareBoolConverter x:Key="StringCompareBoolConverter"/>
+  <converters:StringCompareVisibiltyConverter x:Key="StringCompareVisibiltyConverter"/>
 </ResourceDictionary>
