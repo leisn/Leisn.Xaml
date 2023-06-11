@@ -123,15 +123,15 @@ namespace Leisn.Xaml.Wpf.Controls
             var displayName = propertyDescriptor.DisplayName ?? propertyDescriptor.Name;
             if (propertyDescriptor.IsLocalizable)
             {
-                LangExtension.SetBinding(item, PropertyItem.CategoryProperty, propertyDescriptor.Category);
-                LangExtension.SetBinding(item, PropertyItem.DisplayNameProperty, displayName);
-                LangExtension.SetBinding(item, PropertyItem.DescriptionProperty, propertyDescriptor.Description);
+                item.SetBindingLangKey(PropertyItem.CategoryProperty, propertyDescriptor.Category);
+                item.SetBindingLangKey(PropertyItem.DisplayNameProperty, displayName);
+                item.SetBindingLangKey(PropertyItem.DescriptionProperty, propertyDescriptor.Description);
             }
             else
             {
-                LangExtension.SetBindingFormat(item, PropertyItem.CategoryProperty, OTHER_KEY.Equals(propertyDescriptor.Category) ? $"{{{OTHER_KEY}}}" : propertyDescriptor.Category);
-                LangExtension.SetBindingFormat(item, PropertyItem.DisplayNameProperty, displayName);
-                LangExtension.SetBindingFormat(item, PropertyItem.DescriptionProperty, propertyDescriptor.Description);
+                item.SetBindingLangFormat(PropertyItem.CategoryProperty, OTHER_KEY.Equals(propertyDescriptor.Category) ? $"{{{OTHER_KEY}}}" : propertyDescriptor.Category);
+                item.SetBindingLangFormat(PropertyItem.DisplayNameProperty, displayName);
+                item.SetBindingLangFormat(PropertyItem.DescriptionProperty, propertyDescriptor.Description);
             }
             return item;
         }

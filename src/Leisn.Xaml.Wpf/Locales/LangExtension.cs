@@ -58,29 +58,6 @@ namespace Leisn.Xaml.Wpf.Locales
             return _bindingExpression;
         }
 
-        public static void SetBinding(DependencyObject targetObject, DependencyProperty targetProperty, string key)
-        {
-            Binding binding = new()
-            {
-                Source = Lang.Current,
-                Path = new PropertyPath($"Values[{key}]"),
-                Mode = BindingMode.OneWay,
-            };
-            _ = BindingOperations.SetBinding(targetObject, targetProperty, binding);
-        }
-
-        public static void SetBindingFormat(DependencyObject targetObject, DependencyProperty targetProperty, string format)
-        {
-            string[] keys = StringHelper.ParseFormat(format, out string? convertedFormat);
-            Binding binding = new()
-            {
-                Source = Lang.Current,
-                Path = new PropertyPath($"Values"),
-                Mode = BindingMode.OneWay,
-                ConverterParameter = new LangFormat { Format = convertedFormat, Keys = keys },
-                Converter = LangFormatConverter.Instance
-            };
-            _ = BindingOperations.SetBinding(targetObject, targetProperty, binding);
-        }
     }
+
 }

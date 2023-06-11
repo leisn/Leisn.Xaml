@@ -2,6 +2,7 @@
 
 using Microsoft.Win32;
 
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -90,7 +91,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 if (dialog.ShowDialog(Application.Current.MainWindow) == true)
                     Path = dialog.SelectedFolder;
             }
-
+            
             //CommonOpenFileDialog dialog = new()
             //{
             //    IsFolderPicker = IsSelectFolder,

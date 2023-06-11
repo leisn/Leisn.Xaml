@@ -12,6 +12,8 @@ using System.Windows;
 using System.Diagnostics;
 using System.Windows.Media;
 using Leisn.Xaml.Wpf;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace WpfDemo
 {
@@ -23,7 +25,11 @@ namespace WpfDemo
         public App()
         {
             Lang.Initialize("en-us");
-        }
 
+            var sevices = new ServiceCollection();
+
+            UIContext.Initialize(sevices.BuildServiceProvider());
+        }
     }
+
 }

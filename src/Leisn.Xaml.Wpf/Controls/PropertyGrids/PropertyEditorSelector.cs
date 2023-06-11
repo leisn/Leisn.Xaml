@@ -4,11 +4,7 @@ using Leisn.Xaml.Wpf.Controls.Editors;
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
@@ -31,7 +27,7 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
         protected virtual IPropertyEditor CreateCustomEditor(EditorAttribute editorAttr, PropertyDescriptor propertyDescriptor)
         {
             var editorType = Type.GetType(editorAttr.EditorTypeName)!;
-            return (IPropertyEditor)Activator.CreateInstance(editorType)!;
+            return (IPropertyEditor)UIContext.Create(editorType)!;
         }
 
         protected virtual IPropertyEditor CreateDefalutEditor(PropertyDescriptor propertyDescriptor) =>

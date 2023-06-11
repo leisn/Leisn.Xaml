@@ -19,7 +19,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement CreateElement(PropertyItem item)
         {
             var providerType = item.PropertyDescriptor.Attr<DataProviderAttribute>()!.ProviderType;
-            var instance = Activator.CreateInstance(providerType);
+            var instance = UIContext.Get(providerType);
             if (instance is not IDataProvider<object> provider)
                 throw new InvalidCastException($"{providerType} is not IDataProvider");
             var values = provider.GetData();
