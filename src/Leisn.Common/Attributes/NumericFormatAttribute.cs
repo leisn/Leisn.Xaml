@@ -8,19 +8,19 @@ namespace Leisn.Common.Attributes
     public class NumericFormatAttribute : Attribute
     {
         /// <summary>
-        /// 单位
+        /// 后缀
         /// </summary>
-        public string Unit { get; set; } = string.Empty;
+        public string Suffix { get; set; } = string.Empty;
         /// <summary>
         /// 小数位数
         /// </summary>
         public int Decimals { get; set; } = -1;
 
         public NumericFormatAttribute() { }
-        public NumericFormatAttribute(string unit, int decimals = -1)
+        public NumericFormatAttribute(string suffix, int decimals = -1)
         {
             Decimals = decimals;
-            Unit = unit;
+            Suffix = suffix;
         }
     }
 }

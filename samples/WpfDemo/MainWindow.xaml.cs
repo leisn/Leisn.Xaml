@@ -73,7 +73,7 @@ namespace WpfDemo
             public string File { get; set; } = "D://";
 
             [NumericUpDown(Increment = 0.1, Maximum = 1, Minimum = -1)]
-            [NumericFormat(Decimals = 3, Unit = "m")]
+            [NumericFormat(Decimals = 3, Suffix  = "m")]
             public double Formart { get; set; }
 
             [ReadOnly(true)]

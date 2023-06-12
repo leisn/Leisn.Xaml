@@ -10,16 +10,16 @@ namespace Leisn.Xaml.Wpf.Controls
     public struct NumericFormat
     {
         /// <summary>
-        /// 单位
+        /// 后缀
         /// </summary>
-        public string Unit { get; set; }
+        public string Suffix { get; set; }
         /// <summary>
         /// 小数位数
         /// </summary>
         public int Decimals { get; set; }
         public NumericFormat()
         {
-            Unit = string.Empty;
+            Suffix = string.Empty;
             Decimals = -1;
         }
     }
