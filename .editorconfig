@@ -4,6 +4,8 @@ root = true
 # You can modify the rules from these initially generated values to suit your own policies
 # You can learn more about editorconfig here: https://docs.microsoft.com/en-us/visualstudio/ide/editorconfig-code-style-settings-reference
 
+
+
 # All files
 [*]
 indent_style = space
@@ -31,33 +33,36 @@ charset = utf-8-bom
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-#### .NET ±àÂëÔ¼¶¨ ####
+#### .NET ç¼–ç çº¦å®š ####
 
-# ×éÖ¯ Using
+# æ–‡ä»¶å¤´
+#file_header_template = unset
+file_header_template = @Leisn (https://leisn.com , https://github.com/leisn)
+
+# ç»„ç»‡ Using
 dotnet_separate_import_directive_groups = true
-dotnet_sort_system_directives_first = false
-file_header_template = unset
+dotnet_sort_system_directives_first = true
 
-# this. ºÍ Me. Ê×Ñ¡Ïî
-dotnet_style_qualification_for_event = false:silent
-dotnet_style_qualification_for_field = false:silent
-dotnet_style_qualification_for_method = false:silent
-dotnet_style_qualification_for_property = false:silent
+# this. å’Œ Me. é¦–é€‰é¡¹
+dotnet_style_qualification_for_event = false:suggestion
+dotnet_style_qualification_for_field = false:suggestion
+dotnet_style_qualification_for_method = false:suggestion
+dotnet_style_qualification_for_property = false:suggestion
 
-# ÓïÑÔ¹Ø¼ü×ÖÓë bcl ÀàĞÍÊ×Ñ¡Ïî
+# è¯­è¨€å…³é”®å­—ä¸ bcl ç±»å‹é¦–é€‰é¡¹
 dotnet_style_predefined_type_for_locals_parameters_members = true:silent
 dotnet_style_predefined_type_for_member_access = true:silent
 
-# À¨ºÅÊ×Ñ¡Ïî
-dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:silent
-dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:silent
-dotnet_style_parentheses_in_other_operators = never_if_unnecessary:silent
-dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:silent
+# æ‹¬å·é¦–é€‰é¡¹
+dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_binary_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_other_operators = always_for_clarity:suggestion
+dotnet_style_parentheses_in_relational_binary_operators = always_for_clarity:suggestion
 
-# ĞŞÊÎ·ûÊ×Ñ¡Ïî
+# ä¿®é¥°ç¬¦é¦–é€‰é¡¹
 dotnet_style_require_accessibility_modifiers = for_non_interface_members:silent
 
-# ±í´ïÊ½¼¶Ê×Ñ¡Ïî
+# è¡¨è¾¾å¼çº§é¦–é€‰é¡¹
 dotnet_style_coalesce_expression = true:suggestion
 dotnet_style_collection_initializer = true:suggestion
 dotnet_style_explicit_tuple_names = true:suggestion
@@ -75,58 +80,59 @@ dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggesti
 dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
 dotnet_style_prefer_simplified_interpolation = true:suggestion
 
-# ×Ö¶ÎÊ×Ñ¡Ïî
+# å­—æ®µé¦–é€‰é¡¹
 dotnet_style_readonly_field = true:suggestion
 
-# ²ÎÊıÊ×Ñ¡Ïî
+# å‚æ•°é¦–é€‰é¡¹
 dotnet_code_quality_unused_parameters = all:suggestion
 
-# ½ûÖ¹ÏÔÊ¾Ê×Ñ¡Ïî
+# ç¦æ­¢æ˜¾ç¤ºé¦–é€‰é¡¹
 dotnet_remove_unnecessary_suppression_exclusions = 0
 
-# ĞÂĞĞÊ×Ñ¡Ïî
+# æ–°è¡Œé¦–é€‰é¡¹
 dotnet_style_allow_multiple_blank_lines_experimental = true:silent
 dotnet_style_allow_statement_immediately_after_block_experimental = true:silent
+tab_width = 4
 
 [*.cs]
-#### c# ±àÂëÔ¼¶¨ ####
+#### c# ç¼–ç çº¦å®š ####
 
-# var Ê×Ñ¡Ïî
+# var é¦–é€‰é¡¹
 csharp_style_var_elsewhere = false:silent
 csharp_style_var_for_built_in_types = false:silent
 csharp_style_var_when_type_is_apparent = false:silent
 
-# Expression-bodied ³ÉÔ±
+# Expression-bodied æˆå‘˜
 csharp_style_expression_bodied_accessors = true:silent
 csharp_style_expression_bodied_constructors = false:silent
 csharp_style_expression_bodied_indexers = true:silent
-csharp_style_expression_bodied_lambdas = true:silent
+csharp_style_expression_bodied_lambdas = true:suggestion
 csharp_style_expression_bodied_local_functions = true:silent
 csharp_style_expression_bodied_methods = false:silent
 csharp_style_expression_bodied_operators = true:silent
 csharp_style_expression_bodied_properties = true:silent
 
-# Ä£Ê½Æ¥ÅäÊ×Ñ¡Ïî
+# æ¨¡å¼åŒ¹é…é¦–é€‰é¡¹
 csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
 csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
 csharp_style_prefer_extended_property_pattern = true:suggestion
 csharp_style_prefer_not_pattern = true:suggestion
-csharp_style_prefer_pattern_matching = true:silent
+csharp_style_prefer_pattern_matching = true:suggestion
 csharp_style_prefer_switch_expression = true:suggestion
 
-# Null ¼ì²éÊ×Ñ¡Ïî
+# Null æ£€æŸ¥é¦–é€‰é¡¹
 csharp_style_conditional_delegate_call = true:suggestion
 
-# ĞŞÊÎ·ûÊ×Ñ¡Ïî
+# ä¿®é¥°ç¬¦é¦–é€‰é¡¹
 csharp_prefer_static_local_function = true:suggestion
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async
 
-# ´úÂë¿éÊ×Ñ¡Ïî
+# ä»£ç å—é¦–é€‰é¡¹
 csharp_prefer_braces = true:silent
 csharp_prefer_simple_using_statement = true:suggestion
 csharp_style_namespace_declarations = block_scoped:silent
 
-# ±í´ïÊ½¼¶Ê×Ñ¡Ïî
+# è¡¨è¾¾å¼çº§é¦–é€‰é¡¹
 csharp_prefer_simple_default_expression = true:suggestion
 csharp_style_deconstructed_variable_declaration = true:suggestion
 csharp_style_implicit_object_creation_when_type_is_apparent = true:suggestion
@@ -140,17 +146,17 @@ csharp_style_throw_expression = true:suggestion
 csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 
-# "using" Ö¸ÁîÊ×Ñ¡Ïî
+# "using" æŒ‡ä»¤é¦–é€‰é¡¹
 csharp_using_directive_placement = outside_namespace:silent
 
-# ĞÂĞĞÊ×Ñ¡Ïî
+# æ–°è¡Œé¦–é€‰é¡¹
 csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true:silent
 csharp_style_allow_blank_lines_between_consecutive_braces_experimental = true:silent
 csharp_style_allow_embedded_statements_on_same_line_experimental = true:silent
 
-#### C# ¸ñÊ½¹æÔò ####
+#### C# æ ¼å¼è§„åˆ™ ####
 
-# ĞÂĞĞÊ×Ñ¡Ïî
+# æ–°è¡Œé¦–é€‰é¡¹
 csharp_new_line_before_catch = true
 csharp_new_line_before_else = true
 csharp_new_line_before_finally = true
@@ -159,7 +165,7 @@ csharp_new_line_before_members_in_object_initializers = true
 csharp_new_line_before_open_brace = all
 csharp_new_line_between_query_expression_clauses = true
 
-# Ëõ½øÊ×Ñ¡Ïî
+# ç¼©è¿›é¦–é€‰é¡¹
 csharp_indent_block_contents = true
 csharp_indent_braces = false
 csharp_indent_case_contents = true
@@ -167,7 +173,7 @@ csharp_indent_case_contents_when_block = true
 csharp_indent_labels = one_less_than_current
 csharp_indent_switch_labels = true
 
-# ¿Õ¸ñ¼üÊ×Ñ¡Ïî
+# ç©ºæ ¼é”®é¦–é€‰é¡¹
 csharp_space_after_cast = false
 csharp_space_after_colon_in_inheritance_clause = true
 csharp_space_after_comma = true
@@ -191,13 +197,13 @@ csharp_space_between_method_declaration_parameter_list_parentheses = false
 csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
-# °ü×°Ê×Ñ¡Ïî
+# åŒ…è£…é¦–é€‰é¡¹
 csharp_preserve_single_line_blocks = true
 csharp_preserve_single_line_statements = true
 
-#### ÃüÃûÑùÊ½ ####
+#### å‘½åæ ·å¼ ####
 
-# ÃüÃû¹æÔò
+# å‘½åè§„åˆ™
 
 dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
 dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
@@ -211,7 +217,7 @@ dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
 dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
 
-# ·ûºÅ¹æ·¶
+# ç¬¦å·è§„èŒƒ
 
 dotnet_naming_symbols.interface.applicable_kinds = interface
 dotnet_naming_symbols.interface.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
@@ -225,7 +231,7 @@ dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, meth
 dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
 dotnet_naming_symbols.non_field_members.required_modifiers = 
 
-# ÃüÃûÑùÊ½
+# å‘½åæ ·å¼
 
 dotnet_naming_style.pascal_case.required_prefix = 
 dotnet_naming_style.pascal_case.required_suffix = 
@@ -239,4 +245,8 @@ dotnet_naming_style.begins_with_i.capitalization = pascal_case
 csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
 csharp_style_prefer_utf8_string_literals = true:suggestion
+csharp_style_prefer_readonly_struct = true:suggestion
+csharp_style_prefer_readonly_struct_member = true:suggestion
+csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = true:silent
+csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = true:silent
 
