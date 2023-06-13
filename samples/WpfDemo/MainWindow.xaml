@@ -56,7 +56,19 @@
             </Border.Background>
           </Border>
         </Grid>
-
+        <Slider Margin=" 0,10" Height="20" Width="200">
+          <Slider.Background>
+            <LinearGradientBrush>
+              <GradientStop Color="#ff0000" />
+              <GradientStop Color="#ff00ff" Offset="0.167" />
+              <GradientStop Color="#0000ff" Offset="0.334" />
+              <GradientStop Color="#00ffff" Offset="0.501" />
+              <GradientStop Color="#00ff00" Offset="0.668" />
+              <GradientStop Color="#ffff00" Offset="0.835" />
+              <GradientStop Color="#ff0000" Offset="1" />
+            </LinearGradientBrush>
+          </Slider.Background>
+        </Slider>
       </StackPanel>
     </Grid>
   </Grid>
