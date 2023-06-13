@@ -1,12 +1,8 @@
-﻿using Leisn.Xaml.Wpf.Locales;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Leisn.Xaml.Wpf
 {

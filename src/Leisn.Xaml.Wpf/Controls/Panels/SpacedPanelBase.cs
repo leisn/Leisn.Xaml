@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 

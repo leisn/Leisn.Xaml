@@ -1,6 +1,4 @@
-﻿using Leisn.Common.Attributes;
-using Leisn.Xaml.Wpf.Controls.PropertyGrids;
-using Leisn.Xaml.Wpf.Locales;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
 using System.Collections.Generic;
@@ -10,6 +8,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+
+using Leisn.Common.Attributes;
+using Leisn.Xaml.Wpf.Controls.PropertyGrids;
+using Leisn.Xaml.Wpf.Locales;
 
 namespace Leisn.Xaml.Wpf.Controls
 {

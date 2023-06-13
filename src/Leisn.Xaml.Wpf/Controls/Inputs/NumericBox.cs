@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;

@@ -1,9 +1,10 @@
-﻿using Leisn.Common;
-using Leisn.Common.Attributes;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
+
+using Leisn.Common.Attributes;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {

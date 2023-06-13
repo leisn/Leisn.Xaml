@@ -1,11 +1,14 @@
-﻿using Leisn.Common.Attributes;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
+
+using Leisn.Common.Attributes;
 
 using Microsoft.Win32;
 
 using WindowsAPICodePack.Dialogs;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 
 namespace Leisn.Xaml.Wpf.Controls
 {

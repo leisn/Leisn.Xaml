@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.Windows;
 
 namespace Leisn.Xaml.Wpf.Controls
 {

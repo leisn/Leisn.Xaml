@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.Linq;
 using System.Reflection;
 
 namespace System

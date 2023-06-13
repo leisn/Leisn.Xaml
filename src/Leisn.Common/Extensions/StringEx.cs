@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.Diagnostics.CodeAnalysis;
 
 namespace System
 {

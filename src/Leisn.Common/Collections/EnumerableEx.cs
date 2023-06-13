@@ -1,8 +1,8 @@
-﻿using System;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
 
 namespace Leisn.Common.Collections
 {

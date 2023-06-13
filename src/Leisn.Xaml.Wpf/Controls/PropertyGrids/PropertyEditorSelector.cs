@@ -1,13 +1,15 @@
-﻿using Leisn.Common.Attributes;
-using Leisn.Common.Data;
-using Leisn.Xaml.Wpf.Controls.Editors;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Media;
 
-namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
+using Leisn.Common.Attributes;
+using Leisn.Common.Data;
+using Leisn.Xaml.Wpf.Controls.Editors;
+
+namespace Leisn.Xaml.Wpf.Controls
 {
     public class PropertyEditorSelector : IPropertyEditorSelector
     {
