@@ -8,14 +8,14 @@ using System.Windows;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
-    internal class NumberEditor : IPropertyEditor
+    internal class NumericEditor : IPropertyEditor
     {
         public double Minimum { get; set; }
         public double Maximum { get; set; }
         public double Increment { get; set; }
         public NumericType NumericType { get; set; }
 
-        public NumberEditor(double minium, double maximum, double increment, NumericType type)
+        public NumericEditor(double minium, double maximum, double increment, NumericType type)
         {
             Minimum = minium;
             Maximum = maximum;
@@ -25,6 +25,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public FrameworkElement CreateElement(PropertyItem item)
         {
+            if (Minimum > Maximum)
+                throw new InvalidOperationException($"Minimum > Maxium: {Minimum} > {Maximum}");
             PropertyDescriptor propertyDescriptor = item.PropertyDescriptor;
             if (propertyDescriptor.Attr<NumericUpDownAttribute>() is NumericUpDownAttribute attr)
             {
@@ -49,7 +51,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             NumericFormat numberFormat = new();
             if (propertyDescriptor.Attr<NumericFormatAttribute>() is NumericFormatAttribute format)
             {
-                numberFormat.Unit = format.Unit;
+                numberFormat.Suffix = format.Suffix;
                 numberFormat.Decimals = format.Decimals;
             }
 

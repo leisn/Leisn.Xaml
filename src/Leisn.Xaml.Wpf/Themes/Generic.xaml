@@ -89,10 +89,13 @@
   <SolidColorBrush x:Key="ControlLighterBrush" Color="{DynamicResource ControlLighterColor}" />
   <SolidColorBrush x:Key="ControlAccentBrush" Color="{DynamicResource ControlAccentColor}" />
   <SolidColorBrush x:Key="NightSkyBrush" Color="{DynamicResource NightSkyColor}" />
+  <converters:BoolReverseConverter x:Key="BoolReverseConverter" />
   <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter" />
   <converters:ObjectVisibilityConverter x:Key="ObjectVisibilityConverter" />
   <converters:ObjectBoolConverter x:Key="ObjectBoolConverter" />
   <converters:NumberOperateConverter x:Key="NumberOperateConverter" />
+  <converters:StringCompareBoolConverter x:Key="StringCompareBoolConverter" />
+  <converters:StringCompareVisibiltyConverter x:Key="StringCompareVisibiltyConverter" />
   <Style x:Key="FocusVisual">
     <Setter Property="Control.Template">
       <Setter.Value>

@@ -27,9 +27,9 @@ namespace Leisn.Xaml.Wpf.Converters
             {
                 vstring = string.Format($"{{0:N{format.Decimals}}}", v);
             }
-            if (!string.IsNullOrEmpty(format.Unit))
+            if (!string.IsNullOrEmpty(format.Suffix))
             {
-                vstring += $" {format.Unit}";
+                vstring += $" {format.Suffix}";
             }
             return vstring;
         }
@@ -47,12 +47,12 @@ namespace Leisn.Xaml.Wpf.Converters
                 return DependencyProperty.UnsetValue;
             }
 
-            if (!string.IsNullOrEmpty(format.Unit))
+            if (!string.IsNullOrEmpty(format.Suffix))
             {
                 var set = new HashSet<char> { ' ' };
-                for (int i = 0; i < format.Unit.Length; i++)
+                for (int i = 0; i < format.Suffix.Length; i++)
                 {
-                    var ch = format.Unit[i];
+                    var ch = format.Suffix[i];
                     if (!char.IsDigit(ch))
                     {
                         set.Add(ch);
