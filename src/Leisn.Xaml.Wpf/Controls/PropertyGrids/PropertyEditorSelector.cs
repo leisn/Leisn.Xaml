@@ -1,8 +1,6 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using Leisn.Common.Attributes;
+﻿using Leisn.Common.Attributes;
 using Leisn.Common.Data;
-using Leisn.Xaml.Wpf.Controls.Inputs;
+using Leisn.Xaml.Wpf.Controls.Editors;
 
 using System;
 using System.Collections;
@@ -18,21 +16,22 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
             EditorAttribute? editorAttr = propertyDescriptor.Attr<EditorAttribute>();
             if (editorAttr is null || string.IsNullOrEmpty(editorAttr.EditorTypeName))
             {
-                IPropertyEditor? specialEditior = CreateSpecialEditor(propertyDescriptor);
-                return specialEditior is not null ? specialEditior : CreateDefalutEditor(propertyDescriptor);
+                var specialEditior = CreateSpecialEditor(propertyDescriptor);
+                if (specialEditior is not null)
+                    return specialEditior;
+                return CreateDefalutEditor(propertyDescriptor);
             }
             return CreateCustomEditor(editorAttr, propertyDescriptor);
         }
 
         protected virtual IPropertyEditor CreateCustomEditor(EditorAttribute editorAttr, PropertyDescriptor propertyDescriptor)
         {
-            Type editorType = Type.GetType(editorAttr.EditorTypeName)!;
+            var editorType = Type.GetType(editorAttr.EditorTypeName)!;
             return (IPropertyEditor)UIContext.Create(editorType)!;
         }
 
-        protected virtual IPropertyEditor CreateDefalutEditor(PropertyDescriptor propertyDescriptor)
-        {
-            return Type.GetTypeCode(propertyDescriptor.PropertyType) switch
+        protected virtual IPropertyEditor CreateDefalutEditor(PropertyDescriptor propertyDescriptor) =>
+            Type.GetTypeCode(propertyDescriptor.PropertyType) switch
             {
                 TypeCode.Boolean => new BoolEditor(),
                 TypeCode.SByte => new NumericEditor(sbyte.MinValue, sbyte.MaxValue, 1, NumericType.Int),
@@ -51,25 +50,30 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
                 TypeCode.Object => CreateObjectEditor(propertyDescriptor),
                 _ => new ReadOnlyTextEditor()
             };
-        }
 
         protected virtual IPropertyEditor? CreateSpecialEditor(PropertyDescriptor propertyDescriptor)
         {
-            return propertyDescriptor.PropertyType.IsEnum
-                ? new EnumEditor()
-                : propertyDescriptor.Attr<DataProviderAttribute>() is not null ? new ComboDataEditor() : (IPropertyEditor?)null;
+            if (propertyDescriptor.PropertyType.IsEnum)
+                return new EnumEditor();
+            if (propertyDescriptor.Attr<DataProviderAttribute>() is not null)
+                return new ComboDataEditor();
+            return null;
         }
 
         protected virtual IPropertyEditor CreatStringEditor(PropertyDescriptor propertyDescriptor)
         {
-            return propertyDescriptor.Attr<PathSelectAttribute>() != null ? new PathSelectEditor() : new TextEditor();
+            if (propertyDescriptor.Attr<PathSelectAttribute>() != null)
+                return new PathSelectEditor();
+            return new TextEditor();
         }
 
         protected virtual IPropertyEditor CreateObjectEditor(PropertyDescriptor propertyDescriptor)
         {
-            return propertyDescriptor.PropertyType == typeof(Color)
-                ? new ColorPickerEditor()
-                : propertyDescriptor.PropertyType.IsAssignableTo(typeof(IEnumerable)) ? (IPropertyEditor)new CollectionEditor() : new ReadOnlyTextEditor();
+            if (propertyDescriptor.PropertyType == typeof(Color))
+                return new ColorPickerEditor();
+            if (propertyDescriptor.PropertyType.IsAssignableTo(typeof(IEnumerable)))
+                return new CollectionEditor();
+            return new ReadOnlyTextEditor();
         }
     }
 }

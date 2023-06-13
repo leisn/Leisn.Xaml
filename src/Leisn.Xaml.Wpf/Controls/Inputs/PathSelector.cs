@@ -1,16 +1,13 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using Leisn.Common.Attributes;
+﻿using Leisn.Common.Attributes;
 
 using Microsoft.Win32;
 
+using WindowsAPICodePack.Dialogs;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
-using WindowsAPICodePack.Dialogs;
-
-namespace Leisn.Xaml.Wpf.Controls.Inputs
+namespace Leisn.Xaml.Wpf.Controls
 {
     [TemplatePart(Name = PART_TextBoxName, Type = typeof(TextBox))]
     [TemplatePart(Name = PART_ButtonName, Type = typeof(ButtonBase))]
@@ -23,8 +20,8 @@ namespace Leisn.Xaml.Wpf.Controls.Inputs
         private ButtonBase _button = null!;
         public PathSelectMode Mode
         {
-            get => (PathSelectMode)GetValue(ModeProperty);
-            set => SetValue(ModeProperty, value);
+            get { return (PathSelectMode)GetValue(ModeProperty); }
+            set { SetValue(ModeProperty, value); }
         }
         public static readonly DependencyProperty ModeProperty =
             DependencyProperty.Register("Mode", typeof(PathSelectMode), typeof(PathSelector), new PropertyMetadata(PathSelectMode.Folder));
@@ -76,25 +73,16 @@ namespace Leisn.Xaml.Wpf.Controls.Inputs
 
         private void OnButtonClicked(object sender, RoutedEventArgs e)
         {
-            if (Mode is PathSelectMode.OpenFile or PathSelectMode.SaveFile)
+            if (Mode == PathSelectMode.OpenFile || Mode == PathSelectMode.SaveFile)
             {
                 FileDialog fileDialog = Mode == PathSelectMode.SaveFile ?
                     new Microsoft.Win32.SaveFileDialog() : new Microsoft.Win32.OpenFileDialog();
                 if (!string.IsNullOrEmpty(FileFilter))
-                {
                     fileDialog.Filter = FileFilter;
-                }
-
                 if (!string.IsNullOrEmpty(DialogTitle))
-                {
                     fileDialog.Title = DialogTitle;
-                }
-
                 if (fileDialog.ShowDialog(Application.Current.MainWindow) != true)
-                {
                     return;
-                }
-
                 Path = fileDialog.FileName;
             }
             else if (Mode == PathSelectMode.Folder)
@@ -105,10 +93,7 @@ namespace Leisn.Xaml.Wpf.Controls.Inputs
                     Title = DialogTitle,
                 };
                 if (dialog.ShowDialog(Application.Current.MainWindow) != CommonFileDialogResult.Ok)
-                {
                     return;
-                }
-
                 Path = dialog.FileName!;
             }
         }

@@ -1,6 +1,4 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -117,15 +115,16 @@ namespace Leisn.Xaml.Wpf.Locales
 
             public string this[string key]
             {
-                get =>
+                get
+                {
 #if DEBUG
-                    !_values.ContainsKey(key)
-                        ? throw new ArgumentOutOfRangeException(nameof(key), $"Cannot find locales for [{key}]")
-                        : _values[key];
+                    if (!_values.ContainsKey(key))
+                        throw new ArgumentOutOfRangeException(nameof(key), $"Cannot find locales for [{key}]");
+                    return _values[key];
 #else
                     return _values.TryGetValue(key, out string? value) ? value : key;
 #endif
-
+                }
                 set => _values[key] = value;
             }
 

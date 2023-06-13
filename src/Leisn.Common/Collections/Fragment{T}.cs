@@ -1,6 +1,4 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -19,20 +17,11 @@ namespace Leisn.Common.Collections
         {
             Array = array ?? throw new ArgumentNullException(nameof(array));
             if (start < 0)
-            {
                 throw new ArgumentOutOfRangeException(nameof(start));
-            }
-
             if (end >= array.Length)
-            {
                 throw new ArgumentOutOfRangeException(nameof(end));
-            }
-
             if (end - start < 0)
-            {
                 throw new ArgumentOutOfRangeException($"'{nameof(start)}' cannot greater than '{nameof(end)}' :{start} > {end}");
-            }
-
             _start = start;
             _end = end;
         }
@@ -43,10 +32,7 @@ namespace Leisn.Common.Collections
             set
             {
                 if (value < 0 || value > End)
-                {
                     throw new ArgumentOutOfRangeException(nameof(Start));
-                }
-
                 _start = value;
             }
         }
@@ -56,10 +42,7 @@ namespace Leisn.Common.Collections
             set
             {
                 if (value >= Array.Length || value < Start)
-                {
                     throw new ArgumentOutOfRangeException(nameof(End));
-                }
-
                 _end = value;
             }
         }
@@ -68,7 +51,15 @@ namespace Leisn.Common.Collections
         public int Count => End - Start;
         public bool IsReadOnly { get; } = true;
 
-        public T this[int index] => index < Start || index > End ? throw new ArgumentOutOfRangeException(nameof(index)) : Array[index + Start];
+        public T this[int index]
+        {
+            get
+            {
+                if (index < Start || index > End)
+                    throw new ArgumentOutOfRangeException(nameof(index));
+                return Array[index + Start];
+            }
+        }
 
         T IList<T>.this[int index]
         {
@@ -90,10 +81,7 @@ namespace Leisn.Common.Collections
             return index;
         }
 
-        public bool Contains(T item)
-        {
-            return IndexOf(item) >= 0;
-        }
+        public bool Contains(T item) => IndexOf(item) >= 0;
 
         public void CopyTo(T[] array, int arrayIndex)
         {
@@ -101,16 +89,8 @@ namespace Leisn.Common.Collections
         }
 
         #region enumerator
-        public IEnumerator<T> GetEnumerator()
-        {
-            return new Enumerator(this);
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
+        public IEnumerator<T> GetEnumerator() => new Enumerator(this);
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         private struct Enumerator : IEnumerator<T>, IEnumerator
         {
             public T Current => _fragment.Array[_current];

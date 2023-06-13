@@ -1,12 +1,10 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
+namespace Leisn.Xaml.Wpf.Controls
 {
     public class PropertyItem : ListBoxItem
     {
@@ -117,7 +115,7 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
                 Mode = IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
             };
-            _ = BindingOperations.SetBinding(EditorElement, Editor.GetBindingProperty(), binding);
+            BindingOperations.SetBinding(EditorElement, Editor.GetBindingProperty(), binding);
         }
     }
 }

@@ -1,9 +1,7 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using System;
+﻿using System;
 using System.Windows;
 
-namespace Leisn.Xaml.Wpf.Controls.PropertyGrids.Editors
+namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class DateTimeEditor : IPropertyEditor
     {

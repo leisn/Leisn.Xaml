@@ -1,6 +1,4 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using System;
+﻿using System;
 
 namespace Leisn.Common.Attributes
 {

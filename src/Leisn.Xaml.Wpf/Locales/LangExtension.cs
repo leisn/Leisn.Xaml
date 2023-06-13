@@ -1,4 +1,4 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+﻿using Leisn.Common.Helpers;
 
 using System;
 using System.Windows;

@@ -1,17 +1,15 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
+﻿using Leisn.Common;
 using Leisn.Common.Attributes;
-using Leisn.Xaml.Wpf.Controls.Inputs;
 
 using System.Windows;
 
-namespace Leisn.Xaml.Wpf.Controls.PropertyGrids.Editors
+namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class PathSelectEditor : IPropertyEditor
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            PathSelectAttribute attr = item.PropertyDescriptor.Attr<PathSelectAttribute>() ?? new PathSelectAttribute();
+            var attr = item.PropertyDescriptor.Attr<PathSelectAttribute>() ?? new PathSelectAttribute();
             return new PathSelector
             {
                 Mode = attr.Mode,
@@ -22,9 +20,6 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids.Editors
             };
         }
 
-        public DependencyProperty GetBindingProperty()
-        {
-            return PathSelector.PathProperty;
-        }
+        public DependencyProperty GetBindingProperty() => PathSelector.PathProperty;
     }
 }

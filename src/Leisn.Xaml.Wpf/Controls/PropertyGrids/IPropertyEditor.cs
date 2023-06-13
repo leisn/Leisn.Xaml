@@ -1,8 +1,6 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+﻿using System.Windows;
 
-using System.Windows;
-
-namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
+namespace Leisn.Xaml.Wpf.Controls
 {
     public interface IPropertyEditor
     {

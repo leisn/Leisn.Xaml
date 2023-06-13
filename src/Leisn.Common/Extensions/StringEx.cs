@@ -1,15 +1,15 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+﻿using System.Diagnostics.CodeAnalysis;
 
-using System.Diagnostics.CodeAnalysis;
-
-namespace Leisn.Common.Extensions
+namespace System
 {
     public static class StringEx
     {
         [return: NotNullIfNotNull("source")]
-        public static string? Replace(this string source, int startIndex, int endIndex, string replacement)
+        public static string Replace(this string source, int startIndex, int endIndex, string replacement)
         {
-            return source == null ? source : source[..startIndex] + replacement + source[(endIndex + 1)..];
+            if (source == null)
+                return source!;
+            return source[..startIndex] + replacement + source[(endIndex + 1)..];
         }
     }
 }

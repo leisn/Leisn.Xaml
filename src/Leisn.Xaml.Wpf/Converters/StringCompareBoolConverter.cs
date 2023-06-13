@@ -1,6 +1,4 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows.Data;
 
@@ -16,11 +14,11 @@ namespace Leisn.Xaml.Wpf.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string? vstr = value?.ToString();
-            string? pstr = parameter?.ToString();
+            var vstr = value?.ToString();
+            var pstr = parameter?.ToString();
             if (pstr?.StartsWith('!') == true)
             {
-                pstr = pstr[1..];
+                pstr = pstr.Substring(1);
                 return !string.Equals(vstr, pstr);
             }
             return string.Equals(vstr, pstr);

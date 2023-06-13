@@ -1,6 +1,4 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using System;
+﻿using System;
 
 namespace Leisn.Common.Attributes
 {
@@ -12,5 +10,5 @@ namespace Leisn.Common.Attributes
         public string? DialogTitle { get; set; }
         public bool IsTextReadOnly { get; set; } = true;
     }
-
+   
 }

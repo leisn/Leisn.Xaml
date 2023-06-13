@@ -1,6 +1,5 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using Leisn.Common.Attributes;
+﻿using Leisn.Common.Attributes;
+using Leisn.Xaml.Wpf.Controls.PropertyGrids;
 using Leisn.Xaml.Wpf.Locales;
 
 using System;
@@ -12,7 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
+namespace Leisn.Xaml.Wpf.Controls
 {
     [TemplatePart(Name = ItemsControlName, Type = typeof(ItemsControl))]
     public class PropertyGrid : Control
@@ -44,8 +43,8 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
 
         public IPropertyEditorSelector EditorSelector
         {
-            get => (IPropertyEditorSelector)GetValue(EditorSelectorProperty);
-            set => SetValue(EditorSelectorProperty, value);
+            get { return (IPropertyEditorSelector)GetValue(EditorSelectorProperty); }
+            set { SetValue(EditorSelectorProperty, value); }
         }
         public static readonly DependencyProperty EditorSelectorProperty =
             DependencyProperty.Register("EditorSelector", typeof(IPropertyEditorSelector), typeof(PropertyGrid),
@@ -54,9 +53,8 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
         private static void OnEditorSelectorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue is null)
-            {
                 throw new ArgumentNullException(nameof(EditorSelector), "Editor Selector cannot be null");
-            } (d as PropertyGrid)?.UpdateItems();
+            (d as PropertyGrid)?.UpdateItems();
         }
 
         public object Source { get => GetValue(SourceProperty); set => SetValue(SourceProperty, value); }
@@ -80,7 +78,7 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
             _itemsControl = (ItemsControl)GetTemplateChild(ItemsControlName);
         }
 
-        private const string OTHER_KEY = "Misc";
+        const string OTHER_KEY = "Misc";
         protected virtual void UpdateItems()
         {
             if (Source is null || _itemsControl is null || EditorSelector is null)
@@ -118,7 +116,7 @@ namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
                 IsReadOnly = propertyDescriptor.IsReadOnly,
                 Editor = EditorSelector.CreateEditor(propertyDescriptor)
             };
-            string displayName = propertyDescriptor.DisplayName ?? propertyDescriptor.Name;
+            var displayName = propertyDescriptor.DisplayName ?? propertyDescriptor.Name;
             if (propertyDescriptor.IsLocalizable)
             {
                 item.SetBindingLangKey(PropertyItem.CategoryProperty, propertyDescriptor.Category);

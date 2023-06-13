@@ -1,6 +1,4 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
-using Leisn.Xaml.Wpf.Controls.Inputs;
+﻿using Leisn.Xaml.Wpf.Controls;
 
 using System;
 using System.Collections.Generic;
@@ -41,35 +39,34 @@ namespace Leisn.Xaml.Wpf.Converters
         {
             string vstring = value.ToString()!.Trim();
             if (string.IsNullOrEmpty(vstring))
-            {
                 vstring = "0";
-            }
-
             if (parameter is not NumericFormat format)
             {
-                return double.TryParse(vstring, out double val1) ? val1 : DependencyProperty.UnsetValue;
+                if (double.TryParse(vstring, out var val1))
+                    return val1;
+                return DependencyProperty.UnsetValue;
             }
 
             if (!string.IsNullOrEmpty(format.Suffix))
             {
-                HashSet<char> set = new() { ' ' };
+                var set = new HashSet<char> { ' ' };
                 for (int i = 0; i < format.Suffix.Length; i++)
                 {
-                    char ch = format.Suffix[i];
+                    var ch = format.Suffix[i];
                     if (!char.IsDigit(ch))
                     {
-                        _ = set.Add(ch);
+                        set.Add(ch);
                     }
                 }
                 Regex regex = new($"[{string.Join("", set)}]", RegexOptions.IgnoreCase);
-                Match match = regex.Match(vstring);
+                var match = regex.Match(vstring);
                 if (match.Success)
                 {
                     vstring = vstring[..match.Index].Trim();
                 }
             }
 
-            if (double.TryParse(vstring, out double val))
+            if (double.TryParse(vstring, out var val))
             {
                 if (format.Decimals >= 0)
                 {

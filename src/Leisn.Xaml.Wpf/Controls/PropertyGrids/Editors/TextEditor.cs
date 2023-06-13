@@ -1,12 +1,11 @@
-﻿// By Leisn (https://leisn.com , https://github.com/leisn)
-
+﻿using Leisn.Common;
 using Leisn.Common.Attributes;
 
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Leisn.Xaml.Wpf.Controls.PropertyGrids.Editors
+namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class TextEditor : IPropertyEditor
     {
