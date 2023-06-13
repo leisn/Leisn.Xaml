@@ -23,8 +23,8 @@ namespace Leisn.Xaml.Wpf.Controls
         private ButtonBase _button = null!;
         public PathSelectMode Mode
         {
-            get { return (PathSelectMode)GetValue(ModeProperty); }
-            set { SetValue(ModeProperty, value); }
+            get => (PathSelectMode)GetValue(ModeProperty);
+            set => SetValue(ModeProperty, value);
         }
         public static readonly DependencyProperty ModeProperty =
             DependencyProperty.Register("Mode", typeof(PathSelectMode), typeof(PathSelector), new PropertyMetadata(PathSelectMode.Folder));
@@ -76,16 +76,25 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void OnButtonClicked(object sender, RoutedEventArgs e)
         {
-            if (Mode == PathSelectMode.OpenFile || Mode == PathSelectMode.SaveFile)
+            if (Mode is PathSelectMode.OpenFile or PathSelectMode.SaveFile)
             {
                 FileDialog fileDialog = Mode == PathSelectMode.SaveFile ?
                     new Microsoft.Win32.SaveFileDialog() : new Microsoft.Win32.OpenFileDialog();
                 if (!string.IsNullOrEmpty(FileFilter))
+                {
                     fileDialog.Filter = FileFilter;
+                }
+
                 if (!string.IsNullOrEmpty(DialogTitle))
+                {
                     fileDialog.Title = DialogTitle;
+                }
+
                 if (fileDialog.ShowDialog(Application.Current.MainWindow) != true)
+                {
                     return;
+                }
+
                 Path = fileDialog.FileName;
             }
             else if (Mode == PathSelectMode.Folder)
@@ -96,7 +105,10 @@ namespace Leisn.Xaml.Wpf.Controls
                     Title = DialogTitle,
                 };
                 if (dialog.ShowDialog(Application.Current.MainWindow) != CommonFileDialogResult.Ok)
+                {
                     return;
+                }
+
                 Path = dialog.FileName!;
             }
         }

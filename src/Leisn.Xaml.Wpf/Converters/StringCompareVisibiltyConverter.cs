@@ -17,8 +17,8 @@ namespace Leisn.Xaml.Wpf.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var vstr = value?.ToString();
-            var pstr = parameter?.ToString();
+            string? vstr = value?.ToString();
+            string? pstr = parameter?.ToString();
             bool equals = string.Equals(vstr, pstr);
             if (pstr?.StartsWith('!') == true)
             {

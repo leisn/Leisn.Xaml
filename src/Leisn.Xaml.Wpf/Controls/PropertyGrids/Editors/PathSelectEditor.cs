@@ -10,7 +10,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            var attr = item.PropertyDescriptor.Attr<PathSelectAttribute>() ?? new PathSelectAttribute();
+            PathSelectAttribute attr = item.PropertyDescriptor.Attr<PathSelectAttribute>() ?? new PathSelectAttribute();
             return new PathSelector
             {
                 Mode = attr.Mode,
@@ -21,6 +21,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             };
         }
 
-        public DependencyProperty GetBindingProperty() => PathSelector.PathProperty;
+        public DependencyProperty GetBindingProperty()
+        {
+            return PathSelector.PathProperty;
+        }
     }
 }

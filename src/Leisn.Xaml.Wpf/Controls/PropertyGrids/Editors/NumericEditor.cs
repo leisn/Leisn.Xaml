@@ -27,7 +27,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement CreateElement(PropertyItem item)
         {
             if (Minimum > Maximum)
+            {
                 throw new InvalidOperationException($"Minimum > Maxium: {Minimum} > {Maximum}");
+            }
+
             PropertyDescriptor propertyDescriptor = item.PropertyDescriptor;
             if (propertyDescriptor.Attr<NumericUpDownAttribute>() is NumericUpDownAttribute attr)
             {

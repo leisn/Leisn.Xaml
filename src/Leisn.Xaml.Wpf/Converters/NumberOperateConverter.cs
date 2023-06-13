@@ -11,10 +11,10 @@ namespace Leisn.Xaml.Wpf.Converters
     [ValueConversion(typeof(IConvertible), typeof(IConvertible), ParameterType = typeof(string))]
     public class NumberOperateConverter : IValueConverter
     {
-        readonly static char[] Opreations = new char[] { '+', '-', '*', '/', '%', '~', '&', '|', '^' };
+        private static readonly char[] Opreations = new char[] { '+', '-', '*', '/', '%', '~', '&', '|', '^' };
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var opr = parameter?.ToString()?.Trim();
+            string? opr = parameter?.ToString()?.Trim();
             if (string.IsNullOrEmpty(opr))
             {
                 return value;
@@ -25,9 +25,12 @@ namespace Leisn.Xaml.Wpf.Converters
             }
             char opreation = opr[0];
             if (!Opreations.Contains(opreation))
+            {
                 throw new ArgumentException("Parameter operation not supported.", nameof(parameter));
-            var targetStr = opr[1..].Trim();
-            if (opreation == '+' || opreation == '-' || opreation == '*' || opreation == '/' || opreation == '%')
+            }
+
+            string targetStr = opr[1..].Trim();
+            if (opreation is '+' or '-' or '*' or '/' or '%')
             {
                 double target = double.Parse(targetStr);
                 double dValue = cv.ToDouble(null);
@@ -51,7 +54,7 @@ namespace Leisn.Xaml.Wpf.Converters
                 }
                 return ConvertValue(dValue, targetType);
             }
-            else if (opreation == '&' || opreation == '|' || opreation == '^')
+            else if (opreation is '&' or '|' or '^')
             {
                 int target = int.Parse(targetStr);
                 int iValue = cv.ToInt32(null);
@@ -72,7 +75,10 @@ namespace Leisn.Xaml.Wpf.Converters
             else if (opreation == '~')
             {
                 if (!string.IsNullOrEmpty(targetStr))
+                {
                     throw new ArgumentException($"{parameter} is not correct, for '~', only '~' ", nameof(parameter));
+                }
+
                 int iValue = cv.ToInt32(null);
                 return ConvertValue(~iValue, targetType);
             }
@@ -81,7 +87,7 @@ namespace Leisn.Xaml.Wpf.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var opr = parameter?.ToString()?.Trim();
+            string? opr = parameter?.ToString()?.Trim();
             if (string.IsNullOrEmpty(opr))
             {
                 return value;
@@ -92,13 +98,16 @@ namespace Leisn.Xaml.Wpf.Converters
             }
             char opreation = opr[0];
             if (!Opreations.Contains(opreation))
+            {
                 throw new ArgumentException("Parameter operation not supported.", nameof(parameter));
-            if (opreation == '%' || opreation == '&' || opreation == '|')
+            }
+
+            if (opreation is '%' or '&' or '|')
             {
                 throw new NotSupportedException($"Convert back '{opreation}' is not supported.");
             }
-            var targetStr = opr[1..].Trim();
-            if (opreation == '+' || opreation == '-' || opreation == '*' || opreation == '/')
+            string targetStr = opr[1..].Trim();
+            if (opreation is '+' or '-' or '*' or '/')
             {
                 double target = double.Parse(targetStr);
                 double dValue = cv.ToDouble(null);
@@ -128,7 +137,10 @@ namespace Leisn.Xaml.Wpf.Converters
             else if (opreation == '~')
             {
                 if (!string.IsNullOrEmpty(targetStr))
+                {
                     throw new ArgumentException($"{parameter} is not correct, for '~', only '~' ", nameof(parameter));
+                }
+
                 int iValue = ~cv.ToInt32(null);
                 return ConvertValue(iValue, targetType);
             }
@@ -137,8 +149,8 @@ namespace Leisn.Xaml.Wpf.Converters
 
         private static object ConvertValue(object dValue, Type targetType)
         {
-            var dV = (IConvertible)dValue;
-            var code = Type.GetTypeCode(targetType);
+            IConvertible dV = (IConvertible)dValue;
+            TypeCode code = Type.GetTypeCode(targetType);
             return code switch
             {
                 TypeCode.Boolean => dV.ToBoolean(null),

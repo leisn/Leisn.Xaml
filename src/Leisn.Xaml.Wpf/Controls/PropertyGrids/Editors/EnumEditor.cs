@@ -14,7 +14,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            var values = Enum.GetValues(item.PropertyType).OfType<Enum>().Select(x => new DataDeclaration
+            System.Collections.Generic.IEnumerable<DataDeclaration> values = Enum.GetValues(item.PropertyType).OfType<Enum>().Select(x => new DataDeclaration
             {
                 Value = x,
                 DisplayName = x.Attr<CategoryAttribute>()?.Category ?? x.ToString(),

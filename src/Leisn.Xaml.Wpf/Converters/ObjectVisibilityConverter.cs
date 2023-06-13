@@ -20,8 +20,10 @@ namespace Leisn.Xaml.Wpf.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!EnumEx.TryParse<ObjectVisibilityConverterMode>(parameter, out var mode))
+            if (!EnumEx.TryParse<ObjectVisibilityConverterMode>(parameter, out ObjectVisibilityConverterMode mode))
+            {
                 mode = ObjectVisibilityConverterMode.NullCollapsed;
+            }
 
             bool isNull = value is null || (value is string str && string.IsNullOrEmpty(str));
             return mode switch

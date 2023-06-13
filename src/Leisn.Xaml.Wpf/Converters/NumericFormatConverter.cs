@@ -41,34 +41,35 @@ namespace Leisn.Xaml.Wpf.Converters
         {
             string vstring = value.ToString()!.Trim();
             if (string.IsNullOrEmpty(vstring))
+            {
                 vstring = "0";
+            }
+
             if (parameter is not NumericFormat format)
             {
-                if (double.TryParse(vstring, out var val1))
-                    return val1;
-                return DependencyProperty.UnsetValue;
+                return double.TryParse(vstring, out double val1) ? val1 : DependencyProperty.UnsetValue;
             }
 
             if (!string.IsNullOrEmpty(format.Suffix))
             {
-                var set = new HashSet<char> { ' ' };
+                HashSet<char> set = new() { ' ' };
                 for (int i = 0; i < format.Suffix.Length; i++)
                 {
-                    var ch = format.Suffix[i];
+                    char ch = format.Suffix[i];
                     if (!char.IsDigit(ch))
                     {
                         set.Add(ch);
                     }
                 }
                 Regex regex = new($"[{string.Join("", set)}]", RegexOptions.IgnoreCase);
-                var match = regex.Match(vstring);
+                Match match = regex.Match(vstring);
                 if (match.Success)
                 {
                     vstring = vstring[..match.Index].Trim();
                 }
             }
 
-            if (double.TryParse(vstring, out var val))
+            if (double.TryParse(vstring, out double val))
             {
                 if (format.Decimals >= 0)
                 {

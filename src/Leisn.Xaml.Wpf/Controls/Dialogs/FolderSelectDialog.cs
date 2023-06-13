@@ -151,7 +151,7 @@ namespace Microsoft.Win32
                     if (!string.IsNullOrEmpty(SelectedFolder))
                     {
                         // Try to select the folder specified by selectedPath
-                        Win32Apis.SendMessage(new HandleRef(null, hwnd), (int)Win32Apis.BFFM_SETSELECTION, 1, SelectedFolder);
+                        Win32Apis.SendMessage(new HandleRef(null, hwnd), Win32Apis.BFFM_SETSELECTION, 1, SelectedFolder);
                     }
                     break;
                 case Win32Apis.BFFM_SELCHANGED:
@@ -163,7 +163,7 @@ namespace Microsoft.Win32
                         // Try to retrieve the path from the IDList
                         bool isFileSystemFolder = Win32Apis.SHGetPathFromIDListLongPath(selectedPidl, ref pszSelectedPath);
                         Marshal.FreeHGlobal(pszSelectedPath);
-                        Win32Apis.SendMessage(new HandleRef(null, hwnd), (int)Win32Apis.BFFM_ENABLEOK, 0, isFileSystemFolder ? 1 : 0);
+                        Win32Apis.SendMessage(new HandleRef(null, hwnd), Win32Apis.BFFM_ENABLEOK, 0, isFileSystemFolder ? 1 : 0);
                     }
                     break;
             }
@@ -191,14 +191,7 @@ namespace Microsoft.Win32
 
         static Win32Apis()
         {
-            if (Marshal.SystemDefaultCharSize == 1)
-            {
-                BFFM_SETSELECTION = BFFM_SETSELECTIONA;
-            }
-            else
-            {
-                BFFM_SETSELECTION = BFFM_SETSELECTIONW;
-            }
+            BFFM_SETSELECTION = Marshal.SystemDefaultCharSize == 1 ? BFFM_SETSELECTIONA : BFFM_SETSELECTIONW;
         }
         [Flags]
         public enum BrowseInfos
@@ -209,7 +202,7 @@ namespace Microsoft.Win32
         public delegate int BrowseCallbackProc(IntPtr hwnd, int msg, IntPtr lParam, IntPtr lpData);
 
         [DllImport(OLE32, SetLastError = true, CharSet = CharSet.Auto, ExactSpelling = true)]
-        internal extern static void CoTaskMemFree(IntPtr pv);
+        internal static extern void CoTaskMemFree(IntPtr pv);
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         public class BROWSEINFO
@@ -261,7 +254,9 @@ namespace Microsoft.Win32
                 string path = Marshal.PtrToStringAuto(pszPath)!;
 
                 if (path.Length != 0 && path.Length < length)
+                {
                     break;
+                }
 
                 noOfTimes += 2; //520 chars capacity increase in each iteration.
                 length = noOfTimes * length >= MAX_UNICODESTRING_LEN
