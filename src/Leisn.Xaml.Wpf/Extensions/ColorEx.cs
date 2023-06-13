@@ -70,7 +70,7 @@ namespace System.Windows.Media
             };
         }
 
-        public static ref Color SetHex(ref this Color color, string hex)
+        public static ref Color Set(ref this Color color, string hex)
         {
             var target = FromHex(hex);
             return ref color.Set(A: target.A, R: target.R, G: target.G, B: target.B);
