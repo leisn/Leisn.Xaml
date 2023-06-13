@@ -1,11 +1,13 @@
-﻿using Leisn.Xaml.Wpf.Converters;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using Leisn.Xaml.Wpf.Converters;
 
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Leisn.Xaml.Wpf.Controls
+namespace Leisn.Xaml.Wpf.Controls.Attachs
 {
     public class BorderAttach
     {

@@ -1,12 +1,14 @@
-﻿using Leisn.Common;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
 using Leisn.Common.Attributes;
+using Leisn.Xaml.Wpf.Controls.Inputs;
 
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 
-namespace Leisn.Xaml.Wpf.Controls.Editors
+namespace Leisn.Xaml.Wpf.Controls.PropertyGrids.Editors
 {
     internal class NumericEditor : IPropertyEditor
     {
@@ -26,7 +28,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement CreateElement(PropertyItem item)
         {
             if (Minimum > Maximum)
+            {
                 throw new InvalidOperationException($"Minimum > Maxium: {Minimum} > {Maximum}");
+            }
+
             PropertyDescriptor propertyDescriptor = item.PropertyDescriptor;
             if (propertyDescriptor.Attr<NumericUpDownAttribute>() is NumericUpDownAttribute attr)
             {

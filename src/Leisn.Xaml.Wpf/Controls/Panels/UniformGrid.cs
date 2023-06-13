@@ -1,9 +1,11 @@
-﻿using System;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Leisn.Xaml.Wpf.Controls
+namespace Leisn.Xaml.Wpf.Controls.Panels
 {
     public class UniformGrid : SpacedPanelBase
     {
@@ -104,8 +106,8 @@ namespace Leisn.Xaml.Wpf.Controls
             UpdateCells();
             double hspace = FinalHorizontalSpacing;
             double vspace = FinalVerticalSpacing;
-            double consWidth = (constraint.Width - Padding.Left - Padding.Right - (_columns - 1) * hspace) / _columns;
-            double consHeight = (constraint.Height - Padding.Top - Padding.Bottom - (_rows - 1) * vspace) / _rows;
+            double consWidth = (constraint.Width - Padding.Left - Padding.Right - ((_columns - 1) * hspace)) / _columns;
+            double consHeight = (constraint.Height - Padding.Top - Padding.Bottom - ((_rows - 1) * vspace)) / _rows;
             Size childConstraint = new(consWidth > 0 ? consWidth : 0, consHeight > 0 ? consHeight : 0);
             double maxChildDesiredWidth = 0.0;
             double maxChildDesiredHeight = 0.0;
@@ -128,8 +130,8 @@ namespace Leisn.Xaml.Wpf.Controls
             _cellSize = new Size(
                double.IsInfinity(childConstraint.Width) ? maxChildDesiredWidth : childConstraint.Width,
                double.IsInfinity(childConstraint.Height) ? maxChildDesiredHeight : childConstraint.Height);
-            double finalWidth = _cellSize.Width * _columns + (_columns - 1) * hspace;
-            double finalHeight = _cellSize.Height * _rows + (_rows - 1) * vspace;
+            double finalWidth = (_cellSize.Width * _columns) + ((_columns - 1) * hspace);
+            double finalHeight = (_cellSize.Height * _rows) + ((_rows - 1) * vspace);
             double width = finalWidth + Padding.Left + Padding.Right;
             double height = finalHeight + Padding.Top + Padding.Bottom;
             width = Math.Max(0, width);
@@ -187,13 +189,13 @@ namespace Leisn.Xaml.Wpf.Controls
                 gcolumn = gcolumn > 0 ? gcolumn - 1 : col;
 
 
-                left = Padding.Left + gcolumn * cellWidth + gcolumn * hspace;
-                top = Padding.Top + grow * cellHeight + grow * vspace;
+                left = Padding.Left + (gcolumn * cellWidth) + (gcolumn * hspace);
+                top = Padding.Top + (grow * cellHeight) + (grow * vspace);
 
                 int rowSpan = Grid.GetRowSpan(child);
                 int columnSpan = Grid.GetColumnSpan(child);
-                width = columnSpan > 1 ? columnSpan * cellWidth + (columnSpan - 1) * hspace : cellWidth;
-                height = rowSpan > 1 ? rowSpan * cellHeight + (rowSpan - 1) * vspace : cellHeight;
+                width = columnSpan > 1 ? (columnSpan * cellWidth) + ((columnSpan - 1) * hspace) : cellWidth;
+                height = rowSpan > 1 ? (rowSpan * cellHeight) + ((rowSpan - 1) * vspace) : cellHeight;
 
                 child.Arrange(new Rect(left, top, width, height));
             }

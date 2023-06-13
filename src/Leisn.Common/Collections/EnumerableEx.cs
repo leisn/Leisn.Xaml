@@ -1,8 +1,8 @@
-﻿using System;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
 
 namespace Leisn.Common.Collections
 {
@@ -20,7 +20,7 @@ namespace Leisn.Common.Collections
 
         public static IEnumerable ForEach(this IEnumerable self, Action<object> action)
         {
-            foreach (var item in self)
+            foreach (object? item in self)
             {
                 action?.Invoke(item);
             }

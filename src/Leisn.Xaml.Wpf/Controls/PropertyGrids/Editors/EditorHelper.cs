@@ -1,31 +1,31 @@
-﻿using Leisn.Common.Data;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
+using Leisn.Common.Data;
+
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace Leisn.Xaml.Wpf.Controls.Editors
+namespace Leisn.Xaml.Wpf.Controls.PropertyGrids.Editors
 {
     internal class EditorHelper
     {
         public static ComboBox CreateComboBox(IEnumerable<IDataDeclaration<object>> datas)
         {
-            var contaniner = new FrameworkElementFactory(typeof(Border));
+            FrameworkElementFactory contaniner = new(typeof(Border));
             contaniner.SetValue(Border.BackgroundProperty, Brushes.Transparent);
-            contaniner.SetValue(Border.HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
-            contaniner.SetBinding(Border.ToolTipProperty, new Binding("Description"));
+            contaniner.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
+            contaniner.SetBinding(FrameworkElement.ToolTipProperty, new Binding("Description"));
             contaniner.SetValue(ToolTip.PlacementProperty, PlacementMode.Top);
-            var textBlock = new FrameworkElementFactory(typeof(TextBlock));
+            FrameworkElementFactory textBlock = new(typeof(TextBlock));
             textBlock.SetBinding(TextBlock.TextProperty, new Binding("DisplayName"));
             contaniner.AppendChild(textBlock);
-            var dataTemplate = new DataTemplate { VisualTree = contaniner };
+            DataTemplate dataTemplate = new() { VisualTree = contaniner };
 
-            var box = new ComboBox
+            ComboBox box = new()
             {
                 HorizontalContentAlignment = HorizontalAlignment.Stretch,
                 ItemsSource = datas,

@@ -1,18 +1,21 @@
-﻿using System;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using Microsoft.Win32;
+
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Runtime.Versioning;
 using System.Security;
 
-namespace Microsoft.Win32
+namespace Leisn.Xaml.Wpf.Controls.Dialogs
 {
     public sealed class FolderSelectDialog : CommonDialog
     {
         private Environment.SpecialFolder _rootFolder;
         private string _selectedFolder;
         private string _descriptionText;
-        private bool _showNewFolderButton;
         private Win32Apis.BrowseCallbackProc? _callback;
 
         public FolderSelectDialog()
@@ -20,11 +23,7 @@ namespace Microsoft.Win32
             Reset();
         }
 
-        public bool ShowNewFolderButton
-        {
-            get => _showNewFolderButton;
-            set => _showNewFolderButton = value;
-        }
+        public bool ShowNewFolderButton { get; set; }
         public string SelectedFolder
         {
             get => _selectedFolder;
@@ -54,7 +53,7 @@ namespace Microsoft.Win32
             _rootFolder = Environment.SpecialFolder.Desktop;
             _selectedFolder = string.Empty;
             _descriptionText = string.Empty;
-            _showNewFolderButton = true;
+            ShowNewFolderButton = true;
         }
 
         protected override bool RunDialog(IntPtr hWndOwner)
@@ -106,7 +105,7 @@ namespace Microsoft.Win32
                 if (pidlRet != IntPtr.Zero)
                 {
                     // Then retrieve the path from the IDList
-                    Win32Apis.SHGetPathFromIDListLongPath(pidlRet, ref pszSelectedPath);
+                    _ = Win32Apis.SHGetPathFromIDListLongPath(pidlRet, ref pszSelectedPath);
 
                     // set the flag to True before selectedPath is set to
                     // assure security check and avoid bogus race condition
@@ -149,7 +148,7 @@ namespace Microsoft.Win32
                     if (!string.IsNullOrEmpty(SelectedFolder))
                     {
                         // Try to select the folder specified by selectedPath
-                        Win32Apis.SendMessage(new HandleRef(null, hwnd), (int)Win32Apis.BFFM_SETSELECTION, 1, SelectedFolder);
+                        _ = Win32Apis.SendMessage(new HandleRef(null, hwnd), Win32Apis.BFFM_SETSELECTION, 1, SelectedFolder);
                     }
                     break;
                 case Win32Apis.BFFM_SELCHANGED:
@@ -161,7 +160,7 @@ namespace Microsoft.Win32
                         // Try to retrieve the path from the IDList
                         bool isFileSystemFolder = Win32Apis.SHGetPathFromIDListLongPath(selectedPidl, ref pszSelectedPath);
                         Marshal.FreeHGlobal(pszSelectedPath);
-                        Win32Apis.SendMessage(new HandleRef(null, hwnd), (int)Win32Apis.BFFM_ENABLEOK, 0, isFileSystemFolder ? 1 : 0);
+                        _ = Win32Apis.SendMessage(new HandleRef(null, hwnd), Win32Apis.BFFM_ENABLEOK, 0, isFileSystemFolder ? 1 : 0);
                     }
                     break;
             }
@@ -189,14 +188,7 @@ namespace Microsoft.Win32
 
         static Win32Apis()
         {
-            if (Marshal.SystemDefaultCharSize == 1)
-            {
-                BFFM_SETSELECTION = BFFM_SETSELECTIONA;
-            }
-            else
-            {
-                BFFM_SETSELECTION = BFFM_SETSELECTIONW;
-            }
+            BFFM_SETSELECTION = Marshal.SystemDefaultCharSize == 1 ? BFFM_SETSELECTIONA : BFFM_SETSELECTIONW;
         }
         [Flags]
         public enum BrowseInfos
@@ -207,7 +199,7 @@ namespace Microsoft.Win32
         public delegate int BrowseCallbackProc(IntPtr hwnd, int msg, IntPtr lParam, IntPtr lpData);
 
         [DllImport(OLE32, SetLastError = true, CharSet = CharSet.Auto, ExactSpelling = true)]
-        internal extern static void CoTaskMemFree(IntPtr pv);
+        internal static extern void CoTaskMemFree(IntPtr pv);
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
         public class BROWSEINFO
@@ -259,7 +251,9 @@ namespace Microsoft.Win32
                 string path = Marshal.PtrToStringAuto(pszPath)!;
 
                 if (path.Length != 0 && path.Length < length)
+                {
                     break;
+                }
 
                 noOfTimes += 2; //520 chars capacity increase in each iteration.
                 length = noOfTimes * length >= MAX_UNICODESTRING_LEN

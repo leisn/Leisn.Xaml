@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
 
 namespace Leisn.Common.Attributes
 {

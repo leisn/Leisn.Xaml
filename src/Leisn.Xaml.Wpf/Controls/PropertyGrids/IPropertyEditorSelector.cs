@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
 {

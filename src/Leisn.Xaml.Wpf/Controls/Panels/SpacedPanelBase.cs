@@ -1,8 +1,10 @@
-﻿using System.ComponentModel;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Leisn.Xaml.Wpf.Controls
+namespace Leisn.Xaml.Wpf.Controls.Panels
 {
     public abstract class SpacedPanelBase : Panel
     {

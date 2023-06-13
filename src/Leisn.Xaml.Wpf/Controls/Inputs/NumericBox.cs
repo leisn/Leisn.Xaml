@@ -1,10 +1,12 @@
-﻿using System.Text.RegularExpressions;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 
-namespace Leisn.Xaml.Wpf.Controls
+namespace Leisn.Xaml.Wpf.Controls.Inputs
 {
     public enum NumericType
     {

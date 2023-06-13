@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.Windows;
 using System.Windows.Controls;
 
-namespace Leisn.Xaml.Wpf.Controls
+namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
 {
     public class PropertyItemsControl : ListBox
     {

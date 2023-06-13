@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System.Windows;
 using System.Windows.Controls;
 
-namespace Leisn.Xaml.Wpf.Controls.Editors
+namespace Leisn.Xaml.Wpf.Controls.PropertyGrids.Editors
 {
     internal class ReadOnlyTextEditor : IPropertyEditor
     {

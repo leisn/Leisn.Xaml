@@ -1,4 +1,6 @@
-﻿using Leisn.Common;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using Leisn.Common.Extensions;
 
 using System;
 using System.Globalization;
@@ -45,8 +47,10 @@ namespace Leisn.Xaml.Wpf.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!EnumEx.TryParse<MultiBoolToBoolMode>(parameter, out var mode))
+            if (!EnumEx.TryParse<MultiBoolToBoolMode>(parameter, out MultiBoolToBoolMode mode))
+            {
                 mode = MultiBoolToBoolMode.And;
+            }
 
             bool result = (bool)values[0];
 

@@ -1,7 +1,9 @@
-﻿using System;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.Windows;
 
-namespace Leisn.Xaml.Wpf.Controls
+namespace Leisn.Xaml.Wpf.Controls.Panels
 {
     public class StackPanel : SpacedPanelBase
     {

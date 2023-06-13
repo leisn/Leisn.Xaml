@@ -1,11 +1,13 @@
-﻿using Leisn.Xaml.Wpf.Converters;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using Leisn.Xaml.Wpf.Converters;
 
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 
-namespace Leisn.Xaml.Wpf.Controls
+namespace Leisn.Xaml.Wpf.Controls.Inputs
 {
     public struct NumericFormat
     {

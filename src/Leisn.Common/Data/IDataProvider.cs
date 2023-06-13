@@ -1,4 +1,6 @@
-﻿using System;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.Collections.Generic;
 
 namespace Leisn.Common.Data
@@ -8,6 +10,9 @@ namespace Leisn.Common.Data
     {
         IEnumerable<T> GetData();
 
-        public Type GetDataType() => typeof(T);
+        public Type GetDataType()
+        {
+            return typeof(T);
+        }
     }
 }

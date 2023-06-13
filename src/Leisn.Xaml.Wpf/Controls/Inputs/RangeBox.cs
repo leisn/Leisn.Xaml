@@ -1,11 +1,13 @@
-﻿using System;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Leisn.Xaml.Wpf.Controls
+namespace Leisn.Xaml.Wpf.Controls.Inputs
 {
     [TemplatePart(Name = "PART_Thumb", Type = typeof(Border))]
     [TemplatePart(Name = "PART_TextBox", Type = typeof(TextBox))]
@@ -128,11 +130,11 @@ namespace Leisn.Xaml.Wpf.Controls
             double thumbWidth = parent.ActualWidth * (Value - Minimum) / (Maximum - Minimum);
             thumb.Width = thumbWidth;
             CornerRadius cornerRadius = new(CornerRadius.TopLeft, 0, 0, CornerRadius.BottomLeft);
-            if (thumbWidth > parent.ActualWidth - CornerRadius.TopRight * 2)
+            if (thumbWidth > parent.ActualWidth - (CornerRadius.TopRight * 2))
             {
                 cornerRadius.TopRight = CornerRadius.TopRight;
             }
-            if (thumbWidth > parent.ActualWidth - CornerRadius.BottomRight * 2)
+            if (thumbWidth > parent.ActualWidth - (CornerRadius.BottomRight * 2))
             {
                 cornerRadius.BottomRight = CornerRadius.BottomRight;
             }

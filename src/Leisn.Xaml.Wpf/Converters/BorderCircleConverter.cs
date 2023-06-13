@@ -1,4 +1,6 @@
-﻿using System;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;

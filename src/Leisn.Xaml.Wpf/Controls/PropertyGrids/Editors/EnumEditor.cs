@@ -1,5 +1,7 @@
-﻿using Leisn.Common;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
 using Leisn.Common.Data;
+using Leisn.Common.Extensions;
 
 using System;
 using System.ComponentModel;
@@ -7,13 +9,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Leisn.Xaml.Wpf.Controls.Editors
+namespace Leisn.Xaml.Wpf.Controls.PropertyGrids.Editors
 {
     internal class EnumEditor : IPropertyEditor
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            var values = Enum.GetValues(item.PropertyType).OfType<Enum>().Select(x => new DataDeclaration
+            System.Collections.Generic.IEnumerable<DataDeclaration> values = Enum.GetValues(item.PropertyType).OfType<Enum>().Select(x => new DataDeclaration
             {
                 Value = x,
                 DisplayName = x.Attr<CategoryAttribute>()?.Category ?? x.ToString(),

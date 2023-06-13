@@ -1,8 +1,10 @@
-﻿using System;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Leisn.Xaml.Wpf.Controls
+namespace Leisn.Xaml.Wpf.Controls.Panels
 {
     /// <summary>
     /// 单行或单列布局，内容始终填充整个可用区域
@@ -78,7 +80,7 @@ namespace Leisn.Xaml.Wpf.Controls
             if (Orientation == Orientation.Vertical)
             {
                 double vspace = Padding.Top + Padding.Bottom + totalSpace;
-                double maxHeight = maxChildSize.Height * count + vspace;
+                double maxHeight = (maxChildSize.Height * count) + vspace;
                 double desiredHeight = desiredSize.Height + vspace;
                 result.Width = maxChildSize.Width + Padding.Left + Padding.Right;
                 result.Height = !double.IsInfinity(availableSize.Height) && availableSize.Height >= maxHeight ? availableSize.Height : desiredHeight;
@@ -86,7 +88,7 @@ namespace Leisn.Xaml.Wpf.Controls
             else
             {
                 double hspace = Padding.Left + Padding.Right + totalSpace;
-                double maxWidth = maxChildSize.Width * count + hspace;
+                double maxWidth = (maxChildSize.Width * count) + hspace;
                 double desiredWidth = desiredSize.Width + hspace;
                 result.Height = maxChildSize.Height + Padding.Top + Padding.Bottom;
                 result.Width = !double.IsInfinity(availableSize.Width) && availableSize.Width >= maxWidth ? availableSize.Width : desiredWidth;

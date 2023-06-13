@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿// By Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
+using System.Linq;
 using System.Reflection;
 
-namespace System
+namespace Leisn.Common.Extensions
 {
     public static class EnumEx
     {
