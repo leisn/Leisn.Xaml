@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using System.Windows.Input;
 
 using Leisn.Xaml.Wpf.Converters;
 
@@ -231,6 +232,45 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             Value -= Increment;
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (IsEditing)
+                return;
+            e.Handled = true;
+            switch (e.Key)
+            {
+                case Key.Left:
+                    Value -= Increment;
+                    break;
+                case Key.Right:
+                    Value += Increment;
+                    break;
+                case Key.Up:
+                    Value -= SmallChange;
+                    break;
+                case Key.Down:
+                    Value += SmallChange;
+                    break;
+                case Key.PageUp:
+                    Value -= LargeChange;
+                    break;
+                case Key.PageDown:
+                    Value += LargeChange;
+                    break;
+                case Key.Home:
+                    Value = Minimum;
+                    break;
+                case Key.End:
+                    Value = Maximum;
+                    break;
+                default:
+                    e.Handled = false;
+                    base.OnKeyDown(e);
+                    break;
+            }
+
         }
 
     }

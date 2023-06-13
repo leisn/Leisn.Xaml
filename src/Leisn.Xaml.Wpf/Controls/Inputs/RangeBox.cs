@@ -13,9 +13,13 @@ namespace Leisn.Xaml.Wpf.Controls
     [TemplatePart(Name = "PART_TextBox", Type = typeof(TextBox))]
     public class RangeBox : RangeBase
     {
+        const int MaxDecimals = 15;
         private Border thumb = null!;
         private TextBox textBox = null!;
-
+        static RangeBox()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(RangeBox), new FrameworkPropertyMetadata(typeof(RangeBox)));
+        }
         public string Title
         {
             get => (string)GetValue(TitleProperty);
@@ -44,18 +48,28 @@ namespace Leisn.Xaml.Wpf.Controls
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RangeBox), new FrameworkPropertyMetadata(new CornerRadius()));
 
+        /// <summary>
+        /// 保留小数位数，最大15，-1表示不进行四舍五入
+        /// </summary>
         public int Decimals
         {
             get => (int)GetValue(DecimalsProperty);
             set => SetValue(DecimalsProperty, value);
         }
         public static readonly DependencyProperty DecimalsProperty =
-            DependencyProperty.Register("Decimals", typeof(int), typeof(RangeBox), new PropertyMetadata(3, new PropertyChangedCallback(OnDecimalsChanged)));
-
+            DependencyProperty.Register("Decimals", typeof(int), typeof(RangeBox),
+                new PropertyMetadata(-1, new PropertyChangedCallback(OnDecimalsChanged), new CoerceValueCallback(CoerceDecimals)));
         private static void OnDecimalsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RangeBox slider = (RangeBox)d;
             slider.UpdateText();
+        }
+        private static object CoerceDecimals(DependencyObject d, object baseValue)
+        {
+            var value = (int)baseValue;
+            if (value > MaxDecimals)
+                value = MaxDecimals;
+            return value;
         }
 
         public string Text
@@ -64,7 +78,7 @@ namespace Leisn.Xaml.Wpf.Controls
             internal set => SetValue(TextProperty, value);
         }
         internal static readonly DependencyProperty TextProperty =
-            DependencyProperty.Register("Text", typeof(string), typeof(RangeBox), new PropertyMetadata("0.000"));
+            DependencyProperty.Register("Text", typeof(string), typeof(RangeBox), new PropertyMetadata(string.Empty));
 
         public bool IsEditing
         {
@@ -83,14 +97,12 @@ namespace Leisn.Xaml.Wpf.Controls
             DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(RangeBox), new PropertyMetadata(false));
 
 
-        static RangeBox()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RangeBox), new FrameworkPropertyMetadata(typeof(RangeBox)));
-        }
-
         private void UpdateText()
         {
-            Text = string.Format($"{{0:F{Decimals}}}", Value);
+            if (Decimals > -1)
+                Text = string.Format($"{{0:F{Decimals}}}", Value);
+            else
+                Text = Value.ToString();
         }
 
         protected override void OnValueChanged(double oldValue, double newValue)
@@ -141,7 +153,6 @@ namespace Leisn.Xaml.Wpf.Controls
             thumb.CornerRadius = cornerRadius;
         }
 
-
         public override void OnApplyTemplate()
         {
             if (textBox != null)
@@ -158,6 +169,8 @@ namespace Leisn.Xaml.Wpf.Controls
             textBox.GotFocus += TextBox_GotFocus;
             textBox.LostFocus += TextBox_LostFocus;
             SizeChanged += RangeBox_SizeChanged;
+
+            UpdateText();
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -169,6 +182,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             IsEditing = false;
         }
+
 
         protected override void OnMouseDoubleClick(MouseButtonEventArgs e)
         {
@@ -196,6 +210,13 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             base.OnMouseLeftButtonDown(e);
+
+            //if (IsFocused)
+            //{
+            //    OnMouseDoubleClick(null!);
+            //    return;
+            //}
+
             if (e.Source == this)
             {
                 IInputElement focused = FocusManager.GetFocusedElement(FocusManager.GetFocusScope(this));
@@ -264,11 +285,14 @@ namespace Leisn.Xaml.Wpf.Controls
             double totalWidth = parent.ActualWidth;
             double scale = totalWidth / (Maximum - Minimum);
             double valOffset = xOffset / scale;
-            if (Math.Abs(valOffset) < Math.Pow(0.1, Decimals))
+            if (Decimals > -1)
             {
+                if (Math.Abs(valOffset) < Math.Pow(0.1, Decimals))
+                    return;
+                Value = Math.Round(startValue + valOffset, Decimals);
                 return;
             }
-            Value = Math.Round(startValue + valOffset, Decimals);
+            Value = Math.Round(startValue + valOffset, MaxDecimals);
         }
         #endregion
 
