@@ -1,4 +1,4 @@
-﻿using Leisn.Common.Interfaces;
+﻿using Leisn.Common.Data;
 
 using System;
 using System.Collections.Generic;

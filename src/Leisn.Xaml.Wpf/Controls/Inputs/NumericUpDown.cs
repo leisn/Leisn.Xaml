@@ -114,7 +114,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set => SetValue(IncrementProperty, value);
         }
         public static readonly DependencyProperty IncrementProperty =
-            DependencyProperty.Register("Increment", typeof(double), typeof(NumericUpDown), new PropertyMetadata(0.1d));
+            DependencyProperty.Register("Increment", typeof(double), typeof(NumericUpDown), new PropertyMetadata(0d));
 
         internal void SetIsEditing(bool value)
         {

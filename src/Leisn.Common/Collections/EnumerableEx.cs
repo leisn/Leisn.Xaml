@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace Leisn.Common
+namespace Leisn.Common.Collections
 {
     public static class EnumerableEx
     {

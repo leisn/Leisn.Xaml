@@ -115,7 +115,16 @@ namespace Leisn.Xaml.Wpf.Locales
 
             public string this[string key]
             {
-                get => _values.TryGetValue(key, out string? value) ? value : key;
+                get
+                {
+#if DEBUG
+                    if (!_values.ContainsKey(key))
+                        throw new ArgumentOutOfRangeException(nameof(key), $"Cannot find locales for [{key}]");
+                    return _values[key];
+#else
+                    return _values.TryGetValue(key, out string? value) ? value : key;
+#endif
+                }
                 set => _values[key] = value;
             }
 

@@ -1,5 +1,5 @@
-﻿using Leisn.Common;
-using Leisn.Common.Attributes;
+﻿using Leisn.Common.Attributes;
+using Leisn.Common.Data;
 using Leisn.Xaml.Wpf.Controls.Editors;
 
 using System;

@@ -1,11 +1,9 @@
-﻿using Leisn.Common.Interfaces;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 
-namespace Leisn.Common.Attributes
+namespace Leisn.Common.Data
 {
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]

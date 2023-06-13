@@ -1,8 +1,8 @@
-﻿using Leisn.Common.Models;
+﻿using Leisn.Common.Attributes;
 
 using Microsoft.Win32;
 
-using System;
+using WindowsAPICodePack.Dialogs;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -81,35 +81,21 @@ namespace Leisn.Xaml.Wpf.Controls
                     fileDialog.Filter = FileFilter;
                 if (!string.IsNullOrEmpty(DialogTitle))
                     fileDialog.Title = DialogTitle;
-                if (fileDialog.ShowDialog(Application.Current.MainWindow) == true)
-                    Path = fileDialog.FileName;
-                return;
+                if (fileDialog.ShowDialog(Application.Current.MainWindow) != true)
+                    return;
+                Path = fileDialog.FileName;
             }
             else if (Mode == PathSelectMode.Folder)
             {
-                var dialog = new FolderSelectDialog { Description = DialogTitle };
-                if (dialog.ShowDialog(Application.Current.MainWindow) == true)
-                    Path = dialog.SelectedFolder;
+                CommonOpenFileDialog dialog = new()
+                {
+                    IsFolderPicker = true,
+                    Title = DialogTitle,
+                };
+                if (dialog.ShowDialog(Application.Current.MainWindow) != CommonFileDialogResult.Ok)
+                    return;
+                Path = dialog.FileName!;
             }
-            
-            //CommonOpenFileDialog dialog = new()
-            //{
-            //    IsFolderPicker = IsSelectFolder,
-            //    Title = DialogTitle ?? "选择",
-            //};
-            //if (!IsSelectFolder && !string.IsNullOrEmpty(FileFilter))
-            //{
-            //    string[] ts = FileFilter.Split('|');
-            //    for (int i = 1; i <= ts.Length; i += 2)
-            //    {
-            //        dialog.Filters.Add(new CommonFileDialogFilter(ts[i - 1], ts[i]));
-            //    }
-            //}
-            //if (dialog.ShowDialog(Application.Current.MainWindow) != CommonFileDialogResult.Ok)
-            //{
-            //    return;
-            //}
-            //Path = dialog.FileName!;
         }
     }
 }

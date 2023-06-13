@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Leisn.Common.Interfaces
+namespace Leisn.Common.Data
 {
     public interface IDataDeclaration<out T>
     {

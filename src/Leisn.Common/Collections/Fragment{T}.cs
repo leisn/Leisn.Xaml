@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Leisn.Common.Models
+namespace Leisn.Common.Collections
 {
     public struct Fragment<T> : ICollection<T>, IEnumerable<T>, IEnumerable, IList<T>, IReadOnlyCollection<T>, IReadOnlyList<T>
     {
@@ -21,7 +21,7 @@ namespace Leisn.Common.Models
             if (end >= array.Length)
                 throw new ArgumentOutOfRangeException(nameof(end));
             if (end - start < 0)
-                throw new ArgumentOutOfRangeException($"'start' cannot greater than 'end' :{start} > {end}");
+                throw new ArgumentOutOfRangeException($"'{nameof(start)}' cannot greater than '{nameof(end)}' :{start} > {end}");
             _start = start;
             _end = end;
         }

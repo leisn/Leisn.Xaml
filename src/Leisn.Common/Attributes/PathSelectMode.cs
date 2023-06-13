@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Leisn.Common.Models
+namespace Leisn.Common.Attributes
 {
     public enum PathSelectMode
     {

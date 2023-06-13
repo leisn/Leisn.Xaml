@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Leisn.Common.Interfaces
+namespace Leisn.Common.Data
 {
 
     public interface IDataProvider<out T>

@@ -1,10 +1,8 @@
-﻿using Leisn.Common.Interfaces;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Leisn.Common.Models
+namespace Leisn.Common.Data
 {
 #nullable disable
     public class DataDeclaration : IDataDeclaration<object>

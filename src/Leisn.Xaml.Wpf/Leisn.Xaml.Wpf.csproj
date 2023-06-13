@@ -23,6 +23,10 @@
   <ItemGroup>
     <Folder Include="Controls\Chats\" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="WindowsAPICodePack.Shell.CommonFileDialogs.Wpf" Version="1.1.5" />
+  </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="PowerShell Themes/Generic.ps1" />

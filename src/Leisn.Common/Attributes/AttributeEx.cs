@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 
-namespace Leisn.Common
+namespace Leisn.Common.Attributes
 {
     public static class AttributeEx
     {

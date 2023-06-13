@@ -1,7 +1,6 @@
 ﻿using Leisn.Common;
 using Leisn.Common.Attributes;
-using Leisn.Common.Interfaces;
-using Leisn.Common.Models;
+using Leisn.Common.Data;
 
 using System;
 using System.Collections.Generic;

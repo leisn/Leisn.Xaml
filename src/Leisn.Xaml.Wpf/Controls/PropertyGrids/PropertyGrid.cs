@@ -1,11 +1,8 @@
-﻿using Leisn.Common;
-using Leisn.Common.Attributes;
-using Leisn.Xaml.Wpf.Controls.Editors;
+﻿using Leisn.Common.Attributes;
 using Leisn.Xaml.Wpf.Controls.PropertyGrids;
 using Leisn.Xaml.Wpf.Locales;
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,7 +10,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
 
 namespace Leisn.Xaml.Wpf.Controls
 {

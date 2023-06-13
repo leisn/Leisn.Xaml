@@ -1,4 +1,5 @@
 ﻿using Leisn.Common;
+using Leisn.Common.Attributes;
 
 using System.ComponentModel.DataAnnotations;
 using System.Windows;

@@ -21,7 +21,7 @@ using WpfDemo.Providers;
 using System.Diagnostics;
 using Leisn.Xaml.Wpf;
 using System.Globalization;
-using Leisn.Common.Models;
+using Leisn.Common.Data;
 
 namespace WpfDemo
 {
@@ -66,7 +66,7 @@ namespace WpfDemo
         {
             public Enumv EunmV { get; set; }
 
-            [PathSelect(Mode = PathSelectMode.Folder)]
+            [PathSelect(Mode = PathSelectMode.Folder,DialogTitle ="选择一个文件夹")]
             [DisplayName("{Ask} him {Ok}")]
             public string Folder { get; set; } = "";
             [PathSelect(Mode = PathSelectMode.OpenFile)]
