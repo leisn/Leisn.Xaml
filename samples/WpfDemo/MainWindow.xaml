@@ -8,9 +8,9 @@
         mc:Ignorable="d" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="MainWindow" Height="450" Width="800"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
-    <Window.Resources>
-       
-    </Window.Resources>
+  <Window.Resources>
+
+  </Window.Resources>
   <Grid Margin="10">
     <Grid.ColumnDefinitions>
       <ColumnDefinition/>
@@ -34,5 +34,30 @@
       <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
     </ln:StackPanel>
     <ln:PropertyGrid Grid.Column="1" x:Name="perpertyGrid"/>
+    <Grid Grid.Column="2">
+      <StackPanel>
+        <Grid Width="200" Height="200" Background="Orange">
+          <Border>
+            <Border.Background>
+              <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
+                <GradientStop Color="White" Offset="1" />
+                <GradientStop Color="#80ffffff" Offset=".5" />
+                <GradientStop Color="#00ffffff" />
+              </LinearGradientBrush>
+            </Border.Background>
+          </Border>
+          <Border>
+            <Border.Background>
+              <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="1" />
+                <GradientStop Color="#80000000" Offset=".5" />
+                <GradientStop Color="#00000000" />
+              </LinearGradientBrush>
+            </Border.Background>
+          </Border>
+        </Grid>
+
+      </StackPanel>
+    </Grid>
   </Grid>
 </Window>
