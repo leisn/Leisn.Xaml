@@ -8,4 +8,5 @@
   <converters:NumberOperateConverter x:Key="NumberOperateConverter"/>
   <converters:StringCompareBoolConverter x:Key="StringCompareBoolConverter"/>
   <converters:StringCompareVisibiltyConverter x:Key="StringCompareVisibiltyConverter"/>
+  <converters:ColorHexStringConverter x:Key="ColorHexStringConverter"/>
 </ResourceDictionary>
