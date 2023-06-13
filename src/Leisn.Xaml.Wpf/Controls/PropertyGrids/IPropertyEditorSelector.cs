@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-namespace Leisn.Xaml.Wpf.Controls.PropertyGrids
+namespace Leisn.Xaml.Wpf.Controls
 {
     public interface IPropertyEditorSelector
     {
