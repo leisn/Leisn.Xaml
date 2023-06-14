@@ -13,11 +13,11 @@ namespace Leisn.Common.Media
         /// </summary>
         public ushort H { get; set; }
         /// <summary>
-        /// Saturation, 饱和度,  0-1
+        /// Saturation, 饱和度,  0-1 for 0%-100%
         /// </summary>
         public double S { get; set; }
         /// <summary>
-        /// Value, 明度,  0-1
+        /// Value, 明度,  0-1 for 0%-100%
         /// </summary>
         public double V { get; set; }
 

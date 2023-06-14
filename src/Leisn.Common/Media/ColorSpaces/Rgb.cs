@@ -89,7 +89,7 @@ namespace Leisn.Common.Media
                     h = (b - r) / chrom + 2;
                 else if (max == b)
                     h = (r - g) / chrom + 4;
-                h = h / 6;
+                h /= 6;
             }
             return new Hsl((ushort)(360 * h), (byte)(s * 100), (byte)(l * 100));
         }
@@ -103,7 +103,7 @@ namespace Leisn.Common.Media
             var min = Math.Min(Math.Min(r, g), b);
             var chrom = max - min;
             double v = max;
-            double s = 0, h = 0;
+            double s, h = 0;
             if (chrom == 0)
             {
                 s = 0;
@@ -117,7 +117,7 @@ namespace Leisn.Common.Media
                     h = (b - r) / chrom + 2;
                 else if (max == b)
                     h = (r - g) / chrom + 4;
-                h = h / 6;
+                h /= 6;
             }
             return new Hsv((ushort)(h * 360), s, v);
         }

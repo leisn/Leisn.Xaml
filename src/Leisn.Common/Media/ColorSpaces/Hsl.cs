@@ -9,15 +9,15 @@ namespace Leisn.Common.Media
     public struct Hsl : IColor
     {
         /// <summary>
-        /// Hue, 色相、色调
+        /// Hue, 色相、色调, 0-360
         /// </summary>
         public ushort H { get; set; }
         /// <summary>
-        /// Saturation, 饱和度
+        /// Saturation, 饱和度, 0-100
         /// </summary>
         public byte S { get; set; }
         /// <summary>
-        /// Lightness, 亮度
+        /// Lightness, 亮度, 0-100
         /// </summary>
         public byte L { get; set; }
 
