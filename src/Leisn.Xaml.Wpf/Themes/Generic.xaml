@@ -96,6 +96,7 @@
   <converters:NumberOperateConverter x:Key="NumberOperateConverter" />
   <converters:StringCompareBoolConverter x:Key="StringCompareBoolConverter" />
   <converters:StringCompareVisibiltyConverter x:Key="StringCompareVisibiltyConverter" />
+  <converters:ColorHexStringConverter x:Key="ColorHexStringConverter" />
   <Style x:Key="FocusVisual">
     <Setter Property="Control.Template">
       <Setter.Value>

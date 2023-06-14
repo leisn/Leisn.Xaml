@@ -2,6 +2,7 @@
 
 using System.Globalization;
 
+
 namespace System.Windows.Media
 {
     public static class ColorEx
@@ -58,7 +59,6 @@ namespace System.Windows.Media
             }
             return Color.FromArgb(a, r, g, b);
         }
-
         public static Color With(this Color color, byte? A = null, byte? R = null, byte? G = null, byte? B = null)
         {
             return color with
@@ -89,7 +89,6 @@ namespace System.Windows.Media
             return ref color;
         }
 
-
         public static string ToHex(this Color color, bool withSymbol = true)
         {
             var hex = $"{color.R:X2}{color.G:X2}{color.B:X2}";
@@ -99,7 +98,7 @@ namespace System.Windows.Media
                 hex = $"#{hex}";
             return hex;
         }
-
+        
         public static Color Inverse(this Color self, bool alphaInverse = false)
         {
             var r = 255 - self.R;
@@ -107,5 +106,6 @@ namespace System.Windows.Media
             var b = 255 - self.B;
             return Color.FromArgb(alphaInverse ? (byte)(255 - self.A) : self.A, (byte)r, (byte)g, (byte)b);
         }
+
     }
 }
