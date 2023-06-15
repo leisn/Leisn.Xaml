@@ -98,7 +98,7 @@ namespace System.Windows.Media
                 hex = $"#{hex}";
             return hex;
         }
-        
+
         public static Color Inverse(this Color self, bool alphaInverse = false)
         {
             var r = 255 - self.R;
@@ -107,5 +107,12 @@ namespace System.Windows.Media
             return Color.FromArgb(alphaInverse ? (byte)(255 - self.A) : self.A, (byte)r, (byte)g, (byte)b);
         }
 
+        public static bool ForegroundShouldBeLight(this Color color)
+        {
+            double rg = color.R <= 10 ? color.R / 3294.0 : Math.Pow(color.R / 269.0 + 0.0513, 2.4);
+            double gg = color.G <= 10 ? color.G / 3294.0 : Math.Pow(color.G / 269.0 + 0.0513, 2.4);
+            double bg = color.B <= 10 ? color.B / 3294.0 : Math.Pow(color.B / 269.0 + 0.0513, 2.4);
+            return 0.2126 * rg + 0.7152 * gg + 0.0722 * bg <= 0.5;
+        }
     }
 }

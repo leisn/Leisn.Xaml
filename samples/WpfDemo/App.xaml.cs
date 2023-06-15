@@ -24,9 +24,7 @@ namespace WpfDemo
     {
         public App()
         {
-            var rgb = new Rgb(191, 191, 191);
-            var hsl = rgb.ToHsv();
-            var t = hsl.ToRgb();
+
             Lang.Initialize("en-us");
 
             var sevices = new ServiceCollection();
