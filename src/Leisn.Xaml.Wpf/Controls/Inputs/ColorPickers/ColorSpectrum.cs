@@ -277,6 +277,8 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             var bitmap = new SKBitmap(length, length, SKColorType.Rgba8888, SKAlphaType.Premul);
             var hsv = new Rgb(SelectedHue.R, SelectedHue.G, SelectedHue.B).ToHsv();
+            hsv.S = hsv.S * 2 - 1;
+            hsv.V = hsv.V * 2 - 1;
             return bitmap;
         }
 
