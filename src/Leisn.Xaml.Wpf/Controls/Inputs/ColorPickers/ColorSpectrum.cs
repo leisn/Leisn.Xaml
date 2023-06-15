@@ -14,6 +14,7 @@ using SkiaSharp.Views.Desktop;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 using Leisn.Common.Media;
+using System.Diagnostics;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -279,6 +280,17 @@ namespace Leisn.Xaml.Wpf.Controls
             var hsv = new Rgb(SelectedHue.R, SelectedHue.G, SelectedHue.B).ToHsv();
             hsv.S = hsv.S * 2 - 1;
             hsv.V = hsv.V * 2 - 1;
+            for (int y = 0; y < length; y++)
+            {
+                for (int x = 0; x < length; x++)
+                {
+                    var uv = SquareToDiscMapping(x, y);
+
+                    var color = SKColors.Blue;
+                    if (!double.IsNaN(uv.X) && !double.IsNaN(uv.Y))
+                        bitmap.SetPixel((int)uv.X, (int)uv.Y, color);
+                }
+            }
             return bitmap;
         }
 
