@@ -50,7 +50,7 @@
           <Border x:Name="ColorBlock" Height="{Binding RelativeSource={RelativeSource Self},Path=ActualWidth}"
                   BorderThickness="1" BorderBrush="{DynamicResource BorderLighterBrush}">
             <Border.Background>
-              <SolidColorBrush Color="{Binding ElementName=colorCircle,Path=SelectedColor}"/>
+              <SolidColorBrush Color="{Binding ElementName=colorCircle,Path=SelectedHue}"/>
             </Border.Background>
             <Grid>
               <Border>
@@ -93,12 +93,7 @@
       </StackPanel>
 
       <Grid Grid.Row="2" Margin="10,0">
-        <ln:ColorCircle x:Name="colorCircle" />
-        <Ellipse Width="50" Height="50" HorizontalAlignment="Center" VerticalAlignment="Center">
-          <Ellipse.Fill>
-            <SolidColorBrush Color="{Binding ElementName=colorCircle,Path=SelectedColor}"/>
-          </Ellipse.Fill>
-        </Ellipse>
+        <ln:ColorSpectrum x:Name="colorCircle" />
       </Grid>
     </Grid>
   </Grid>
