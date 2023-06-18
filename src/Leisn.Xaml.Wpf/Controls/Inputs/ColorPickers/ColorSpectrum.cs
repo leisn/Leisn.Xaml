@@ -1,10 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -14,10 +11,7 @@ using SkiaSharp.Views.Desktop;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 using Leisn.Common.Media;
-using System.Diagnostics;
 using System.ComponentModel;
-using System.Windows.Controls.Primitives;
-using System.Windows.Controls;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -46,14 +40,14 @@ namespace Leisn.Xaml.Wpf.Controls
             NewValue = newValue;
         }
     }
-    public delegate void SelectedColorChangedEventHandler(object sender, SelectedColorChangedEventArgs e);
-    public class SelectedColorChangedEventArgs : RoutedEventArgs
+    public delegate void SelectedRgbChangedEventHandler(object sender, SelectedRgbChangedEventArgs e);
+    public class SelectedRgbChangedEventArgs : RoutedEventArgs
     {
-        public Color OldValue { get; }
-        public Color NewValue { get; }
-        public SelectedColorChangedEventArgs(Color oldValue, Color newValue)
+        public Rgb OldValue { get; }
+        public Rgb NewValue { get; }
+        public SelectedRgbChangedEventArgs(Rgb oldValue, Rgb newValue)
         {
-            RoutedEvent = ColorSpectrum.SelectedColorChangedEvent;
+            RoutedEvent = ColorSpectrum.SelectedRgbChangedEvent;
             OldValue = oldValue;
             NewValue = newValue;
         }
@@ -98,20 +92,20 @@ namespace Leisn.Xaml.Wpf.Controls
             remove { RemoveHandler(SelectedHsvChangedEvent, value); }
         }
 
-        public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent(
-           nameof(SelectedColorChanged), RoutingStrategy.Bubble, typeof(SelectedColorChangedEventHandler), typeof(ColorSpectrum));
+        public static readonly RoutedEvent SelectedRgbChangedEvent = EventManager.RegisterRoutedEvent(
+           nameof(SelectedRgbChanged), RoutingStrategy.Bubble, typeof(SelectedRgbChangedEventHandler), typeof(ColorSpectrum));
         /// <summary>
         ///     An event fired when the color selection changes.
         /// </summary>
         [Category("Behavior")]
-        public event SelectedColorChangedEventHandler SelectedColorChanged
+        public event SelectedRgbChangedEventHandler SelectedRgbChanged
         {
-            add { AddHandler(SelectedColorChangedEvent, value); }
-            remove { RemoveHandler(SelectedColorChangedEvent, value); }
+            add { AddHandler(SelectedRgbChangedEvent, value); }
+            remove { RemoveHandler(SelectedRgbChangedEvent, value); }
         }
         #endregion
 
-        #region properties
+        #region public properties
         public double CircleLength
         {
             get { return (double)GetValue(CircleLengthProperty); }
@@ -154,7 +148,9 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty SelectedHueProperty =
             DependencyProperty.Register("SelectedHue", typeof(Hsv), typeof(ColorSpectrum),
-                new FrameworkPropertyMetadata(new Hsv(0, 1, 1), FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnSeletedHueChanged)));
+                new FrameworkPropertyMetadata(new Hsv(0, 1, 1),
+                    FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    new PropertyChangedCallback(OnSeletedHueChanged)));
 
         private static void OnSeletedHueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -171,34 +167,36 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty SelectedHsvProperty =
             DependencyProperty.Register("SelectedHsv", typeof(Hsv), typeof(ColorSpectrum),
-                new FrameworkPropertyMetadata(new Hsv(0, 1, 1), FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnSelectedHsvChanged)));
+                new FrameworkPropertyMetadata(new Hsv(0, 1, 1),
+                    FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                    new PropertyChangedCallback(OnSelectedHsvChanged)));
 
         private static void OnSelectedHsvChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var cs = (ColorSpectrum)d;
             cs.RaiseEvent(new SelectedHsvChangedEventArgs((Hsv)e.OldValue, (Hsv)e.NewValue) { Source = cs });
-            var value = ((Hsv)e.NewValue).ToRgb();
-            cs.SelectedColor = Color.FromRgb(value.R, value.G, value.B);
+            cs.SelectedRgb = ((Hsv)e.NewValue).ToRgb();
         }
 
-        public Color SelectedColor
+        public Rgb SelectedRgb
         {
-            get { return (Color)GetValue(SelectedColorProperty); }
-            set { SetValue(SelectedColorProperty, value); }
+            get { return (Rgb)GetValue(SelectedRgbProperty); }
+            set { SetValue(SelectedRgbProperty, value); }
         }
-        public static readonly DependencyProperty SelectedColorProperty =
-            DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorSpectrum),
-                 new FrameworkPropertyMetadata(new Color { A = 255, R = 255 }, new PropertyChangedCallback(OnSelectedColorChanged)));
+        public static readonly DependencyProperty SelectedRgbProperty =
+            DependencyProperty.Register("SelectedRgb", typeof(Rgb), typeof(ColorSpectrum),
+                 new FrameworkPropertyMetadata(new Rgb(255, 0, 0),
+                     FrameworkPropertyMetadataOptions.BindsTwoWayByDefault,
+                     new PropertyChangedCallback(OnSelectedRgbChanged)));
 
-        private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnSelectedRgbChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var cs = (ColorSpectrum)d;
-            var value = (Color)e.NewValue;
-            cs.RaiseEvent(new SelectedColorChangedEventArgs((Color)e.OldValue, value) { Source = cs });
-            var rgb = new Rgb(value.R, value.G, value.B);
-            if (Equals(rgb, cs.SelectedHsv.ToRgb()))
+            var value = (Rgb)e.NewValue;
+            cs.RaiseEvent(new SelectedRgbChangedEventArgs((Rgb)e.OldValue, value) { Source = cs });
+            if (Equals(value, cs.SelectedHsv.ToRgb()))
                 return;
-            cs.SelectedHsv = new Rgb(value.R, value.G, value.B).ToHsv();
+            cs.SelectedHsv = value.ToHsv();
         }
 
         public bool IsDiscSpectrum
@@ -403,7 +401,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 StrokeWidth = pickerWidth,
                 Color = SelectedHsv.ForegroundShouldBeLight() ? SKColors.White : SKColors.Black,
             };
-            var colorPickerRadius = hubPickerRadius / 2;
+            var colorPickerRadius = hubPickerRadius / 3 * 2;
             canvas.DrawCircle(colorPickerX, colorPickerY, colorPickerRadius, colorPickerPaint);
 
             _spectrumPickerRadius = colorPickerRadius + pickerWidth / 2;
@@ -496,7 +494,6 @@ namespace Leisn.Xaml.Wpf.Controls
         private bool _isAdjustHue;
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            Debug.WriteLine(e.GetPosition(this));
             if (e.Source != this)
                 return;
             _isAdjustHue = false;

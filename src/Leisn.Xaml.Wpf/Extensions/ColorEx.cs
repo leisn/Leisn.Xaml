@@ -117,5 +117,8 @@ namespace System.Windows.Media
         }
 
         public static bool ForegroundShouldBeLight(this Hsv hsv) => hsv.V <= 0.5 || hsv.S >= 0.5;
+
+        public static Rgb ToRgb(this Color color) => new Rgb(color.R, color.G, color.B);
+        public static Hsv ToHsv(this Color color) => color.ToRgb().ToHsv();
     }
 }

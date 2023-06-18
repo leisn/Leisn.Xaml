@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using WpfDemo.Providers;
 using Leisn.Common.Media;
+using System.Threading;
 
 namespace WpfDemo
 {
@@ -25,7 +26,7 @@ namespace WpfDemo
         public App()
         {
 
-            Lang.Initialize("en-us");
+            Lang.Initialize(Thread.CurrentThread.CurrentCulture.Name);
 
             var sevices = new ServiceCollection();
             sevices.AddSingleton<SampleTextProvider>()

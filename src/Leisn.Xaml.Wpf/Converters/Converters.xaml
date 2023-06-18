@@ -2,11 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:Leisn.Xaml.Wpf.Converters">
   <converters:BoolReverseConverter x:Key="BoolReverseConverter"/>
+  <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
   <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter"/>
   <converters:ObjectVisibilityConverter x:Key="ObjectVisibilityConverter"/>
   <converters:ObjectBoolConverter x:Key="ObjectBoolConverter"/>
   <converters:NumberOperateConverter x:Key="NumberOperateConverter"/>
   <converters:StringCompareBoolConverter x:Key="StringCompareBoolConverter"/>
   <converters:StringCompareVisibiltyConverter x:Key="StringCompareVisibiltyConverter"/>
-  <converters:ColorHexStringConverter x:Key="ColorHexStringConverter"/>
+  <converters:ColorHexStringConverter x:Key="ColorHexStringConverter"/> 
 </ResourceDictionary>

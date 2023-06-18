@@ -60,7 +60,9 @@ namespace Leisn.Xaml.Wpf.Locales
 
         private void LoadLocales(string currentLang, string folder = "./locales", string fileFilter = "*.lang", string? defalutLang = null)
         {
-            _defaultLang = string.IsNullOrEmpty(defalutLang) ? CultureInfo.CurrentCulture.Name.ToLower() : defalutLang;
+            currentLang = currentLang.ToLowerInvariant();
+            defalutLang= defalutLang?.ToLowerInvariant();
+            _defaultLang = string.IsNullOrEmpty(defalutLang) ? CultureInfo.CurrentCulture.Name.ToLowerInvariant() : defalutLang;
             _currentLang = string.IsNullOrEmpty(currentLang) ? _defaultLang : currentLang;
             _values.Clear();
             _langDict.Clear();

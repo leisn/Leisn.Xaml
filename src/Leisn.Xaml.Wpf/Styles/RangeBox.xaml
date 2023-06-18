@@ -19,7 +19,7 @@
               <Border x:Name="PART_Thumb" HorizontalAlignment="Left" BorderThickness="0"
                       Background="{TemplateBinding ThumbBackground}"
                       SnapsToDevicePixels="True"/>
-              <local:NumericBox x:Name="PART_TextBox" Visibility="Collapsed" NumericType="UFloat"
+              <local:NumericBox x:Name="PART_TextBox" Visibility="Collapsed" NumericType="{TemplateBinding NumericType}"
                        Padding="5,1" BorderThickness="0" IsReadOnly="{TemplateBinding IsReadOnly}"
                        VerticalAlignment="Stretch" VerticalContentAlignment="Center"
                        InputScope="Number" TextWrapping="NoWrap" SnapsToDevicePixels="True"

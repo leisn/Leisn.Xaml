@@ -107,5 +107,18 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             return true;
         }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (Keyboard.FocusedElement is UIElement element)
+                {
+                    element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    e.Handled = true;
+                }
+            }
+
+        }
     }
 }

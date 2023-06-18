@@ -45,4 +45,43 @@
       </Trigger>
     </Style.Triggers>
   </Style>
+
+  <Style x:Key="RadioToggleStyle" TargetType="RadioButton">
+    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
+    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
+    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="RadioButton">
+          <Border x:Name="bd" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                  Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
+                  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              Margin="{TemplateBinding Padding}"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".56"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource ControlAccentBrush}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{DynamicResource ControlLighterBrush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

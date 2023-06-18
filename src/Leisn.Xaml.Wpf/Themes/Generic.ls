@@ -26,4 +26,6 @@ Styles/NumericBox.xaml
 Styles/RangeBox.xaml
 Styles/NumericUpDown.xaml
 Styles/PathSelector.xaml
+Styles/ColorPicker.xaml
+
 Styles/PropertyGrid.xaml

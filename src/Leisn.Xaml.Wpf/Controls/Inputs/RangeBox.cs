@@ -46,7 +46,44 @@ namespace Leisn.Xaml.Wpf.Controls
             set => SetValue(CornerRadiusProperty, value);
         }
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(RangeBox), new FrameworkPropertyMetadata(new CornerRadius()));
+            Border.CornerRadiusProperty.AddOwner(typeof(RangeBox), new FrameworkPropertyMetadata(new CornerRadius()));
+        public NumericType NumericType
+        {
+            get => (NumericType)GetValue(NumericTypeProperty);
+            set => SetValue(NumericTypeProperty, value);
+        }
+        public static readonly DependencyProperty NumericTypeProperty =
+            NumericBox.NumericTypeProperty.AddOwner(typeof(RangeBox),
+                new FrameworkPropertyMetadata(NumericType.Float, null, new CoerceValueCallback(CoerceNumericType)));
+
+        private static object CoerceNumericType(DependencyObject d, object baseValue)
+        {
+            RangeBox control = (RangeBox)d;
+            NumericType value = (NumericType)baseValue;
+            if (control.Minimum < 0)
+            {
+                if (value == NumericType.UInt)
+                {
+                    value = NumericType.Int;
+                }
+                else if (value == NumericType.UFloat)
+                {
+                    value = NumericType.Float;
+                }
+            }
+            else
+            {
+                if (value == NumericType.Int)
+                {
+                    value = NumericType.UInt;
+                }
+                else if (value == NumericType.Float)
+                {
+                    value = NumericType.UFloat;
+                }
+            }
+            return value;
+        }
 
         /// <summary>
         /// 保留小数位数，最大15，-1表示不进行四舍五入
@@ -58,7 +95,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty DecimalsProperty =
             DependencyProperty.Register("Decimals", typeof(int), typeof(RangeBox),
-                new PropertyMetadata(-1, new PropertyChangedCallback(OnDecimalsChanged), new CoerceValueCallback(CoerceDecimals)));
+                new FrameworkPropertyMetadata(-1, new PropertyChangedCallback(OnDecimalsChanged), new CoerceValueCallback(CoerceDecimals)));
         private static void OnDecimalsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RangeBox slider = (RangeBox)d;
@@ -96,7 +133,6 @@ namespace Leisn.Xaml.Wpf.Controls
         public static readonly DependencyProperty IsReadOnlyProperty =
             DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(RangeBox), new PropertyMetadata(false));
 
-
         private void UpdateText()
         {
             if (Decimals > -1)
@@ -122,10 +158,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             base.OnMinimumChanged(oldMinimum, newMinimum);
             UpdateThumbWidth();
-            if (textBox is NumericBox box)
-            {
-                box.NumericType = newMinimum < 0 ? NumericType.Float : NumericType.UFloat;
-            }
+            NumericType = (NumericType)CoerceNumericType(this, NumericType);
         }
 
         private void RangeBox_SizeChanged(object sender, SizeChangedEventArgs e)
