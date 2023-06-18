@@ -1,7 +1,9 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
+using System.Diagnostics;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -19,7 +21,15 @@ namespace Leisn.Xaml.Wpf.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var hex = (string)value;
-            return ColorEx.FromHex(hex);
+            try
+            {
+                return ColorEx.FromHex(hex);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+            }
+            return DependencyProperty.UnsetValue;
         }
     }
 }

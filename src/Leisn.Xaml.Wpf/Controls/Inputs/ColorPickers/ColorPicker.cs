@@ -1,15 +1,12 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 
 using Leisn.Common.Media;
@@ -33,6 +30,7 @@ namespace Leisn.Xaml.Wpf.Controls
     public sealed class ColorPicker : Control
     {
         const string PART_ColorSpectrumName = "PART_ColorSpectrum";
+        const string PART_TextBoxName = "PART_TextBox";
         static ColorPicker()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorPicker), new FrameworkPropertyMetadata(typeof(ColorPicker)));
@@ -136,10 +134,16 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private bool _pausePropertyChangedHandle;
         private ColorSpectrum _colorSpectrum = null!;
+        private TextBox? _textBox;
 
         [MemberNotNull(nameof(_colorSpectrum))]
         public override void OnApplyTemplate()
         {
+            if (_textBox != null)
+            {
+                _textBox.PreviewTextInput -= OnTextBoxInputing;
+                _textBox.KeyDown -= OnTextBoxKeyDown;
+            }
             if (_colorSpectrum != null)
             {
                 _colorSpectrum.SelectedHsvChanged -= OnSpectrumHsvChagned;
@@ -149,7 +153,45 @@ namespace Leisn.Xaml.Wpf.Controls
             _colorSpectrum = (ColorSpectrum)GetTemplateChild(PART_ColorSpectrumName);
             _colorSpectrum.SelectedHsvChanged += OnSpectrumHsvChagned;
             _colorSpectrum.SelectedRgb = SelectedColor.ToRgb();
+
+            _textBox = GetTemplateChild(PART_TextBoxName) as TextBox;
+            if (_textBox != null)
+            {
+                _textBox.KeyDown += OnTextBoxKeyDown;
+                _textBox.PreviewTextInput += OnTextBoxInputing;
+            }
         }
+
+        #region 输入限制
+        private void OnTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (Keyboard.FocusedElement is UIElement element)
+                {
+                    element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void OnTextBoxInputing(object sender, TextCompositionEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            string regex = string.Format(@"^[a-fA-F0-9]+$");
+            var match = Regex.IsMatch(e.Text, regex);
+            if (!match)
+            {
+                e.Handled = true;
+                FrameworkTextComposition? composition = e.TextComposition as FrameworkTextComposition;
+                if (composition?.ResultLength > 0)//触发事件时，已完成输入
+                {
+                    textBox.Text = textBox.Text.Remove(composition.ResultOffset, composition.ResultLength);
+                }
+            }
+        }
+        #endregion
+
 
         private void OnSpectrumHsvChagned(object sender, SelectedHsvChangedEventArgs e)
         {
@@ -189,13 +231,14 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 if (fromHsv)
                 {
-                    var hsv = new Hsv((byte)Hue, Saturation, Brightness);
+                    var hsv = new Hsv((ushort)Hue, Saturation, Brightness);
                     var rgb = hsv.ToRgb();
                     Red = rgb.R;
                     Green = rgb.G;
                     Blue = rgb.B;
-                    SelectedColor = Color.FromArgb((byte)Alpha, rgb.R, rgb.G, rgb.B);
+                    _colorSpectrum.SelectedHue = new Hsv(hsv.H, 1, 1);
                     _colorSpectrum.SelectedHsv = hsv;
+                    SelectedColor = Color.FromArgb((byte)Alpha, rgb.R, rgb.G, rgb.B);
                 }
                 else
                 {
@@ -204,6 +247,7 @@ namespace Leisn.Xaml.Wpf.Controls
                     Hue = hsv.H;
                     Saturation = hsv.S;
                     Brightness = hsv.V;
+                    _colorSpectrum.SelectedHue = new Hsv(hsv.H, 1, 1);
                     _colorSpectrum.SelectedRgb = SelectedColor.ToRgb();
                 }
             }

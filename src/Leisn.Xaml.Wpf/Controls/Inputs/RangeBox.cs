@@ -1,6 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -322,10 +323,10 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 if (Math.Abs(valOffset) < Math.Pow(0.1, Decimals))
                     return;
-                Value = Math.Round(startValue + valOffset, Decimals);
+                Value = Math.Clamp(Math.Round(startValue + valOffset, Decimals), Minimum, Maximum);
                 return;
             }
-            Value = Math.Round(startValue + valOffset, MaxDecimals);
+            Value = Math.Clamp(startValue + valOffset, Minimum, Maximum);
         }
         #endregion
 

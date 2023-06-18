@@ -12,6 +12,7 @@ using SkiaSharp;
 using SkiaSharp.Views.WPF;
 using Leisn.Common.Media;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
