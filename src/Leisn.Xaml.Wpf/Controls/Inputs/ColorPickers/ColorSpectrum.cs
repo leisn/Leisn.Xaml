@@ -324,6 +324,8 @@ namespace Leisn.Xaml.Wpf.Controls
         private float _hueInnerRadius;
         private float _discSpectrumRadius;
         private float _squareSpectrumLength;
+        private float _spectrumPickerRadius;
+        private Vector2 _spectrumPickerCenter;
         protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
         {
             var canvas = e.Surface.Canvas;
@@ -394,15 +396,21 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             //draw color picker circle
-            using var colorPickerPanint = new SKPaint
+            using var colorPickerPaint = new SKPaint
             {
                 IsAntialias = true,
                 IsStroke = true,
                 StrokeWidth = pickerWidth,
                 Color = SelectedHsv.ForegroundShouldBeLight() ? SKColors.White : SKColors.Black,
             };
-            float colorPickerRadius = hubPickerRadius / 2;
-            canvas.DrawCircle(colorPickerX, colorPickerY, colorPickerRadius, colorPickerPanint);
+            var colorPickerRadius = hubPickerRadius / 2;
+            canvas.DrawCircle(colorPickerX, colorPickerY, colorPickerRadius, colorPickerPaint);
+
+            _spectrumPickerRadius = colorPickerRadius + pickerWidth / 2;
+            _spectrumPickerCenter = Vector2.Transform(
+                    new Vector2(colorPickerX, colorPickerY),
+                    Matrix3x2.CreateRotation((float)-Math.PI / 2))
+                + new Vector2(_center.X, _center.Y);
             #endregion
             //draw broder
             if (BorderWidth > 0)
@@ -448,7 +456,6 @@ namespace Leisn.Xaml.Wpf.Controls
             });
             return SKImage.FromPixelCopy(new SKImageInfo(length, length, SKColorType.Rgba8888), bytes);
         }
-
         private SKImage GenerateDiscSpectrumImage(int length)
         {
             var multipleLength = length * 2;//放大倍数，用于边缘抗锯齿，可能需要更好的实现方式
@@ -489,6 +496,7 @@ namespace Leisn.Xaml.Wpf.Controls
         private bool _isAdjustHue;
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
+            Debug.WriteLine(e.GetPosition(this));
             if (e.Source != this)
                 return;
             _isAdjustHue = false;
@@ -560,8 +568,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 SetSquareColor(point);
                 return true;
             }
-            return false;
-        } //点在picker上要可以移动
+            return IsPointInPicker(point);
+        }
         private bool TrySetInDiscSpectrum(Point point)
         {
             var (distance, _) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
@@ -570,8 +578,17 @@ namespace Leisn.Xaml.Wpf.Controls
                 SetDiscColor(point);
                 return true;
             }
-            return false;
+            return IsPointInPicker(point);
         }
+
+        private bool IsPointInPicker(Point point)
+        {
+            var distance = Vector2.Distance(
+                _spectrumPickerCenter,
+                new Vector2((float)point.X, (float)point.Y));
+            return distance <= _spectrumPickerRadius;
+        }
+
         private void SetHue(Point point)
         {
             var (_, radians) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
@@ -602,7 +619,6 @@ namespace Leisn.Xaml.Wpf.Controls
             float v = (vector.X + half) / _squareSpectrumLength;
             SelectedHsv = new Hsv(SelectedHue.H, s, v);
         }
-
         private void SetDiscColor(Point point)
         {
             var vector = new Vector2((float)point.X, (float)point.Y);
