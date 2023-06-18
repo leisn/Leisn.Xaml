@@ -34,66 +34,41 @@
       <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
     </ln:StackPanel>
     <ln:PropertyGrid Grid.Column="1" x:Name="perpertyGrid"/>
-    <Grid Grid.Column="2">
+    <Grid Grid.Column="2" Background="{StaticResource RegionBrush}" Margin="10,0,0,0">
       <Grid.RowDefinitions>
-        <RowDefinition/>
-        <RowDefinition Height="20"/>
+        <RowDefinition Height="100"/>
+        <RowDefinition Height="10"/>
         <RowDefinition/>
       </Grid.RowDefinitions>
-      <StackPanel Margin="10,0">
+      <StackPanel Margin="10,10">
         <Grid>
           <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="auto"/>
           </Grid.RowDefinitions>
-
           <Border x:Name="ColorBlock" Height="{Binding RelativeSource={RelativeSource Self},Path=ActualWidth}"
-                  BorderThickness="1" BorderBrush="{DynamicResource BorderLighterBrush}">
-            <Border.Background>
-              <SolidColorBrush Color="{Binding ElementName=colorCircle,Path=SelectedHue}"/>
-            </Border.Background>
-            <Grid>
-              <Border>
-                <Border.Background>
-                  <LinearGradientBrush EndPoint="0,0.5" StartPoint="1,0.5">
-                    <GradientStop Color="White" Offset="1" />
-                    <GradientStop Color="#80ffffff" Offset=".5" />
-                    <GradientStop Color="#00ffffff" />
-                  </LinearGradientBrush>
-                </Border.Background>
-              </Border>
-              <Border>
-                <Border.Background>
-                  <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black" Offset="1" />
-                    <GradientStop Color="#80000000" Offset=".5" />
-                    <GradientStop Color="#00000000" />
-                  </LinearGradientBrush>
-                </Border.Background>
-              </Border>
-            </Grid>
+                  BorderThickness="1" >
+            <!--<Border.BorderBrush>
+              <SolidColorBrush Color="{Binding ElementName=colorCircle,Path=SelectedColor}"/>
+            </Border.BorderBrush>-->
+            <StackPanel>
+              <Rectangle Width="100" Height="25">
+                <Rectangle.Fill>
+                  <SolidColorBrush Color="{Binding ElementName=colorCircle,Path=SelectedColor}"/>
+                </Rectangle.Fill>
+              </Rectangle>
+              <TextBlock Margin="0,5" Foreground="{StaticResource TextBrush}" TextAlignment="Center">
+                <Run Text="{Binding ElementName=colorCircle,Path=SelectedColor.R,StringFormat={}R: {0}}"/> 
+                <Run Text="{Binding ElementName=colorCircle,Path=SelectedColor.G,StringFormat={}G: {0}}"/>
+                <Run Text="{Binding ElementName=colorCircle,Path=SelectedColor.B,StringFormat={}B: {0}}"/>
+              </TextBlock>
+            </StackPanel>
           </Border>
-          <Slider Grid.Row="1" Orientation="Horizontal" Margin="0,5,0,0"
-                Width="{Binding ElementName=ColorBlock,Path=ActualHeight}"
-                Minimum="0" Maximum="1785" MinWidth="{DynamicResource InputMinHeight}"
-                SmallChange="1" LargeChange="10" >
-            <Slider.Background>
-              <LinearGradientBrush>
-                <GradientStop Color="#ff0000" />
-                <GradientStop Color="#ff00ff" Offset="0.167" />
-                <GradientStop Color="#0000ff" Offset="0.334" />
-                <GradientStop Color="#00ffff" Offset="0.501" />
-                <GradientStop Color="#00ff00" Offset="0.668" />
-                <GradientStop Color="#ffff00" Offset="0.835" />
-                <GradientStop Color="#ff0000" Offset="1" />
-              </LinearGradientBrush>
-            </Slider.Background>
-          </Slider>
         </Grid>
       </StackPanel>
 
       <Grid Grid.Row="2" Margin="10,0">
-        <ln:ColorSpectrum x:Name="colorCircle" />
+        <ln:ColorSpectrum x:Name="colorCircle"  IsDiscSpectrum="False"/>
       </Grid>
     </Grid>
   </Grid>

@@ -64,6 +64,34 @@ namespace Leisn.Common.Media
 
         public override string ToString() => $"rgb({R}, {G}, {B})";
 
+        public Hsv ToHsv()
+        {
+            var r = R / 255d;
+            var g = G / 255d;
+            var b = B / 255d;
+            var max = Math.Max(Math.Max(r, g), b);
+            var min = Math.Min(Math.Min(r, g), b);
+            var chrom = max - min;
+            double v = max;
+            double s, h = 0;
+            if (chrom == 0)
+            {
+                s = 0;
+            }
+            else
+            {
+                s = chrom / v;
+                if (max == r)
+                    h = (g - b) / chrom + (g < b ? 6 : 0);
+                else if (max == g)
+                    h = (b - r) / chrom + 2;
+                else if (max == b)
+                    h = (r - g) / chrom + 4;
+                h /= 6;
+            }
+            return new Hsv((ushort)(h * 360), s, v);
+        }
+
         public Hsl ToHsl()
         {
             var r = R / 255d;
@@ -94,32 +122,5 @@ namespace Leisn.Common.Media
             return new Hsl((ushort)(360 * h), (byte)(s * 100), (byte)(l * 100));
         }
 
-        public Hsv ToHsv()
-        {
-            var r = R / 255d;
-            var g = G / 255d;
-            var b = B / 255d;
-            var max = Math.Max(Math.Max(r, g), b);
-            var min = Math.Min(Math.Min(r, g), b);
-            var chrom = max - min;
-            double v = max;
-            double s, h = 0;
-            if (chrom == 0)
-            {
-                s = 0;
-            }
-            else
-            {
-                s = chrom / v;
-                if (max == r)
-                    h = (g - b) / chrom + (g < b ? 6 : 0);
-                else if (max == g)
-                    h = (b - r) / chrom + 2;
-                else if (max == b)
-                    h = (r - g) / chrom + 4;
-                h /= 6;
-            }
-            return new Hsv((ushort)(h * 360), s, v);
-        }
     }
 }

@@ -15,21 +15,103 @@ using SkiaSharp;
 using SkiaSharp.Views.WPF;
 using Leisn.Common.Media;
 using System.Diagnostics;
+using System.ComponentModel;
+using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
-    public class ColorSpectrum : SKElement
+    #region events delegate
+    public delegate void SelectedHueChangedEventHandler(object sender, SelectedHueChangedEventArgs e);
+    public class SelectedHueChangedEventArgs : RoutedEventArgs
     {
-        static ColorSpectrum()
+        public Hsv OldValue { get; }
+        public Hsv NewValue { get; }
+        public SelectedHueChangedEventArgs(Hsv oldValue, Hsv newValue)
         {
-            SnapsToDevicePixelsProperty.OverrideMetadata(typeof(ColorSpectrum), new FrameworkPropertyMetadata(true));
+            RoutedEvent = ColorSpectrum.SelectedHueChangedEvent;
+            OldValue = oldValue;
+            NewValue = newValue;
         }
+    }
+    public delegate void SelectedHsvChangedEventHandler(object sender, SelectedHsvChangedEventArgs e);
+    public class SelectedHsvChangedEventArgs : RoutedEventArgs
+    {
+        public Hsv OldValue { get; }
+        public Hsv NewValue { get; }
+        public SelectedHsvChangedEventArgs(Hsv oldValue, Hsv newValue)
+        {
+            RoutedEvent = ColorSpectrum.SelectedHsvChangedEvent;
+            OldValue = oldValue;
+            NewValue = newValue;
+        }
+    }
+    public delegate void SelectedColorChangedEventHandler(object sender, SelectedColorChangedEventArgs e);
+    public class SelectedColorChangedEventArgs : RoutedEventArgs
+    {
+        public Color OldValue { get; }
+        public Color NewValue { get; }
+        public SelectedColorChangedEventArgs(Color oldValue, Color newValue)
+        {
+            RoutedEvent = ColorSpectrum.SelectedColorChangedEvent;
+            OldValue = oldValue;
+            NewValue = newValue;
+        }
+    }
 
+    #endregion
+
+    public sealed class ColorSpectrum : SKElement
+    {
         public ColorSpectrum()
         {
             IgnorePixelScaling = true;
         }
 
+        static ColorSpectrum()
+        {
+            SnapsToDevicePixelsProperty.OverrideMetadata(typeof(ColorSpectrum), new FrameworkPropertyMetadata(true));
+        }
+
+        #region public events
+        public static readonly RoutedEvent SelectedHueChangedEvent = EventManager.RegisterRoutedEvent(
+            nameof(SelectedHueChanged), RoutingStrategy.Bubble, typeof(SelectedHueChangedEventHandler), typeof(ColorSpectrum));
+        /// <summary>
+        ///     An event fired when the hue selection changes.
+        /// </summary>
+        [Category("Behavior")]
+        public event SelectedHueChangedEventHandler SelectedHueChanged
+        {
+            add { AddHandler(SelectedHueChangedEvent, value); }
+            remove { RemoveHandler(SelectedHueChangedEvent, value); }
+        }
+
+        public static readonly RoutedEvent SelectedHsvChangedEvent = EventManager.RegisterRoutedEvent(
+         nameof(SelectedHsvChanged), RoutingStrategy.Bubble, typeof(SelectedHsvChangedEventHandler), typeof(ColorSpectrum));
+        /// <summary>
+        ///     An event fired when the hsv selection changes.
+        /// </summary>
+        [Category("Behavior")]
+        public event SelectedHsvChangedEventHandler SelectedHsvChanged
+        {
+            add { AddHandler(SelectedHsvChangedEvent, value); }
+            remove { RemoveHandler(SelectedHsvChangedEvent, value); }
+        }
+
+        public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent(
+           nameof(SelectedColorChanged), RoutingStrategy.Bubble, typeof(SelectedColorChangedEventHandler), typeof(ColorSpectrum));
+        /// <summary>
+        ///     An event fired when the color selection changes.
+        /// </summary>
+        [Category("Behavior")]
+        public event SelectedColorChangedEventHandler SelectedColorChanged
+        {
+            add { AddHandler(SelectedColorChangedEvent, value); }
+            remove { RemoveHandler(SelectedColorChangedEvent, value); }
+        }
+        #endregion
+
+        #region properties
         public double CircleLength
         {
             get { return (double)GetValue(CircleLengthProperty); }
@@ -37,7 +119,15 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty CircleLengthProperty =
             DependencyProperty.Register("CircleLength", typeof(double), typeof(ColorSpectrum),
-                new FrameworkPropertyMetadata(.28d, FrameworkPropertyMetadataOptions.AffectsRender));
+                new FrameworkPropertyMetadata(.22d, FrameworkPropertyMetadataOptions.AffectsRender));
+        public double Spacing
+        {
+            get { return (double)GetValue(SpacingProperty); }
+            set { SetValue(SpacingProperty, value); }
+        }
+        public static readonly DependencyProperty SpacingProperty =
+            DependencyProperty.Register("Spacing", typeof(double), typeof(ColorSpectrum),
+                 new FrameworkPropertyMetadata(.12d, FrameworkPropertyMetadataOptions.AffectsRender));
 
         public double BorderWidth
         {
@@ -57,23 +147,39 @@ namespace Leisn.Xaml.Wpf.Controls
             DependencyProperty.Register("BorderColor", typeof(Color), typeof(ColorSpectrum),
                 new FrameworkPropertyMetadata(Colors.LightGray, FrameworkPropertyMetadataOptions.AffectsRender));
 
-        public Color SelectedHue
+        public Hsv SelectedHue
         {
-            get { return (Color)GetValue(SelectedHueProperty); }
+            get { return (Hsv)GetValue(SelectedHueProperty); }
             set { SetValue(SelectedHueProperty, value); }
         }
         public static readonly DependencyProperty SelectedHueProperty =
-            DependencyProperty.Register("SelectedHue", typeof(Color), typeof(ColorSpectrum),
-                new FrameworkPropertyMetadata(new Color { A = 255, R = 255 }, FrameworkPropertyMetadataOptions.AffectsRender));
+            DependencyProperty.Register("SelectedHue", typeof(Hsv), typeof(ColorSpectrum),
+                new FrameworkPropertyMetadata(new Hsv(0, 1, 1), FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnSeletedHueChanged)));
 
-        public double Spacing
+        private static void OnSeletedHueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            get { return (double)GetValue(SpacingProperty); }
-            set { SetValue(SpacingProperty, value); }
+            var cs = (ColorSpectrum)d;
+            var value = (Hsv)e.NewValue;
+            cs.RaiseEvent(new SelectedHueChangedEventArgs((Hsv)e.OldValue, (Hsv)e.NewValue) { Source = cs });
+            cs.SelectedHsv = new Hsv(value.H, cs.SelectedHsv.S, cs.SelectedHsv.V);
         }
-        public static readonly DependencyProperty SpacingProperty =
-            DependencyProperty.Register("Spacing", typeof(double), typeof(ColorSpectrum),
-                 new FrameworkPropertyMetadata(0.12d, FrameworkPropertyMetadataOptions.AffectsRender));
+
+        public Hsv SelectedHsv
+        {
+            get { return (Hsv)GetValue(SelectedHsvProperty); }
+            set { SetValue(SelectedHsvProperty, value); }
+        }
+        public static readonly DependencyProperty SelectedHsvProperty =
+            DependencyProperty.Register("SelectedHsv", typeof(Hsv), typeof(ColorSpectrum),
+                new FrameworkPropertyMetadata(new Hsv(0, 1, 1), FrameworkPropertyMetadataOptions.AffectsRender, new PropertyChangedCallback(OnSelectedHsvChanged)));
+
+        private static void OnSelectedHsvChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var cs = (ColorSpectrum)d;
+            cs.RaiseEvent(new SelectedHsvChangedEventArgs((Hsv)e.OldValue, (Hsv)e.NewValue) { Source = cs });
+            var value = ((Hsv)e.NewValue).ToRgb();
+            cs.SelectedColor = Color.FromRgb(value.R, value.G, value.B);
+        }
 
         public Color SelectedColor
         {
@@ -82,10 +188,32 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorSpectrum),
-                 new FrameworkPropertyMetadata(new Color { A = 255, R = 255 }, FrameworkPropertyMetadataOptions.AffectsRender));
+                 new FrameworkPropertyMetadata(new Color { A = 255, R = 255 }, new PropertyChangedCallback(OnSelectedColorChanged)));
 
-        #region color maps
-        protected virtual Color PosToColor(double pos)
+        private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var cs = (ColorSpectrum)d;
+            var value = (Color)e.NewValue;
+            cs.RaiseEvent(new SelectedColorChangedEventArgs((Color)e.OldValue, value) { Source = cs });
+            var rgb = new Rgb(value.R, value.G, value.B);
+            if (Equals(rgb, cs.SelectedHsv.ToRgb()))
+                return;
+            cs.SelectedHsv = new Rgb(value.R, value.G, value.B).ToHsv();
+        }
+
+        public bool IsDiscSpectrum
+        {
+            get { return (bool)GetValue(IsDiscSpectrumProperty); }
+            set { SetValue(IsDiscSpectrumProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsDiscSpectrumProperty =
+            DependencyProperty.Register("IsDiscSpectrum", typeof(bool), typeof(ColorSpectrum),
+                 new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
+        #endregion
+
+        #region hue color maps 
+        private static Hsv HuePosToColor(double pos)
         {
             if (pos < 0 || pos > 1)
                 throw new ArgumentOutOfRangeException(nameof(pos), $"{pos} not in [0,1]");
@@ -103,7 +231,7 @@ namespace Leisn.Xaml.Wpf.Controls
             byte value = (byte)Math.Round(posInArea * 255);
             byte valueInverse = (byte)(255 - value);
 
-            Color color = new() { A = 0xFF };
+            Rgb color = new();
             switch (colorSpace)
             {
                 case 1:
@@ -138,10 +266,11 @@ namespace Leisn.Xaml.Wpf.Controls
                     break;
             }
 
-            return color;
+            return color.ToHsv();
         }
-        protected virtual double ColorToPos(Color color)
+        private static double HueColorToPos(Hsv hsv)
         {
+            var color = hsv.ToRgb();
             double pos = -1;
             for (int i = 0; i < _colorHues.Length; i++)
             {
@@ -189,34 +318,33 @@ namespace Leisn.Xaml.Wpf.Controls
         };
         #endregion
 
-
-        Point GetCenter() => new Point(ActualWidth / 2, ActualHeight / 2);
-        double GetOuterRadius() => (Math.Min(ActualWidth, ActualHeight) - 10) / 2;
-        double GetPickerRadius()
-        {
-            var outerRadius = GetOuterRadius();
-            return outerRadius - (CircleLength > 1 ? CircleLength : CircleLength * outerRadius) / 2;
-        }
+        #region draw and vars
+        private SKPoint _center;
+        private float _hueOuterRadius;
+        private float _hueInnerRadius;
+        private float _discSpectrumRadius;
+        private float _squareSpectrumLength;
         protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
         {
             var canvas = e.Surface.Canvas;
             canvas.Clear();
-            var center = new SKPoint(e.Info.Rect.MidX, e.Info.Rect.MidY);
-            float outerRadius = (float)((Math.Min(e.Info.Width, e.Info.Height) - 10) / 2 - BorderWidth);
-            float circleLength = (float)(CircleLength > 1 ? CircleLength : CircleLength * outerRadius);
-            float innerRadius = outerRadius - circleLength;
+            _center = new SKPoint(e.Info.Rect.MidX, e.Info.Rect.MidY);
+            _hueOuterRadius = (float)((Math.Min(e.Info.Width, e.Info.Height) - 10) / 2 - BorderWidth);
+            float circleLength = (float)(CircleLength > 1 ? CircleLength : CircleLength * _hueOuterRadius);
+            _hueInnerRadius = _hueOuterRadius - circleLength;
             float pickerWidth = Math.Max(circleLength / 12, 2f);
             #region draw color cicle
             canvas.Save();
-            canvas.Translate(center);
+            canvas.Translate(_center);
             canvas.RotateDegrees(-90);
+            canvas.Save();
             //draw cicle
             using (var circlePaint = new SKPaint { IsStroke = false, IsAntialias = true })
             using (var shade = SKShader.CreateSweepGradient(new SKPoint(), _colorHues, _colorHuePos))
             using (var path = new SKPath { FillType = SKPathFillType.EvenOdd })
             {
-                path.AddCircle(0, 0, innerRadius);
-                path.AddCircle(0, 0, outerRadius);
+                path.AddCircle(0, 0, _hueInnerRadius);
+                path.AddCircle(0, 0, _hueOuterRadius);
                 //canvas.ClipPath(clip, SKClipOperation.Intersect, true);
                 circlePaint.Shader = shade;
                 canvas.DrawPath(path, circlePaint);
@@ -231,8 +359,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 Color = SelectedHue.ForegroundShouldBeLight() ? SKColors.White : SKColors.Black,
             };
             float hubPickerRadius = circleLength / 3.2f;
-            float hubPickerPos = innerRadius + circleLength / 2;
-            var selectedHubAngle = (float)ColorToPos(SelectedHue) * 360;
+            float hubPickerPos = _hueInnerRadius + circleLength / 2;
+            var selectedHubAngle = (float)HueColorToPos(SelectedHue) * 360;
             canvas.RotateDegrees(selectedHubAngle);
             canvas.DrawCircle(hubPickerPos, 0, hubPickerRadius, hubPickerPaint);
 
@@ -240,131 +368,260 @@ namespace Leisn.Xaml.Wpf.Controls
             #endregion
 
             #region draw color spectrum
-            canvas.Save();
-            canvas.Translate(center);
-            var spacing = (float)(Spacing > 1 ? Spacing : Spacing * innerRadius);
-            var spectrumRadius = innerRadius - spacing;
-            //draw spectrum
-            using var spectrumPanint = new SKPaint { IsAntialias = true, Color = SKColors.Transparent };
-            canvas.DrawBitmap(GenerateSpectrum((int)(spectrumRadius * 2)), -spectrumRadius, -spectrumRadius, spectrumPanint);
+            //canvas.Save();
+            //canvas.Translate(center);
+            float colorPickerX = 0;
+            float colorPickerY = 0;
+            var spacing = (float)(Spacing > 1 ? Spacing : Spacing * _hueInnerRadius);
+            _discSpectrumRadius = _hueInnerRadius - spacing;
+            if (IsDiscSpectrum)
+            {
+                using var spectrumImage = GenerateDiscSpectrumImage((int)(_discSpectrumRadius * 2));
+                canvas.DrawImage(spectrumImage, -_discSpectrumRadius, -_discSpectrumRadius);
+                var (u, v) = ShapeHelper.SquareToDiscMapping(2 * SelectedHsv.V - 1, 2 * SelectedHsv.S - 1);
+                colorPickerX = (float)(u * _discSpectrumRadius);
+                colorPickerY = (float)(v * _discSpectrumRadius);
+            }
+            else
+            {
+                //var innerSquareLength = (float)Math.Sqrt(innerRadius * innerRadius / 2);//内接正方形边长
+                _squareSpectrumLength = (float)Math.Sqrt(2 * _discSpectrumRadius * _discSpectrumRadius);//边长
+                var half = _squareSpectrumLength / 2;
+                using var spectrumImage = GenerateSquareSpectrumImage((int)_squareSpectrumLength);
+                canvas.DrawImage(spectrumImage, -half, -half);
+                colorPickerX = (float)(SelectedHsv.V * _squareSpectrumLength - half);
+                colorPickerY = (float)(SelectedHsv.S * _squareSpectrumLength - half);
+            }
+
             //draw color picker circle
             using var colorPickerPanint = new SKPaint
             {
                 IsAntialias = true,
                 IsStroke = true,
                 StrokeWidth = pickerWidth,
-                Color = SelectedColor.ForegroundShouldBeLight() ? SKColors.White : SKColors.Black,
+                Color = SelectedHsv.ForegroundShouldBeLight() ? SKColors.White : SKColors.Black,
             };
-            float colorPickerRadius = hubPickerRadius / 3 * 2;
-            float colorPickerX = 0;
-            float colorPickerY = 0;
+            float colorPickerRadius = hubPickerRadius / 2;
             canvas.DrawCircle(colorPickerX, colorPickerY, colorPickerRadius, colorPickerPanint);
-            canvas.Restore();
             #endregion
             //draw broder
             if (BorderWidth > 0)
             {
                 using var borderPaint = new SKPaint { IsStroke = true, StrokeWidth = (float)BorderWidth, IsAntialias = true };
                 borderPaint.Color = BorderColor.ToSKColor();
-                canvas.DrawCircle(0, 0, spectrumRadius, borderPaint);
-                canvas.DrawCircle(0, 0, innerRadius, borderPaint);
-                canvas.DrawCircle(0, 0, outerRadius, borderPaint);
+                canvas.DrawCircle(0, 0, _hueInnerRadius, borderPaint);
+                canvas.DrawCircle(0, 0, _hueOuterRadius, borderPaint);
+                if (IsDiscSpectrum)
+                {
+                    canvas.DrawCircle(0, 0, _discSpectrumRadius, borderPaint);
+                }
+                else
+                {
+                    canvas.DrawRect(-_squareSpectrumLength / 2, -_squareSpectrumLength / 2,
+                        _squareSpectrumLength, _squareSpectrumLength, borderPaint);
+                }
             }
-
+            canvas.Restore();
             base.OnPaintSurface(e);
         }
 
-        private SKBitmap GenerateSpectrum(int length)
+        private SKImage GenerateSquareSpectrumImage(int length)
         {
-            var bitmap = new SKBitmap(length, length, SKColorType.Rgba8888, SKAlphaType.Premul);
-            var hsv = new Rgb(SelectedHue.R, SelectedHue.G, SelectedHue.B).ToHsv();
-            hsv.S = hsv.S * 2 - 1;
-            hsv.V = hsv.V * 2 - 1;
-            for (int y = 0; y < length; y++)
+            var bytes = new byte[length * length * 4];
+            var selectedHue = SelectedHue;
+            Parallel.For(0, length, (i) =>
             {
-                for (int x = 0; x < length; x++)
+                Rgb rgb;
+                Hsv hsv = new(selectedHue.H, (double)i / length, 0);
+                int bytePos;
+                for (int j = 0; j < length; j++)
                 {
-                    var uv = SquareToDiscMapping(x, y);
+                    hsv.V = (double)j / length;
+                    rgb = hsv.ToRgb();
 
-                    var color = SKColors.Blue;
-                    if (!double.IsNaN(uv.X) && !double.IsNaN(uv.Y))
-                        bitmap.SetPixel((int)uv.X, (int)uv.Y, color);
+                    bytePos = i * length * 4 + j * 4;
+                    bytes[bytePos] = rgb.R;
+                    bytes[bytePos + 1] = rgb.G;
+                    bytes[bytePos + 2] = rgb.B;
+                    bytes[bytePos + 3] = 0xFF;
                 }
-            }
-            return bitmap;
+            });
+            return SKImage.FromPixelCopy(new SKImageInfo(length, length, SKColorType.Rgba8888), bytes);
         }
 
-        //圆形到正方形点位映射
-        static Point DiscToSquareMapping(double u, double v)
+        private SKImage GenerateDiscSpectrumImage(int length)
         {
-            double u2 = u * u;
-            double v2 = v * v;
-            double twosqrt2 = 2 * Math.Sqrt(2);
-            double subtermx = 2 + u2 - v2;
-            double subtermy = 2 - u2 + v2;
-            double termx1 = subtermx + u * twosqrt2;
-            double termx2 = subtermx - u * twosqrt2;
-            double termy1 = subtermy + v * twosqrt2;
-            double termy2 = subtermy - v * twosqrt2;
-            double x = 0.5 * Math.Sqrt(termx1) - 0.5 * Math.Sqrt(termx2);
-            double y = 0.5 * Math.Sqrt(termy1) - 0.5 * Math.Sqrt(termy2);
-            return new Point(x, y);
-        }
-        //长方形到圆形点位映射
-        static Point SquareToDiscMapping(double x, double y)
-        {
-            var u = x * Math.Sqrt(1 - y * y / 2);
-            var v = y * Math.Sqrt(1 - x * x / 2);
-            return new Point(u, v);
-        }
+            var multipleLength = length * 2;//放大倍数，用于边缘抗锯齿，可能需要更好的实现方式
+            var radius = multipleLength / 2;
+            var bytes = new byte[multipleLength * multipleLength * 4];
+            var selectedHue = SelectedHue;
+            Parallel.For(0, multipleLength, (i) =>
+            {
+                int bytePos;
+                Rgb rgb;
+                Hsv hsv = new(selectedHue.H, (double)i / multipleLength, 0);
+                double u, v;
+                int row, col;
+                for (int j = 0; j < multipleLength; j++)
+                {
+                    hsv.V = (double)j / multipleLength;
+                    rgb = hsv.ToRgb();
+                    (u, v) = ShapeHelper.SquareToDiscMapping(hsv.V * 2 - 1, hsv.S * 2 - 1);
+                    col = (int)(radius * u + radius);
+                    row = (int)(radius * v + radius);
 
+                    bytePos = row * multipleLength * 4 + col * 4;
+                    bytes[bytePos] = rgb.R;
+                    bytes[bytePos + 1] = rgb.G;
+                    bytes[bytePos + 2] = rgb.B;
+                    bytes[bytePos + 3] = 0xFF;
+                }
+            });
+            using var image2 = SKImage.FromPixelCopy(new SKImageInfo(multipleLength, multipleLength, SKColorType.Rgba8888), bytes);
+            var image = SKImage.Create(new SKImageInfo(length, length, SKColorType.Rgba8888));
+            image2.ScalePixels(image.PeekPixels(), SKFilterQuality.High);
+            return image;
+        }
+        #endregion
 
         #region mouse actions
         private bool _isMouseDown;
+        private bool _isAdjustHue;
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            _isMouseDown = true;
+            if (e.Source != this)
+                return;
+            _isAdjustHue = false;
+            try
+            {
+                var point = e.GetPosition(this);
+                if (TrySetHue(point))
+                {
+                    _isAdjustHue = true;
+                    _isMouseDown = true;
+                    return;
+                }
+                if (IsDiscSpectrum)
+                {
+                    //圆形
+                    if (TrySetInDiscSpectrum(point))
+                        _isMouseDown = true;
+                    return;
+                }
+                //正方形
+                if (TrySetInSquareSpectrum(point))
+                    _isMouseDown = true;
+            }
+            finally
+            {
+                if (_isMouseDown)
+                    CaptureMouse();
+            }
+
         }
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            if (!_isMouseDown)
+            if (!_isMouseDown || e.Source != this)
                 return;
             var point = e.GetPosition(this);
-            var center = GetCenter();
-            var v1 = new Vector2((float)center.X, 0);
-            var v2 = new Vector2((float)point.X, (float)point.Y);
-            var vc = new Vector2((float)center.X, (float)center.Y);
-            var ab = Vector2.Distance(v1, vc);
-            var ac = Vector2.Distance(v2, vc);
-            var bc = Vector2.Distance(v1, v2);
-            var radians = Math.Acos((ab * ab + ac * ac - bc * bc) / (2 * ab * ac));
-            var quadrant = Quadrant(center, point);
-            switch (quadrant)
+            if (_isAdjustHue)
             {
-                case 1:
-                case 2:
-                    break;
-                case 3:
-                case 4:
-                    radians = Math.PI * 2 - radians;
-                    break;
+                SetHue(point);
+                return;
             }
-            var pos = Math.Clamp(radians / Math.PI / 2, 0, 1);
-            SelectedHue = PosToColor(pos);
+            if (IsDiscSpectrum)
+            {
+                SetDiscColor(point);
+                return;
+            }
+            SetSquareColor(point);
         }
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
         {
             _isMouseDown = false;
-
+            ReleaseMouseCapture();
         }
-
-        public static int Quadrant(Point orgin, Point target)
+        private bool TrySetHue(Point point)
         {
-            if (orgin.X < target.X)
-                return orgin.Y > target.Y ? 1 : 2;
-            else
-                return orgin.Y > target.Y ? 4 : 3;
+            var (distance, _) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
+            if (distance >= _hueInnerRadius && distance <= _hueOuterRadius)
+            {
+                SetHue(point);
+                return true;
+            }
+            return false;
         }
+        private bool TrySetInSquareSpectrum(Point point)
+        {
+            var halfLenght = _squareSpectrumLength / 2;
+            if (Math.Abs(point.X - _center.X) <= halfLenght
+                && Math.Abs(point.Y - _center.Y) <= halfLenght)
+            {
+                SetSquareColor(point);
+                return true;
+            }
+            return false;
+        } //点在picker上要可以移动
+        private bool TrySetInDiscSpectrum(Point point)
+        {
+            var (distance, _) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
+            if (distance <= _discSpectrumRadius)
+            {
+                SetDiscColor(point);
+                return true;
+            }
+            return false;
+        }
+        private void SetHue(Point point)
+        {
+            var (_, radians) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
+            var quadrant = ShapeHelper.Quadrant(point.X, point.Y, _center.X, _center.Y);
+            switch (quadrant)
+            {
+                case 1:
+                case 2:
+                case 4:
+                    radians = Math.PI / 2 + radians;
+                    break;
+                case 3:
+                    radians = Math.PI * 2.5 + radians;
+                    break;
+            }
+            var pos = Math.Clamp(radians / Math.PI / 2, 0, 1);
+            SelectedHue = HuePosToColor(pos);
+        }
+        private void SetSquareColor(Point point)
+        {
+            float half = _squareSpectrumLength / 2;
+            var px = (float)Math.Clamp((float)point.X, _center.X - half, _center.X + half);
+            var py = (float)Math.Clamp((float)point.Y, _center.Y - half, _center.Y + half);
+            var vector = new Vector2(px, py);
+            vector -= new Vector2(_center.X, _center.Y);
+            vector = Vector2.Transform(vector, Matrix3x2.CreateRotation((float)Math.PI / 2));
+            float s = (vector.Y + half) / _squareSpectrumLength;
+            float v = (vector.X + half) / _squareSpectrumLength;
+            SelectedHsv = new Hsv(SelectedHue.H, s, v);
+        }
+
+        private void SetDiscColor(Point point)
+        {
+            var vector = new Vector2((float)point.X, (float)point.Y);
+            vector -= new Vector2(_center.X, _center.Y);
+            vector = Vector2.Transform(vector, Matrix3x2.CreateRotation((float)Math.PI / 2));
+            //限制在边缘位置
+            if (Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y) > _discSpectrumRadius)
+            {
+                vector = Vector2.Normalize(vector) * _discSpectrumRadius;
+            }
+            vector /= _discSpectrumRadius;//缩放到[-1,1]
+            var (x, y) = ShapeHelper.DiscToSquareMapping(vector.X, vector.Y);
+            x = (x + 1) / 2;// 转换到[0,1]
+            y = (y + 1) / 2;
+            SelectedHsv = new Hsv(SelectedHue.H, y, x);
+        }
+
         #endregion
+
+
     }
 }

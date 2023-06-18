@@ -79,5 +79,12 @@ namespace Leisn.Common.Media
 
             return new Rgb((byte)(r * 255), (byte)(g * 255), (byte)(b * 255));
         }
+
+        public Hsl ToHsl()
+        {
+            var t = (2 - S) * V;
+            var s = V == 0 || S == 0 ? 0 : (S * V) / (t > 1 ? 2 - 5 : t);
+            return new Hsl(H, (byte)(s * 100), (byte)(t / 2 * 100));
+        }
     }
 }
