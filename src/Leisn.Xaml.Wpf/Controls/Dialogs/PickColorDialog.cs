@@ -79,7 +79,12 @@ namespace Leisn.Xaml.Wpf.Controls
             canvas.Save();
             var position = Mouse.GetPosition(_contanier).ToSKPoint();
             var radius = (float)MagnifierSize / 2;
-            var magnifierImageLength = MagnifierSize / MagnifierScale;
+            float offset = (float)(MagnifierSize / MagnifierScale / 2);
+            var rect = new SKRect(
+                Math.Max(0, position.X - offset),
+                Math.Max(0, position.Y - offset),
+                Math.Min(position.X + offset, _screenshot.Width),
+                Math.Min(position.Y + offset, _screenshot.Height));
 
 
             canvas.Restore();
