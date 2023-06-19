@@ -297,6 +297,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 Hue = hsv.H;
                 Saturation = hsv.S;
                 Brightness = hsv.V;
+                _colorSpectrum.SelectedHue = new Hsv(hsv.H, 1, 1);
                 _colorSpectrum.SelectedRgb = rgb;
             }
             finally
