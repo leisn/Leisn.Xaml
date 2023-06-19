@@ -628,7 +628,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 vector = Vector2.Normalize(vector) * _discSpectrumRadius;
             }
             vector /= _discSpectrumRadius;//缩放到[-1,1]
-            var (x, y) = ShapeHelper.DiscToSquareMapping(vector.X, vector.Y);
+            var (x, y) = ShapeHelper.DiscToSquareMapping(vector.X, vector.Y);//映射到矩形
             x = (x + 1) / 2;// 转换到[0,1]
             y = (y + 1) / 2;
             SelectedHsv = new Hsv(SelectedHue.H, y, x);

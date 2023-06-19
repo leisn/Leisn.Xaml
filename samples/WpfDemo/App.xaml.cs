@@ -15,6 +15,8 @@ using System.Reflection;
 using WpfDemo.Providers;
 using Leisn.Common.Media;
 using System.Threading;
+using Leisn.Xaml.Wpf.Controls;
+using System.Windows.Controls;
 
 namespace WpfDemo
 {
@@ -25,7 +27,6 @@ namespace WpfDemo
     {
         public App()
         {
-
             Lang.Initialize(Thread.CurrentThread.CurrentCulture.Name);
 
             var sevices = new ServiceCollection();

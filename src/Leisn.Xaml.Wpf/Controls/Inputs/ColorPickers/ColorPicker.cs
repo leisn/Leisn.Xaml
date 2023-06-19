@@ -5,11 +5,13 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 
 using Leisn.Common.Media;
+using Leisn.Xaml.Wpf.Extensions;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -31,6 +33,7 @@ namespace Leisn.Xaml.Wpf.Controls
     {
         const string PART_ColorSpectrumName = "PART_ColorSpectrum";
         const string PART_TextBoxName = "PART_TextBox";
+        const string PART_PickerScreenName = "PART_PickerScreen";
         static ColorPicker()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorPicker), new FrameworkPropertyMetadata(typeof(ColorPicker)));
@@ -135,10 +138,15 @@ namespace Leisn.Xaml.Wpf.Controls
         private bool _pausePropertyChangedHandle;
         private ColorSpectrum _colorSpectrum = null!;
         private TextBox? _textBox;
+        private ButtonBase? _pickScreenButton;
 
         [MemberNotNull(nameof(_colorSpectrum))]
         public override void OnApplyTemplate()
         {
+            if (_pickScreenButton != null)
+            {
+                _pickScreenButton.Click -= OnPickScreenColorClicked;
+            }
             if (_textBox != null)
             {
                 _textBox.PreviewTextInput -= OnTextBoxInputing;
@@ -160,6 +168,20 @@ namespace Leisn.Xaml.Wpf.Controls
                 _textBox.KeyDown += OnTextBoxKeyDown;
                 _textBox.PreviewTextInput += OnTextBoxInputing;
             }
+
+            _pickScreenButton = GetTemplateChild(PART_PickerScreenName) as ButtonBase;
+            if (_pickScreenButton != null)
+            {
+                _pickScreenButton.Click += OnPickScreenColorClicked;
+            }
+        }
+
+        private void OnPickScreenColorClicked(object sender, RoutedEventArgs e)
+        {
+            var dialog = new PickColorDialog { Owner = Window.GetWindow(this) };
+            if (dialog.ShowDialog() != true)
+                return;
+            SelectedColor = dialog.SelectedColor;
         }
 
         #region 输入限制

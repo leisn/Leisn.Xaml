@@ -989,7 +989,7 @@
                 </local:StackPanel>
                 <local:RangeBox Title="{lang:Lang Opacity}" Margin="0,3,0,0" Minimum="0" Maximum="255" NumericType="UInt" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Alpha,Mode=TwoWay}" />
                 <DockPanel Margin="0,3,0,0">
-                  <Button Margin="7,0,0,0" DockPanel.Dock="Right">
+                  <Button x:Name="PART_PickerScreen" Margin="7,0,0,0" DockPanel.Dock="Right">
                     <Path Fill="{TemplateBinding Foreground}" Data="{DynamicResource EyedropperGeometry}" Stretch="Uniform" Height="16" />
                   </Button>
                   <TextBox x:Name="PART_TextBox" Style="{DynamicResource HexColorTextBoxStyle}" MaxLength="8" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=SelectedColor,Converter={StaticResource ColorHexStringConverter}}" IsReadOnly="{Binding ElementName=hsvTab,Path=IsChecked}" />
