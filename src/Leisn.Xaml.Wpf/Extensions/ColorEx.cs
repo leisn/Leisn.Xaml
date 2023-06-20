@@ -120,5 +120,7 @@ namespace System.Windows.Media
 
         public static Rgb ToRgb(this Color color) => new Rgb(color.R, color.G, color.B);
         public static Hsv ToHsv(this Color color) => color.ToRgb().ToHsv();
+        public static Color ToColor(this Rgb rgb) => Color.FromRgb(rgb.R, rgb.G, rgb.B);
+        public static Color ToColor(this Hsv hsv) => hsv.ToRgb().ToColor();
     }
 }

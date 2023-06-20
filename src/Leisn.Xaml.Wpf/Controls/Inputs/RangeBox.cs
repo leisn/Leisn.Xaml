@@ -258,6 +258,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 {
                     FocusManager.SetFocusedElement(FocusManager.GetFocusScope(this), this);
                 }
+                Keyboard.Focus(this);
             }
             if (!CaptureMouse())
             {
@@ -330,38 +331,43 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         #endregion
 
-        //protected override void OnKeyDown(KeyRoutedEventArgs e)
-        //{
-        //    base.OnKeyDown(e);
-        //    switch (e.Key)
-        //    {
-        //        case VirtualKey.Left:
-        //            Value -= 0.001;
-        //            break;
-        //        case VirtualKey.Right:
-        //            Value += 0.001;
-        //            break;
-        //        case VirtualKey.Up:
-        //            Value -= 0.01;
-        //            break;
-        //        case VirtualKey.Down:
-        //            Value += 0.01;
-        //            break;
-        //        case VirtualKey.PageUp:
-        //            Value -= 0.1;
-        //            break;
-        //        case VirtualKey.PageDown:
-        //            Value += 0.1;
-        //            break;
-        //        case VirtualKey.Home:
-        //            Value = Minimum;
-        //            break;
-        //        case VirtualKey.End:
-        //            Value = Maximum;
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (IsEditing)
+                return;
+            e.Handled = true;
+            switch (e.Key)
+            {
+                case Key.Left:
+                    Value -= SmallChange;
+                    break;
+                case Key.Right:
+                    Value += SmallChange;
+                    break;
+                case Key.Up:
+                    Value -= SmallChange;
+                    break;
+                case Key.Down:
+                    Value += SmallChange;
+                    break;
+                case Key.PageUp:
+                    Value -= LargeChange;
+                    break;
+                case Key.PageDown:
+                    Value += LargeChange;
+                    break;
+                case Key.Home:
+                    Value = Minimum;
+                    break;
+                case Key.End:
+                    Value = Maximum;
+                    break;
+                default:
+                    e.Handled = false;
+                    base.OnKeyDown(e);
+                    break;
+            }
+
+        }
     }
 }

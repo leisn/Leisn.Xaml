@@ -64,9 +64,10 @@ namespace WpfDemo
         }
         private class PgTest
         {
+            public Color Color { get; set; } = Colors.RoyalBlue;
             public Enumv EunmV { get; set; }
 
-            [PathSelect(Mode = PathSelectMode.Folder,DialogTitle ="选择一个文件夹")]
+            [PathSelect(Mode = PathSelectMode.Folder,DialogTitle = "选择一个文件夹{Ok}")]
             [DisplayName("{Ask} him {Ok}")]
             public string Folder { get; set; } = "";
             [PathSelect(Mode = PathSelectMode.OpenFile)]

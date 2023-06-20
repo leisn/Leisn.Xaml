@@ -5,6 +5,8 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 using Leisn.Common.Attributes;
+using Leisn.Common.Helpers;
+using Leisn.Xaml.Wpf.Locales;
 
 using Microsoft.Win32;
 
@@ -74,22 +76,30 @@ namespace Leisn.Xaml.Wpf.Controls
             _button.Click += OnButtonClicked;
         }
 
+
         private void OnButtonClicked(object sender, RoutedEventArgs e)
         {
+            var dialogTitle = DialogTitle;
+            if (!string.IsNullOrEmpty(dialogTitle))
+            {
+                var keys = StringHelper.ParseFormat(dialogTitle, out string? convertedFormat);
+                if (keys.Length > 0)
+                    dialogTitle = string.Format(convertedFormat, Lang.Get(keys));
+            }
+
             if (Mode is PathSelectMode.OpenFile or PathSelectMode.SaveFile)
             {
                 FileDialog fileDialog = Mode == PathSelectMode.SaveFile ?
                     new Microsoft.Win32.SaveFileDialog() : new Microsoft.Win32.OpenFileDialog();
                 if (!string.IsNullOrEmpty(FileFilter))
                 {
-                    fileDialog.Filter = FileFilter;
+                    var fileFilter = FileFilter;
+                    var keys = StringHelper.ParseFormat(fileFilter, out string? convertedFormat);
+                    if (keys.Length > 0)
+                        fileFilter = string.Format(convertedFormat, Lang.Get(keys));
+                    fileDialog.Filter = fileFilter;
                 }
-
-                if (!string.IsNullOrEmpty(DialogTitle))
-                {
-                    fileDialog.Title = DialogTitle;
-                }
-
+                fileDialog.Title = dialogTitle;
                 if (fileDialog.ShowDialog(Application.Current.MainWindow) != true)
                 {
                     return;
@@ -102,13 +112,12 @@ namespace Leisn.Xaml.Wpf.Controls
                 CommonOpenFileDialog dialog = new()
                 {
                     IsFolderPicker = true,
-                    Title = DialogTitle,
+                    Title = dialogTitle,
                 };
                 if (dialog.ShowDialog(Application.Current.MainWindow) != CommonFileDialogResult.Ok)
                 {
                     return;
                 }
-
                 Path = dialog.FileName!;
             }
         }

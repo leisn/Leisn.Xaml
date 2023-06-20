@@ -24,6 +24,16 @@ namespace Leisn.Xaml.Wpf.Locales
         {
             return Current.Values[key];
         }
+
+        public static string[] Get(string[] keys)
+        {
+            var result = new string[keys.Length];
+            for (int i = 0; i < keys.Length; i++)
+            {
+                result[i] = Get(keys[i]);
+            }
+            return result;
+        }
         public static void SetLanguage(string language)
         {
             Current.SetCurrentLang(language);
@@ -61,7 +71,7 @@ namespace Leisn.Xaml.Wpf.Locales
         private void LoadLocales(string currentLang, string folder = "./locales", string fileFilter = "*.lang", string? defalutLang = null)
         {
             currentLang = currentLang.ToLowerInvariant();
-            defalutLang= defalutLang?.ToLowerInvariant();
+            defalutLang = defalutLang?.ToLowerInvariant();
             _defaultLang = string.IsNullOrEmpty(defalutLang) ? CultureInfo.CurrentCulture.Name.ToLowerInvariant() : defalutLang;
             _currentLang = string.IsNullOrEmpty(currentLang) ? _defaultLang : currentLang;
             _values.Clear();

@@ -4,6 +4,7 @@ Assets/Colors.xaml
 Assets/Values.xaml
 Assets/Geometries.xaml
 Assets/Brushes.xaml
+Assets/Images.xaml
 
 #conveters
 Converters/Converters.xaml

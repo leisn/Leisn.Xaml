@@ -35,6 +35,7 @@ namespace Leisn.Xaml.Wpf.Controls
         private readonly SKColor _primaryColor;
         public PickColorDialog()
         {
+            Topmost = true;
             WindowState = WindowState.Maximized;
             WindowStyle = WindowStyle.None;
             ShowInTaskbar = false;
@@ -157,6 +158,7 @@ namespace Leisn.Xaml.Wpf.Controls
             //text
             paint.IsStroke = false;
             paint.IsAntialias = true;
+            paint.IsAutohinted = true;
             paint.Color = SKColors.Black;
             var rgb = new Rgb(color.Red, color.Green, color.Blue);
             colorRect.Bottom += TextLineSpacing + paint.TextSize;

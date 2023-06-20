@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 using Leisn.Common.Media;
-using Leisn.Xaml.Wpf.Extensions;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -244,6 +243,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void UpdateColorFromValues(bool fromHsv)
         {
+            if (_colorSpectrum == null)
+                return;
             if (_pausePropertyChangedHandle)
             {
                 return;
@@ -281,6 +282,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void UpdateToValues()
         {
+            if (_colorSpectrum == null)
+                return;
             if (_pausePropertyChangedHandle)
             {
                 return;
