@@ -64,17 +64,19 @@ namespace WpfDemo
         }
         private class PgTest
         {
+            public bool? BoolNullable { get; set; }
+            public bool Bool { get; set; }
             public Color Color { get; set; } = Colors.RoyalBlue;
             public Enumv EunmV { get; set; }
 
-            [PathSelect(Mode = PathSelectMode.Folder,DialogTitle = "选择一个文件夹{Ok}")]
+            [PathSelect(Mode = PathSelectMode.Folder, DialogTitle = "选择一个文件夹{Ok}")]
             [DisplayName("{Ask} him {Ok}")]
             public string Folder { get; set; } = "";
             [PathSelect(Mode = PathSelectMode.OpenFile)]
             public string File { get; set; } = "D://";
 
             [NumericUpDown(Increment = 0.1, Maximum = 1, Minimum = -1)]
-            [NumericFormat(Decimals = 3, Suffix  = "m")]
+            [NumericFormat(Decimals = 3, Suffix = "m")]
             public double Formart { get; set; }
 
             [ReadOnly(true)]

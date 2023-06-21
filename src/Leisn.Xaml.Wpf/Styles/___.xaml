@@ -19,6 +19,8 @@
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
     <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+    <Setter Property="Height" Value="Auto"/>
+    <Setter Property="Width" Value="Auto"/>
   </Style>
   <Style TargetType="Control" BasedOn="{StaticResource BaseControlStyle}"/>
 

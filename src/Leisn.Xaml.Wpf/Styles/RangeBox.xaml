@@ -4,7 +4,7 @@
 
   <Style x:Key="RangeBoxBaseStyle" TargetType="local:RangeBox"  BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="MinWidth" Value="100"/>
-    <Setter Property="Padding" Value="5,0"/>
+    <Setter Property="Padding" Value="5,2"/>
     <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
     <Setter Property="ThumbBackground" Value="{DynamicResource PrimaryBrush}"/>
     <Setter Property="Template">
@@ -20,7 +20,7 @@
                       Background="{TemplateBinding ThumbBackground}"
                       SnapsToDevicePixels="True"/>
               <local:NumericBox x:Name="PART_TextBox" Visibility="Collapsed" NumericType="{TemplateBinding NumericType}"
-                       Padding="5,1" BorderThickness="0" IsReadOnly="{TemplateBinding IsReadOnly}"
+                       Padding="{TemplateBinding Padding}" BorderThickness="0" IsReadOnly="{TemplateBinding IsReadOnly}"
                        VerticalAlignment="Stretch" VerticalContentAlignment="Center"
                        InputScope="Number" TextWrapping="NoWrap" SnapsToDevicePixels="True"
                        Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource Mode=TemplatedParent}}">
@@ -30,8 +30,7 @@
                   <ColumnDefinition/>
                   <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center"
-                           Text="{TemplateBinding Title}"/>
+                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{TemplateBinding Title}"/>
                 <TextBlock Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
                            Text="{Binding Text,RelativeSource={RelativeSource Mode=TemplatedParent},Mode=OneWay,StringFormat={}{0:F3}}"/>
               </Grid>

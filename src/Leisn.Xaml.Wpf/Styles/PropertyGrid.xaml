@@ -4,6 +4,26 @@
                     xmlns:editor="clr-namespace:Leisn.Xaml.Wpf.Controls.Editors"
                     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
+  <Style x:Key="ColorPickerEditorToggleButtonStyle" TargetType="ToggleButton">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToggleButton">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition/>
+              <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="2" Margin="1" CornerRadius="{DynamicResource DefaultCornerRadius}"
+                    Background="{TemplateBinding Background}" SnapsToDevicePixels="True"/>
+            <Border CornerRadius="{DynamicResource DefaultLeftCornerRadius}" SnapsToDevicePixels="True"
+                    Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=TemplatedParent.NoAlphaColor,Converter={StaticResource ColorSolidBurshConverter}}"/>
+            <Border Grid.Column="1" CornerRadius="{DynamicResource DefaultRightCornerRadius}" SnapsToDevicePixels="True"
+                    Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=TemplatedParent.SelectedColor,Converter={StaticResource ColorSolidBurshConverter}}"/>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
   <Style x:Key="ColorPickerEditorStyle" TargetType="editor:ColorPickerEditor">
     <Setter Property="Focusable" Value="True"/>
     <Setter Property="IsTabStop" Value="True"/>
@@ -35,30 +55,8 @@
             </Popup>
             <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}"
                           Focusable="False" ClickMode="Press" IsTabStop="False"
-                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
-              <ToggleButton.Style>
-                <Style TargetType="ToggleButton">
-                  <Setter Property="Template">
-                    <Setter.Value>
-                      <ControlTemplate TargetType="ToggleButton">
-                        <Grid>
-                          <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                          </Grid.ColumnDefinitions>
-                          <Border Grid.ColumnSpan="2" Margin="1" CornerRadius="{DynamicResource DefaultCornerRadius}"
-                    Background="{TemplateBinding Background}" SnapsToDevicePixels="True"/>
-                          <Border CornerRadius="{DynamicResource DefaultLeftCornerRadius}" SnapsToDevicePixels="True"
-                    Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=TemplatedParent.NoAlphaColor,Converter={StaticResource ColorSolidBurshConverter}}"/>
-                          <Border Grid.Column="1" CornerRadius="{DynamicResource DefaultRightCornerRadius}" SnapsToDevicePixels="True"
-                    Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=TemplatedParent.SelectedColor,Converter={StaticResource ColorSolidBurshConverter}}"/>
-                        </Grid>
-                      </ControlTemplate>
-                    </Setter.Value>
-                  </Setter>
-                </Style>
-              </ToggleButton.Style>
-            </ToggleButton>
+                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                          Style="{DynamicResource ColorPickerEditorToggleButtonStyle}"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">

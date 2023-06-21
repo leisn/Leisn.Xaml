@@ -1,20 +1,20 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class BoolEditor : IPropertyEditor
     {
-        public FrameworkElement CreateElement(PropertyItem item)
+        public FrameworkElement CreateElement(PropertyItem item) => new ToggleButton
         {
-            throw new NotImplementedException();
-        }
+            Style = (Style)Application.Current.FindResource("ToggleSwitchStyle"),
+            HorizontalAlignment = HorizontalAlignment.Left,
+            IsEnabled = !item.IsReadOnly,
+            IsThreeState = item.PropertyType == typeof(bool?),
+        };
 
-        public DependencyProperty GetBindingProperty()
-        {
-            throw new NotImplementedException();
-        }
+        public DependencyProperty GetBindingProperty() => ToggleButton.IsCheckedProperty;
     }
 }

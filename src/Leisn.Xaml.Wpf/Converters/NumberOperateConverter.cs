@@ -23,6 +23,7 @@ namespace Leisn.Xaml.Wpf.Converters
             {
                 throw new NotSupportedException();
             }
+
             char opreation = opr[0];
             if (!Opreations.Contains(opreation))
             {

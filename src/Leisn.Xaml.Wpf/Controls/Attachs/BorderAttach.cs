@@ -66,13 +66,14 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnIsCircleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            Border border = (Border)d;
+            if (d is not Border border)
+                return;
             if ((bool)e.NewValue)
             {
-                MultiBinding binding = new() { Converter = new BorderCircleConverter() };
+                MultiBinding binding = new() { Converter = new BorderCircleConverter(), Mode = BindingMode.OneWay };
                 binding.Bindings.Add(new Binding(FrameworkElement.ActualWidthProperty.Name) { Source = border });
                 binding.Bindings.Add(new Binding(FrameworkElement.ActualHeightProperty.Name) { Source = border });
-                _ = border.SetBinding(CornerRadiusProperty, binding);
+                BindingOperations.SetBinding(border, Border.CornerRadiusProperty, binding);
             }
             else
             {

@@ -84,4 +84,134 @@
       </Setter.Value>
     </Setter>
   </Style>
+
+  <Style x:Key="ToggleButtonBaseSyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseInputStyle}">
+    <Setter Property="Padding" Value="5,1"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToggleButton">
+          <Border x:Name="bd" Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
+                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <ContentPresenter Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".5" TargetName="bd"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource ControlAccentBrush}"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{DynamicResource ControlLighterBrush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleButtonBaseSyle}"/>
+
+  <Style x:Key="ToggleSwitchStyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseInputStyle}">
+    <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource ControlLighterBrush}"/>
+    <Setter Property="Height" Value="{DynamicResource InputMinHeight}"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToggleButton">
+          <Border x:Name="bd" Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                  local:BorderAttach.IsCircle="True" ClipToBounds="True">
+            <Viewbox Height="{TemplateBinding Height}">
+              <Canvas Width="68" Height="24">
+                <Ellipse x:Name="path" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"
+                         Stroke="{DynamicResource BorderBrush}" StrokeThickness="1"
+                         Fill="{TemplateBinding Foreground}"/>
+              </Canvas>
+            </Viewbox>
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualState x:Name="Normal"/>
+                <VisualState x:Name="MouseOver"/>
+                <VisualState x:Name="Pressed"/>
+                <VisualState x:Name="Disabled"/>
+              </VisualStateGroup>
+              <VisualStateGroup x:Name="CheckStates">
+                <VisualState x:Name="Unchecked">
+                  <Storyboard>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="2"/>
+                    </DoubleAnimationUsingKeyFrames>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                            Storyboard.TargetName="bd">
+                      <EasingColorKeyFrame KeyTime="0:0:0.3" Value="{StaticResource ControlColor}"/>
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Indeterminate">
+                  <Storyboard>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="24"/>
+                    </DoubleAnimationUsingKeyFrames>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                          Storyboard.TargetName="bd">
+                      <EasingColorKeyFrame KeyTime="0:0:0.3" Value="{StaticResource ControlColor}"/>
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Checked">
+                  <Storyboard>
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="46"/>
+                    </DoubleAnimationUsingKeyFrames>
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                          Storyboard.TargetName="bd">
+                      <EasingColorKeyFrame KeyTime="0:0:0.3" Value="{StaticResource PrimaryColor}"/>
+                    </ColorAnimationUsingKeyFrames>
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="{x:Null}">
+              <Setter TargetName="path" Property="Fill"  Value="{DynamicResource ControlAccentBrush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="False">
+              <Setter TargetName="path" Property="Fill"  Value="{DynamicResource ControlLighterBrush}"/>
+            </Trigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsChecked" Value="{x:Null}"/>
+                <Condition Property="IsMouseOver" Value="True"/>
+              </MultiTrigger.Conditions>
+              <Setter TargetName="path" Property="Fill"  Value="{DynamicResource ControlLighterBrush}"/>
+            </MultiTrigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsChecked" Value="False"/>
+                <Condition Property="IsMouseOver" Value="True"/>
+              </MultiTrigger.Conditions>
+              <Setter Property="Fill" TargetName="path" Value="{DynamicResource ControlAccentBrush}"/>
+            </MultiTrigger>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter Property="Fill" TargetName="path" Value="{DynamicResource TextBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter TargetName="bd" Property="Opacity" Value=".56"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

@@ -55,9 +55,11 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual IPropertyEditor? CreateSpecialEditor(PropertyDescriptor propertyDescriptor)
         {
-            return propertyDescriptor.PropertyType.IsEnum
-                ? new EnumEditor()
-                : propertyDescriptor.Attr<DataProviderAttribute>() is not null ? new ComboDataEditor() : (IPropertyEditor?)null;
+            if (propertyDescriptor.PropertyType.IsEnum)
+                return new EnumEditor();
+            if (propertyDescriptor.Attr<DataProviderAttribute>() is not null)
+                return new ComboDataEditor();
+            return null;
         }
 
         protected virtual IPropertyEditor CreatStringEditor(PropertyDescriptor propertyDescriptor)
@@ -67,9 +69,13 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual IPropertyEditor CreateObjectEditor(PropertyDescriptor propertyDescriptor)
         {
-            return propertyDescriptor.PropertyType == typeof(Color)
-                ? new ColorPickerEditor()
-                : propertyDescriptor.PropertyType.IsAssignableTo(typeof(IEnumerable)) ? new CollectionEditor() : new ReadOnlyTextEditor();
+            if (propertyDescriptor.PropertyType == typeof(bool?))
+                return new BoolEditor();
+            if (propertyDescriptor.PropertyType == typeof(Color))
+                return new ColorPickerEditor();
+            if (propertyDescriptor.PropertyType.IsAssignableTo(typeof(IEnumerable)))
+                return new CollectionEditor();
+            return new ReadOnlyTextEditor();
         }
     }
 }

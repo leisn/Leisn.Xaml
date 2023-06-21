@@ -4,6 +4,7 @@
   <converters:BoolReverseConverter x:Key="BoolReverseConverter"/>
   <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
   <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter"/>
+  <converters:BorderCircleConverter x:Key="BorderCircleConverter"/>
   <converters:ObjectVisibilityConverter x:Key="ObjectVisibilityConverter"/>
   <converters:ObjectBoolConverter x:Key="ObjectBoolConverter"/>
   <converters:NumberOperateConverter x:Key="NumberOperateConverter"/>

@@ -29,12 +29,12 @@
   <CornerRadius x:Key="SmallBottomCornerRadius">0,0,2,2</CornerRadius>
   <CornerRadius x:Key="SmallRightCornerRadius">0,2,2,0</CornerRadius>
 
-  <sys:Double x:Key="InputMinHeight">25</sys:Double>
+  <sys:Double x:Key="InputMinHeight">24</sys:Double>
 
   <sys:Double x:Key="ScrollBarMinWidth">6</sys:Double>
   <sys:Double x:Key="ScrollBarWidth">8</sys:Double>
 
   <sys:Double x:Key="ExpenderArrowWidth">7</sys:Double>
 
-  <Thickness x:Key="ComboBoxItemPadding">5,2</Thickness>
+  <Thickness x:Key="ComboBoxItemPadding">5,1</Thickness>
 </ResourceDictionary>
