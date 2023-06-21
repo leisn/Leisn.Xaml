@@ -28,11 +28,19 @@ namespace Leisn.Xaml.Wpf.Controls
     }
 
     [TemplatePart(Name = PART_ColorSpectrumName, Type = typeof(ColorSpectrum))]
+    [TemplatePart(Name = PART_TextBoxName, Type = typeof(TextBox))]
+    [TemplatePart(Name = PART_PickScreenButtonName, Type = typeof(ButtonBase))]
     public sealed class ColorPicker : Control
     {
         private const string PART_ColorSpectrumName = "PART_ColorSpectrum";
         private const string PART_TextBoxName = "PART_TextBox";
-        private const string PART_PickerScreenName = "PART_PickerScreen";
+        private const string PART_PickScreenButtonName = "PART_PickScreenButton";
+
+        private bool _pausePropertyChangedHandle;
+        private ColorSpectrum _colorSpectrum = null!;
+        private TextBox? _textBox;
+        private ButtonBase? _pickScreenButton;
+
         static ColorPicker()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorPicker), new FrameworkPropertyMetadata(typeof(ColorPicker)));
@@ -134,11 +142,6 @@ namespace Leisn.Xaml.Wpf.Controls
             cs.UpdateColorFromValues(true);
         }
 
-        private bool _pausePropertyChangedHandle;
-        private ColorSpectrum _colorSpectrum = null!;
-        private TextBox? _textBox;
-        private ButtonBase? _pickScreenButton;
-
         [MemberNotNull(nameof(_colorSpectrum))]
         public override void OnApplyTemplate()
         {
@@ -168,7 +171,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 _textBox.PreviewTextInput += OnTextBoxInputing;
             }
 
-            _pickScreenButton = GetTemplateChild(PART_PickerScreenName) as ButtonBase;
+            _pickScreenButton = GetTemplateChild(PART_PickScreenButtonName) as ButtonBase;
             if (_pickScreenButton != null)
             {
                 _pickScreenButton.Click += OnPickScreenColorClicked;

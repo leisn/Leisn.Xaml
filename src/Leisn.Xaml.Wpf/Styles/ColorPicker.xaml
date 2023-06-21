@@ -105,7 +105,7 @@
                                 Margin="0,3,0,0" Minimum="0" Maximum="255"  NumericType="UInt" SmallChange="1" LargeChange="10" 
                                 Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Alpha,Mode=TwoWay}"/>
                 <DockPanel Margin="0,3,0,0">
-                  <Button x:Name="PART_PickerScreen" Margin="7,0,0,0" DockPanel.Dock="Right">
+                  <Button x:Name="PART_PickScreenButton" Margin="7,0,0,0" DockPanel.Dock="Right">
                     <Path Fill="{TemplateBinding Foreground}" Data="{DynamicResource EyedropperGeometry}"
                         Stretch="Uniform" Height="16"/>
                   </Button>

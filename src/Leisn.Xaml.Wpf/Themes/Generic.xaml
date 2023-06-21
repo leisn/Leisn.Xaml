@@ -682,7 +682,7 @@
         <Setter Property="Opacity" TargetName="border" Value="0.56" />
       </Trigger>
       <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
-        <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5" />
+        <Setter Property="Margin" TargetName="shadow" Value="0,0,3,3" />
         <Setter Property="Color" TargetName="shadow" Value="#71000000" />
       </Trigger>
       <Trigger Property="HasItems" Value="false">
@@ -728,7 +728,7 @@
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
-        <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5" />
+        <Setter Property="Margin" TargetName="shadow" Value="0,0,3,3" />
         <Setter Property="Color" TargetName="shadow" Value="#71000000" />
       </Trigger>
       <Trigger Property="HasItems" Value="false">
@@ -1037,7 +1037,7 @@
                 </local:StackPanel>
                 <local:RangeBox Title="{lang:Lang Opacity}" Margin="0,3,0,0" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Alpha,Mode=TwoWay}" />
                 <DockPanel Margin="0,3,0,0">
-                  <Button x:Name="PART_PickerScreen" Margin="7,0,0,0" DockPanel.Dock="Right">
+                  <Button x:Name="PART_PickScreenButton" Margin="7,0,0,0" DockPanel.Dock="Right">
                     <Path Fill="{TemplateBinding Foreground}" Data="{DynamicResource EyedropperGeometry}" Stretch="Uniform" Height="16" />
                   </Button>
                   <TextBox x:Name="PART_TextBox" Style="{DynamicResource HexColorTextBoxStyle}" MaxLength="8" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=SelectedColor,Converter={StaticResource ColorHexStringConverter}}" IsReadOnly="{Binding ElementName=hsvTab,Path=IsChecked}" />
@@ -1062,7 +1062,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="editor:ColorPickerEditor">
           <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
-            <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" Margin="3" Placement="Top" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+            <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" Placement="Top" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
               <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
                 <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{DynamicResource DefaultCornerRadius}">
                   <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
