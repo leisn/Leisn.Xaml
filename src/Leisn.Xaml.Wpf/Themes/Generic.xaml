@@ -1052,6 +1052,7 @@
   <Style TargetType="local:ColorPicker" BasedOn="{StaticResource ColorPickerBaseStyle}" />
   <Style x:Key="ColorPickerEditorStyle" TargetType="editor:ColorPickerEditor">
     <Setter Property="Focusable" Value="True" />
+    <Setter Property="IsTabStop" Value="True" />
     <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}" />
     <Setter Property="Background" Value="{StaticResource OpacityGridTileBrush}" />
     <Setter Property="BorderThickness" Value="0" />
@@ -1061,7 +1062,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="editor:ColorPickerEditor">
           <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
-            <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" Placement="Top" IsOpen="{Binding ElementName=toggleButton,Path=IsChecked,Mode=TwoWay}" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
+            <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" Margin="3" Placement="Top" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
               <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
                 <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{DynamicResource DefaultCornerRadius}">
                   <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
@@ -1070,7 +1071,7 @@
                 </Border>
               </theme:SystemDropShadowChrome>
             </Popup>
-            <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}">
+            <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" Focusable="False" ClickMode="Press" IsTabStop="False" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
               <ToggleButton.Style>
                 <Style TargetType="ToggleButton">
                   <Setter Property="Template">
@@ -1094,7 +1095,7 @@
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
-              <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5" />
+              <Setter Property="Margin" TargetName="shadow" Value="0,0,3,3" />
               <Setter Property="Color" TargetName="shadow" Value="#71000000" />
             </Trigger>
           </ControlTemplate.Triggers>

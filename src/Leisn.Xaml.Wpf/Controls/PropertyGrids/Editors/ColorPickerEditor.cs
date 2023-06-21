@@ -1,14 +1,12 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+
+using Leisn.Xaml.Wpf.Extensions;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
@@ -24,6 +22,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         static ColorPickerEditor()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorPickerEditor), new FrameworkPropertyMetadata(typeof(ColorPickerEditor)));
+            EventManager.RegisterClassHandler(typeof(ColorPickerEditor), Mouse.LostMouseCaptureEvent, new MouseEventHandler(OnLostMouseCapture));
+            EventManager.RegisterClassHandler(typeof(ColorPickerEditor), Mouse.MouseDownEvent, new MouseButtonEventHandler(OnMouseButtonDown), true); // call us even if the transparent button in the style gets the click.
         }
 
         public Color SelectedColor
@@ -48,6 +48,19 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public static readonly DependencyProperty NoAlphaColorProperty =
             DependencyProperty.Register("NoAlphaColor", typeof(Color), typeof(ColorPickerEditor), new FrameworkPropertyMetadata(Colors.White, FrameworkPropertyMetadataOptions.AffectsRender));
 
+        public bool IsDropDownOpen
+        {
+            get { return (bool)GetValue(IsDropDownOpenProperty); }
+            set { SetValue(IsDropDownOpenProperty, value); }
+        }
+        public static readonly DependencyProperty IsDropDownOpenProperty =
+            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(ColorPickerEditor), new PropertyMetadata(false, new PropertyChangedCallback(OnIsDropDownOpenChanged)));
+
+        private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var picker = (ColorPickerEditor)d;
+            picker.OnIsDropDownChanged();
+        }
 
         public FrameworkElement CreateElement(PropertyItem item) => this;
         public DependencyProperty GetBindingProperty() => SelectedColorProperty;
@@ -84,23 +97,81 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             }
         }
 
-        protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
-        {
-            base.OnIsKeyboardFocusWithinChanged(e);
-            if (_popup.IsOpen && !IsKeyboardFocusWithin)
-                _popup.IsOpen = false;
-        }
-
-
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
-                _popup.IsOpen = false;
+                IsDropDownOpen = false;
             }
             else if (e.Key == Key.Enter)
             {
-                _popup.IsOpen = true;
+                IsDropDownOpen = true;
+            }
+        }
+
+        private void OnIsDropDownChanged()
+        {
+            if (IsDropDownOpen)
+            {
+                Mouse.Capture(this, CaptureMode.SubTree);
+            }
+            else if (Mouse.Captured == this)
+            {
+                Mouse.Capture(null);
+            }
+        }
+
+
+        protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnIsKeyboardFocusWithinChanged(e);
+            if (_popup.IsOpen && !IsKeyboardFocusWithin)
+                IsDropDownOpen = false;
+        }
+
+        private static void OnMouseButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            ColorPickerEditor editor = (ColorPickerEditor)sender;
+
+            if (!editor.IsKeyboardFocusWithin)
+            {
+                editor.Focus();
+            }
+            e.Handled = true;
+
+            if (Mouse.Captured == editor && e.OriginalSource == editor)
+            {
+                editor.IsDropDownOpen = false;
+            }
+        }
+        private static void OnLostMouseCapture(object sender, MouseEventArgs e)
+        {
+            ColorPickerEditor editor = (ColorPickerEditor)sender;
+            var captured = Mouse.Captured;
+            if (captured != editor)
+            {
+                if (e.OriginalSource == editor)
+                {
+                    if (captured == null || !editor.HasDescendant(captured as DependencyObject))
+                    {
+                        editor.IsDropDownOpen = false;
+                    }
+                }
+                else
+                {
+                    if (editor.HasDescendant(e.OriginalSource as DependencyObject))
+                    {
+                        if (editor.IsDropDownOpen && captured == null)
+                        {
+                            Mouse.Capture(editor, CaptureMode.SubTree);
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        editor.IsDropDownOpen = false;
+                    }
+                }
             }
         }
     }

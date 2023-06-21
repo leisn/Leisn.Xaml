@@ -6,6 +6,7 @@
 
   <Style x:Key="ColorPickerEditorStyle" TargetType="editor:ColorPickerEditor">
     <Setter Property="Focusable" Value="True"/>
+    <Setter Property="IsTabStop" Value="True"/>
     <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
     <Setter Property="Background" Value="{StaticResource OpacityGridTileBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
@@ -16,9 +17,9 @@
         <ControlTemplate TargetType="editor:ColorPickerEditor">
           <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
             <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2"
-                   Placement="Top" IsOpen="{Binding ElementName=toggleButton,Path=IsChecked,Mode=TwoWay}"
-                   PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
-              <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent"
+                   Placement="Top" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
+                   IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+              <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" 
                                       MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
                 <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}"
                    Background="{TemplateBinding Background}"
@@ -32,8 +33,9 @@
                 </Border>
               </theme:SystemDropShadowChrome>
             </Popup>
-
-            <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}">
+            <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}"
+                          Focusable="False" ClickMode="Press" IsTabStop="False"
+                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
               <ToggleButton.Style>
                 <Style TargetType="ToggleButton">
                   <Setter Property="Template">
@@ -60,7 +62,7 @@
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
-              <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
+              <Setter Property="Margin" TargetName="shadow" Value="0,0,3,3"/>
               <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
             </Trigger>
           </ControlTemplate.Triggers>

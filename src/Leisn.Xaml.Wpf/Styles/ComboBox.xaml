@@ -90,7 +90,7 @@
         <Setter Property="Opacity" TargetName="border" Value="0.56"/>
       </Trigger>
       <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
-        <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
+        <Setter Property="Margin" TargetName="shadow" Value="0,0,3,3"/>
         <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
       </Trigger>
       <Trigger Property="HasItems" Value="false">
@@ -158,7 +158,7 @@
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
-        <Setter Property="Margin" TargetName="shadow" Value="0,0,5,5"/>
+        <Setter Property="Margin" TargetName="shadow" Value="0,0,3,3"/>
         <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
       </Trigger>
       <Trigger Property="HasItems" Value="false">

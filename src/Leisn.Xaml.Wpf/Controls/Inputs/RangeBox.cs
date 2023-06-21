@@ -245,21 +245,17 @@ namespace Leisn.Xaml.Wpf.Controls
 
             base.OnMouseLeftButtonDown(e);
 
-            //if (IsFocused)
+            //if (IsKeyboardFocused)
             //{
             //    OnMouseDoubleClick(null!);
             //    return;
             //}
 
-            if (e.Source == this)
+            if (Keyboard.FocusedElement != this && Keyboard.FocusedElement != textBox)
             {
-                IInputElement focused = FocusManager.GetFocusedElement(FocusManager.GetFocusScope(this));
-                if (focused != this && focused != textBox)
-                {
-                    FocusManager.SetFocusedElement(FocusManager.GetFocusScope(this), this);
-                }
                 Keyboard.Focus(this);
             }
+
             if (!CaptureMouse())
             {
                 return;
