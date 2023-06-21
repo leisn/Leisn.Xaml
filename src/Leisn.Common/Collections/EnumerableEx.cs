@@ -20,7 +20,7 @@ namespace Leisn.Common.Collections
 
         public static IEnumerable ForEach(this IEnumerable self, Action<object> action)
         {
-            foreach (var item in self)
+            foreach (object? item in self)
             {
                 action?.Invoke(item);
             }

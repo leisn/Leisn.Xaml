@@ -1,7 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -14,7 +13,7 @@ namespace Leisn.Xaml.Wpf.Controls
     [TemplatePart(Name = "PART_TextBox", Type = typeof(TextBox))]
     public class RangeBox : RangeBase
     {
-        const int MaxDecimals = 15;
+        private const int MaxDecimals = 15;
         private Border thumb = null!;
         private TextBox textBox = null!;
         static RangeBox()
@@ -104,9 +103,12 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private static object CoerceDecimals(DependencyObject d, object baseValue)
         {
-            var value = (int)baseValue;
+            int value = (int)baseValue;
             if (value > MaxDecimals)
+            {
                 value = MaxDecimals;
+            }
+
             return value;
         }
 
@@ -137,9 +139,13 @@ namespace Leisn.Xaml.Wpf.Controls
         private void UpdateText()
         {
             if (Decimals > -1)
+            {
                 Text = string.Format($"{{0:F{Decimals}}}", Value);
+            }
             else
+            {
                 Text = Value.ToString();
+            }
         }
 
         protected override void OnValueChanged(double oldValue, double newValue)
@@ -319,7 +325,10 @@ namespace Leisn.Xaml.Wpf.Controls
             if (Decimals > -1)
             {
                 if (Math.Abs(valOffset) < Math.Pow(0.1, Decimals))
+                {
                     return;
+                }
+
                 Value = Math.Clamp(Math.Round(startValue + valOffset, Decimals), Minimum, Maximum);
                 return;
             }
@@ -330,7 +339,10 @@ namespace Leisn.Xaml.Wpf.Controls
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (IsEditing)
+            {
                 return;
+            }
+
             e.Handled = true;
             switch (e.Key)
             {

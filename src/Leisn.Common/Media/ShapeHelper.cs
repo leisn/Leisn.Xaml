@@ -36,8 +36,8 @@ namespace Leisn.Common.Media
         /// <returns>(U,V), 即(X,Y), 值范围为-1 到 1</returns>
         public static (double U, double V) SquareToDiscMapping(double x, double y)
         {
-            var u = x * Math.Sqrt(1 - y * y / 2);
-            var v = y * Math.Sqrt(1 - x * x / 2);
+            double u = x * Math.Sqrt(1 - y * y / 2);
+            double v = y * Math.Sqrt(1 - x * x / 2);
             return (u, v);
         }
 
@@ -55,8 +55,8 @@ namespace Leisn.Common.Media
         /// </returns>
         public static (double Distance, double Radians) CartesianToPolar(double x, double y)
         {
-            var distance = Math.Sqrt(x * x + y * y);
-            var radians = Math.Atan2(y, x);
+            double distance = Math.Sqrt(x * x + y * y);
+            double radians = Math.Atan2(y, x);
             return (distance, radians);
         }
 
@@ -65,8 +65,8 @@ namespace Leisn.Common.Media
         /// </summary>
         public static (double X, double Y) PolarToCartesian(double distance, double radians)
         {
-            var x = distance * Math.Cos(radians);
-            var y = distance * Math.Sin(radians);
+            double x = distance * Math.Cos(radians);
+            double y = distance * Math.Sin(radians);
             return (x, y);
         }
 
@@ -80,12 +80,16 @@ namespace Leisn.Common.Media
         /// </summary>
         public static int Quadrant(double pointX, double pointY, double centerX = 0, double centerY = 0)
         {
-            var offsetX = pointX - centerX;
-            var offsetY = pointY - centerY;
+            double offsetX = pointX - centerX;
+            double offsetY = pointY - centerY;
             if (offsetX >= 0)
+            {
                 return offsetY >= 0 ? 1 : 4;
+            }
             else
+            {
                 return offsetY >= 0 ? 2 : 3;
+            }
         }
     }
 }

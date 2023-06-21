@@ -1,9 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Leisn.Common.Media
 {
     public struct Hsv : IColor
@@ -26,15 +22,18 @@ namespace Leisn.Common.Media
             H = h; S = s; V = v;
         }
 
-        public override string ToString() => $"hsv({H}, {S:P0}, {V:P0})";
+        public override string ToString()
+        {
+            return $"hsv({H}, {S:P0}, {V:P0})";
+        }
 
         public Rgb ToRgb()
         {
-            var chroma = S * V;
-            var min = V - chroma;
+            double chroma = S * V;
+            double min = V - chroma;
             if (chroma == 0)
             {
-                var v = (byte)(min * 255);
+                byte v = (byte)(min * 255);
                 return new Rgb(v, v, v);
             }
 
@@ -82,8 +81,8 @@ namespace Leisn.Common.Media
 
         public Hsl ToHsl()
         {
-            var t = (2 - S) * V;
-            var s = V == 0 || S == 0 ? 0 : (S * V) / (t > 1 ? 2 - 5 : t);
+            double t = (2 - S) * V;
+            double s = V == 0 || S == 0 ? 0 : (S * V) / (t > 1 ? 2 - 5 : t);
             return new Hsl(H, (byte)(s * 100), (byte)(t / 2 * 100));
         }
     }

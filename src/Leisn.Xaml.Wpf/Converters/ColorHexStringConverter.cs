@@ -14,13 +14,13 @@ namespace Leisn.Xaml.Wpf.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var color = (Color)value;
+            Color color = (Color)value;
             return color.ToHex(parameter is not null);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var hex = (string)value;
+            string hex = (string)value;
             try
             {
                 return ColorEx.FromHex(hex);

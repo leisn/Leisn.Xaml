@@ -1,14 +1,14 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
-using System.Windows.Interop;
-using System.Windows.Media.Imaging;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
 
@@ -18,10 +18,10 @@ namespace Leisn.Xaml.Wpf.Extensions
     {
         public static Bitmap CaptureScreen()
         {
-            var width = (int)SystemParameters.PrimaryScreenWidth;
-            var height = (int)SystemParameters.PrimaryScreenHeight;
-            var bitmap = new Bitmap(width, height);
-            using var g = Graphics.FromImage(bitmap);
+            int width = (int)SystemParameters.PrimaryScreenWidth;
+            int height = (int)SystemParameters.PrimaryScreenHeight;
+            Bitmap bitmap = new(width, height);
+            using Graphics g = Graphics.FromImage(bitmap);
             g.CopyFromScreen(0, 0, 0, 0, new System.Drawing.Size(width, height));
             return bitmap;
         }
@@ -32,7 +32,7 @@ namespace Leisn.Xaml.Wpf.Extensions
 
             try
             {
-                using var bitmap = CaptureScreen();
+                using Bitmap bitmap = CaptureScreen();
                 image = Imaging.CreateBitmapSourceFromHBitmap(
                     bitmap.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
                 return true;
@@ -49,7 +49,7 @@ namespace Leisn.Xaml.Wpf.Extensions
             image = null;
             try
             {
-                using var bitmap = CaptureScreen();
+                using Bitmap bitmap = CaptureScreen();
                 image = bitmap.ToSKBitmap();
                 return true;
             }

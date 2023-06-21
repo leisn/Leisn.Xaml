@@ -27,7 +27,7 @@ namespace Leisn.Xaml.Wpf.Locales
 
         public static string[] Get(string[] keys)
         {
-            var result = new string[keys.Length];
+            string[] result = new string[keys.Length];
             for (int i = 0; i < keys.Length; i++)
             {
                 result[i] = Get(keys[i]);
@@ -133,7 +133,10 @@ namespace Leisn.Xaml.Wpf.Locales
                 {
 #if DEBUG
                     if (!_values.ContainsKey(key))
+                    {
                         throw new ArgumentOutOfRangeException(nameof(key), $"Cannot find locales for [{key}]");
+                    }
+
                     return _values[key];
 #else
                     return _values.TryGetValue(key, out string? value) ? value : key;

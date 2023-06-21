@@ -10,6 +10,9 @@ namespace Leisn.Common.Data
     {
         IEnumerable<T> GetData();
 
-        public Type GetDataType() => typeof(T);
+        public Type GetDataType()
+        {
+            return typeof(T);
+        }
     }
 }

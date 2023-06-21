@@ -79,12 +79,14 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void OnButtonClicked(object sender, RoutedEventArgs e)
         {
-            var dialogTitle = DialogTitle;
+            string dialogTitle = DialogTitle;
             if (!string.IsNullOrEmpty(dialogTitle))
             {
-                var keys = StringHelper.ParseFormat(dialogTitle, out string? convertedFormat);
+                string[] keys = StringHelper.ParseFormat(dialogTitle, out string? convertedFormat);
                 if (keys.Length > 0)
+                {
                     dialogTitle = string.Format(convertedFormat, Lang.Get(keys));
+                }
             }
 
             if (Mode is PathSelectMode.OpenFile or PathSelectMode.SaveFile)
@@ -93,10 +95,13 @@ namespace Leisn.Xaml.Wpf.Controls
                     new Microsoft.Win32.SaveFileDialog() : new Microsoft.Win32.OpenFileDialog();
                 if (!string.IsNullOrEmpty(FileFilter))
                 {
-                    var fileFilter = FileFilter;
-                    var keys = StringHelper.ParseFormat(fileFilter, out string? convertedFormat);
+                    string fileFilter = FileFilter;
+                    string[] keys = StringHelper.ParseFormat(fileFilter, out string? convertedFormat);
                     if (keys.Length > 0)
+                    {
                         fileFilter = string.Format(convertedFormat, Lang.Get(keys));
+                    }
+
                     fileDialog.Filter = fileFilter;
                 }
                 fileDialog.Title = dialogTitle;

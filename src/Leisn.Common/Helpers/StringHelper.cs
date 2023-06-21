@@ -16,7 +16,7 @@ namespace Leisn.Common.Helpers
             int start = -1;
             for (int i = 0; i < format.Length; i++)
             {
-                var ch = format[i];
+                char ch = format[i];
                 if (ch == '{')
                 {
                     start = i;
@@ -24,7 +24,10 @@ namespace Leisn.Common.Helpers
                 else if (ch == '}')
                 {
                     if (start < 0) //前无{
+                    {
                         continue;
+                    }
+
                     indexs.Add((start, i, format[(start + 1)..i]));
                     start = -1;
                 }
@@ -38,11 +41,11 @@ namespace Leisn.Common.Helpers
         public static string[] ParseFormat(string format, out string convertedFormat)
         {
             convertedFormat = format;
-            var indexs = ParseFormat(convertedFormat);
-            var keys = new string[indexs.Count];
+            List<(int Start, int End, string Value)> indexs = ParseFormat(convertedFormat);
+            string[] keys = new string[indexs.Count];
             for (int i = indexs.Count - 1; i >= 0; i--)
             {
-                var (start, end, value) = indexs[i];
+                (int start, int end, string value) = indexs[i];
                 keys[i] = value;
                 convertedFormat = convertedFormat.Replace(start, end, $"{{{i}}}");
             }
@@ -51,7 +54,7 @@ namespace Leisn.Common.Helpers
 
         public static string Format(string format, Dictionary<string, object> values)
         {
-            var keys = ParseFormat(format, out var convertedFormat);
+            string[] keys = ParseFormat(format, out string? convertedFormat);
             object[] vs = new object[keys.Length];
             for (int i = 0; i < keys.Length; i++)
             {
@@ -62,7 +65,7 @@ namespace Leisn.Common.Helpers
 
         public static string Format(string format, object[] values)
         {
-            ParseFormat(format, out var convertedFormat);
+            ParseFormat(format, out string? convertedFormat);
             return string.Format(convertedFormat, values);
         }
 

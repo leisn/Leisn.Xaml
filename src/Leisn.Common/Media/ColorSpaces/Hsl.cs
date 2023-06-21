@@ -1,9 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Leisn.Common.Media
 {
     public struct Hsl : IColor
@@ -26,12 +22,15 @@ namespace Leisn.Common.Media
             H = h; S = s; L = l;
         }
 
-        public override string ToString() => $"hsl({H}, {S}, {L})";
+        public override string ToString()
+        {
+            return $"hsl({H}, {S}, {L})";
+        }
 
         public Hsv ToHsv()
         {
-            var s = S / 100d;
-            var l = L / 100d;
+            double s = S / 100d;
+            double l = L / 100d;
             double v = 0;
 
             if (s == 0)
@@ -53,27 +52,44 @@ namespace Leisn.Common.Media
 
         public Rgb ToRgb()
         {
-            var h = H / 360d;
-            var s = S / 100d;
-            var l = L / 100d;
+            double h = H / 360d;
+            double s = S / 100d;
+            double l = L / 100d;
 
-            var r = l;
-            var g = l;
-            var b = l;
+            double r = l;
+            double g = l;
+            double b = l;
             if (s != 0)
             {
-                var q = l < .5 ? l * (1 + s) : 1 + s - l * s;
-                var p = 2 * l - q;
+                double q = l < .5 ? l * (1 + s) : 1 + s - l * s;
+                double p = 2 * l - q;
                 double _hue2Rgb(double t)
                 {
-                    if (t < 0) t += 1;
-                    if (t > 1) t -= 1;
+                    if (t < 0)
+                    {
+                        t += 1;
+                    }
+
+                    if (t > 1)
+                    {
+                        t -= 1;
+                    }
+
                     if (t < 1 / 6)
+                    {
                         return p + (q - p) * 6 * t;
+                    }
+
                     if (t < 1 / 2)
+                    {
                         return q;
+                    }
+
                     if (t < 2 / 3)
+                    {
                         return p + (q - p) * 6 * (2 / 3 - t);
+                    }
+
                     return p;
                 }
                 r = _hue2Rgb(h + 1 / 3);

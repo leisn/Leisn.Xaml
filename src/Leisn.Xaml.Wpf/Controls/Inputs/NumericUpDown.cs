@@ -237,7 +237,10 @@ namespace Leisn.Xaml.Wpf.Controls
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (IsEditing)
+            {
                 return;
+            }
+
             e.Handled = true;
             switch (e.Key)
             {

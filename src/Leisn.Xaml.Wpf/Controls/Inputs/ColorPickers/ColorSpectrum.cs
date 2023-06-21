@@ -1,18 +1,18 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
+using System.ComponentModel;
 using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
-using SkiaSharp.Views.Desktop;
-using SkiaSharp;
-using SkiaSharp.Views.WPF;
 using Leisn.Common.Media;
-using System.ComponentModel;
-using System.Diagnostics;
+
+using SkiaSharp;
+using SkiaSharp.Views.Desktop;
+using SkiaSharp.Views.WPF;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -77,8 +77,8 @@ namespace Leisn.Xaml.Wpf.Controls
         [Category("Behavior")]
         public event SelectedHueChangedEventHandler SelectedHueChanged
         {
-            add { AddHandler(SelectedHueChangedEvent, value); }
-            remove { RemoveHandler(SelectedHueChangedEvent, value); }
+            add => AddHandler(SelectedHueChangedEvent, value);
+            remove => RemoveHandler(SelectedHueChangedEvent, value);
         }
 
         public static readonly RoutedEvent SelectedHsvChangedEvent = EventManager.RegisterRoutedEvent(
@@ -89,8 +89,8 @@ namespace Leisn.Xaml.Wpf.Controls
         [Category("Behavior")]
         public event SelectedHsvChangedEventHandler SelectedHsvChanged
         {
-            add { AddHandler(SelectedHsvChangedEvent, value); }
-            remove { RemoveHandler(SelectedHsvChangedEvent, value); }
+            add => AddHandler(SelectedHsvChangedEvent, value);
+            remove => RemoveHandler(SelectedHsvChangedEvent, value);
         }
 
         public static readonly RoutedEvent SelectedRgbChangedEvent = EventManager.RegisterRoutedEvent(
@@ -101,24 +101,24 @@ namespace Leisn.Xaml.Wpf.Controls
         [Category("Behavior")]
         public event SelectedRgbChangedEventHandler SelectedRgbChanged
         {
-            add { AddHandler(SelectedRgbChangedEvent, value); }
-            remove { RemoveHandler(SelectedRgbChangedEvent, value); }
+            add => AddHandler(SelectedRgbChangedEvent, value);
+            remove => RemoveHandler(SelectedRgbChangedEvent, value);
         }
         #endregion
 
         #region public properties
         public double CircleLength
         {
-            get { return (double)GetValue(CircleLengthProperty); }
-            set { SetValue(CircleLengthProperty, value); }
+            get => (double)GetValue(CircleLengthProperty);
+            set => SetValue(CircleLengthProperty, value);
         }
         public static readonly DependencyProperty CircleLengthProperty =
             DependencyProperty.Register("CircleLength", typeof(double), typeof(ColorSpectrum),
                 new FrameworkPropertyMetadata(.22d, FrameworkPropertyMetadataOptions.AffectsRender));
         public double Spacing
         {
-            get { return (double)GetValue(SpacingProperty); }
-            set { SetValue(SpacingProperty, value); }
+            get => (double)GetValue(SpacingProperty);
+            set => SetValue(SpacingProperty, value);
         }
         public static readonly DependencyProperty SpacingProperty =
             DependencyProperty.Register("Spacing", typeof(double), typeof(ColorSpectrum),
@@ -126,8 +126,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public double BorderWidth
         {
-            get { return (double)GetValue(BorderWidthProperty); }
-            set { SetValue(BorderWidthProperty, value); }
+            get => (double)GetValue(BorderWidthProperty);
+            set => SetValue(BorderWidthProperty, value);
         }
         public static readonly DependencyProperty BorderWidthProperty =
             DependencyProperty.Register("BorderWidth", typeof(double), typeof(ColorSpectrum),
@@ -135,8 +135,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public Color BorderColor
         {
-            get { return (Color)GetValue(BorderColorProperty); }
-            set { SetValue(BorderColorProperty, value); }
+            get => (Color)GetValue(BorderColorProperty);
+            set => SetValue(BorderColorProperty, value);
         }
         public static readonly DependencyProperty BorderColorProperty =
             DependencyProperty.Register("BorderColor", typeof(Color), typeof(ColorSpectrum),
@@ -144,8 +144,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public Hsv SelectedHue
         {
-            get { return (Hsv)GetValue(SelectedHueProperty); }
-            set { SetValue(SelectedHueProperty, value); }
+            get => (Hsv)GetValue(SelectedHueProperty);
+            set => SetValue(SelectedHueProperty, value);
         }
         public static readonly DependencyProperty SelectedHueProperty =
             DependencyProperty.Register("SelectedHue", typeof(Hsv), typeof(ColorSpectrum),
@@ -155,16 +155,16 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnSeletedHueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var cs = (ColorSpectrum)d;
-            var value = (Hsv)e.NewValue;
+            ColorSpectrum cs = (ColorSpectrum)d;
+            Hsv value = (Hsv)e.NewValue;
             cs.RaiseEvent(new SelectedHueChangedEventArgs((Hsv)e.OldValue, (Hsv)e.NewValue) { Source = cs });
             cs.SelectedHsv = new Hsv(value.H, cs.SelectedHsv.S, cs.SelectedHsv.V);
         }
 
         public Hsv SelectedHsv
         {
-            get { return (Hsv)GetValue(SelectedHsvProperty); }
-            set { SetValue(SelectedHsvProperty, value); }
+            get => (Hsv)GetValue(SelectedHsvProperty);
+            set => SetValue(SelectedHsvProperty, value);
         }
         public static readonly DependencyProperty SelectedHsvProperty =
             DependencyProperty.Register("SelectedHsv", typeof(Hsv), typeof(ColorSpectrum),
@@ -174,15 +174,15 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnSelectedHsvChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var cs = (ColorSpectrum)d;
+            ColorSpectrum cs = (ColorSpectrum)d;
             cs.RaiseEvent(new SelectedHsvChangedEventArgs((Hsv)e.OldValue, (Hsv)e.NewValue) { Source = cs });
             cs.SelectedRgb = ((Hsv)e.NewValue).ToRgb();
         }
 
         public Rgb SelectedRgb
         {
-            get { return (Rgb)GetValue(SelectedRgbProperty); }
-            set { SetValue(SelectedRgbProperty, value); }
+            get => (Rgb)GetValue(SelectedRgbProperty);
+            set => SetValue(SelectedRgbProperty, value);
         }
         public static readonly DependencyProperty SelectedRgbProperty =
             DependencyProperty.Register("SelectedRgb", typeof(Rgb), typeof(ColorSpectrum),
@@ -192,18 +192,21 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnSelectedRgbChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var cs = (ColorSpectrum)d;
-            var value = (Rgb)e.NewValue;
+            ColorSpectrum cs = (ColorSpectrum)d;
+            Rgb value = (Rgb)e.NewValue;
             cs.RaiseEvent(new SelectedRgbChangedEventArgs((Rgb)e.OldValue, value) { Source = cs });
             if (Equals(value, cs.SelectedHsv.ToRgb()))
+            {
                 return;
+            }
+
             cs.SelectedHsv = value.ToHsv();
         }
 
         public bool IsDiscSpectrum
         {
-            get { return (bool)GetValue(IsDiscSpectrumProperty); }
-            set { SetValue(IsDiscSpectrumProperty, value); }
+            get => (bool)GetValue(IsDiscSpectrumProperty);
+            set => SetValue(IsDiscSpectrumProperty, value);
         }
 
         public static readonly DependencyProperty IsDiscSpectrumProperty =
@@ -214,8 +217,11 @@ namespace Leisn.Xaml.Wpf.Controls
         #region hue color maps 
         private static Hsv HuePosToColor(double pos)
         {
-            if (pos < 0 || pos > 1)
+            if (pos is < 0 or > 1)
+            {
                 throw new ArgumentOutOfRangeException(nameof(pos), $"{pos} not in [0,1]");
+            }
+
             int colorSpace = 0;
             for (int i = 1; i < _colorHuePos.Length; i++)
             {
@@ -226,7 +232,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 }
             }
 
-            var posInArea = (pos - _colorHuePos[colorSpace - 1]) / (_colorHuePos[colorSpace] - _colorHuePos[colorSpace - 1]);
+            double posInArea = (pos - _colorHuePos[colorSpace - 1]) / (_colorHuePos[colorSpace] - _colorHuePos[colorSpace - 1]);
             byte value = (byte)Math.Round(posInArea * 255);
             byte valueInverse = (byte)(255 - value);
 
@@ -269,12 +275,14 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private static double HueColorToPos(Hsv hsv)
         {
-            var color = hsv.ToRgb();
+            Rgb color = hsv.ToRgb();
             double pos = -1;
             for (int i = 0; i < _colorHues.Length; i++)
             {
                 if (color.R == _colorHues[i].Red && color.G == _colorHues[i].Green && color.B == _colorHues[i].Blue)
+                {
                     return _colorHuePos[i];
+                }
             }
             if (color.R == 255 && color.B == 0)
             {
@@ -303,9 +311,8 @@ namespace Leisn.Xaml.Wpf.Controls
             return (float)pos;
         }
 
-
-        static readonly float[] _colorHuePos = new float[] { 0, 0.167f, 0.334f, 0.501f, 0.668f, 0.835f, 1 };
-        static readonly SKColor[] _colorHues = new SKColor[]
+        private static readonly float[] _colorHuePos = new float[] { 0, 0.167f, 0.334f, 0.501f, 0.668f, 0.835f, 1 };
+        private static readonly SKColor[] _colorHues = new SKColor[]
         {
             new SKColor(255, 0, 0),
             new SKColor(255, 255, 0),// 255 v 0
@@ -327,7 +334,7 @@ namespace Leisn.Xaml.Wpf.Controls
         private Vector2 _spectrumPickerCenter;
         protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
         {
-            var canvas = e.Surface.Canvas;
+            SKCanvas canvas = e.Surface.Canvas;
             canvas.Clear();
             _center = new SKPoint(e.Info.Rect.MidX, e.Info.Rect.MidY);
             _hueOuterRadius = (float)((Math.Min(e.Info.Width, e.Info.Height) - 10) / 2 - BorderWidth);
@@ -340,9 +347,11 @@ namespace Leisn.Xaml.Wpf.Controls
             canvas.RotateDegrees(-90);
             canvas.Save();
             //draw cicle
-            using (var circlePaint = new SKPaint { IsStroke = false, IsAntialias = true })
-            using (var shade = SKShader.CreateSweepGradient(new SKPoint(), _colorHues, _colorHuePos))
-            using (var path = new SKPath { FillType = SKPathFillType.EvenOdd })
+            using (SKPaint circlePaint = new()
+            { IsStroke = false, IsAntialias = true })
+            using (SKShader shade = SKShader.CreateSweepGradient(new SKPoint(), _colorHues, _colorHuePos))
+            using (SKPath path = new()
+            { FillType = SKPathFillType.EvenOdd })
             {
                 path.AddCircle(0, 0, _hueInnerRadius);
                 path.AddCircle(0, 0, _hueOuterRadius);
@@ -352,7 +361,7 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             //draw hub picker
-            using var hubPickerPaint = new SKPaint
+            using SKPaint hubPickerPaint = new()
             {
                 IsStroke = true,
                 IsAntialias = true,
@@ -361,7 +370,7 @@ namespace Leisn.Xaml.Wpf.Controls
             };
             float hubPickerRadius = circleLength / 3.2f;
             float hubPickerPos = _hueInnerRadius + circleLength / 2;
-            var selectedHubAngle = (float)HueColorToPos(SelectedHue) * 360;
+            float selectedHubAngle = (float)HueColorToPos(SelectedHue) * 360;
             canvas.RotateDegrees(selectedHubAngle);
             canvas.DrawCircle(hubPickerPos, 0, hubPickerRadius, hubPickerPaint);
 
@@ -373,13 +382,13 @@ namespace Leisn.Xaml.Wpf.Controls
             //canvas.Translate(center);
             float colorPickerX = 0;
             float colorPickerY = 0;
-            var spacing = (float)(Spacing > 1 ? Spacing : Spacing * _hueInnerRadius);
+            float spacing = (float)(Spacing > 1 ? Spacing : Spacing * _hueInnerRadius);
             _discSpectrumRadius = _hueInnerRadius - spacing;
             if (IsDiscSpectrum)
             {
-                using var spectrumImage = GenerateDiscSpectrumImage((int)(_discSpectrumRadius * 2));
+                using SKImage spectrumImage = GenerateDiscSpectrumImage((int)(_discSpectrumRadius * 2));
                 canvas.DrawImage(spectrumImage, -_discSpectrumRadius, -_discSpectrumRadius);
-                var (u, v) = ShapeHelper.SquareToDiscMapping(2 * SelectedHsv.V - 1, 2 * SelectedHsv.S - 1);
+                (double u, double v) = ShapeHelper.SquareToDiscMapping(2 * SelectedHsv.V - 1, 2 * SelectedHsv.S - 1);
                 colorPickerX = (float)(u * _discSpectrumRadius);
                 colorPickerY = (float)(v * _discSpectrumRadius);
             }
@@ -387,22 +396,22 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 //var innerSquareLength = (float)Math.Sqrt(innerRadius * innerRadius / 2);//内接正方形边长
                 _squareSpectrumLength = (float)Math.Sqrt(2 * _discSpectrumRadius * _discSpectrumRadius);//边长
-                var half = _squareSpectrumLength / 2;
-                using var spectrumImage = GenerateSquareSpectrumImage((int)_squareSpectrumLength);
+                float half = _squareSpectrumLength / 2;
+                using SKImage spectrumImage = GenerateSquareSpectrumImage((int)_squareSpectrumLength);
                 canvas.DrawImage(spectrumImage, -half, -half);
                 colorPickerX = (float)(SelectedHsv.V * _squareSpectrumLength - half);
                 colorPickerY = (float)(SelectedHsv.S * _squareSpectrumLength - half);
             }
 
             //draw color picker circle
-            using var colorPickerPaint = new SKPaint
+            using SKPaint colorPickerPaint = new()
             {
                 IsAntialias = true,
                 IsStroke = true,
                 StrokeWidth = pickerWidth,
                 Color = SelectedHsv.ForegroundShouldBeLight() ? SKColors.White : SKColors.Black,
             };
-            var colorPickerRadius = hubPickerRadius / 3 * 2;
+            float colorPickerRadius = hubPickerRadius / 3 * 2;
             canvas.DrawCircle(colorPickerX, colorPickerY, colorPickerRadius, colorPickerPaint);
 
             _spectrumPickerRadius = colorPickerRadius + pickerWidth / 2;
@@ -414,7 +423,7 @@ namespace Leisn.Xaml.Wpf.Controls
             //draw broder
             if (BorderWidth > 0)
             {
-                using var borderPaint = new SKPaint { IsStroke = true, StrokeWidth = (float)BorderWidth, IsAntialias = true };
+                using SKPaint borderPaint = new() { IsStroke = true, StrokeWidth = (float)BorderWidth, IsAntialias = true };
                 borderPaint.Color = BorderColor.ToSKColor();
                 canvas.DrawCircle(0, 0, _hueInnerRadius, borderPaint);
                 canvas.DrawCircle(0, 0, _hueOuterRadius, borderPaint);
@@ -434,8 +443,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private SKImage GenerateSquareSpectrumImage(int length)
         {
-            var bytes = new byte[length * length * 4];
-            var selectedHue = SelectedHue;
+            byte[] bytes = new byte[length * length * 4];
+            Hsv selectedHue = SelectedHue;
             Parallel.For(0, length, (i) =>
             {
                 Rgb rgb;
@@ -457,10 +466,10 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private SKImage GenerateDiscSpectrumImage(int length)
         {
-            var multipleLength = length * 2;//放大倍数，用于边缘抗锯齿，可能需要更好的实现方式
-            var radius = multipleLength / 2;
-            var bytes = new byte[multipleLength * multipleLength * 4];
-            var selectedHue = SelectedHue;
+            int multipleLength = length * 2;//放大倍数，用于边缘抗锯齿，可能需要更好的实现方式
+            int radius = multipleLength / 2;
+            byte[] bytes = new byte[multipleLength * multipleLength * 4];
+            Hsv selectedHue = SelectedHue;
             Parallel.For(0, multipleLength, (i) =>
             {
                 int bytePos;
@@ -483,8 +492,8 @@ namespace Leisn.Xaml.Wpf.Controls
                     bytes[bytePos + 3] = 0xFF;
                 }
             });
-            using var image2 = SKImage.FromPixelCopy(new SKImageInfo(multipleLength, multipleLength, SKColorType.Rgba8888), bytes);
-            var image = SKImage.Create(new SKImageInfo(length, length, SKColorType.Rgba8888));
+            using SKImage image2 = SKImage.FromPixelCopy(new SKImageInfo(multipleLength, multipleLength, SKColorType.Rgba8888), bytes);
+            SKImage image = SKImage.Create(new SKImageInfo(length, length, SKColorType.Rgba8888));
             image2.ScalePixels(image.PeekPixels(), SKFilterQuality.High);
             return image;
         }
@@ -496,11 +505,14 @@ namespace Leisn.Xaml.Wpf.Controls
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             if (e.Source != this)
+            {
                 return;
+            }
+
             _isAdjustHue = false;
             try
             {
-                var point = e.GetPosition(this);
+                Point point = e.GetPosition(this);
                 if (TrySetHue(point))
                 {
                     _isAdjustHue = true;
@@ -511,25 +523,35 @@ namespace Leisn.Xaml.Wpf.Controls
                 {
                     //圆形
                     if (TrySetInDiscSpectrum(point))
+                    {
                         _isMouseDown = true;
+                    }
+
                     return;
                 }
                 //正方形
                 if (TrySetInSquareSpectrum(point))
+                {
                     _isMouseDown = true;
+                }
             }
             finally
             {
                 if (_isMouseDown)
+                {
                     CaptureMouse();
+                }
             }
 
         }
         protected override void OnMouseMove(MouseEventArgs e)
         {
             if (!_isMouseDown || e.Source != this)
+            {
                 return;
-            var point = e.GetPosition(this);
+            }
+
+            Point point = e.GetPosition(this);
             if (_isAdjustHue)
             {
                 SetHue(point);
@@ -549,7 +571,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private bool TrySetHue(Point point)
         {
-            var (distance, _) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
+            (double distance, double _) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
             if (distance >= _hueInnerRadius && distance <= _hueOuterRadius)
             {
                 SetHue(point);
@@ -559,7 +581,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private bool TrySetInSquareSpectrum(Point point)
         {
-            var halfLenght = _squareSpectrumLength / 2;
+            float halfLenght = _squareSpectrumLength / 2;
             if (Math.Abs(point.X - _center.X) <= halfLenght
                 && Math.Abs(point.Y - _center.Y) <= halfLenght)
             {
@@ -570,7 +592,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private bool TrySetInDiscSpectrum(Point point)
         {
-            var (distance, _) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
+            (double distance, double _) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
             if (distance <= _discSpectrumRadius)
             {
                 SetDiscColor(point);
@@ -581,7 +603,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private bool IsPointInPicker(Point point)
         {
-            var distance = Vector2.Distance(
+            float distance = Vector2.Distance(
                 _spectrumPickerCenter,
                 new Vector2((float)point.X, (float)point.Y));
             return distance <= _spectrumPickerRadius;
@@ -589,8 +611,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void SetHue(Point point)
         {
-            var (_, radians) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
-            var quadrant = ShapeHelper.Quadrant(point.X, point.Y, _center.X, _center.Y);
+            (double _, double radians) = ShapeHelper.CartesianToPolar(point.X - _center.X, point.Y - _center.Y);
+            int quadrant = ShapeHelper.Quadrant(point.X, point.Y, _center.X, _center.Y);
             switch (quadrant)
             {
                 case 1:
@@ -602,15 +624,15 @@ namespace Leisn.Xaml.Wpf.Controls
                     radians = Math.PI * 2.5 + radians;
                     break;
             }
-            var pos = Math.Clamp(radians / Math.PI / 2, 0, 1);
+            double pos = Math.Clamp(radians / Math.PI / 2, 0, 1);
             SelectedHue = HuePosToColor(pos);
         }
         private void SetSquareColor(Point point)
         {
             float half = _squareSpectrumLength / 2;
-            var px = (float)Math.Clamp((float)point.X, _center.X - half, _center.X + half);
-            var py = (float)Math.Clamp((float)point.Y, _center.Y - half, _center.Y + half);
-            var vector = new Vector2(px, py);
+            float px = (float)Math.Clamp((float)point.X, _center.X - half, _center.X + half);
+            float py = (float)Math.Clamp((float)point.Y, _center.Y - half, _center.Y + half);
+            Vector2 vector = new(px, py);
             vector -= new Vector2(_center.X, _center.Y);
             vector = Vector2.Transform(vector, Matrix3x2.CreateRotation((float)Math.PI / 2));
             float s = (vector.Y + half) / _squareSpectrumLength;
@@ -619,7 +641,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private void SetDiscColor(Point point)
         {
-            var vector = new Vector2((float)point.X, (float)point.Y);
+            Vector2 vector = new((float)point.X, (float)point.Y);
             vector -= new Vector2(_center.X, _center.Y);
             vector = Vector2.Transform(vector, Matrix3x2.CreateRotation((float)Math.PI / 2));
             //限制在边缘位置
@@ -628,7 +650,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 vector = Vector2.Normalize(vector) * _discSpectrumRadius;
             }
             vector /= _discSpectrumRadius;//缩放到[-1,1]
-            var (x, y) = ShapeHelper.DiscToSquareMapping(vector.X, vector.Y);//映射到矩形
+            (double x, double y) = ShapeHelper.DiscToSquareMapping(vector.X, vector.Y);//映射到矩形
             x = (x + 1) / 2;// 转换到[0,1]
             y = (y + 1) / 2;
             SelectedHsv = new Hsv(SelectedHue.H, y, x);

@@ -1,7 +1,9 @@
-﻿using System.Windows.Media.Media3D;
-using System.Windows.Media;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
 using System.Windows;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
+using System.Windows.Media.Media3D;
 
 namespace Leisn.Xaml.Wpf.Extensions
 {
@@ -43,7 +45,7 @@ namespace Leisn.Xaml.Wpf.Extensions
                 v = o as Visual3D;
             }
 
-            var ce = (v == null) ? o as ContentElement : null;
+            ContentElement? ce = (v == null) ? o as ContentElement : null;
 
             if (ce != null)
             {
@@ -54,8 +56,7 @@ namespace Leisn.Xaml.Wpf.Extensions
                 }
                 else
                 {
-                    var fce = ce as FrameworkContentElement;
-                    if (fce != null)
+                    if (ce is FrameworkContentElement fce)
                     {
                         return fce.Parent;
                     }
@@ -64,7 +65,10 @@ namespace Leisn.Xaml.Wpf.Extensions
             else if (v != null)
             {
                 if (v is FrameworkElement fe && fe.Parent is not null)
+                {
                     return fe.Parent;
+                }
+
                 return VisualTreeHelper.GetParent(v);
             }
 

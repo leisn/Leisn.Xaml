@@ -14,8 +14,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     [TemplatePart(Name = PART_PopupName, Type = typeof(Popup))]
     public class ColorPickerEditor : Control, IPropertyEditor
     {
-        const string PART_ColorPickerName = "PART_ColorPicker";
-        const string PART_PopupName = "PART_Popup";
+        private const string PART_ColorPickerName = "PART_ColorPicker";
+        private const string PART_PopupName = "PART_Popup";
         private ColorPicker _colorPicker = null!;
         private Popup _popup = null!;
 
@@ -28,8 +28,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public Color SelectedColor
         {
-            get { return (Color)GetValue(SelectedColorProperty); }
-            set { SetValue(SelectedColorProperty, value); }
+            get => (Color)GetValue(SelectedColorProperty);
+            set => SetValue(SelectedColorProperty, value);
         }
 
         public static readonly DependencyProperty SelectedColorProperty =
@@ -42,28 +42,35 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public Color NoAlphaColor
         {
-            get { return (Color)GetValue(NoAlphaColorProperty); }
-            set { SetValue(NoAlphaColorProperty, value); }
+            get => (Color)GetValue(NoAlphaColorProperty);
+            set => SetValue(NoAlphaColorProperty, value);
         }
         public static readonly DependencyProperty NoAlphaColorProperty =
             DependencyProperty.Register("NoAlphaColor", typeof(Color), typeof(ColorPickerEditor), new FrameworkPropertyMetadata(Colors.White, FrameworkPropertyMetadataOptions.AffectsRender));
 
         public bool IsDropDownOpen
         {
-            get { return (bool)GetValue(IsDropDownOpenProperty); }
-            set { SetValue(IsDropDownOpenProperty, value); }
+            get => (bool)GetValue(IsDropDownOpenProperty);
+            set => SetValue(IsDropDownOpenProperty, value);
         }
         public static readonly DependencyProperty IsDropDownOpenProperty =
             DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(ColorPickerEditor), new PropertyMetadata(false, new PropertyChangedCallback(OnIsDropDownOpenChanged)));
 
         private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var picker = (ColorPickerEditor)d;
+            ColorPickerEditor picker = (ColorPickerEditor)d;
             picker.OnIsDropDownChanged();
         }
 
-        public FrameworkElement CreateElement(PropertyItem item) => this;
-        public DependencyProperty GetBindingProperty() => SelectedColorProperty;
+        public FrameworkElement CreateElement(PropertyItem item)
+        {
+            return this;
+        }
+
+        public DependencyProperty GetBindingProperty()
+        {
+            return SelectedColorProperty;
+        }
 
         public override void OnApplyTemplate()
         {
@@ -126,7 +133,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         {
             base.OnIsKeyboardFocusWithinChanged(e);
             if (_popup.IsOpen && !IsKeyboardFocusWithin)
+            {
                 IsDropDownOpen = false;
+            }
         }
 
         private static void OnMouseButtonDown(object sender, MouseButtonEventArgs e)
@@ -147,7 +156,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         private static void OnLostMouseCapture(object sender, MouseEventArgs e)
         {
             ColorPickerEditor editor = (ColorPickerEditor)sender;
-            var captured = Mouse.Captured;
+            IInputElement captured = Mouse.Captured;
             if (captured != editor)
             {
                 if (e.OriginalSource == editor)

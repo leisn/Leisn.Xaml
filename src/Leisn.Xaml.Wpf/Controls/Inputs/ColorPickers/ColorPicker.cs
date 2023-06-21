@@ -30,9 +30,9 @@ namespace Leisn.Xaml.Wpf.Controls
     [TemplatePart(Name = PART_ColorSpectrumName, Type = typeof(ColorSpectrum))]
     public sealed class ColorPicker : Control
     {
-        const string PART_ColorSpectrumName = "PART_ColorSpectrum";
-        const string PART_TextBoxName = "PART_TextBox";
-        const string PART_PickerScreenName = "PART_PickerScreen";
+        private const string PART_ColorSpectrumName = "PART_ColorSpectrum";
+        private const string PART_TextBoxName = "PART_TextBox";
+        private const string PART_PickerScreenName = "PART_PickerScreen";
         static ColorPicker()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(ColorPicker), new FrameworkPropertyMetadata(typeof(ColorPicker)));
@@ -40,8 +40,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public Color SelectedColor
         {
-            get { return (Color)GetValue(SelectedColorProperty); }
-            set { SetValue(SelectedColorProperty, value); }
+            get => (Color)GetValue(SelectedColorProperty);
+            set => SetValue(SelectedColorProperty, value);
         }
         public static readonly DependencyProperty SelectedColorProperty =
             DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorPicker),
@@ -55,82 +55,82 @@ namespace Leisn.Xaml.Wpf.Controls
         [Category("Behavior")]
         public event SelectedColorChangedEventHandler SelectedColorChanged
         {
-            add { AddHandler(SelectedColorChangedEvent, value); }
-            remove { RemoveHandler(SelectedColorChangedEvent, value); }
+            add => AddHandler(SelectedColorChangedEvent, value);
+            remove => RemoveHandler(SelectedColorChangedEvent, value);
         }
         private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var cs = (ColorPicker)d;
-            var value = (Color)e.NewValue;
+            ColorPicker cs = (ColorPicker)d;
+            Color value = (Color)e.NewValue;
             cs.RaiseEvent(new SelectedColorChangedEventArgs((Color)e.OldValue, value) { Source = cs });
             cs.UpdateToValues();
         }
 
         public int Alpha
         {
-            get { return (int)GetValue(AlphaProperty); }
-            set { SetValue(AlphaProperty, value); }
+            get => (int)GetValue(AlphaProperty);
+            set => SetValue(AlphaProperty, value);
         }
         public static readonly DependencyProperty AlphaProperty =
             DependencyProperty.Register("Alpha", typeof(int), typeof(ColorPicker), new PropertyMetadata(0xFF, new PropertyChangedCallback(OnRgbChanged)));
 
         public int Red
         {
-            get { return (int)GetValue(RedProperty); }
-            set { SetValue(RedProperty, value); }
+            get => (int)GetValue(RedProperty);
+            set => SetValue(RedProperty, value);
         }
         public static readonly DependencyProperty RedProperty =
             DependencyProperty.Register("Red", typeof(int), typeof(ColorPicker), new PropertyMetadata(0xFF, new PropertyChangedCallback(OnRgbChanged)));
 
         public int Green
         {
-            get { return (int)GetValue(GreenProperty); }
-            set { SetValue(GreenProperty, value); }
+            get => (int)GetValue(GreenProperty);
+            set => SetValue(GreenProperty, value);
         }
         public static readonly DependencyProperty GreenProperty =
             DependencyProperty.Register("Green", typeof(int), typeof(ColorPicker), new PropertyMetadata(0xFF, new PropertyChangedCallback(OnRgbChanged)));
 
         public int Blue
         {
-            get { return (int)GetValue(BlueProperty); }
-            set { SetValue(BlueProperty, value); }
+            get => (int)GetValue(BlueProperty);
+            set => SetValue(BlueProperty, value);
         }
         public static readonly DependencyProperty BlueProperty =
             DependencyProperty.Register("Blue", typeof(int), typeof(ColorPicker), new PropertyMetadata(0xFF, new PropertyChangedCallback(OnRgbChanged)));
 
         private static void OnRgbChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var cs = (ColorPicker)d;
+            ColorPicker cs = (ColorPicker)d;
             cs.UpdateColorFromValues(false);
         }
 
         public int Hue
         {
-            get { return (int)GetValue(HueProperty); }
-            set { SetValue(HueProperty, value); }
+            get => (int)GetValue(HueProperty);
+            set => SetValue(HueProperty, value);
         }
         public static readonly DependencyProperty HueProperty =
             DependencyProperty.Register("Hue", typeof(int), typeof(ColorPicker), new PropertyMetadata(0, new PropertyChangedCallback(OnHsvChanged)));
 
         public double Saturation
         {
-            get { return (double)GetValue(SaturationProperty); }
-            set { SetValue(SaturationProperty, value); }
+            get => (double)GetValue(SaturationProperty);
+            set => SetValue(SaturationProperty, value);
         }
         public static readonly DependencyProperty SaturationProperty =
             DependencyProperty.Register("Saturation", typeof(double), typeof(ColorPicker), new PropertyMetadata(0d, new PropertyChangedCallback(OnHsvChanged)));
 
         public double Brightness
         {
-            get { return (double)GetValue(BrightnessProperty); }
-            set { SetValue(BrightnessProperty, value); }
+            get => (double)GetValue(BrightnessProperty);
+            set => SetValue(BrightnessProperty, value);
         }
         public static readonly DependencyProperty BrightnessProperty =
             DependencyProperty.Register("Brightness", typeof(double), typeof(ColorPicker), new PropertyMetadata(1d, new PropertyChangedCallback(OnHsvChanged)));
 
         private static void OnHsvChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var cs = (ColorPicker)d;
+            ColorPicker cs = (ColorPicker)d;
             cs.UpdateColorFromValues(true);
         }
 
@@ -177,9 +177,12 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void OnPickScreenColorClicked(object sender, RoutedEventArgs e)
         {
-            var dialog = new PickColorDialog { Owner = Window.GetWindow(this) };
+            PickColorDialog dialog = new() { Owner = Window.GetWindow(this) };
             if (dialog.ShowDialog() != true)
+            {
                 return;
+            }
+
             SelectedColor = dialog.SelectedColor;
         }
 
@@ -198,9 +201,9 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void OnTextBoxInputing(object sender, TextCompositionEventArgs e)
         {
-            var textBox = (TextBox)sender;
+            TextBox textBox = (TextBox)sender;
             string regex = string.Format(@"^[a-fA-F0-9]+$");
-            var match = Regex.IsMatch(e.Text, regex);
+            bool match = Regex.IsMatch(e.Text, regex);
             if (!match)
             {
                 e.Handled = true;
@@ -217,19 +220,24 @@ namespace Leisn.Xaml.Wpf.Controls
         private void OnSpectrumHsvChagned(object sender, SelectedHsvChangedEventArgs e)
         {
             if (_pausePropertyChangedHandle)
+            {
                 return;
+            }
+
             _pausePropertyChangedHandle = true;
             try
             {
-                var hsv = e.NewValue;
+                Hsv hsv = e.NewValue;
                 if (hsv.H == Hue && hsv.S == Saturation && hsv.V == Brightness)
+                {
                     return;
+                }
 
                 Hue = hsv.H;
                 Saturation = hsv.S;
                 Brightness = hsv.V;
 
-                var rgb = hsv.ToRgb();
+                Rgb rgb = hsv.ToRgb();
                 Red = rgb.R;
                 Green = rgb.G;
                 Blue = rgb.B;
@@ -244,7 +252,10 @@ namespace Leisn.Xaml.Wpf.Controls
         private void UpdateColorFromValues(bool fromHsv)
         {
             if (_colorSpectrum == null)
+            {
                 return;
+            }
+
             if (_pausePropertyChangedHandle)
             {
                 return;
@@ -254,8 +265,8 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 if (fromHsv)
                 {
-                    var hsv = new Hsv((ushort)Hue, Saturation, Brightness);
-                    var rgb = hsv.ToRgb();
+                    Hsv hsv = new((ushort)Hue, Saturation, Brightness);
+                    Rgb rgb = hsv.ToRgb();
                     Red = rgb.R;
                     Green = rgb.G;
                     Blue = rgb.B;
@@ -266,7 +277,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 else
                 {
                     SelectedColor = Color.FromArgb((byte)Alpha, (byte)Red, (byte)Green, (byte)Blue);
-                    var hsv = SelectedColor.ToHsv();
+                    Hsv hsv = SelectedColor.ToHsv();
                     Hue = hsv.H;
                     Saturation = hsv.S;
                     Brightness = hsv.V;
@@ -283,7 +294,10 @@ namespace Leisn.Xaml.Wpf.Controls
         private void UpdateToValues()
         {
             if (_colorSpectrum == null)
+            {
                 return;
+            }
+
             if (_pausePropertyChangedHandle)
             {
                 return;
@@ -295,8 +309,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 Green = SelectedColor.G;
                 Blue = SelectedColor.B;
                 Alpha = SelectedColor.A;
-                var rgb = SelectedColor.ToRgb();
-                var hsv = rgb.ToHsv();
+                Rgb rgb = SelectedColor.ToRgb();
+                Hsv hsv = rgb.ToHsv();
                 Hue = hsv.H;
                 Saturation = hsv.S;
                 Brightness = hsv.V;
