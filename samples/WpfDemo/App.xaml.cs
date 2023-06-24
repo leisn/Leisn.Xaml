@@ -27,13 +27,26 @@ namespace WpfDemo
     {
         public App()
         {
+            Process process = new();
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.FileName = "cmd";
+            process.StartInfo.Arguments = @"/C ""more""";
+            process.StartInfo.RedirectStandardInput = true;
+            process.Start();
+            Console.SetOut(process.StandardInput);
+            Console.SetError(process.StandardInput);
+
+            Console.WriteLine("Lang init...");
             Lang.Initialize(Thread.CurrentThread.CurrentCulture.Name);
 
+            Console.WriteLine("Sevices init...");
             var sevices = new ServiceCollection();
             sevices.AddSingleton<SampleTextProvider>()
                    .AddSingleton<SampleTextWidthDescProvider>();
 
+            Console.WriteLine("UIContext init...");
             UIContext.Initialize(sevices.BuildServiceProvider());
+            Console.WriteLine("App started.");
         }
     }
 
