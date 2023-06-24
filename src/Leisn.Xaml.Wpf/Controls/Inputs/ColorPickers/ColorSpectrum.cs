@@ -466,6 +466,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private SKImage GenerateDiscSpectrumImage(int length)
         {
+            //在边缘加一层圆环渐变?
             int multipleLength = length * 2;//放大倍数，用于边缘抗锯齿，可能需要更好的实现方式
             int radius = multipleLength / 2;
             byte[] bytes = new byte[multipleLength * multipleLength * 4];
