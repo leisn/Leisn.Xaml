@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -73,6 +74,13 @@ namespace Leisn.Xaml.Wpf.Controls
             cs.RaiseEvent(new SelectedColorChangedEventArgs((Color)e.OldValue, value) { Source = cs });
             cs.UpdateToValues();
         }
+
+        public ColorSpectrumStyle SpectrumStyle
+        {
+            get { return (ColorSpectrumStyle)GetValue(SpectrumStyleProperty); }
+            set { SetValue(SpectrumStyleProperty, value); }
+        }
+        public static readonly DependencyProperty SpectrumStyleProperty = ColorSpectrum.SpectrumStyleProperty.AddOwner(typeof(ColorPicker));
 
         public int Alpha
         {

@@ -2,19 +2,14 @@
 
 using System;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class DateTimeEditor : IPropertyEditor
     {
-        public FrameworkElement CreateElement(PropertyItem item)
-        {
-            throw new NotImplementedException();
-        }
+        public FrameworkElement CreateElement(PropertyItem item) => new DatePicker();
 
-        public DependencyProperty GetBindingProperty()
-        {
-            throw new NotImplementedException();
-        }
+        public DependencyProperty GetBindingProperty() => DatePicker.SelectedDateProperty;
     }
 }

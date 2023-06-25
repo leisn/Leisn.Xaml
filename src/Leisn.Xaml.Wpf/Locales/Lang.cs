@@ -91,6 +91,7 @@ namespace Leisn.Xaml.Wpf.Locales
                     LoadValues(item.FullName);
                 }
             }
+            NotifyLocalesChagned();
         }
 
         private void LoadValues(string path)
@@ -100,7 +101,7 @@ namespace Leisn.Xaml.Wpf.Locales
             for (int i = 0; i < lines.Length; i++)
             {
                 string line = lines[i].Trim();
-                if (string.IsNullOrWhiteSpace(line) || line.StartsWith('#') || line.StartsWith("//"))
+                if (string.IsNullOrEmpty(line) || line.StartsWith('#') || line.StartsWith("//"))
                 {
                     continue;
                 }

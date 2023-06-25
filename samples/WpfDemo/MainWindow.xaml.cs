@@ -64,6 +64,7 @@ namespace WpfDemo
         }
         private class PgTest
         {
+            public DateTime DateTime { get; set; }
             public bool? BoolNullable { get; set; }
             public bool Bool { get; set; }
             public Color Color { get; set; } = Colors.RoyalBlue;

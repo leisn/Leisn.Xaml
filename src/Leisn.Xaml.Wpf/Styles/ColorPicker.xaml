@@ -5,7 +5,7 @@
                     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
   <Style x:Key="ColorSpectrumStyle" TargetType="local:ColorSpectrum">
-    <Setter Property="IsDiscSpectrum" Value="True"/>
+    <Setter Property="SpectrumStyle" Value="Square"/>
     <Setter Property="Spacing" Value=".14"/>
     <Setter Property="MinHeight" Value="150"/>
     <Setter Property="MinWidth" Value="150"/>
@@ -52,6 +52,7 @@
     <Setter Property="Padding" Value="5"/>
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}"/>
+    <Setter Property="SpectrumStyle" Value="Disc"/>
     <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
     <Setter Property="Template">
       <Setter.Value>
@@ -67,7 +68,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
               </Grid.RowDefinitions>
-              <local:ColorSpectrum x:Name="PART_ColorSpectrum"/>
+              <local:ColorSpectrum x:Name="PART_ColorSpectrum" SpectrumStyle="{TemplateBinding SpectrumStyle}"/>
 
               <UniformGrid Rows="1" Grid.Row="1" Margin="{TemplateBinding Padding}">
                 <RadioButton x:Name="rgbTab" Content="RGB" IsChecked="True" Style="{DynamicResource RadioToggleStyle}"
