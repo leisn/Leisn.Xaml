@@ -78,6 +78,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             base.OnApplyTemplate();
             _itemsControl = (ItemsControl)GetTemplateChild(ItemsControlName);
+            UpdateItems();
         }
 
         private const string OTHER_KEY = "Misc";

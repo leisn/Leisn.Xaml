@@ -11,6 +11,7 @@
   <Color x:Key="DangerColor">#db3340</Color>
 
   <Color x:Key="RegionColor">#303030</Color>
+  <Color x:Key="RegionLighterColor1">#363636</Color>
   <Color x:Key="RegionLighterColor">#3d3d3d</Color>
   <Color x:Key="RegionDarkerColor">#282828</Color>
 
@@ -23,6 +24,7 @@
   <Color x:Key="ControlColor">#545454</Color>
   <Color x:Key="ControlLighterColor">#656565</Color>
   <Color x:Key="ControlAccentColor">#797979</Color>
+  <Color x:Key="ControlDarkerColor">#444444</Color>
 
   <Color x:Key="NightSkyColor">#05112c</Color>
 

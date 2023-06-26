@@ -11,6 +11,7 @@
   <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}"/>
 
   <SolidColorBrush x:Key="RegionBrush" Color="{DynamicResource RegionColor}"/>
+  <SolidColorBrush x:Key="RegionLighterBrush1" Color="{DynamicResource RegionLighterColor1}"/>
   <SolidColorBrush x:Key="RegionLighterBrush" Color="{DynamicResource RegionLighterColor}"/>
   <SolidColorBrush x:Key="RegionDarkerBrush" Color="{DynamicResource RegionDarkerColor}"/>
 
@@ -23,6 +24,7 @@
   <SolidColorBrush x:Key="ControlBrush" Color="{DynamicResource ControlColor}"/>
   <SolidColorBrush x:Key="ControlLighterBrush" Color="{DynamicResource ControlLighterColor}"/>
   <SolidColorBrush x:Key="ControlAccentBrush" Color="{DynamicResource ControlAccentColor}"/>
+  <SolidColorBrush x:Key="ControlDarkerBrush" Color="{DynamicResource ControlDarkerColor}"/>
 
   <SolidColorBrush x:Key="NightSkyBrush" Color="{DynamicResource NightSkyColor}"/>
 

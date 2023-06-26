@@ -6,6 +6,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
+using Leisn.Xaml.Wpf.Controls.Editors;
+
 namespace Leisn.Xaml.Wpf.Controls
 {
     public class PropertyItem : ListBoxItem
@@ -14,6 +16,26 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PropertyItem), new FrameworkPropertyMetadata(typeof(PropertyItem)));
         }
+
+        public static bool GetUseExpanderStyle(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(UseExpanderStyleProperty);
+        }
+        public static void SetUseExpanderStyle(DependencyObject obj, bool value)
+        {
+            obj.SetValue(UseExpanderStyleProperty, value);
+        }
+        public static readonly DependencyProperty UseExpanderStyleProperty =
+            DependencyProperty.RegisterAttached("UseExpanderStyle", typeof(bool), typeof(PropertyItem), new PropertyMetadata(false));
+
+        public bool IsExpander
+        {
+            get { return (bool)GetValue(IsExpanderProperty); }
+            set { SetValue(IsExpanderProperty, value); }
+        }
+        public static readonly DependencyProperty IsExpanderProperty =
+            DependencyProperty.Register("IsExpander", typeof(bool), typeof(PropertyItem), new PropertyMetadata(false));
+
         public PropertyDescriptor PropertyDescriptor { get; internal set; } = null!;
         public Type PropertyType => PropertyDescriptor.PropertyType;
         public string PropertyName => PropertyDescriptor.Name;
@@ -109,12 +131,12 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             EditorElement = Editor.CreateElement(this);
-
+            IsExpander = GetUseExpanderStyle(EditorElement);
             Binding binding = new()
             {
                 Source = Source,
                 Path = new PropertyPath(PropertyName),
-                Mode = IsReadOnly ? BindingMode.OneWay : BindingMode.TwoWay,
+                Mode = IsReadOnly ? BindingMode.OneWay : Editor is ReadOnlyTextEditor ? BindingMode.OneWay : BindingMode.TwoWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
             };
             BindingOperations.SetBinding(EditorElement, Editor.GetBindingProperty(), binding);

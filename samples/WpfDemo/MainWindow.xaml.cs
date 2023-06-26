@@ -22,6 +22,7 @@ using System.Diagnostics;
 using Leisn.Xaml.Wpf;
 using System.Globalization;
 using Leisn.Common.Data;
+using System.Collections.ObjectModel;
 
 namespace WpfDemo
 {
@@ -62,8 +63,29 @@ namespace WpfDemo
             [Description("V2 desc")]
             Value2,
         }
+
+        public class SubClass
+        {
+            [Category("sbyte value")]
+            [DisplayName("sbyte value 1")]
+            [Description("Range not limited")]
+            public sbyte sbValue1 { get; set; }
+            [Category("sbyte value")]
+            [DisplayName("sbyte value 2")]
+            [Description("Range 4-10, Increment=2 \n{ValueRange}：[4,10]")]
+            [Range(4, 10)]
+            [Increment(2)]
+            public sbyte sbValue2 { get; set; }
+            [Category("int value")]
+            [DisplayName("int value 1")]
+            [Description("int not limited")]
+            public int Value1 { get; set; }
+        }
         private class PgTest
         {
+            public SubClass SubClass { get; set; } = new();
+            //public List<int> ListInts { get; set; } = new();
+            //public IEnumerable<int> EnumInts { get; set; } = new Collection<int>();
             public DateTime DateTime { get; set; }
             public bool? BoolNullable { get; set; }
             public bool Bool { get; set; }
@@ -94,28 +116,12 @@ namespace WpfDemo
             public string ArrayTextProvider { get; set; } = "Text 1";
             [DataProvider(typeof(SampleObjectProvider))]
             public SampleObject ObjectProvider { get; set; } = null!;
-
-            [Category("sbyte value")]
-            [DisplayName("sbyte value 1")]
-            [Description("Range not limited")]
-            public sbyte sbValue1 { get; set; }
-            [Category("sbyte value")]
-            [DisplayName("sbyte value 2")]
-            [Description("Range 4-10, Increment=2 \n{ValueRange}：[4,10]")]
-            [Range(4, 10)]
-            [Increment(2)]
-            public sbyte sbValue2 { get; set; }
-            [Category("int value")]
-            [DisplayName("int value 1")]
-            [Description("int not limited")]
-            public int Value1 { get; set; }
             [Category("int value")]
             [DisplayName("int value 2")]
             [Description("Range 4-10, Increment=2")]
             [Range(4, 10)]
             [Increment(2)]
             public int Value2 { get; set; }
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

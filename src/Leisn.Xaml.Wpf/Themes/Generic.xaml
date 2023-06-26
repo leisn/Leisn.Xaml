@@ -9,6 +9,7 @@
   <Color x:Key="WarningColor">#e9af20</Color>
   <Color x:Key="DangerColor">#db3340</Color>
   <Color x:Key="RegionColor">#303030</Color>
+  <Color x:Key="RegionLighterColor1">#363636</Color>
   <Color x:Key="RegionLighterColor">#3d3d3d</Color>
   <Color x:Key="RegionDarkerColor">#282828</Color>
   <Color x:Key="TextColor">#DEDEDE</Color>
@@ -19,6 +20,7 @@
   <Color x:Key="ControlColor">#545454</Color>
   <Color x:Key="ControlLighterColor">#656565</Color>
   <Color x:Key="ControlAccentColor">#797979</Color>
+  <Color x:Key="ControlDarkerColor">#444444</Color>
   <Color x:Key="NightSkyColor">#05112c</Color>
   <sys:Double x:Key="DefaultFontSize">12</sys:Double>
   <sys:Double x:Key="FontSize80">9</sys:Double>
@@ -79,6 +81,7 @@
   <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}" />
   <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}" />
   <SolidColorBrush x:Key="RegionBrush" Color="{DynamicResource RegionColor}" />
+  <SolidColorBrush x:Key="RegionLighterBrush1" Color="{DynamicResource RegionLighterColor1}" />
   <SolidColorBrush x:Key="RegionLighterBrush" Color="{DynamicResource RegionLighterColor}" />
   <SolidColorBrush x:Key="RegionDarkerBrush" Color="{DynamicResource RegionDarkerColor}" />
   <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}" />
@@ -89,6 +92,7 @@
   <SolidColorBrush x:Key="ControlBrush" Color="{DynamicResource ControlColor}" />
   <SolidColorBrush x:Key="ControlLighterBrush" Color="{DynamicResource ControlLighterColor}" />
   <SolidColorBrush x:Key="ControlAccentBrush" Color="{DynamicResource ControlAccentColor}" />
+  <SolidColorBrush x:Key="ControlDarkerBrush" Color="{DynamicResource ControlDarkerColor}" />
   <SolidColorBrush x:Key="NightSkyBrush" Color="{DynamicResource NightSkyColor}" />
   <DrawingBrush x:Key="OpacityGridTileBrush" TileMode="Tile" Stretch="None" Viewport="0,0,16,16" ViewportUnits="Absolute">
     <DrawingBrush.Drawing>
@@ -325,13 +329,21 @@
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
-              <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1" />
+              <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin=".5,.5" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1">
+                <Path.RenderTransform>
+                  <RotateTransform Angle="-90" />
+                </Path.RenderTransform>
+              </Path>
               <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="true">
-              <Setter Property="Data" TargetName="arrow" Value="M 1,4.5 L 4.5,1 L 8,4.5" />
+              <Setter Property="RenderTransform" TargetName="arrow">
+                <Setter.Value>
+                  <RotateTransform Angle="0" />
+                </Setter.Value>
+              </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
               <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextAccentBrush }" />
@@ -357,15 +369,21 @@
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
-              <Grid>
-                <Path x:Name="arrow" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" Data="M 1,1.5 L 4.5,5 L 8,1.5" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1" />
-              </Grid>
+              <Path x:Name="arrow" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" Data="M 1,1.5 L 4.5,5 L 8,1.5" RenderTransformOrigin=".5,.5" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1">
+                <Path.RenderTransform>
+                  <RotateTransform Angle="-90" />
+                </Path.RenderTransform>
+              </Path>
               <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="true">
-              <Setter Property="Data" TargetName="arrow" Value="M 1,4.5 L 4.5,1 L 8,4.5" />
+              <Setter Property="RenderTransform" TargetName="arrow">
+                <Setter.Value>
+                  <RotateTransform Angle="180" />
+                </Setter.Value>
+              </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
               <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextAccentBrush }" />
@@ -410,14 +428,22 @@
                     </TransformGroup.Children>
                   </TransformGroup>
                 </Grid.LayoutTransform>
-                <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1" />
+                <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin=".5,.5" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1">
+                  <Path.RenderTransform>
+                    <RotateTransform Angle="90" />
+                  </Path.RenderTransform>
+                </Path>
               </Grid>
               <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Row="1" Grid.Column="1" SnapsToDevicePixels="True" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="true">
-              <Setter Property="Data" TargetName="arrow" Value="M 1,4.5 L 4.5,1 L 8,4.5" />
+              <Setter Property="RenderTransform" TargetName="arrow">
+                <Setter.Value>
+                  <RotateTransform Angle="0" />
+                </Setter.Value>
+              </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
               <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextAccentBrush }" />
@@ -452,13 +478,21 @@
                 <ColumnDefinition Width="20" />
                 <ColumnDefinition Width="*" />
               </Grid.ColumnDefinitions>
-              <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Center" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1" />
+              <Path x:Name="arrow" Data="M 1,1.5 L 4.5,5 L 8,1.5" Height="{DynamicResource ExpenderArrowWidth}" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Center" RenderTransformOrigin=".5,.5" Stroke="{Binding RelativeSource={RelativeSource AncestorType=Expander},Path=Foreground}" SnapsToDevicePixels="false" StrokeThickness="1">
+                <Path.RenderTransform>
+                  <RotateTransform Angle="-90" />
+                </Path.RenderTransform>
+              </Path>
               <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Column="1" SnapsToDevicePixels="True" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="true">
-              <Setter Property="Data" TargetName="arrow" Value="M 1,4.5 L 4.5,1 L 8,4.5" />
+              <Setter Property="RenderTransform" TargetName="arrow">
+                <Setter.Value>
+                  <RotateTransform Angle="0" />
+                </Setter.Value>
+              </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
               <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextAccentBrush }" />
@@ -481,12 +515,14 @@
     <Setter Property="VerticalContentAlignment" Value="Stretch" />
     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
     <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="local:LayoutAttach.Padding" Value="0" />
+    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Expander}">
-          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="3" SnapsToDevicePixels="true">
+          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}" SnapsToDevicePixels="true">
             <DockPanel>
-              <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}" Foreground="{TemplateBinding Foreground}" FontStyle="{TemplateBinding FontStyle}" FontFamily="{TemplateBinding FontFamily}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+              <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}" Foreground="{TemplateBinding Foreground}" FontStyle="{TemplateBinding FontStyle}" FontFamily="{TemplateBinding FontFamily}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding local:LayoutAttach.Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
               <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed" />
             </DockPanel>
           </Border>
@@ -1248,35 +1284,53 @@
       </Setter.Value>
     </Setter>
   </Style>
+  <ControlTemplate x:Key="PropertyItemNormalTemplate" TargetType="local:PropertyItem">
+    <Border x:Name="bd" Padding="7,1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+      <Grid Margin="{TemplateBinding Padding}">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width=".38*" MinWidth="81" />
+          <ColumnDefinition Width=".62*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="header" Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
+          <TextBlock.ToolTip>
+            <ToolTip Style="{DynamicResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}" />
+          </TextBlock.ToolTip>
+        </TextBlock>
+        <ContentPresenter Grid.Column="1" ContentSource="EditorElement" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+      </Grid>
+    </Border>
+  </ControlTemplate>
+  <ControlTemplate x:Key="PropertyItemExpanderTemplate" TargetType="local:PropertyItem">
+    <Expander Margin="{TemplateBinding Padding}" IsExpanded="True" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" local:LayoutAttach.Padding="25,3,10,5" local:BorderAttach.CornerRadius="{DynamicResource DefaultBottomCornerRadius}">
+      <Expander.Header>
+        <TextBlock Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Left">
+          <TextBlock.ToolTip>
+            <ToolTip Style="{DynamicResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}" />
+          </TextBlock.ToolTip>
+        </TextBlock>
+      </Expander.Header>
+      <Border Background="{TemplateBinding Background}" Padding="0,5,0,0">
+        <ContentPresenter ContentSource="EditorElement" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+      </Border>
+    </Expander>
+  </ControlTemplate>
   <Style x:Key="PropertyItemBaseStyle" TargetType="local:PropertyItem">
     <Setter Property="Focusable" Value="False" />
     <Setter Property="Margin" Value="0,0,0,6" />
     <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}" />
+    <Setter Property="Height" Value="auto" />
     <Setter Property="Padding" Value="0" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="local:PropertyItem">
-          <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-            <Grid Margin="{TemplateBinding Padding}">
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width=".4*" MinWidth="100" />
-                <ColumnDefinition Width=".6*" />
-              </Grid.ColumnDefinitions>
-              <TextBlock Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
-                <TextBlock.ToolTip>
-                  <ToolTip Style="{StaticResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}" />
-                </TextBlock.ToolTip>
-              </TextBlock>
-              <ContentPresenter Grid.Column="1" ContentSource="EditorElement" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-            </Grid>
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
+    <Setter Property="Template" Value="{DynamicResource PropertyItemNormalTemplate}" />
+    <Style.Triggers>
+      <Trigger Property="IsExpander" Value="True">
+        <Setter Property="Template" Value="{DynamicResource PropertyItemExpanderTemplate}" />
+        <Setter Property="Background" Value="{DynamicResource RegionLighterBrush1}" />
+      </Trigger>
+    </Style.Triggers>
   </Style>
   <Style x:Key="PropertyItemsControlBaseStyle" TargetType="local:PropertyItemsControl">
     <Setter Property="ItemContainerStyle" Value="{StaticResource PropertyItemBaseStyle}" />
@@ -1298,12 +1352,13 @@
   </Style>
   <Style x:Key="PropertyGroupItemBaseStyle" TargetType="GroupItem">
     <Setter Property="Margin" Value="0,0,0,2" />
-    <Setter Property="Padding" Value="8,5" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="local:LayoutAttach.Padding" Value="5" />
     <Setter Property="Background" Value="{DynamicResource RegionLighterBrush}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="GroupItem">
-          <Expander Header="{Binding Name}" IsExpanded="True" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}">
+          <Expander Header="{Binding Name}" IsExpanded="True" Padding="{TemplateBinding Padding}" local:LayoutAttach.Padding="{TemplateBinding local:LayoutAttach.Padding}" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}">
             <ItemsPresenter />
           </Expander>
         </ControlTemplate>
@@ -1335,4 +1390,30 @@
     </Setter>
   </Style>
   <Style TargetType="{x:Type local:PropertyGrid}" BasedOn="{StaticResource PropertyGridBaseStyle}" />
+  <Style x:Key="SubPropertyItemsControlBaseStyle" TargetType="local:PropertyItemsControl">
+    <Setter Property="ItemContainerStyle" Value="{StaticResource PropertyItemBaseStyle}" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:PropertyItemsControl">
+          <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style x:Key="SubPropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:PropertyGrid">
+          <Border SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Background="{TemplateBinding Background}" BorderThickness="0">
+            <local:PropertyItemsControl x:Name="PART_ItemsControl" Margin="{TemplateBinding Padding}" Style="{StaticResource SubPropertyItemsControlBaseStyle}" />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
@@ -69,12 +70,17 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual IPropertyEditor CreateObjectEditor(PropertyDescriptor propertyDescriptor)
         {
-            if (propertyDescriptor.PropertyType == typeof(bool?))
+            var propertyType = propertyDescriptor.PropertyType;
+           
+            if (propertyType == typeof(bool?))
                 return new BoolEditor();
-            if (propertyDescriptor.PropertyType == typeof(Color))
+            if (propertyType == typeof(Color))
                 return new ColorPickerEditor();
-            if (propertyDescriptor.PropertyType.IsAssignableTo(typeof(IEnumerable)))
+            if (propertyType.IsAssignableTo(typeof(IEnumerable)))
                 return new CollectionEditor();
+            if (propertyType.IsClass)
+                return new ClassEditor();
+         
             return new ReadOnlyTextEditor();
         }
     }
