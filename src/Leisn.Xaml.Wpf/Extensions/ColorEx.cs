@@ -4,6 +4,8 @@ using System.Globalization;
 
 using Leisn.Common.Media;
 
+using SkiaSharp;
+
 namespace System.Windows.Media
 {
     public static class ColorEx
@@ -160,6 +162,12 @@ namespace System.Windows.Media
         public static Color ToColor(this Hsv hsv)
         {
             return hsv.ToRgb().ToColor();
+        }
+
+        public static SKColor ToSKColor(this Hsv hsv)
+        {
+            var rgb = hsv.ToRgb();
+            return new SKColor(rgb.R, rgb.G, rgb.B);
         }
     }
 }

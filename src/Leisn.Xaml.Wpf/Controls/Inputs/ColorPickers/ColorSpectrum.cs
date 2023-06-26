@@ -220,7 +220,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         #endregion
 
-        #region hue color maps 
+        #region hue color maps
         private static Hsv HuePosToColor(double pos)
         {
             if (pos is < 0 or > 1)
@@ -328,6 +328,8 @@ namespace Leisn.Xaml.Wpf.Controls
             new SKColor(255, 0, 255),//v 0 255
             new SKColor(255, 0, 0)//255 0 -v
         };
+        private static readonly float[] _spectrumEdgeColorPos
+            = new float[] { 0, 0.125f, 0.25f, 0.375f, 0.5f, 0.625f, 0.75f, 0.875f, 1 };
         #endregion
 
         #region draw and vars
@@ -353,16 +355,13 @@ namespace Leisn.Xaml.Wpf.Controls
             canvas.RotateDegrees(-90);
             canvas.Save();
             //draw cicle
-            using (SKPaint circlePaint = new()
-            { IsStroke = false, IsAntialias = true })
             using (SKShader shade = SKShader.CreateSweepGradient(new SKPoint(), _colorHues, _colorHuePos))
-            using (SKPath path = new()
-            { FillType = SKPathFillType.EvenOdd })
+            using (SKPaint circlePaint = new() { IsStroke = false, IsAntialias = true, Shader = shade })
+            using (SKPath path = new() { FillType = SKPathFillType.EvenOdd })
             {
                 path.AddCircle(0, 0, _hueInnerRadius);
                 path.AddCircle(0, 0, _hueOuterRadius);
                 //canvas.ClipPath(clip, SKClipOperation.Intersect, true);
-                circlePaint.Shader = shade;
                 canvas.DrawPath(path, circlePaint);
             }
 
@@ -384,16 +383,27 @@ namespace Leisn.Xaml.Wpf.Controls
             #endregion
 
             #region draw color spectrum
-            //canvas.Save();
-            //canvas.Translate(center);
+
             float colorPickerX = 0;
             float colorPickerY = 0;
             float spacing = (float)(Spacing > 1 ? Spacing : Spacing * _hueInnerRadius);
-            _discSpectrumRadius = _hueInnerRadius - spacing;
+            _discSpectrumRadius = _hueInnerRadius - spacing - 1;
             if (SpectrumStyle == ColorSpectrumStyle.Disc)
             {
+                //draw antialias,maybe a better way?
+
+                using SKShader shade = SKShader.CreateSweepGradient(new SKPoint(),
+                    new SKColor[] { SelectedHue.With(.5, 1).ToSKColor(), SelectedHue.With(1, 1).ToSKColor(),
+                                    SelectedHue.With(1, .5).ToSKColor(), SelectedHue.With(1, 0).ToSKColor(),
+                                    SelectedHue.With(.5, 0).ToSKColor(), SelectedHue.With(0, 0).ToSKColor(),
+                                    SelectedHue.With(0, .5).ToSKColor(), SelectedHue.With(0, 1).ToSKColor(),
+                                    SelectedHue.With(.5, 1).ToSKColor()}, _spectrumEdgeColorPos);
+                using SKPaint edgePaint = new() { IsStroke = false, IsAntialias = true, Shader = shade };
+                canvas.DrawCircle(0, 0, _discSpectrumRadius + 1, edgePaint);
+
                 using SKImage spectrumImage = GenerateDiscSpectrumImage(_discSpectrumRadius * 2);
                 canvas.DrawImage(spectrumImage, -_discSpectrumRadius, -_discSpectrumRadius);
+                //cacl color picker location
                 (double u, double v) = ShapeHelper.SquareToDiscMapping(2 * SelectedHsv.V - 1, 2 * SelectedHsv.S - 1);
                 colorPickerX = (float)(u * _discSpectrumRadius);
                 colorPickerY = (float)(v * _discSpectrumRadius);
@@ -419,7 +429,6 @@ namespace Leisn.Xaml.Wpf.Controls
             };
             float colorPickerRadius = hubPickerRadius / 3 * 2;
             canvas.DrawCircle(colorPickerX, colorPickerY, colorPickerRadius, colorPickerPaint);
-
             _spectrumPickerRadius = colorPickerRadius + pickerWidth / 2;
             _spectrumPickerCenter = Vector2.Transform(
                     new Vector2(colorPickerX, colorPickerY),
@@ -452,34 +461,12 @@ namespace Leisn.Xaml.Wpf.Controls
             int length = (int)spectrumLength;
             byte[] bytes = new byte[length * length * 4];
             var h = SelectedHue.H;
-            Parallel.For(0, length, (y) => Parallel.For(0, length, (x) =>
+            Parallel.For(0, length + 1, (y) => Parallel.For(0, length + 1, (x) =>
             {
-                var rgb = new Hsv(h, (double)y / length, (double)x / length).ToRgb();
-                int bytePos = y * length * 4 + x * 4;
-                bytes[bytePos] = rgb.R;
-                bytes[bytePos + 1] = rgb.G;
-                bytes[bytePos + 2] = rgb.B;
-                bytes[bytePos + 3] = 0xFF;
-            }));
-            return SKImage.FromPixelCopy(new SKImageInfo(length, length, SKColorType.Rgba8888), bytes);
-        }
-        private SKImage GenerateDiscSpectrumImage(float spectrumLength)
-        {
-            int length = (int)Math.Floor(spectrumLength);
-            double radius = length / 2d;
-            byte[] bytes = new byte[length * length * 4];
-            var h = SelectedHue.H;
-
-            const int Max = 100;
-            Parallel.For(0, Max + 1, (s) => Parallel.For(0, Max + 1, (v) =>
-            {
-                var hsv = new Hsv(h, (double)s / Max, (double)v / Max);
+                var hsv = new Hsv(h, (double)y / length, (double)x / length);
                 var rgb = hsv.ToRgb();
-                var (x, y) = ShapeHelper.SquareToDiscMapping(hsv.V * 2 - 1, hsv.S * 2 - 1);
-                int col = (int)Math.Round(radius * x + radius);
-                col = Math.Clamp(col, 0, length - 1);
-                int row = (int)Math.Round(radius * y + radius);
-                row = Math.Clamp(row, 0, length - 1);
+                int col = (int)Math.Round(hsv.V * (length - 1));
+                int row = (int)Math.Round(hsv.S * (length - 1));
                 int bytePos = row * length * 4 + col * 4;
                 bytes[bytePos] = rgb.R;
                 bytes[bytePos + 1] = rgb.G;
@@ -487,41 +474,29 @@ namespace Leisn.Xaml.Wpf.Controls
                 bytes[bytePos + 3] = 0xFF;
             }));
             return SKImage.FromPixelCopy(new SKImageInfo(length, length, SKColorType.Rgba8888), bytes);
+        }
 
-            /**
-            //在边缘加一层圆环渐变?
-            int multipleLength = length * 2;//放大倍数，用于边缘抗锯齿，可能需要更好的实现方式
-            int radius = multipleLength / 2;
-            byte[] bytes = new byte[multipleLength * multipleLength * 4];
-            Hsv selectedHue = SelectedHue;
-            Parallel.For(0, multipleLength, (i) =>
+        private SKImage GenerateDiscSpectrumImage(float spectrumLength)
+        {
+            int length = (int)spectrumLength;
+            byte[] bytes = new byte[length * length * 4];
+            var h = SelectedHue.H;
+            Parallel.For(0, length + 1, (s) => Parallel.For(0, length + 1, (v) =>
             {
-                int bytePos;
-                Rgb rgb;
-                Hsv hsv = new(selectedHue.H, (double)i / multipleLength, 0);
-                double u, v;
-                int row, col;
-                for (int j = 0; j < multipleLength; j++)
-                {
-                    hsv.V = (double)j / multipleLength;
-                    rgb = hsv.ToRgb();
-                    (u, v) = ShapeHelper.SquareToDiscMapping(hsv.V * 2 - 1, hsv.S * 2 - 1);
-                    col = (int)Math.Round(radius * u + radius);
-                    col = Math.Clamp(col, 0, multipleLength - 1);
-                    row = (int)Math.Round(radius * v + radius);
-                    row = Math.Clamp(row, 0, multipleLength - 1);
-
-                    bytePos = row * multipleLength * 4 + col * 4;
-                    bytes[bytePos] = rgb.R;
-                    bytes[bytePos + 1] = rgb.G;
-                    bytes[bytePos + 2] = rgb.B;
-                    bytes[bytePos + 3] = 0xFF;
-                }
-            });
-            using SKImage image2 = SKImage.FromPixelCopy(new SKImageInfo(multipleLength, multipleLength, SKColorType.Rgba8888), bytes);
-            SKImage image = SKImage.Create(new SKImageInfo(length, length, SKColorType.Rgba8888));
-            image2.ScalePixels(image.PeekPixels(), SKFilterQuality.High);
-            return image;*/
+                var hsv = new Hsv(h, (double)s / length, (double)v / length);
+                var rgb = hsv.ToRgb();
+                var (x, y) = ShapeHelper.SquareToDiscMapping(hsv.V * 2 - 1, hsv.S * 2 - 1);
+                x = (x + 1) / 2;
+                y = (y + 1) / 2;
+                int col = (int)Math.Round(x * (length - 1));
+                int row = (int)Math.Round(y * (length - 1));
+                int bytePos = row * length * 4 + col * 4;
+                bytes[bytePos] = rgb.R;
+                bytes[bytePos + 1] = rgb.G;
+                bytes[bytePos + 2] = rgb.B;
+                bytes[bytePos + 3] = 0xFF;
+            }));
+            return SKImage.FromPixelCopy(new SKImageInfo(length, length, SKColorType.Rgba8888), bytes);
         }
         #endregion
 
@@ -669,8 +644,8 @@ namespace Leisn.Xaml.Wpf.Controls
             Vector2 vector = new(px, py);
             vector -= new Vector2(_center.X, _center.Y);
             vector = Vector2.Transform(vector, Matrix3x2.CreateRotation((float)Math.PI / 2));
-            float s = (vector.Y + half) / _squareSpectrumLength;
-            float v = (vector.X + half) / _squareSpectrumLength;
+            float s = Math.Clamp((vector.Y + half) / _squareSpectrumLength, 0, 1);
+            float v = Math.Clamp((vector.X + half) / _squareSpectrumLength, 0, 1);
             SelectedHsv = new Hsv(SelectedHue.H, s, v);
         }
         private void SetDiscColor(Point point)
@@ -685,8 +660,8 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             vector /= _discSpectrumRadius;//缩放到[-1,1]
             (double x, double y) = ShapeHelper.DiscToSquareMapping(vector.X, vector.Y);//映射到矩形
-            x = (x + 1) / 2;// 转换到[0,1]
-            y = (y + 1) / 2;
+            x = Math.Clamp((x + 1) / 2, 0, 1);// 转换到[0,1]
+            y = Math.Clamp((y + 1) / 2, 0, 1);
             SelectedHsv = new Hsv(SelectedHue.H, y, x);
         }
 

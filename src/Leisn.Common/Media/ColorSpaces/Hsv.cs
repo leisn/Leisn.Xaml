@@ -1,4 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+using System;
 
 namespace Leisn.Common.Media
 {
@@ -13,7 +14,7 @@ namespace Leisn.Common.Media
         /// </summary>
         public double S { get; set; }
         /// <summary>
-        /// Value, 明度,  0-1 for 0%-100%
+        /// Value, 明度,  0-1 for 0%-100%, 黑-白
         /// </summary>
         public double V { get; set; }
 
@@ -85,5 +86,7 @@ namespace Leisn.Common.Media
             double s = V == 0 || S == 0 ? 0 : (S * V) / (t > 1 ? 2 - 5 : t);
             return new Hsl(H, (byte)(s * 100), (byte)(t / 2 * 100));
         }
+
+        public Hsv With(double s, double v) => new(H, s, v);
     }
 }

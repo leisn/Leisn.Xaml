@@ -58,7 +58,7 @@
       </Border>
 
       <Grid Grid.Row="2" Margin="10">
-        <ln:ColorPicker x:Name="colorCircle" VerticalAlignment="Center" SpectrumStyle="Disc"/>
+        <ln:ColorPicker x:Name="colorCircle" VerticalAlignment="Stretch" SpectrumStyle="Disc"/>
       </Grid>
     </Grid>
   </Grid>
