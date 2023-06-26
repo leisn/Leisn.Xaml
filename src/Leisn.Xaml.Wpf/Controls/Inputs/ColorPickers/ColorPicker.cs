@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -77,8 +76,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public ColorSpectrumStyle SpectrumStyle
         {
-            get { return (ColorSpectrumStyle)GetValue(SpectrumStyleProperty); }
-            set { SetValue(SpectrumStyleProperty, value); }
+            get => (ColorSpectrumStyle)GetValue(SpectrumStyleProperty);
+            set => SetValue(SpectrumStyleProperty, value);
         }
         public static readonly DependencyProperty SpectrumStyleProperty = ColorSpectrum.SpectrumStyleProperty.AddOwner(typeof(ColorPicker));
 

@@ -3,7 +3,6 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
@@ -57,9 +56,15 @@ namespace Leisn.Xaml.Wpf.Controls
         protected virtual IPropertyEditor? CreateSpecialEditor(PropertyDescriptor propertyDescriptor)
         {
             if (propertyDescriptor.PropertyType.IsEnum)
+            {
                 return new EnumEditor();
+            }
+
             if (propertyDescriptor.Attr<DataProviderAttribute>() is not null)
+            {
                 return new ComboDataEditor();
+            }
+
             return null;
         }
 
@@ -70,17 +75,28 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual IPropertyEditor CreateObjectEditor(PropertyDescriptor propertyDescriptor)
         {
-            var propertyType = propertyDescriptor.PropertyType;
-           
+            Type propertyType = propertyDescriptor.PropertyType;
+
             if (propertyType == typeof(bool?))
+            {
                 return new BoolEditor();
+            }
+
             if (propertyType == typeof(Color))
+            {
                 return new ColorPickerEditor();
+            }
+
             if (propertyType.IsAssignableTo(typeof(IEnumerable)))
+            {
                 return new CollectionEditor();
+            }
+
             if (propertyType.IsClass)
+            {
                 return new ClassEditor();
-         
+            }
+
             return new ReadOnlyTextEditor();
         }
     }

@@ -1,5 +1,4 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
-using System;
 
 namespace Leisn.Common.Media
 {
@@ -87,6 +86,9 @@ namespace Leisn.Common.Media
             return new Hsl(H, (byte)(s * 100), (byte)(t / 2 * 100));
         }
 
-        public Hsv With(double s, double v) => new(H, s, v);
+        public Hsv With(double s, double v)
+        {
+            return new(H, s, v);
+        }
     }
 }

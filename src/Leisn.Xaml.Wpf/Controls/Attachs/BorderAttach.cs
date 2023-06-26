@@ -67,7 +67,10 @@ namespace Leisn.Xaml.Wpf.Controls
         private static void OnIsCircleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is not Border border)
+            {
                 return;
+            }
+
             if ((bool)e.NewValue)
             {
                 MultiBinding binding = new() { Converter = new BorderCircleConverter(), Mode = BindingMode.OneWay };

@@ -2,7 +2,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
@@ -211,8 +210,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public ColorSpectrumStyle SpectrumStyle
         {
-            get { return (ColorSpectrumStyle)GetValue(SpectrumStyleProperty); }
-            set { SetValue(SpectrumStyleProperty, value); }
+            get => (ColorSpectrumStyle)GetValue(SpectrumStyleProperty);
+            set => SetValue(SpectrumStyleProperty, value);
         }
         public static readonly DependencyProperty SpectrumStyleProperty =
             DependencyProperty.Register("SpectrumStyle", typeof(ColorSpectrumStyle), typeof(ColorSpectrum),
@@ -454,11 +453,11 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             int length = (int)spectrumLength;
             byte[] bytes = new byte[length * length * 4];
-            var h = SelectedHue.H;
+            ushort h = SelectedHue.H;
             Parallel.For(0, length + 1, (y) => Parallel.For(0, length + 1, (x) =>
             {
-                var hsv = new Hsv(h, (double)y / length, (double)x / length);
-                var rgb = hsv.ToRgb();
+                Hsv hsv = new(h, (double)y / length, (double)x / length);
+                Rgb rgb = hsv.ToRgb();
                 int col = (int)Math.Round(hsv.V * (length - 1));
                 int row = (int)Math.Round(hsv.S * (length - 1));
                 int bytePos = row * length * 4 + col * 4;
@@ -474,12 +473,12 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             int length = (int)spectrumLength;
             byte[] bytes = new byte[length * length * 4];
-            var h = SelectedHue.H;
+            ushort h = SelectedHue.H;
             Parallel.For(0, length + 1, (s) => Parallel.For(0, length + 1, (v) =>
             {
-                var hsv = new Hsv(h, (double)s / length, (double)v / length);
-                var rgb = hsv.ToRgb();
-                var (x, y) = ShapeHelper.SquareToDiscMapping(hsv.V * 2 - 1, hsv.S * 2 - 1);
+                Hsv hsv = new(h, (double)s / length, (double)v / length);
+                Rgb rgb = hsv.ToRgb();
+                (double x, double y) = ShapeHelper.SquareToDiscMapping(hsv.V * 2 - 1, hsv.S * 2 - 1);
                 x = (x + 1) / 2;
                 y = (y + 1) / 2;
                 int col = (int)Math.Round(x * (length - 1));

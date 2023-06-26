@@ -1,6 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,8 +7,14 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class DateTimeEditor : IPropertyEditor
     {
-        public FrameworkElement CreateElement(PropertyItem item) => new DatePicker();
+        public FrameworkElement CreateElement(PropertyItem item)
+        {
+            return new DatePicker();
+        }
 
-        public DependencyProperty GetBindingProperty() => DatePicker.SelectedDateProperty;
+        public DependencyProperty GetBindingProperty()
+        {
+            return DatePicker.SelectedDateProperty;
+        }
     }
 }

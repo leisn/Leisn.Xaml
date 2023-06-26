@@ -166,7 +166,7 @@ namespace System.Windows.Media
 
         public static SKColor ToSKColor(this Hsv hsv)
         {
-            var rgb = hsv.ToRgb();
+            Rgb rgb = hsv.ToRgb();
             return new SKColor(rgb.R, rgb.G, rgb.B);
         }
     }

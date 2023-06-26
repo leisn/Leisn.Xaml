@@ -30,8 +30,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public bool IsExpander
         {
-            get { return (bool)GetValue(IsExpanderProperty); }
-            set { SetValue(IsExpanderProperty, value); }
+            get => (bool)GetValue(IsExpanderProperty);
+            set => SetValue(IsExpanderProperty, value);
         }
         public static readonly DependencyProperty IsExpanderProperty =
             DependencyProperty.Register("IsExpander", typeof(bool), typeof(PropertyItem), new PropertyMetadata(false));

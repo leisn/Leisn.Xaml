@@ -1,6 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
 using System.Windows;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
@@ -9,7 +8,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            var pg = new PropertyGrid { Style = (Style)Application.Current.FindResource("SubPropertyGridBaseStyle") };
+            PropertyGrid pg = new() { Style = (Style)Application.Current.FindResource("SubPropertyGridBaseStyle") };
             PropertyItem.SetUseExpanderStyle(pg, true);
             return pg;
         }
