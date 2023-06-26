@@ -366,7 +366,7 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             //draw hub picker
-            using SKPaint hubPickerPaint = new()
+            using SKPaint pickerPaint = new()
             {
                 IsStroke = true,
                 IsAntialias = true,
@@ -377,7 +377,7 @@ namespace Leisn.Xaml.Wpf.Controls
             float hubPickerPos = _hueInnerRadius + circleLength / 2;
             float selectedHubAngle = (float)HueColorToPos(SelectedHue) * 360;
             canvas.RotateDegrees(selectedHubAngle);
-            canvas.DrawCircle(hubPickerPos, 0, hubPickerRadius, hubPickerPaint);
+            canvas.DrawCircle(hubPickerPos, 0, hubPickerRadius, pickerPaint);
 
             canvas.Restore();
             #endregion
@@ -420,15 +420,9 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             //draw color picker circle
-            using SKPaint colorPickerPaint = new()
-            {
-                IsAntialias = true,
-                IsStroke = true,
-                StrokeWidth = pickerWidth,
-                Color = SelectedHsv.ForegroundShouldBeLight() ? SKColors.White : SKColors.Black,
-            };
+            pickerPaint.Color = SelectedHsv.ForegroundShouldBeLight() ? SKColors.White : SKColors.Black;
             float colorPickerRadius = hubPickerRadius / 3 * 2;
-            canvas.DrawCircle(colorPickerX, colorPickerY, colorPickerRadius, colorPickerPaint);
+            canvas.DrawCircle(colorPickerX, colorPickerY, colorPickerRadius, pickerPaint);
             _spectrumPickerRadius = colorPickerRadius + pickerWidth / 2;
             _spectrumPickerCenter = Vector2.Transform(
                     new Vector2(colorPickerX, colorPickerY),
