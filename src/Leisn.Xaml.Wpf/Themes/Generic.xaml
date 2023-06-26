@@ -12,10 +12,10 @@
   <Color x:Key="RegionLighterColor1">#363636</Color>
   <Color x:Key="RegionLighterColor">#3d3d3d</Color>
   <Color x:Key="RegionDarkerColor">#282828</Color>
-  <Color x:Key="TextColor">#DEDEDE</Color>
+  <Color x:Key="TextColor">#EEEEEE</Color>
   <Color x:Key="TextAccentColor">#FFFFFF</Color>
   <Color x:Key="TextDarkerColor">#C0C0C0</Color>
-  <Color x:Key="BorderColor">#404040</Color>
+  <Color x:Key="BorderColor">#FF404040</Color>
   <Color x:Key="BorderLighterColor">#979899</Color>
   <Color x:Key="ControlColor">#545454</Color>
   <Color x:Key="ControlLighterColor">#656565</Color>
@@ -97,7 +97,7 @@
   <DrawingBrush x:Key="OpacityGridTileBrush" TileMode="Tile" Stretch="None" Viewport="0,0,16,16" ViewportUnits="Absolute">
     <DrawingBrush.Drawing>
       <DrawingGroup>
-        <GeometryDrawing Brush="{StaticResource RegionDarkerBrush}">
+        <GeometryDrawing Brush="{StaticResource ControlBrush}">
           <GeometryDrawing.Geometry>
             <RectangleGeometry Rect="0,0,16,16" />
           </GeometryDrawing.Geometry>
@@ -741,7 +741,7 @@
     <Setter Property="CaretBrush" Value="{DynamicResource TextBrush}" />
     <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}" />
     <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}" />
-    <Setter Property="Padding" Value="5,2" />
+    <Setter Property="Padding" Value="5,1" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
       <Setter.Value>
@@ -954,20 +954,46 @@
     </Style.Triggers>
   </Style>
   <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxBaseStyle}" />
-  <Style x:Key="NumericBoxBaseStyle" TargetType="local:NumericBox" BasedOn="{StaticResource TextBoxBaseStyle}" />
+  <Style x:Key="NumericBoxBaseStyle" TargetType="local:NumericBox" BasedOn="{StaticResource TextBoxBaseStyle}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="TextBox">
+          <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}">
+            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".56" TargetName="root" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root" />
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}" TargetName="root" />
+            </Trigger>
+            <Trigger Property="IsReadOnly" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root" />
+              <Setter Property="Foreground" Value="{DynamicResource TextDarkerBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
   <Style TargetType="local:NumericBox" BasedOn="{StaticResource NumericBoxBaseStyle}" />
   <Style x:Key="RangeBoxBaseStyle" TargetType="local:RangeBox" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="MinWidth" Value="100" />
-    <Setter Property="Padding" Value="5,2" />
+    <Setter Property="Padding" Value="5,1" />
     <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}" />
-    <Setter Property="ThumbBackground" Value="{DynamicResource PrimaryBrush}" />
+    <Setter Property="ThumbBackground" Value="{StaticResource PrimaryBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:RangeBox">
           <Border x:Name="RootBorder" ClipToBounds="True" SnapsToDevicePixels="True" CornerRadius="{TemplateBinding CornerRadius}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
             <Grid>
               <Border x:Name="PART_Thumb" HorizontalAlignment="Left" BorderThickness="0" Background="{TemplateBinding ThumbBackground}" SnapsToDevicePixels="True" />
-              <local:NumericBox x:Name="PART_TextBox" Visibility="Collapsed" NumericType="{TemplateBinding NumericType}" Padding="{TemplateBinding Padding}" BorderThickness="0" IsReadOnly="{TemplateBinding IsReadOnly}" VerticalAlignment="Stretch" VerticalContentAlignment="Center" InputScope="Number" TextWrapping="NoWrap" SnapsToDevicePixels="True" Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+              <local:NumericBox x:Name="PART_TextBox" Visibility="Hidden" NumericType="{TemplateBinding NumericType}" Padding="{TemplateBinding Padding}" BorderThickness="0" IsReadOnly="{TemplateBinding IsReadOnly}" VerticalAlignment="Stretch" VerticalContentAlignment="Center" local:BorderAttach.CornerRadius="{TemplateBinding CornerRadius}" InputScope="Number" TextWrapping="NoWrap" SnapsToDevicePixels="True" Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource Mode=TemplatedParent}}" />
               <Grid Margin="{TemplateBinding Padding}" x:Name="InfoGrid">
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition />
@@ -986,7 +1012,7 @@
               <Setter Property="Background" TargetName="RootBorder" Value="{DynamicResource ControlAccentBrush}" />
             </Trigger>
             <Trigger Property="IsEditing" Value="True">
-              <Setter Property="Visibility" Value="Collapsed" TargetName="InfoGrid" />
+              <Setter Property="Visibility" Value="Hidden" TargetName="InfoGrid" />
               <Setter Property="Visibility" Value="Visible" TargetName="PART_TextBox" />
             </Trigger>
           </ControlTemplate.Triggers>
@@ -1121,8 +1147,8 @@
   <Style x:Key="ColorSpectrumStyle" TargetType="local:ColorSpectrum">
     <Setter Property="SpectrumStyle" Value="Square" />
     <Setter Property="Spacing" Value=".14" />
-    <Setter Property="MinHeight" Value="150" />
-    <Setter Property="MinWidth" Value="150" />
+    <Setter Property="MinHeight" Value="168" />
+    <Setter Property="MinWidth" Value="168" />
   </Style>
   <Style TargetType="local:ColorSpectrum" BasedOn="{StaticResource ColorSpectrumStyle}" />
   <Style x:Key="HexColorTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
@@ -1157,6 +1183,7 @@
     </Setter>
   </Style>
   <Style x:Key="ColorPickerBaseStyle" TargetType="local:ColorPicker">
+    <Setter Property="MinWidth" Value="183" />
     <Setter Property="Padding" Value="5" />
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
     <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}" />
@@ -1178,22 +1205,26 @@
                 <RadioButton x:Name="hsvTab" Content="HSV" Style="{DynamicResource RadioToggleStyle}" local:BorderAttach.CornerRadius="{DynamicResource DefaultRightCornerRadius}" />
               </UniformGrid>
               <StackPanel Grid.Row="2" Orientation="Vertical" Margin="{TemplateBinding Padding}">
-                <local:StackPanel Orientation="Vertical" Spacing="1" Visibility="{Binding ElementName=rgbTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}">
-                  <local:RangeBox Title="{lang:Lang Rgb_Red}" CornerRadius="{DynamicResource DefaultTopCornerRadius}" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Red,Mode=TwoWay}" />
-                  <local:RangeBox Title="{lang:Lang Rgb_Green}" CornerRadius="0" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Green,Mode=TwoWay}" />
-                  <local:RangeBox Title="{lang:Lang Rgb_Blue}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Blue,Mode=TwoWay}" />
-                </local:StackPanel>
-                <local:StackPanel Orientation="Vertical" Spacing="1" Visibility="{Binding ElementName=hsvTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}">
-                  <local:RangeBox Title="{lang:Lang Hsv_Hue}" CornerRadius="{DynamicResource DefaultTopCornerRadius}" Minimum="0" Maximum="360" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hue,Mode=TwoWay}" />
-                  <local:RangeBox Title="{lang:Lang Hsv_Saturation}" CornerRadius="0" Minimum="0" Maximum="1" Decimals="3" NumericType="UFloat" SmallChange="0.01" LargeChange="0.1" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Saturation,Mode=TwoWay}" />
-                  <local:RangeBox Title="{lang:Lang Hsv_Value}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}" Minimum="0" Maximum="1" Decimals="3" NumericType="UFloat" SmallChange="0.01" LargeChange="0.1" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Brightness,Mode=TwoWay}" />
-                </local:StackPanel>
-                <local:RangeBox Title="{lang:Lang Opacity}" Margin="0,3,0,0" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Alpha,Mode=TwoWay}" />
+                <Border Visibility="{Binding ElementName=rgbTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="{DynamicResource DefaultCornerRadius}">
+                  <local:StackPanel Orientation="Vertical" Spacing="1">
+                    <local:RangeBox Title="{lang:Lang Rgb_Red}" CornerRadius="{DynamicResource DefaultTopCornerRadius}" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Red,Mode=TwoWay}" />
+                    <local:RangeBox Title="{lang:Lang Rgb_Green}" CornerRadius="0" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Green,Mode=TwoWay}" />
+                    <local:RangeBox Title="{lang:Lang Rgb_Blue}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Blue,Mode=TwoWay}" />
+                  </local:StackPanel>
+                </Border>
+                <Border Visibility="{Binding ElementName=hsvTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="{DynamicResource DefaultCornerRadius}">
+                  <local:StackPanel Orientation="Vertical" Spacing="1">
+                    <local:RangeBox Title="{lang:Lang Hsv_Hue}" CornerRadius="{DynamicResource DefaultTopCornerRadius}" Minimum="0" Maximum="360" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hue,Mode=TwoWay}" />
+                    <local:RangeBox Title="{lang:Lang Hsv_Saturation}" CornerRadius="0" Minimum="0" Maximum="1" Decimals="3" NumericType="UFloat" SmallChange="0.01" LargeChange="0.1" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Saturation,Mode=TwoWay}" />
+                    <local:RangeBox Title="{lang:Lang Hsv_Value}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}" Minimum="0" Maximum="1" Decimals="3" NumericType="UFloat" SmallChange="0.01" LargeChange="0.1" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Brightness,Mode=TwoWay}" />
+                  </local:StackPanel>
+                </Border>
+                <local:RangeBox Title="{lang:Lang Opacity}" BorderThickness="1" Margin="0,3,0,0" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Alpha,Mode=TwoWay}" />
                 <DockPanel Margin="0,3,0,0">
                   <Button x:Name="PART_PickScreenButton" Margin="7,0,0,0" DockPanel.Dock="Right">
                     <Path Fill="{TemplateBinding Foreground}" Data="{DynamicResource EyedropperGeometry}" Stretch="Uniform" Height="16" />
                   </Button>
-                  <TextBox x:Name="PART_TextBox" Style="{DynamicResource HexColorTextBoxStyle}" MaxLength="8" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=SelectedColor,Converter={StaticResource ColorHexStringConverter}}" IsReadOnly="{Binding ElementName=hsvTab,Path=IsChecked}" />
+                  <TextBox x:Name="PART_TextBox" Style="{DynamicResource HexColorTextBoxStyle}" MaxLength="8" BorderThickness="1" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=SelectedColor,Converter={StaticResource ColorHexStringConverter}}" IsReadOnly="{Binding ElementName=hsvTab,Path=IsChecked}" />
                 </DockPanel>
               </StackPanel>
             </Grid>

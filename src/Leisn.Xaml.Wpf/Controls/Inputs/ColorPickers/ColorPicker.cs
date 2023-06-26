@@ -1,6 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -36,7 +37,6 @@ namespace Leisn.Xaml.Wpf.Controls
         private const string PART_TextBoxName = "PART_TextBox";
         private const string PART_PickScreenButtonName = "PART_PickScreenButton";
 
-        private bool _pausePropertyChangedHandle;
         private ColorSpectrum _colorSpectrum = null!;
         private TextBox? _textBox;
         private ButtonBase? _pickScreenButton;
@@ -229,25 +229,25 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void OnSpectrumHsvChagned(object sender, SelectedHsvChangedEventArgs e)
         {
-            if (_pausePropertyChangedHandle)
-            {
-                return;
-            }
-
-            _pausePropertyChangedHandle = true;
             try
             {
-                Hsv hsv = e.NewValue;
+                if (!BeginEdit())
+                    return;
+                var spectrum = (ColorSpectrum)sender;
+                Hsv hsv = spectrum.SelectedHsv;
                 if (hsv.H == Hue && hsv.S == Saturation && hsv.V == Brightness)
                 {
                     return;
                 }
-
                 Hue = hsv.H;
                 Saturation = hsv.S;
                 Brightness = hsv.V;
 
-                Rgb rgb = hsv.ToRgb();
+                Rgb rgb = spectrum.SelectedRgb;
+                if (rgb.R == Red && rgb.G == Green && rgb.B == Blue)
+                {
+                    return;
+                }
                 Red = rgb.R;
                 Green = rgb.G;
                 Blue = rgb.B;
@@ -255,24 +255,20 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             finally
             {
-                _pausePropertyChangedHandle = false;
+                EndEdit();
             }
         }
 
         private void UpdateColorFromValues(bool fromHsv)
         {
-            if (_colorSpectrum == null)
-            {
-                return;
-            }
-
-            if (_pausePropertyChangedHandle)
-            {
-                return;
-            }
-            _pausePropertyChangedHandle = true;
             try
             {
+                if (!BeginEdit())
+                    return;
+                if (_colorSpectrum == null)
+                {
+                    return;
+                }
                 if (fromHsv)
                 {
                     Hsv hsv = new((ushort)Hue, Saturation, Brightness);
@@ -280,9 +276,8 @@ namespace Leisn.Xaml.Wpf.Controls
                     Red = rgb.R;
                     Green = rgb.G;
                     Blue = rgb.B;
-                    _colorSpectrum.SelectedHue = new Hsv(hsv.H, 1, 1);
-                    _colorSpectrum.SelectedHsv = hsv;
                     SelectedColor = Color.FromArgb((byte)Alpha, rgb.R, rgb.G, rgb.B);
+                    _colorSpectrum.SelectedHsv = hsv;
                 }
                 else
                 {
@@ -291,46 +286,51 @@ namespace Leisn.Xaml.Wpf.Controls
                     Hue = hsv.H;
                     Saturation = hsv.S;
                     Brightness = hsv.V;
-                    _colorSpectrum.SelectedHue = new Hsv(hsv.H, 1, 1);
                     _colorSpectrum.SelectedRgb = SelectedColor.ToRgb();
                 }
             }
             finally
             {
-                _pausePropertyChangedHandle = false;
+                EndEdit();
             }
         }
 
         private void UpdateToValues()
         {
-            if (_colorSpectrum == null)
-            {
-                return;
-            }
-
-            if (_pausePropertyChangedHandle)
-            {
-                return;
-            }
-            _pausePropertyChangedHandle = true;
             try
             {
+                if (!BeginEdit())
+                    return;
+                Alpha = SelectedColor.A;
                 Red = SelectedColor.R;
                 Green = SelectedColor.G;
                 Blue = SelectedColor.B;
-                Alpha = SelectedColor.A;
                 Rgb rgb = SelectedColor.ToRgb();
                 Hsv hsv = rgb.ToHsv();
                 Hue = hsv.H;
                 Saturation = hsv.S;
                 Brightness = hsv.V;
-                _colorSpectrum.SelectedHue = new Hsv(hsv.H, 1, 1);
-                _colorSpectrum.SelectedRgb = rgb;
+                if (_colorSpectrum is not null)
+                {
+                    _colorSpectrum.SelectedRgb = rgb;
+                }
             }
             finally
             {
-                _pausePropertyChangedHandle = false;
+                EndEdit();
             }
         }
+
+        private bool BeginEdit()
+        {
+            _pausePropertyChangedHandle += 1;
+            return _pausePropertyChangedHandle == 1;
+        }
+        private void EndEdit()
+        {
+            if (_pausePropertyChangedHandle > 0)
+                _pausePropertyChangedHandle -= 1;
+        }
+        private int _pausePropertyChangedHandle;
     }
 }

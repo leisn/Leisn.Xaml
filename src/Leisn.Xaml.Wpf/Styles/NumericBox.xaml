@@ -2,7 +2,34 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
   <Style x:Key="NumericBoxBaseStyle" TargetType="local:NumericBox" BasedOn="{StaticResource TextBoxBaseStyle}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="TextBox">
+          <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}">
+            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".56" TargetName="root"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root"/>
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}" TargetName="root"/>
+            </Trigger>
+            <Trigger Property="IsReadOnly" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root"/>
+              <Setter Property="Foreground" Value="{DynamicResource TextDarkerBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
   </Style>
-
   <Style TargetType="local:NumericBox" BasedOn="{StaticResource NumericBoxBaseStyle}"/>
 </ResourceDictionary>

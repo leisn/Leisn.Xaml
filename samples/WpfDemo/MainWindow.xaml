@@ -17,7 +17,7 @@
       <ColumnDefinition/>
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
-    <ln:StackPanel Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <ln:StackPanel Grid.Column="1" Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
       <ComboBox x:Name="langsBox" Width="{Binding ElementName=rangbox,Path=ActualWidth,Converter={StaticResource NumberOperateConverter}, ConverterParameter=-20}"/>
       <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="200"/>
       <ComboBox IsEditable="True">
@@ -33,33 +33,6 @@
       <Button Content="{ln:Lang Ask}" Click="Button_Click" HorizontalAlignment="Center" Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
       <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
     </ln:StackPanel>
-    <ln:PropertyGrid Grid.Column="1" x:Name="perpertyGrid"/>
-    <Grid Grid.Column="2" Background="{StaticResource RegionBrush}" Margin="10,0,0,0">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="100"/>
-        <RowDefinition Height="10"/>
-        <RowDefinition/>
-      </Grid.RowDefinitions>
-      <Border x:Name="ColorBlock" Height="{Binding RelativeSource={RelativeSource Self},Path=ActualWidth}"
-              Margin="0,10" >
-        <StackPanel>
-          <Rectangle Width="100" Height="25">
-            <Rectangle.Fill>
-              <SolidColorBrush Color="{Binding ElementName=colorCircle,Path=SelectedColor}"/>
-            </Rectangle.Fill>
-          </Rectangle>
-          <TextBlock Margin="0,5" Foreground="{StaticResource TextBrush}" TextAlignment="Center">
-                <Run Text="{Binding ElementName=colorCircle,Path=SelectedColor.R,StringFormat={}R: {0}}"/> 
-                <Run Text="{Binding ElementName=colorCircle,Path=SelectedColor.G,StringFormat={}G: {0}}"/>
-                <Run Text="{Binding ElementName=colorCircle,Path=SelectedColor.B,StringFormat={}B: {0}}"/>
-                <Run Text="{Binding ElementName=colorCircle,Path=SelectedColor.A,StringFormat={}A: {0}}"/>
-          </TextBlock>
-        </StackPanel>
-      </Border>
-
-      <Grid Grid.Row="2" Margin="10">
-        <ln:ColorPicker x:Name="colorCircle" VerticalAlignment="Stretch" SpectrumStyle="Disc"/>
-      </Grid>
-    </Grid>
+    <ln:PropertyGrid Grid.Column="2" x:Name="perpertyGrid"/>
   </Grid>
 </Window>

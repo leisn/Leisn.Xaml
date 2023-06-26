@@ -7,8 +7,8 @@
   <Style x:Key="ColorSpectrumStyle" TargetType="local:ColorSpectrum">
     <Setter Property="SpectrumStyle" Value="Square"/>
     <Setter Property="Spacing" Value=".14"/>
-    <Setter Property="MinHeight" Value="150"/>
-    <Setter Property="MinWidth" Value="150"/>
+    <Setter Property="MinHeight" Value="168"/>
+    <Setter Property="MinWidth" Value="168"/>
   </Style>
   <Style TargetType="local:ColorSpectrum" BasedOn="{StaticResource ColorSpectrumStyle}"/>
 
@@ -49,6 +49,7 @@
   </Style>
 
   <Style x:Key="ColorPickerBaseStyle" TargetType="local:ColorPicker">
+    <Setter Property="MinWidth" Value="183"/>
     <Setter Property="Padding" Value="5"/>
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}"/>
@@ -78,39 +79,44 @@
               </UniformGrid>
 
               <StackPanel Grid.Row="2" Orientation="Vertical" Margin="{TemplateBinding Padding}">
-                <local:StackPanel Orientation="Vertical" Spacing="1"
-                                  Visibility="{Binding ElementName=rgbTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}">
-                  <local:RangeBox Title="{lang:Lang Rgb_Red}" CornerRadius="{DynamicResource DefaultTopCornerRadius}"
+                <Border Visibility="{Binding ElementName=rgbTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}"
+                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="{DynamicResource DefaultCornerRadius}">
+                  <local:StackPanel Orientation="Vertical" Spacing="1" >
+                    <local:RangeBox Title="{lang:Lang Rgb_Red}" CornerRadius="{DynamicResource DefaultTopCornerRadius}"
                                   Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10"
                                   Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Red,Mode=TwoWay}"/>
-                  <local:RangeBox Title="{lang:Lang Rgb_Green}" CornerRadius="0"
+                    <local:RangeBox Title="{lang:Lang Rgb_Green}" CornerRadius="0" 
                                   Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" 
                                   Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Green,Mode=TwoWay}"/>
-                  <local:RangeBox Title="{lang:Lang Rgb_Blue}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}"
+                    <local:RangeBox Title="{lang:Lang Rgb_Blue}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}" 
                                   Minimum="0" Maximum="255"  NumericType="UInt" SmallChange="1" LargeChange="10" 
                                   Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Blue,Mode=TwoWay}"/>
-                </local:StackPanel>
-                <local:StackPanel Orientation="Vertical" Spacing="1"
-                                  Visibility="{Binding ElementName=hsvTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}">
-                  <local:RangeBox Title="{lang:Lang Hsv_Hue}" CornerRadius="{DynamicResource DefaultTopCornerRadius}"
+                  </local:StackPanel>
+                </Border>
+                <Border Visibility="{Binding ElementName=hsvTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}"
+                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="{DynamicResource DefaultCornerRadius}">
+                  <local:StackPanel Orientation="Vertical" Spacing="1" >
+                    <local:RangeBox Title="{lang:Lang Hsv_Hue}" CornerRadius="{DynamicResource DefaultTopCornerRadius}"
                                   Minimum="0" Maximum="360" NumericType="UInt" SmallChange="1" LargeChange="10"
                                   Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hue,Mode=TwoWay}"/>
-                  <local:RangeBox Title="{lang:Lang Hsv_Saturation}" CornerRadius="0"
+                    <local:RangeBox Title="{lang:Lang Hsv_Saturation}" CornerRadius="0" 
                                   Minimum="0" Maximum="1" Decimals="3" NumericType="UFloat" SmallChange="0.01" LargeChange="0.1" 
                                   Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Saturation,Mode=TwoWay}"/>
-                  <local:RangeBox Title="{lang:Lang Hsv_Value}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}"
+                    <local:RangeBox Title="{lang:Lang Hsv_Value}" CornerRadius="{DynamicResource DefaultBottomCornerRadius}" 
                                   Minimum="0" Maximum="1" Decimals="3" NumericType="UFloat" SmallChange="0.01" LargeChange="0.1" 
                                   Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Brightness,Mode=TwoWay}"/>
-                </local:StackPanel>
-                <local:RangeBox Title="{lang:Lang Opacity}"
-                                Margin="0,3,0,0" Minimum="0" Maximum="255"  NumericType="UInt" SmallChange="1" LargeChange="10" 
+                  </local:StackPanel>
+                </Border>
+
+                <local:RangeBox Title="{lang:Lang Opacity}" BorderThickness="1"
+                                Margin="0,3,0,0" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" 
                                 Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Alpha,Mode=TwoWay}"/>
                 <DockPanel Margin="0,3,0,0">
                   <Button x:Name="PART_PickScreenButton" Margin="7,0,0,0" DockPanel.Dock="Right">
                     <Path Fill="{TemplateBinding Foreground}" Data="{DynamicResource EyedropperGeometry}"
                         Stretch="Uniform" Height="16"/>
                   </Button>
-                  <TextBox x:Name="PART_TextBox" Style="{DynamicResource HexColorTextBoxStyle}" MaxLength="8"
+                  <TextBox x:Name="PART_TextBox" Style="{DynamicResource HexColorTextBoxStyle}" MaxLength="8" BorderThickness="1"
                          Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=SelectedColor,Converter={StaticResource ColorHexStringConverter}}"
                          IsReadOnly="{Binding ElementName=hsvTab,Path=IsChecked}"/>
                 </DockPanel>

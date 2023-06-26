@@ -6,7 +6,7 @@
     <Setter Property="CaretBrush" Value="{DynamicResource TextBrush}"/>
     <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}"/>
     <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}"/>
-    <Setter Property="Padding" Value="5,2"/>
+    <Setter Property="Padding" Value="5,1"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="Template">
       <Setter.Value>

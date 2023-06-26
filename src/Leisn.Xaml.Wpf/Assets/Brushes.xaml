@@ -31,7 +31,7 @@
   <DrawingBrush x:Key="OpacityGridTileBrush" TileMode="Tile" Stretch="None" Viewport="0,0,16,16" ViewportUnits="Absolute">
     <DrawingBrush.Drawing>
       <DrawingGroup>
-        <GeometryDrawing Brush="{StaticResource RegionDarkerBrush}">
+        <GeometryDrawing Brush="{StaticResource ControlBrush}">
           <GeometryDrawing.Geometry>
             <RectangleGeometry Rect="0,0,16,16"/>
           </GeometryDrawing.Geometry>

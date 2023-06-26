@@ -180,8 +180,10 @@ namespace Leisn.Xaml.Wpf.Controls
         private static void OnSelectedHsvChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ColorSpectrum cs = (ColorSpectrum)d;
-            cs.RaiseEvent(new SelectedHsvChangedEventArgs((Hsv)e.OldValue, (Hsv)e.NewValue) { Source = cs });
-            cs.SelectedRgb = ((Hsv)e.NewValue).ToRgb();
+            var newHsv = (Hsv)e.NewValue;
+            cs.RaiseEvent(new SelectedHsvChangedEventArgs((Hsv)e.OldValue, newHsv) { Source = cs });
+            cs.SelectedHue = new Hsv(newHsv.H, 1, 1);
+            cs.SelectedRgb = newHsv.ToRgb();
         }
 
         public Rgb SelectedRgb

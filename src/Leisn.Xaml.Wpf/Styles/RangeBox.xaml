@@ -4,9 +4,10 @@
 
   <Style x:Key="RangeBoxBaseStyle" TargetType="local:RangeBox"  BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="MinWidth" Value="100"/>
-    <Setter Property="Padding" Value="5,2"/>
+    <Setter Property="Padding" Value="5,1"/>
     <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
-    <Setter Property="ThumbBackground" Value="{DynamicResource PrimaryBrush}"/>
+    <Setter Property="ThumbBackground" Value="{StaticResource PrimaryBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:RangeBox">
@@ -19,9 +20,10 @@
               <Border x:Name="PART_Thumb" HorizontalAlignment="Left" BorderThickness="0"
                       Background="{TemplateBinding ThumbBackground}"
                       SnapsToDevicePixels="True"/>
-              <local:NumericBox x:Name="PART_TextBox" Visibility="Collapsed" NumericType="{TemplateBinding NumericType}"
+              <local:NumericBox x:Name="PART_TextBox" Visibility="Hidden" NumericType="{TemplateBinding NumericType}"
                        Padding="{TemplateBinding Padding}" BorderThickness="0" IsReadOnly="{TemplateBinding IsReadOnly}"
                        VerticalAlignment="Stretch" VerticalContentAlignment="Center"
+                       local:BorderAttach.CornerRadius="{TemplateBinding CornerRadius}"
                        InputScope="Number" TextWrapping="NoWrap" SnapsToDevicePixels="True"
                        Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource Mode=TemplatedParent}}">
               </local:NumericBox>
@@ -44,7 +46,7 @@
               <Setter Property="Background" TargetName="RootBorder" Value="{DynamicResource ControlAccentBrush}"/>
             </Trigger>
             <Trigger Property="IsEditing" Value="True">
-              <Setter Property="Visibility" Value="Collapsed" TargetName="InfoGrid"/>
+              <Setter Property="Visibility" Value="Hidden" TargetName="InfoGrid"/>
               <Setter Property="Visibility" Value="Visible" TargetName="PART_TextBox"/>
             </Trigger>
           </ControlTemplate.Triggers>

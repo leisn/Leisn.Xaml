@@ -1,5 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System;
+
 namespace Leisn.Common.Media
 {
     public struct Hsv : IColor
@@ -89,6 +91,18 @@ namespace Leisn.Common.Media
         public Hsv With(double s, double v)
         {
             return new(H, s, v);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is not Hsv hsv)
+                return false;
+            return hsv.H == H && hsv.V == V && hsv.S == S;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(H, S, V);
         }
     }
 }

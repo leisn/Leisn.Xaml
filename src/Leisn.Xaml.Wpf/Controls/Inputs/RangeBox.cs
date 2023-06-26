@@ -150,6 +150,15 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected override void OnValueChanged(double oldValue, double newValue)
         {
+            if (Decimals > -1)
+            {
+                var v1 = Math.Round(newValue, Decimals);
+                if (v1 != Value)
+                {
+                    Value = v1;
+                    return;
+                }
+            }
             base.OnValueChanged(oldValue, newValue);
             UpdateThumbWidth();
             UpdateText();

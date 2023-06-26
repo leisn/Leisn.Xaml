@@ -67,10 +67,6 @@ namespace WpfDemo
         public class SubClass
         {
             [Category("sbyte value")]
-            [DisplayName("sbyte value 1")]
-            [Description("Range not limited")]
-            public sbyte sbValue1 { get; set; }
-            [Category("sbyte value")]
             [DisplayName("sbyte value 2")]
             [Description("Range 4-10, Increment=2 \n{ValueRange}：[4,10]")]
             [Range(4, 10)]
@@ -89,7 +85,7 @@ namespace WpfDemo
             public DateTime DateTime { get; set; }
             public bool? BoolNullable { get; set; }
             public bool Bool { get; set; }
-            public Color Color { get; set; } = Colors.RoyalBlue;
+            public Color Color { get; set; } = ColorEx.FromHex("#7805112c");
             public Enumv EunmV { get; set; }
 
             [PathSelect(Mode = PathSelectMode.Folder, DialogTitle = "选择一个文件夹{Ok}")]
@@ -108,20 +104,15 @@ namespace WpfDemo
             [DisplayName("最多可以输入几个字呢")]
             public string Text { get; set; } = "input text";
 
+            [Category("DataProvider")]
             [DataProvider(typeof(SampleTextProvider))]
             public string TextProvider { get; set; } = "Text 1";
-            [DataProvider(typeof(SampleTextProvider))]
-            public string TextProvider2 { get; set; } = "Text 2";
+            [Category("DataProvider")]
             [DataProvider(typeof(SampleTextWidthDescProvider))]
             public string ArrayTextProvider { get; set; } = "Text 1";
+            [Category("DataProvider")]
             [DataProvider(typeof(SampleObjectProvider))]
             public SampleObject ObjectProvider { get; set; } = null!;
-            [Category("int value")]
-            [DisplayName("int value 2")]
-            [Description("Range 4-10, Increment=2")]
-            [Range(4, 10)]
-            [Increment(2)]
-            public int Value2 { get; set; }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
