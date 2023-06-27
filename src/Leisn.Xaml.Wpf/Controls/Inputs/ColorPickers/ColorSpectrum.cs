@@ -71,6 +71,7 @@ namespace Leisn.Xaml.Wpf.Controls
         static ColorSpectrum()
         {
             SnapsToDevicePixelsProperty.OverrideMetadata(typeof(ColorSpectrum), new FrameworkPropertyMetadata(true));
+            FocusableProperty.OverrideMetadata(typeof(ColorSpectrum), new FrameworkPropertyMetadata(true));
         }
 
         #region public events
