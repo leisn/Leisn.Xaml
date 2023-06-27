@@ -40,7 +40,7 @@ namespace WpfDemo
 
         private void LangsBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Lang.SetLanguage(((CultureInfo)langsBox.SelectedItem).Name);
+            Lang.SetLanguage(((CultureInfo)langsBox.SelectedItem).Name);
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)

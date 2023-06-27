@@ -6,8 +6,8 @@
         xmlns:ln="https://leisn.com/xaml/wpf"
         xmlns:local="clr-namespace:WpfDemo"
         mc:Ignorable="d" xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        Title="MainWindow" Height="450" Width="800"
-    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+        Title="MainWindow" Height="550" Width="800"
+        WindowStartupLocation="CenterScreen">
   <Window.Resources>
 
   </Window.Resources>
@@ -19,7 +19,7 @@
     </Grid.ColumnDefinitions>
     <ln:StackPanel Grid.Column="1" Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
       <ComboBox x:Name="langsBox" Width="{Binding ElementName=rangbox,Path=ActualWidth,Converter={StaticResource NumberOperateConverter}, ConverterParameter=-20}"/>
-      <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="200"/>
+      <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="200" Decimals="4"/>
       <ComboBox IsEditable="True">
         <ComboBox.ItemsSource>
           <x:Array Type="sys:String">

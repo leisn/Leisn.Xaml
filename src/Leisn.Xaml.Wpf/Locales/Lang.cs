@@ -84,7 +84,7 @@ namespace Leisn.Xaml.Wpf.Locales
             FileInfo[] files = dir.GetFiles(fileFilter);
             foreach (FileInfo item in files)
             {
-                string langName = Path.GetFileNameWithoutExtension(item.Name);
+                string langName = Path.GetFileNameWithoutExtension(item.Name).ToLowerInvariant();
                 _langDict.Add(langName, item.FullName);
                 if (langName.Equals(_currentLang))
                 {

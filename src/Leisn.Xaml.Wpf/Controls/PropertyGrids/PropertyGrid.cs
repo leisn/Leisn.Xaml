@@ -18,11 +18,18 @@ namespace Leisn.Xaml.Wpf.Controls
     public class PropertyGrid : Control
     {
         private const string ItemsControlName = "PART_ItemsControl";
+        private const string OTHER_KEY = "Misc";
         private ItemsControl _itemsControl = null!;
+        private ICollectionView? _collectionView;
 
         static PropertyGrid()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PropertyGrid), new FrameworkPropertyMetadata(typeof(PropertyGrid)));
+        }
+
+        public PropertyGrid()
+        {
+            Lang.LangChanged += OnLangChanged;
         }
 
         public CornerRadius CornerRadius
@@ -81,14 +88,13 @@ namespace Leisn.Xaml.Wpf.Controls
             UpdateItems();
         }
 
-        private const string OTHER_KEY = "Misc";
+
         protected virtual void UpdateItems()
         {
             if (Source is null || _itemsControl is null || EditorSelector is null)
             {
                 return;
             }
-
             List<PropertyItem> items = TypeDescriptor.GetProperties(Source.GetType())
                  .OfType<PropertyDescriptor>()
                  .Where(x => x.IsBrowsable)
@@ -104,9 +110,14 @@ namespace Leisn.Xaml.Wpf.Controls
             //        items.Add(item);
             //    }
             //}
-            ICollectionView view = CollectionViewSource.GetDefaultView(items);
-            view.GroupDescriptions.Add(new PropertyGroupDescription(PropertyItem.CategoryProperty.Name));
-            _itemsControl.ItemsSource = view;
+            _collectionView = CollectionViewSource.GetDefaultView(items);
+            _collectionView.GroupDescriptions.Add(new PropertyGroupDescription(PropertyItem.CategoryProperty.Name));
+            _itemsControl.ItemsSource = _collectionView;
+        }
+
+        protected virtual void OnLangChanged()
+        {
+            _ = Dispatcher.InvokeAsync(() => _collectionView?.Refresh());
         }
 
         protected virtual PropertyItem CreatePropertyItem(PropertyDescriptor propertyDescriptor)
