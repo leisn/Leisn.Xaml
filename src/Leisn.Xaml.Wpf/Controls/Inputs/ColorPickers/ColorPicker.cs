@@ -1,7 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -232,8 +231,11 @@ namespace Leisn.Xaml.Wpf.Controls
             try
             {
                 if (!BeginEdit())
+                {
                     return;
-                var spectrum = (ColorSpectrum)sender;
+                }
+
+                ColorSpectrum spectrum = (ColorSpectrum)sender;
                 Hsv hsv = spectrum.SelectedHsv;
                 if (hsv.H == Hue && hsv.S == Saturation && hsv.V == Brightness)
                 {
@@ -264,7 +266,10 @@ namespace Leisn.Xaml.Wpf.Controls
             try
             {
                 if (!BeginEdit())
+                {
                     return;
+                }
+
                 if (_colorSpectrum == null)
                 {
                     return;
@@ -300,7 +305,10 @@ namespace Leisn.Xaml.Wpf.Controls
             try
             {
                 if (!BeginEdit())
+                {
                     return;
+                }
+
                 Alpha = SelectedColor.A;
                 Red = SelectedColor.R;
                 Green = SelectedColor.G;
@@ -329,7 +337,9 @@ namespace Leisn.Xaml.Wpf.Controls
         private void EndEdit()
         {
             if (_pausePropertyChangedHandle > 0)
+            {
                 _pausePropertyChangedHandle -= 1;
+            }
         }
         private int _pausePropertyChangedHandle;
     }

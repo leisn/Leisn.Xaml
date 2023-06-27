@@ -4,19 +4,19 @@
 
   <Style TargetType="ToolTip" x:Key="ToolTipBaseStyle">
     <Setter Property="Padding" Value="6"/>
-    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+    <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
     <Setter Property="BorderThickness" Value="1"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
+    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToolTip">
-          <Border x:Name="templateRoot" Margin="8" Background="{DynamicResource RegionBrush}"
+          <Border x:Name="templateRoot" Margin="8" Background="{StaticResource RegionBrush}"
                   Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
-                  BorderBrush="{DynamicResource BorderBrush}"
-                  TextElement.Foreground="{DynamicResource TextBrush}">
+                  BorderBrush="{StaticResource BorderBrush}"
+                  TextElement.Foreground="{StaticResource TextBrush}">
             <ContentPresenter x:Name="Presenter" />
           </Border>
           <ControlTemplate.Triggers>

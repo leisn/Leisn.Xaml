@@ -13,11 +13,11 @@
               <ColumnDefinition/>
               <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Border Grid.ColumnSpan="2" Margin="1" CornerRadius="{DynamicResource DefaultCornerRadius}"
+            <Border Grid.ColumnSpan="2" Margin="1" CornerRadius="{StaticResource DefaultCornerRadius}"
                     Background="{TemplateBinding Background}" SnapsToDevicePixels="True"/>
-            <Border CornerRadius="{DynamicResource DefaultLeftCornerRadius}" SnapsToDevicePixels="True"
+            <Border CornerRadius="{StaticResource DefaultLeftCornerRadius}" SnapsToDevicePixels="True"
                     Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=TemplatedParent.NoAlphaColor,Converter={StaticResource ColorSolidBurshConverter}}"/>
-            <Border Grid.Column="1" CornerRadius="{DynamicResource DefaultRightCornerRadius}" SnapsToDevicePixels="True"
+            <Border Grid.Column="1" CornerRadius="{StaticResource DefaultRightCornerRadius}" SnapsToDevicePixels="True"
                     Background="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=TemplatedParent.SelectedColor,Converter={StaticResource ColorSolidBurshConverter}}"/>
           </Grid>
         </ControlTemplate>
@@ -27,7 +27,7 @@
   <Style x:Key="ColorPickerEditorStyle" TargetType="editor:ColorPickerEditor">
     <Setter Property="Focusable" Value="True"/>
     <Setter Property="IsTabStop" Value="True"/>
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
+    <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}"/>
     <Setter Property="Background" Value="{StaticResource OpacityGridTileBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="Padding" Value="0"/>
@@ -37,7 +37,7 @@
         <ControlTemplate TargetType="editor:ColorPickerEditor">
           <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
             <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2"
-                   Placement="Top" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
+                   Placement="Top" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
                    IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
               <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" 
                                       MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
@@ -45,7 +45,7 @@
                    Background="{TemplateBinding Background}"
                    BorderBrush="{TemplateBinding BorderBrush}"
                    BorderThickness="{TemplateBinding BorderThickness}"
-                   CornerRadius="{DynamicResource DefaultCornerRadius}">
+                   CornerRadius="{StaticResource DefaultCornerRadius}">
                   <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                     <local:ColorPicker Style="{StaticResource ColorPickerBaseStyle}" x:Name="PART_ColorPicker"
                                        KeyboardNavigation.DirectionalNavigation="Contained"/>
@@ -56,7 +56,7 @@
             <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}"
                           Focusable="False" ClickMode="Press" IsTabStop="False"
                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                          Style="{DynamicResource ColorPickerEditorToggleButtonStyle}"/>
+                          Style="{StaticResource ColorPickerEditorToggleButtonStyle}"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
@@ -75,10 +75,10 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToolTip">
-          <Border Margin="8" Background="{DynamicResource RegionBrush}" Padding="{TemplateBinding Padding}" BorderThickness="1"
+          <Border Margin="8" Background="{StaticResource RegionBrush}" Padding="{TemplateBinding Padding}" BorderThickness="1"
                   CornerRadius="{Binding Path=(local:BorderAttach.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}"
-                  BorderBrush="{DynamicResource BorderBrush}"
-                  TextElement.Foreground="{DynamicResource TextBrush}">
+                  BorderBrush="{StaticResource BorderBrush}"
+                  TextElement.Foreground="{StaticResource TextBrush}">
             <Grid>
               <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -104,48 +104,6 @@
     </Setter>
   </Style>
 
-  <!--<Style x:Key="PropertyItemExpanderStyle" TargetType="{x:Type Expander}" BasedOn="{StaticResource ExpanderBaseStyle}">
-    <Setter Property="Padding" Value="18,5,10,5"/>
-    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
-    <Setter Property="BorderBrush" Value="{DynamicResource RegionBrush}"/>
-    <Setter Property="BorderThickness" Value="0,0,0,2"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultBottomCornerRadius}"/>
-    <Setter Property="Margin" Value="0"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type Expander}">
-          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="true"
-                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}">
-            <DockPanel>
-              <ToggleButton x:Name="HeaderSite"
-                            Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}"
-                            ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-                            DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}"
-                            Foreground="{TemplateBinding Foreground}"
-                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                            IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                            Margin="1" Padding="{TemplateBinding Padding}"
-                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                            Style="{StaticResource ExpanderDownHeaderStyle}">
-              </ToggleButton>
-              <ContentPresenter x:Name="ExpandSite" Focusable="false" Visibility="Collapsed" 
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </DockPanel>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsExpanded" Value="true">
-              <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>-->
-
   <ControlTemplate x:Key="PropertyItemNormalTemplate" TargetType="local:PropertyItem">
     <Border x:Name="bd" Padding="7,1"
             Background="{TemplateBinding Background}"
@@ -158,7 +116,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="header" Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
           <TextBlock.ToolTip>
-            <ToolTip Style="{DynamicResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
+            <ToolTip Style="{StaticResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
           </TextBlock.ToolTip>
         </TextBlock>
         <ContentPresenter Grid.Column="1" ContentSource="EditorElement"
@@ -174,11 +132,11 @@
               BorderBrush="{TemplateBinding BorderBrush}"
               BorderThickness="{TemplateBinding BorderThickness}"
               local:LayoutAttach.Padding="25,3,10,5"
-              local:BorderAttach.CornerRadius="{DynamicResource DefaultBottomCornerRadius}">
+              local:BorderAttach.CornerRadius="{StaticResource DefaultBottomCornerRadius}">
       <Expander.Header>
         <TextBlock Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Left">
           <TextBlock.ToolTip>
-            <ToolTip Style="{DynamicResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
+            <ToolTip Style="{StaticResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
           </TextBlock.ToolTip>
         </TextBlock>
       </Expander.Header>
@@ -193,18 +151,18 @@
   <Style x:Key="PropertyItemBaseStyle" TargetType="local:PropertyItem">
     <Setter Property="Focusable" Value="False"/>
     <Setter Property="Margin" Value="0,0,0,6"/>
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
+    <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}"/>
     <Setter Property="Height" Value="auto"/>
     <Setter Property="Padding" Value="0"/>
     <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-    <Setter Property="Template" Value="{DynamicResource PropertyItemNormalTemplate}"/>
+    <Setter Property="Template" Value="{StaticResource PropertyItemNormalTemplate}"/>
     <Style.Triggers>
       <Trigger Property="IsExpander" Value="True">
-        <Setter Property="Template" Value="{DynamicResource PropertyItemExpanderTemplate}"/>
-        <Setter Property="Background" Value="{DynamicResource RegionLighterBrush1}"/>
+        <Setter Property="Template" Value="{StaticResource PropertyItemExpanderTemplate}"/>
+        <Setter Property="Background" Value="{StaticResource RegionLight2Brush}"/>
       </Trigger>
     </Style.Triggers>
   </Style>
@@ -232,7 +190,7 @@
     <Setter Property="Margin" Value="0,0,0,2"/>
     <Setter Property="Padding" Value="0"/>
     <Setter Property="local:LayoutAttach.Padding" Value="5"/>
-    <Setter Property="Background" Value="{DynamicResource RegionLighterBrush}"/>
+    <Setter Property="Background" Value="{StaticResource RegionLight1Brush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="GroupItem">
@@ -250,10 +208,10 @@
   <Style x:Key="PropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
     <Setter Property="Focusable" Value="False"/>
     <Setter Property="Padding" Value="7"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
-    <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+    <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="Template">
       <Setter.Value>

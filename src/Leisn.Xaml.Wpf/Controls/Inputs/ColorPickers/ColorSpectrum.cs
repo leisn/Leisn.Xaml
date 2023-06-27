@@ -180,7 +180,7 @@ namespace Leisn.Xaml.Wpf.Controls
         private static void OnSelectedHsvChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ColorSpectrum cs = (ColorSpectrum)d;
-            var newHsv = (Hsv)e.NewValue;
+            Hsv newHsv = (Hsv)e.NewValue;
             cs.RaiseEvent(new SelectedHsvChangedEventArgs((Hsv)e.OldValue, newHsv) { Source = cs });
             cs.SelectedHue = new Hsv(newHsv.H, 1, 1);
             cs.SelectedRgb = newHsv.ToRgb();
@@ -537,6 +537,7 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 if (_isMouseDown)
                 {
+                    Keyboard.Focus(this);
                     CaptureMouse();
                 }
             }

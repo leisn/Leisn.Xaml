@@ -23,7 +23,7 @@
     <Setter Property="Padding" Value="2"/>
     <Setter Property="Focusable" Value="false"/>
     <Setter Property="IsTabStop" Value="false"/>
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
+    <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
     <Setter Property="local:BorderAttach.CornerRadius" Value="0"/>
     <Setter Property="Template">
       <Setter.Value>
@@ -38,12 +38,12 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Background" TargetName="border" Value="{DynamicResource ControlAccentBrush}"/>
-              <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ControlAccentBrush}"/>
+              <Setter Property="Background" TargetName="border" Value="{StaticResource ControlAccentBrush}"/>
+              <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ControlAccentBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-              <Setter Property="Background" TargetName="border" Value="{DynamicResource ControlLighterBrush}"/>
-              <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ControlLighterBrush}"/>
+              <Setter Property="Background" TargetName="border" Value="{StaticResource ControlLighterBrush}"/>
+              <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ControlLighterBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
               <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
@@ -56,7 +56,7 @@
   <Style x:Key="ScrollBarThumbVertical" TargetType="{x:Type Thumb}">
     <Setter Property="OverridesDefaultStyle" Value="true"/>
     <Setter Property="IsTabStop" Value="false"/>
-    <Setter Property="Background" Value="{DynamicResource RegionLighterBrush}"/>
+    <Setter Property="Background" Value="{StaticResource RegionLight1Brush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
@@ -64,10 +64,10 @@
                      Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}"/>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlBrush}"/>
+              <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource ControlBrush}"/>
             </Trigger>
             <Trigger Property="IsDragging" Value="true">
-              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlLighterBrush}"/>
+              <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource ControlLight1Brush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -77,7 +77,7 @@
   <Style x:Key="ScrollBarThumbHorizontal" TargetType="{x:Type Thumb}">
     <Setter Property="OverridesDefaultStyle" Value="true"/>
     <Setter Property="IsTabStop" Value="false"/>
-    <Setter Property="Background" Value="{DynamicResource RegionLighterBrush}"/>
+    <Setter Property="Background" Value="{StaticResource RegionLighterBrush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
@@ -86,10 +86,10 @@
                      SnapsToDevicePixels="True" Width="{TemplateBinding Width}"/>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlBrush}"/>
+              <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource ControlBrush}"/>
             </Trigger>
             <Trigger Property="IsDragging" Value="true">
-              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlLighterBrush}"/>
+              <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource ControlLight1Brush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -99,13 +99,13 @@
   <Style x:Key="ScrollBarBaseStyle" TargetType="{x:Type ScrollBar}">
     <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
     <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
-    <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="Background" Value="{StaticResource RegionDark1Brush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource SmallCornerRadius}"/>
-    <Setter Property="Width" Value="{DynamicResource ScrollBarWidth}"/>
-    <Setter Property="MinWidth" Value="{DynamicResource ScrollBarMinWidth}"/>
+    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}"/>
+    <Setter Property="Width" Value="{StaticResource ScrollBarWidth}"/>
+    <Setter Property="MinWidth" Value="{StaticResource ScrollBarMinWidth}"/>
     <Setter Property="Height" Value="Auto"/>
     <Setter Property="Margin" Value="2,0,0,0"/>
     <Setter Property="Template">
@@ -120,7 +120,7 @@
             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Row="1"
                     CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"/>
             <!--<RepeatButton x:Name="PART_LineUpButton" Command="{x:Static ScrollBar.LineUpCommand}" IsEnabled="{TemplateBinding IsMouseOver}"
-                          Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{DynamicResource SmallTopCornerRadius}">
+                          Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{StaticResource SmallTopCornerRadius}">
               <Path x:Name="ArrowTop" Data="M 0,4 C0,4 0,6 0,6 0,6 3.5,2.5 3.5,2.5 3.5,2.5 7,6 7,6 7,6 7,4 7,4 7,4 3.5,0.5 3.5,0.5 3.5,0.5 0,4 0,4 z"
                     Fill="{TemplateBinding Foreground}" Margin="0" Stretch="Uniform"/>
             </RepeatButton>-->
@@ -136,7 +136,7 @@
               </Track.Thumb>
             </Track>
             <!--<RepeatButton x:Name="PART_LineDownButton" Command="{x:Static ScrollBar.LineDownCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="2"
-                          Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{DynamicResource SmallBottomCornerRadius}">
+                          Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{StaticResource SmallBottomCornerRadius}">
               <Path x:Name="ArrowBottom"
                     Data="M 0,2.5 C0,2.5 0,0.5 0,0.5 0,0.5 3.5,4 3.5,4 3.5,4 7,0.5 7,0.5 7,0.5 7,2.5 7,2.5 7,2.5 3.5,6 3.5,6 3.5,6 0,2.5 0,2.5 z"
                     Fill="{TemplateBinding Foreground}" Margin="0" Stretch="Uniform"/>
@@ -156,8 +156,8 @@
       <Trigger Property="Orientation" Value="Horizontal">
         <Setter Property="Margin" Value="0,2,0,0"/>
         <Setter Property="Width" Value="Auto"/>
-        <Setter Property="Height" Value="{DynamicResource ScrollBarWidth}"/>
-        <Setter Property="MinHeight" Value="{DynamicResource ScrollBarMinWidth}"/>
+        <Setter Property="Height" Value="{StaticResource ScrollBarWidth}"/>
+        <Setter Property="MinHeight" Value="{StaticResource ScrollBarMinWidth}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Template">
           <Setter.Value>
@@ -171,7 +171,7 @@
                 <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="1"
                         CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"/>
                 <!--<RepeatButton x:Name="PART_LineLeftButton" Command="{x:Static ScrollBar.LineLeftCommand}" IsEnabled="{TemplateBinding IsMouseOver}"
-                              Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{DynamicResource SmallLeftCornerRadius}"> 
+                              Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{StaticResource SmallLeftCornerRadius}"> 
                   <Path x:Name="ArrowLeft" Data="M 3.18,7 C3.18,7 5,7 5,7 5,7 1.81,3.5 1.81,3.5 1.81,3.5 5,0 5,0 5,0 3.18,0 3.18,0 3.18,0 0,3.5 0,3.5 0,3.5 3.18,7 3.18,7 z"
                         Fill="{TemplateBinding Foreground}" Margin="0" Stretch="Uniform"/>
                 </RepeatButton>-->
@@ -187,7 +187,7 @@
                   </Track.Thumb>
                 </Track>
                 <!--<RepeatButton x:Name="PART_LineRightButton" Command="{x:Static ScrollBar.LineRightCommand}" Grid.Column="2" IsEnabled="{TemplateBinding IsMouseOver}"
-                              Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{DynamicResource SmallRightCornerRadius}">
+                              Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{StaticResource SmallRightCornerRadius}">
                   <Path x:Name="ArrowRight" Data="M 1.81,7 C1.81,7 0,7 0,7 0,7 3.18,3.5 3.18,3.5 3.18,3.5 0,0 0,0 0,0 1.81,0 1.81,0 1.81,0 5,3.5 5,3.5 5,3.5 1.81,7 1.81,7 z"
                         Fill="{TemplateBinding Foreground}" Margin="0" Stretch="Uniform"/>
                 </RepeatButton>-->

@@ -152,7 +152,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             if (Decimals > -1)
             {
-                var v1 = Math.Round(newValue, Decimals);
+                double v1 = Math.Round(newValue, Decimals);
                 if (v1 != Value)
                 {
                     Value = v1;

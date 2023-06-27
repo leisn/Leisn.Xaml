@@ -3,9 +3,9 @@
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
 
   <Style x:Key="TextBoxBaseStyle" TargetType="TextBox" BasedOn="{StaticResource BaseInputStyle}">
-    <Setter Property="CaretBrush" Value="{DynamicResource TextBrush}"/>
-    <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}"/>
-    <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}"/>
+    <Setter Property="CaretBrush" Value="{StaticResource TextBrush}"/>
+    <Setter Property="SelectionBrush" Value="{StaticResource PrimaryBrush}"/>
+    <Setter Property="Background" Value="{StaticResource RegionDark2Brush}"/>
     <Setter Property="Padding" Value="5,1"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="Template">
@@ -23,14 +23,14 @@
               <Setter Property="Opacity" Value=".56" TargetName="root"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root"/>
+              <Setter Property="Background" Value="{StaticResource RegionDark1Brush}" TargetName="root"/>
             </Trigger>
             <Trigger Property="IsFocused" Value="True">
-              <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}" TargetName="root"/>
+              <Setter Property="Background" Value="{StaticResource RegionDark2Brush}" TargetName="root"/>
             </Trigger>
             <Trigger Property="IsReadOnly" Value="True">
-              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root"/>
-              <Setter Property="Foreground" Value="{DynamicResource TextDarkerBrush}" />
+              <Setter Property="Background" Value="{StaticResource RegionBrush}" TargetName="root"/>
+              <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

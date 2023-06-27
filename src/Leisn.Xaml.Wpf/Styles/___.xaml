@@ -7,7 +7,7 @@
       <Setter.Value>
         <ControlTemplate>
           <Rectangle RadiusX="3" RadiusY="3" Margin="-2" Opacity=".6"
-                     SnapsToDevicePixels="True" Stroke="{DynamicResource BorderLighterBrush}"
+                     SnapsToDevicePixels="True" Stroke="{StaticResource BorderLighterBrush}"
                      StrokeThickness="2" StrokeDashArray="1 1"/>
         </ControlTemplate>
       </Setter.Value>
@@ -15,22 +15,21 @@
   </Style>
 
   <Style x:Key="BaseControlStyle" TargetType="Control" >
-    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
-    <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}"/>
-    <Setter Property="FocusVisualStyle" Value="{DynamicResource FocusVisual}"/>
+    <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
+    <Setter Property="Foreground" Value="{StaticResource ControlTextBrush}"/>
+    <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
+    <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
     <Setter Property="Height" Value="Auto"/>
     <Setter Property="Width" Value="Auto"/>
   </Style>
   <Style TargetType="Control" BasedOn="{StaticResource BaseControlStyle}"/>
 
   <Style x:Key="BaseInputStyle" TargetType="Control" BasedOn="{StaticResource BaseControlStyle}">
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
+    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+    <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}"/>
   </Style>
 
 </ResourceDictionary>

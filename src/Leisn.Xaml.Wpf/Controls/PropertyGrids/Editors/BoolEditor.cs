@@ -1,7 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System.Windows;
-using System.Windows.Controls.Primitives;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
@@ -9,7 +8,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            return new ToggleButton
+            return new ToggleSwitch
             {
                 Style = (Style)Application.Current.FindResource("ToggleSwitchStyle"),
                 HorizontalAlignment = HorizontalAlignment.Left,
@@ -20,7 +19,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public DependencyProperty GetBindingProperty()
         {
-            return ToggleButton.IsCheckedProperty;
+            return ToggleSwitch.IsCheckedProperty;
         }
     }
 }

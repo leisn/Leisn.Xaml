@@ -29,10 +29,10 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlAccentBrush}" TargetName="bd"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight2Brush}" TargetName="bd"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlBrush}" TargetName="bd"/>
+              <Setter Property="Background" Value="{StaticResource ControlBrush}" TargetName="bd"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -57,14 +57,14 @@
               <Setter Property="Opacity" Value=".5" TargetName="root"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlAccentBrush}"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight2Brush}"/>
             </Trigger>
             <Trigger Property="IsFocused" Value="True">
               <Setter Property="Cursor" Value="IBeam"/>
-              <Setter Property="Background" Value="{DynamicResource RegionDarkerBrush}" TargetName="root" />
+              <Setter Property="Background" Value="{StaticResource RegionDark1Brush}" TargetName="root" />
             </Trigger>
             <Trigger Property="IsReadOnly" Value="True">
-              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root"/>
+              <Setter Property="Background" Value="{StaticResource RegionBrush}" TargetName="root"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -80,10 +80,10 @@
       <Setter.Value>
         <ControlTemplate TargetType="local:NumericUpDown">
           <DockPanel>
-            <RepeatButton x:Name="PART_Minus" Content="{DynamicResource LeftGeometry}" DockPanel.Dock="Left" Style="{DynamicResource NumericDownButtonStyle}"
-                          local:BorderAttach.CornerRadius="{DynamicResource DefaultLeftCornerRadius}" />
-            <RepeatButton x:Name="PART_Increase" Content="{DynamicResource RightGeometry}" DockPanel.Dock="Right" Style="{DynamicResource NumericDownButtonStyle}"
-                          local:BorderAttach.CornerRadius="{DynamicResource DefaultRightCornerRadius}" />
+            <RepeatButton x:Name="PART_Minus" Content="{StaticResource LeftGeometry}" DockPanel.Dock="Left" Style="{StaticResource NumericDownButtonStyle}"
+                          local:BorderAttach.CornerRadius="{StaticResource DefaultLeftCornerRadius}" />
+            <RepeatButton x:Name="PART_Increase" Content="{StaticResource RightGeometry}" DockPanel.Dock="Right" Style="{StaticResource NumericDownButtonStyle}"
+                          local:BorderAttach.CornerRadius="{StaticResource DefaultRightCornerRadius}" />
             <local:NumericBox x:Name="PART_TextBox"
                      NumericType="{TemplateBinding NumericType}"
                      Background="{TemplateBinding Background}" Margin="-1,0" InputScope="Number"
@@ -96,26 +96,26 @@
               <Setter Property="Opacity" Value=".5"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlAccentBrush}" TargetName="PART_TextBox"/>
-              <Setter Property="Background" Value="{DynamicResource ControlLighterBrush}" TargetName="PART_Minus"/>
-              <Setter Property="Background" Value="{DynamicResource ControlLighterBrush}" TargetName="PART_Increase"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight2Brush}" TargetName="PART_TextBox"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight1Brush}" TargetName="PART_Minus"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight1Brush}" TargetName="PART_Increase"/>
             </Trigger>
             <Trigger Property="IsEditing" Value="True">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase"/>
-              <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
+              <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
               <Setter Property="HorizontalContentAlignment" Value="Left" TargetName="PART_TextBox"/>
             </Trigger>
 
             <Trigger Property="IsReadOnly" Value="True">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase"/>
-              <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
+              <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
             </Trigger>
             <Trigger Property="Increment" Value="0">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase"/>
-              <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
+              <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

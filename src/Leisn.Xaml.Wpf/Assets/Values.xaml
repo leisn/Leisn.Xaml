@@ -14,6 +14,7 @@
   <sys:Double x:Key="FontSize250">30</sys:Double>
   <sys:Double x:Key="FontSize300">36</sys:Double>
   <sys:Double x:Key="FontSize400">48</sys:Double>
+  <sys:Double x:Key="FontSize500">60</sys:Double>
 
   <sys:Double x:Key="DefaultRadius">3</sys:Double>
   <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>

@@ -5,7 +5,7 @@
   <Style x:Key="RangeBoxBaseStyle" TargetType="local:RangeBox"  BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="MinWidth" Value="100"/>
     <Setter Property="Padding" Value="5,1"/>
-    <Setter Property="CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
+    <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="ThumbBackground" Value="{StaticResource PrimaryBrush}"/>
     <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
     <Setter Property="Template">
@@ -43,7 +43,7 @@
               <Setter Property="Opacity" Value="0.5" TargetName="RootBorder"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" TargetName="RootBorder" Value="{DynamicResource ControlAccentBrush}"/>
+              <Setter Property="Background" TargetName="RootBorder" Value="{StaticResource ControlLight2Brush}"/>
             </Trigger>
             <Trigger Property="IsEditing" Value="True">
               <Setter Property="Visibility" Value="Hidden" TargetName="InfoGrid"/>

@@ -25,34 +25,35 @@
     </Setter>
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Background" Value="{DynamicResource ControlLighterBrush}"/>
+        <Setter Property="Background" Value="{StaticResource ControlLight1Brush}"/>
       </Trigger>
       <Trigger Property="IsPressed" Value="True">
-        <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
+        <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
       </Trigger>
     </Style.Triggers>
   </Style>
   <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}"/>
 
   <Style x:Key="ButtonPrimaryStyle" TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}">
-    <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+    <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+    <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
     <Style.Triggers>
       <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Background" Value="{DynamicResource PrimaryLighterBrush}"/>
+        <Setter Property="Background" Value="{StaticResource PrimaryLightBrush}"/>
       </Trigger>
       <Trigger Property="IsPressed" Value="True">
-        <Setter Property="Background" Value="{DynamicResource PrimaryDarkerBrush}"/>
+        <Setter Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
       </Trigger>
     </Style.Triggers>
   </Style>
 
   <Style x:Key="RadioToggleStyle" TargetType="RadioButton">
-    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
-    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}"/>
+    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+    <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
     <Setter Property="HorizontalContentAlignment" Value="Center"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="Template">
@@ -71,13 +72,13 @@
               <Setter Property="Opacity" Value=".56"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlAccentBrush}"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight2Brush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlLighterBrush}"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight1Brush}"/>
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
-              <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+              <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -104,13 +105,13 @@
               <Setter Property="Opacity" Value=".5" TargetName="bd"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlAccentBrush}"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight2Brush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlLighterBrush}"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight1Brush}"/>
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
-              <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+              <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -121,8 +122,8 @@
 
   <Style x:Key="ToggleSwitchStyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource ControlLighterBrush}"/>
-    <Setter Property="Height" Value="{DynamicResource InputMinHeight}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextInverseBrush}"/>
+    <Setter Property="Height" Value="{StaticResource InputMinHeight}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToggleButton">
@@ -134,7 +135,7 @@
             <Viewbox Height="{TemplateBinding Height}">
               <Canvas Width="68" Height="24">
                 <Ellipse x:Name="path" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"
-                         Stroke="{DynamicResource BorderBrush}" StrokeThickness="1"
+                         Stroke="{StaticResource BorderBrush}" StrokeThickness="1"
                          Fill="{TemplateBinding Foreground}"/>
               </Canvas>
             </Viewbox>
@@ -184,27 +185,27 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="{x:Null}">
-              <Setter TargetName="path" Property="Fill"  Value="{DynamicResource ControlAccentBrush}"/>
+              <Setter TargetName="path" Property="Fill"  Value="{StaticResource ControlLight2Brush}"/>
             </Trigger>
             <Trigger Property="IsChecked" Value="False">
-              <Setter TargetName="path" Property="Fill"  Value="{DynamicResource ControlLighterBrush}"/>
+              <Setter TargetName="path" Property="Fill"  Value="{StaticResource ControlLight1Brush}"/>
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="IsChecked" Value="{x:Null}"/>
                 <Condition Property="IsMouseOver" Value="True"/>
               </MultiTrigger.Conditions>
-              <Setter TargetName="path" Property="Fill"  Value="{DynamicResource ControlLighterBrush}"/>
+              <Setter TargetName="path" Property="Fill"  Value="{StaticResource ControlLight1Brush}"/>
             </MultiTrigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="IsChecked" Value="False"/>
                 <Condition Property="IsMouseOver" Value="True"/>
               </MultiTrigger.Conditions>
-              <Setter Property="Fill" TargetName="path" Value="{DynamicResource ControlAccentBrush}"/>
+              <Setter Property="Fill" TargetName="path" Value="{StaticResource ControlLight2Brush}"/>
             </MultiTrigger>
             <Trigger Property="IsChecked" Value="True">
-              <Setter Property="Fill" TargetName="path" Value="{DynamicResource TextBrush}"/>
+              <Setter Property="Fill" TargetName="path" Value="{StaticResource HighlightBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter TargetName="bd" Property="Opacity" Value=".56"/>
@@ -214,4 +215,5 @@
       </Setter.Value>
     </Setter>
   </Style>
+  <Style TargetType="local:ToggleSwitch" BasedOn="{StaticResource ToggleSwitchStyle}"/>
 </ResourceDictionary>
