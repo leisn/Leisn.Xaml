@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
+                    xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls"
+                    xmlns:internals="clr-namespace:Leisn.Xaml.Wpf.Internals">
   <Style x:Key="DatePickerTextBoxBaseStyle" TargetType="{x:Type DatePickerTextBox}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
     <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
@@ -80,15 +81,34 @@
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="28"/>
                     <ColumnDefinition Width="24"/>
                   </Grid.ColumnDefinitions>
-                  <Path Grid.Column="1" Height="16" HorizontalAlignment="Center" Stretch="Uniform"
+                  <Path Grid.Column="2" Height="16" HorizontalAlignment="Center" Stretch="Uniform"
                         Fill="{TemplateBinding Foreground}" Data="{StaticResource CalendarGeometry}"/>
                   <DatePickerTextBox x:Name="PART_TextBox" Style="{StaticResource DatePickerTextBoxBaseStyle}"
                                  IsEnabled="False" Grid.Column="0" HorizontalContentAlignment="Stretch"
                                  VerticalContentAlignment="Center" VerticalAlignment="Stretch"/>
                 </Grid>
               </Button>
+              <Grid x:Name="clearGrid">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="28"/>
+                  <ColumnDefinition Width="24"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" Background="Transparent">
+                  <Button Width="20" MinHeight="20" Padding="0" local:BorderAttach.CornerRadius="10" VerticalAlignment="Center"
+                          CommandTarget="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                          CommandParameter="{x:Static DatePicker.SelectedDateProperty}"
+                          Command="{x:Static internals:ClearCommand.Source}">
+                    <Canvas Width="12" Height="12">
+                      <Line X1="2" Y1="2" X2="10" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1"/>
+                      <Line X1="10" Y1="2" X2="2" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1"/>
+                    </Canvas>
+                  </Button>
+                </Border>
+              </Grid>
               <Grid x:Name="PART_DisabledVisual" Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="False" Opacity="0" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*"/>
@@ -102,6 +122,9 @@
             <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="false">
               <Setter Property="Foreground" TargetName="PART_TextBox" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </DataTrigger>
+            <Trigger Property="SelectedDate" Value="{x:Null}">
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearGrid"/>
+            </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
