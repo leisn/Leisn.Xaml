@@ -54,6 +54,11 @@ namespace WpfDemo
             perpertyGrid.Source = new PgTest();
         }
 
+        private void ThemeButton_Click(object sender, RoutedEventArgs e)
+        {
+            //AppTheme.ChangeTheme(new Uri("/Leisn.Xaml.Wpf;component/Assets/ColorsLight.xaml", UriKind.Relative));
+        }
+
         public enum Enumv : byte
         {
             [Category("V1")]
@@ -113,10 +118,6 @@ namespace WpfDemo
             [Category("DataProvider")]
             [DataProvider(typeof(SampleObjectProvider))]
             public SampleObject ObjectProvider { get; set; } = null!;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
         }
 
     }

@@ -52,7 +52,7 @@
     <Setter Property="MinWidth" Value="183"/>
     <Setter Property="Padding" Value="5"/>
     <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-    <Setter Property="Background" Value="{StaticResource RegionDark1Brush}"/>
+    <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
     <Setter Property="SpectrumStyle" Value="Disc"/>
     <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Template">

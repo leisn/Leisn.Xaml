@@ -8,9 +8,6 @@
         mc:Ignorable="d" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="MainWindow" Height="550" Width="800"
         WindowStartupLocation="CenterScreen">
-  <Window.Resources>
-
-  </Window.Resources>
   <Grid Margin="10">
     <Grid.ColumnDefinitions>
       <ColumnDefinition/>
@@ -30,8 +27,10 @@
           </x:Array>
         </ComboBox.ItemsSource>
       </ComboBox>
-      <Button Content="{ln:Lang Ask}" Click="Button_Click" HorizontalAlignment="Center" Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
+      <Button Content="{ln:Lang Ask}"  HorizontalAlignment="Center" Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
       <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
+      <Button Content="切换主题" Click="ThemeButton_Click"/>
+      <DatePicker/>
     </ln:StackPanel>
     <ln:PropertyGrid Grid.Column="2" x:Name="perpertyGrid"/>
   </Grid>

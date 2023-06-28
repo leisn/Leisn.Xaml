@@ -1,8 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls"
-                    xmlns:editor="clr-namespace:Leisn.Xaml.Wpf.Controls.Editors"
-                    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
+                    xmlns:editor="clr-namespace:Leisn.Xaml.Wpf.Controls.Editors">
 
   <Style x:Key="ColorPickerEditorToggleButtonStyle" TargetType="ToggleButton">
     <Setter Property="Template">
@@ -24,46 +23,35 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ColorPickerEditorStyle" TargetType="editor:ColorPickerEditor">
+  <Style x:Key="ColorPickerEditorStyle" TargetType="editor:ColorPickerEditor" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Focusable" Value="True"/>
     <Setter Property="IsTabStop" Value="True"/>
-    <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}"/>
     <Setter Property="Background" Value="{StaticResource OpacityGridTileBrush}"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="Padding" Value="0"/>
+    <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="editor:ColorPickerEditor">
           <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
-            <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2"
+            <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" VerticalOffset="-1"
                    Placement="Top" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
                    IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
-              <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" 
-                                      MinWidth="{Binding ActualWidth, ElementName=templateRoot}">
-                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}"
-                   Background="{TemplateBinding Background}"
-                   BorderBrush="{TemplateBinding BorderBrush}"
-                   BorderThickness="{TemplateBinding BorderThickness}"
-                   CornerRadius="{StaticResource DefaultCornerRadius}">
-                  <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
-                    <local:ColorPicker Style="{StaticResource ColorPickerBaseStyle}" x:Name="PART_ColorPicker"
+              <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}"
+                      MinWidth="{Binding ActualWidth, ElementName=templateRoot}"
+                      Background="{TemplateBinding Background}"
+                      BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                      CornerRadius="{StaticResource DefaultCornerRadius}">
+                <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                  <local:ColorPicker Style="{StaticResource ColorPickerBaseStyle}" x:Name="PART_ColorPicker"
                                        KeyboardNavigation.DirectionalNavigation="Contained"/>
-                  </Grid>
-                </Border>
-              </theme:SystemDropShadowChrome>
+                </Grid>
+              </Border>
             </Popup>
             <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}"
                           Focusable="False" ClickMode="Press" IsTabStop="False"
                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                           Style="{StaticResource ColorPickerEditorToggleButtonStyle}"/>
           </Grid>
-          <ControlTemplate.Triggers>
-            <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
-              <Setter Property="Margin" TargetName="shadow" Value="0,0,3,3"/>
-              <Setter Property="Color" TargetName="shadow" Value="#71000000"/>
-            </Trigger>
-          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
