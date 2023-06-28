@@ -17,6 +17,8 @@ using Leisn.Common.Media;
 using System.Threading;
 using Leisn.Xaml.Wpf.Controls;
 using System.Windows.Controls;
+using System.Windows.Input;
+using Leisn.Xaml.Wpf.Input;
 
 namespace WpfDemo
 {

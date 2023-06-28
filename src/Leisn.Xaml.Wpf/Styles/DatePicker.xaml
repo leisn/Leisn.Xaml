@@ -101,7 +101,7 @@
                   <Button Width="20" MinHeight="20" Padding="0" local:BorderAttach.CornerRadius="10" VerticalAlignment="Center"
                           CommandTarget="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}"
                           CommandParameter="{x:Static DatePicker.SelectedDateProperty}"
-                          Command="{x:Static internals:ClearCommand.Source}">
+                          internals:InternalCommands.CommandSource="{Binding .,RelativeSource={RelativeSource Mode=Self}}">
                     <Canvas Width="12" Height="12">
                       <Line X1="2" Y1="2" X2="10" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1"/>
                       <Line X1="10" Y1="2" X2="2" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1"/>
