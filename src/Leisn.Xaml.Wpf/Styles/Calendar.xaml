@@ -215,7 +215,7 @@
   <Style TargetType="CalendarDayButton" BasedOn="{StaticResource CalendarDayButtonBaseStyle}"/>
 
   <Style x:Key="CalendarItemBaseStyle" TargetType="{x:Type CalendarItem}" BasedOn="{StaticResource BaseControlStyle}">
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
     <Setter Property="Template">
       <Setter.Value>
@@ -239,7 +239,7 @@
             <Border Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}">
+                    CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
               <Grid>
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*"/>

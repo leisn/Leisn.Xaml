@@ -37,7 +37,7 @@
             </VisualStateManager.VisualStateGroups>
             <Border x:Name="Border" Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}" Opacity="1" >
+                    CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" Opacity="1" >
               <Grid x:Name="WatermarkContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                 <Border x:Name="watermark_decorator" >
                   <ContentControl Margin="{TemplateBinding Padding}" Foreground="{TemplateBinding Foreground}" x:Name="PART_Watermark" Focusable="False" IsHitTestVisible="False" Opacity="0"/>
@@ -56,7 +56,8 @@
     <Setter Property="IsTodayHighlighted" Value="True"/>
     <Setter Property="SelectedDateFormat" Value="Short"/>
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+    <Setter Property="local:ControlAttach.ShowClear" Value="True"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="Padding" Value="0"/>
     <Setter Property="CalendarStyle" Value="{StaticResource CalendarBaseStyle}"/>
@@ -65,7 +66,7 @@
         <ControlTemplate TargetType="{x:Type DatePicker}">
           <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}"
-                  CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}">
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup x:Name="CommonStates">
                 <VisualState x:Name="Normal"/>
@@ -81,10 +82,9 @@
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="28"/>
                     <ColumnDefinition Width="24"/>
                   </Grid.ColumnDefinitions>
-                  <Path Grid.Column="2" Height="16" HorizontalAlignment="Center" Stretch="Uniform"
+                  <Path Grid.Column="1" Height="16" HorizontalAlignment="Center" Stretch="Uniform"
                         Fill="{TemplateBinding Foreground}" Data="{StaticResource CalendarGeometry}"/>
                   <DatePickerTextBox x:Name="PART_TextBox" Style="{StaticResource DatePickerTextBoxBaseStyle}"
                                  IsEnabled="False" Grid.Column="0" HorizontalContentAlignment="Stretch"
@@ -98,10 +98,10 @@
                   <ColumnDefinition Width="24"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="1" Background="Transparent">
-                  <Button Width="20" MinHeight="20" Padding="0" local:BorderAttach.CornerRadius="10" VerticalAlignment="Center"
-                          CommandTarget="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                          CommandParameter="{x:Static DatePicker.SelectedDateProperty}"
-                          internals:InternalCommands.CommandSource="{Binding .,RelativeSource={RelativeSource Mode=Self}}">
+                  <Button Width="20" MinHeight="20" Padding="0" local:ControlAttach.CornerRadius="10" VerticalAlignment="Center"
+                          Background="{DynamicResource ControlLight2Brush}" Focusable="False"
+                          CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                          Command="{x:Static internals:InternalCommands.ClearDatePickerCommand}">
                     <Canvas Width="12" Height="12">
                       <Line X1="2" Y1="2" X2="10" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1"/>
                       <Line X1="10" Y1="2" X2="2" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1"/>
@@ -114,7 +114,7 @@
                   <ColumnDefinition Width="*"/>
                   <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="True"/>
+                <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="False"/>
               </Grid>
             </Grid>
           </Border>
@@ -123,6 +123,13 @@
               <Setter Property="Foreground" TargetName="PART_TextBox" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
             </DataTrigger>
             <Trigger Property="SelectedDate" Value="{x:Null}">
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearGrid"/>
+            </Trigger>
+            <Trigger Property="local:ControlAttach.ShowClear" Value="False">
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearGrid"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".56"/>
               <Setter Property="Visibility" Value="Hidden" TargetName="clearGrid"/>
             </Trigger>
           </ControlTemplate.Triggers>

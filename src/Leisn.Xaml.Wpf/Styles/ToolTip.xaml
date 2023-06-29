@@ -8,13 +8,13 @@
     <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
     <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
     <Setter Property="BorderThickness" Value="1"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToolTip">
           <Border x:Name="templateRoot" Margin="8" Background="{StaticResource RegionBrush}"
                   Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}"
-                  CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   BorderBrush="{StaticResource BorderBrush}"
                   TextElement.Foreground="{StaticResource TextBrush}">
             <ContentPresenter x:Name="Presenter" />

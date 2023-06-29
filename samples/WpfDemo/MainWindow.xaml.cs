@@ -88,6 +88,7 @@ namespace WpfDemo
             //public List<int> ListInts { get; set; } = new();
             //public IEnumerable<int> EnumInts { get; set; } = new Collection<int>();
             public DateTime DateTime { get; set; }
+            public DateTime? DateTime2 { get; set; }
             public bool? BoolNullable { get; set; }
             public bool Bool { get; set; }
             public Color Color { get; set; } = ColorEx.FromHex("#7805112c");
@@ -102,13 +103,11 @@ namespace WpfDemo
             [NumericUpDown(Increment = 0.1, Maximum = 1, Minimum = -1)]
             [NumericFormat(Decimals = 3, Suffix = "m")]
             public double Formart { get; set; }
-
+            [DisplayName("最多可以输入几个字呢")]
+            [Placeholder("输入字符{Ok}")]
+            public string Text { get; set; } = "input text";
             [ReadOnly(true)]
             public string ReadOnlyText { get; set; } = "ReadOnlyText 1";
-
-            [DisplayName("最多可以输入几个字呢")]
-            public string Text { get; set; } = "input text";
-
             [Category("DataProvider")]
             [DataProvider(typeof(SampleTextProvider))]
             public string TextProvider { get; set; } = "Text 1";

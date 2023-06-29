@@ -19,7 +19,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="TextBox">
           <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}">
+                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
             <Grid>
               <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -54,14 +54,14 @@
     <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
     <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
     <Setter Property="SpectrumStyle" Value="Disc"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:ColorPicker">
           <Border Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
-                  CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   Padding="{TemplateBinding Padding}">
             <Grid>
               <Grid.RowDefinitions>
@@ -76,9 +76,9 @@
                       CornerRadius="{StaticResource DefaultCornerRadius}">
                 <UniformGrid  Rows="1">
                   <RadioButton x:Name="rgbTab" Content="RGB" IsChecked="True" Style="{StaticResource RadioToggleStyle}"
-                             local:BorderAttach.CornerRadius="{StaticResource DefaultLeftCornerRadius}"/>
+                             local:ControlAttach.CornerRadius="{StaticResource DefaultLeftCornerRadius}"/>
                   <RadioButton x:Name="hsvTab" Content="HSV" Style="{StaticResource RadioToggleStyle}"
-                             local:BorderAttach.CornerRadius="{StaticResource DefaultRightCornerRadius}"/>
+                             local:ControlAttach.CornerRadius="{StaticResource DefaultRightCornerRadius}"/>
                 </UniformGrid>
               </Border>
 

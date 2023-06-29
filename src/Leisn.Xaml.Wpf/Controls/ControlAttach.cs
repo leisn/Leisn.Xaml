@@ -9,8 +9,44 @@ using Leisn.Xaml.Wpf.Converters;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
-    public class BorderAttach
+    public class ControlAttach
     {
+        public static bool GetShowClear(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(ShowClearProperty);
+        }
+        public static void SetShowClear(DependencyObject obj, bool value)
+        {
+            obj.SetValue(ShowClearProperty, value);
+        }
+        public static readonly DependencyProperty ShowClearProperty =
+            DependencyProperty.RegisterAttached("ShowClear", typeof(bool), typeof(ControlAttach), new PropertyMetadata(true));
+
+        public static string GetPlaceholder(DependencyObject obj)
+        {
+            return (string)obj.GetValue(PlaceholderProperty);
+        }
+        public static void SetPlaceholder(DependencyObject obj, string value)
+        {
+            obj.SetValue(PlaceholderProperty, value);
+        }
+        public static readonly DependencyProperty PlaceholderProperty =
+            DependencyProperty.RegisterAttached("Placeholder", typeof(string), typeof(ControlAttach), new PropertyMetadata(null));
+
+
+        public static Thickness GetPadding(DependencyObject obj)
+        {
+            return (Thickness)obj.GetValue(PaddingProperty);
+        }
+
+        public static void SetPadding(DependencyObject obj, Thickness value)
+        {
+            obj.SetValue(PaddingProperty, value);
+        }
+        public static readonly DependencyProperty PaddingProperty =
+            DependencyProperty.RegisterAttached("Padding", typeof(Thickness), typeof(ControlAttach), new PropertyMetadata(new Thickness()));
+
+        #region border
         public static Thickness GetBorderThickness(DependencyObject obj)
         {
             return (Thickness)obj.GetValue(BorderThicknessProperty);
@@ -20,7 +56,7 @@ namespace Leisn.Xaml.Wpf.Controls
             obj.SetValue(BorderThicknessProperty, value);
         }
         public static readonly DependencyProperty BorderThicknessProperty =
-            DependencyProperty.RegisterAttached("BorderThickness", typeof(Thickness), typeof(BorderAttach),
+            DependencyProperty.RegisterAttached("BorderThickness", typeof(Thickness), typeof(ControlAttach),
                 new FrameworkPropertyMetadata(default(Thickness), FrameworkPropertyMetadataOptions.Inherits));
 
         public static Brush GetBorderBrush(DependencyObject obj)
@@ -33,7 +69,7 @@ namespace Leisn.Xaml.Wpf.Controls
             obj.SetValue(BorderBrushProperty, value);
         }
         public static readonly DependencyProperty BorderBrushProperty =
-            DependencyProperty.RegisterAttached("BorderBrush", typeof(Brush), typeof(BorderAttach),
+            DependencyProperty.RegisterAttached("BorderBrush", typeof(Brush), typeof(ControlAttach),
                 new FrameworkPropertyMetadata(default, FrameworkPropertyMetadataOptions.Inherits));
 
         public static CornerRadius GetCornerRadius(DependencyObject obj)
@@ -47,7 +83,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
 
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(BorderAttach),
+            DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(ControlAttach),
                   new FrameworkPropertyMetadata(default(CornerRadius), FrameworkPropertyMetadataOptions.Inherits));
 
         public static bool GetIsCircle(DependencyObject obj)
@@ -61,7 +97,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
 
         public static readonly DependencyProperty IsCircleProperty =
-            DependencyProperty.RegisterAttached("IsCircle", typeof(bool), typeof(BorderAttach),
+            DependencyProperty.RegisterAttached("IsCircle", typeof(bool), typeof(ControlAttach),
                  new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.Inherits, new PropertyChangedCallback(OnIsCircleChanged)));
 
         private static void OnIsCircleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -83,5 +119,6 @@ namespace Leisn.Xaml.Wpf.Controls
                 BindingOperations.ClearBinding(border, Border.CornerRadiusProperty);
             }
         }
+        #endregion
     }
 }

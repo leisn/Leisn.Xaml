@@ -4,7 +4,7 @@ using System;
 
 namespace Leisn.Common.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class IconAttribute : Attribute
     {
         public string IconName { get; }

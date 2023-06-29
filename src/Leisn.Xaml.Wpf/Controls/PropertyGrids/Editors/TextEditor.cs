@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 
 using Leisn.Common.Attributes;
+using Leisn.Xaml.Wpf.Locales;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
@@ -16,6 +17,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             if (item.PropertyDescriptor.Attr<StringLengthAttribute>() is StringLengthAttribute len)
             {
                 element.MaxLength = len.MaximumLength;
+            }
+            if (item.PropertyDescriptor.Attr<PlaceholderAttribute>() is PlaceholderAttribute p)
+            {
+                element.SetBindingLangFormat(ControlAttach.PlaceholderProperty, p.Placeholder);
             }
             return element;
         }

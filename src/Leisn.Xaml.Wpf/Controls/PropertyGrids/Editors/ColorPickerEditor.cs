@@ -1,5 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -25,6 +26,16 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             EventManager.RegisterClassHandler(typeof(ColorPickerEditor), Mouse.LostMouseCaptureEvent, new MouseEventHandler(OnLostMouseCapture));
             EventManager.RegisterClassHandler(typeof(ColorPickerEditor), Mouse.MouseDownEvent, new MouseButtonEventHandler(OnMouseButtonDown), true); // call us even if the transparent button in the style gets the click.
         }
+        public FrameworkElement CreateElement(PropertyItem item)
+        {
+            IsReadOnly = item.IsReadOnly;
+            return this;
+        }
+
+        public DependencyProperty GetBindingProperty()
+        {
+            return SelectedColorProperty;
+        }
 
         public Color SelectedColor
         {
@@ -38,6 +49,21 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ((ColorPickerEditor)d).UpdateColors();
+        }
+
+        public bool IsReadOnly
+        {
+            get { return (bool)GetValue(IsReadOnlyProperty); }
+            set { SetValue(IsReadOnlyProperty, value); }
+        }
+        public static readonly DependencyProperty IsReadOnlyProperty =
+            DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(ColorPickerEditor), new PropertyMetadata(false, new PropertyChangedCallback(OnIsReadOnlyChanged)));
+
+        private static void OnIsReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var c = (ColorPickerEditor)d;
+            if (c._colorPicker != null)
+                c._colorPicker.IsEnabled = !(bool)e.NewValue;
         }
 
         public Color NoAlphaColor
@@ -62,16 +88,6 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             picker.OnIsDropDownChanged();
         }
 
-        public FrameworkElement CreateElement(PropertyItem item)
-        {
-            return this;
-        }
-
-        public DependencyProperty GetBindingProperty()
-        {
-            return SelectedColorProperty;
-        }
-
         public override void OnApplyTemplate()
         {
             if (_colorPicker is not null)
@@ -84,6 +100,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             _colorPicker = (ColorPicker)GetTemplateChild(PART_ColorPickerName);
             _colorPicker.SelectedColor = SelectedColor;
             _colorPicker.SelectedColorChanged += OnPickerColorChanged;
+            _colorPicker.IsEnabled = !IsReadOnly;
         }
 
         private void OnPickerColorChanged(object sender, SelectedColorChangedEventArgs e)

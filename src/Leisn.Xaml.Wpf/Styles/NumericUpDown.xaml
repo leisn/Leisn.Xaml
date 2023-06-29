@@ -21,7 +21,7 @@
           <Border x:Name="bd" Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
-                  CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}">
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
             <ContentPresenter Margin="{TemplateBinding Padding}"
                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -46,7 +46,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="TextBox">
           <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}">
+                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
             <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}"
                           HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -81,13 +81,13 @@
         <ControlTemplate TargetType="local:NumericUpDown">
           <DockPanel>
             <RepeatButton x:Name="PART_Minus" Content="{StaticResource LeftGeometry}" DockPanel.Dock="Left" Style="{StaticResource NumericDownButtonStyle}"
-                          local:BorderAttach.CornerRadius="{StaticResource DefaultLeftCornerRadius}" />
+                          local:ControlAttach.CornerRadius="{StaticResource DefaultLeftCornerRadius}" />
             <RepeatButton x:Name="PART_Increase" Content="{StaticResource RightGeometry}" DockPanel.Dock="Right" Style="{StaticResource NumericDownButtonStyle}"
-                          local:BorderAttach.CornerRadius="{StaticResource DefaultRightCornerRadius}" />
+                          local:ControlAttach.CornerRadius="{StaticResource DefaultRightCornerRadius}" />
             <local:NumericBox x:Name="PART_TextBox"
                      NumericType="{TemplateBinding NumericType}"
                      Background="{TemplateBinding Background}" Margin="-1,0" InputScope="Number"
-                     HorizontalContentAlignment="Center" local:BorderAttach.CornerRadius="0"
+                     HorizontalContentAlignment="Center" local:ControlAttach.CornerRadius="0"
                      IsReadOnly="{TemplateBinding IsReadOnly}" Style="{StaticResource NumericDownTextBoxStyle}"/>
             <!--Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource Mode=TemplatedParent}}"-->
           </DockPanel>
@@ -103,19 +103,19 @@
             <Trigger Property="IsEditing" Value="True">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase"/>
-              <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
+              <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
               <Setter Property="HorizontalContentAlignment" Value="Left" TargetName="PART_TextBox"/>
             </Trigger>
 
             <Trigger Property="IsReadOnly" Value="True">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase"/>
-              <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
+              <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
             </Trigger>
             <Trigger Property="Increment" Value="0">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Increase"/>
-              <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
+              <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" TargetName="PART_TextBox"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

@@ -148,7 +148,7 @@ namespace Leisn.Xaml.Wpf.Controls
         //        corner.TopRight = 4;
         //        corner.BottomRight = 4;
         //    }
-        //    BorderAttach.SetCornerRadius(_textBox, corner);
+        //    ControlAttach.SetCornerRadius(_textBox, corner);
         //}
 
         public override void OnApplyTemplate()

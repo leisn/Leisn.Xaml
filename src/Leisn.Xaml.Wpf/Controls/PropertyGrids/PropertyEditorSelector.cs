@@ -82,6 +82,11 @@ namespace Leisn.Xaml.Wpf.Controls
                 return new BoolEditor();
             }
 
+            if (propertyType == typeof(DateTime?))
+            {
+                return new DateTimeEditor();
+            }
+
             if (propertyType == typeof(Color))
             {
                 return new ColorPickerEditor();

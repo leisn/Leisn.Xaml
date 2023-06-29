@@ -9,7 +9,7 @@
           <Border x:Name="bd" Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
-                  CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
             <ContentPresenter Margin="{TemplateBinding Padding}"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -20,10 +20,10 @@
               <Setter Property="Opacity" Value=".5" TargetName="bd"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{StaticResource ControlLight1Brush}"/>
+              <Setter Property="Background" Value="{StaticResource ControlLight1Brush}" TargetName="bd"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
+              <Setter Property="Background" Value="{StaticResource RegionBrush}" TargetName="bd"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -35,19 +35,37 @@
   <Style x:Key="ButtonPrimaryStyle" TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}">
     <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
     <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}"/>
-    <Style.Triggers>
-      <Trigger Property="IsMouseOver" Value="True">
-        <Setter Property="Background" Value="{StaticResource PrimaryLightBrush}"/>
-      </Trigger>
-      <Trigger Property="IsPressed" Value="True">
-        <Setter Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
-      </Trigger>
-    </Style.Triggers>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border x:Name="bd" Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
+                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <ContentPresenter Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".5" TargetName="bd"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{StaticResource PrimaryLightBrush}" TargetName="bd"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{StaticResource PrimaryDarkBrush}" TargetName="bd"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
   </Style>
 
   <Style x:Key="RadioToggleStyle" TargetType="RadioButton">
     <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
     <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
@@ -58,7 +76,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="RadioButton">
           <Border x:Name="bd" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                  Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
+                  Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -92,7 +110,7 @@
           <Border x:Name="bd" Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
-                  CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
             <ContentPresenter Margin="{TemplateBinding Padding}"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
@@ -129,7 +147,7 @@
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                  local:BorderAttach.IsCircle="True" ClipToBounds="True">
+                  local:ControlAttach.IsCircle="True" ClipToBounds="True">
             <Viewbox Height="{TemplateBinding Height}">
               <Canvas Width="68" Height="24">
                 <Ellipse x:Name="path" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"

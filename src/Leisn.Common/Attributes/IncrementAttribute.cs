@@ -4,7 +4,7 @@ using System;
 
 namespace Leisn.Common.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     public class IncrementAttribute : Attribute
     {
         public double Increment { get; }

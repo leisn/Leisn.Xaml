@@ -24,13 +24,13 @@
     <Setter Property="Focusable" Value="false"/>
     <Setter Property="IsTabStop" Value="false"/>
     <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="0"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="0"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type RepeatButton}">
           <Border x:Name="border"
                   Background="{TemplateBinding Background}"
-                  BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"
+                  BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
             <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
@@ -103,7 +103,7 @@
     <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
     <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="local:BorderAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}"/>
     <Setter Property="Width" Value="{StaticResource ScrollBarWidth}"/>
     <Setter Property="MinWidth" Value="{StaticResource ScrollBarMinWidth}"/>
     <Setter Property="Height" Value="Auto"/>
@@ -118,9 +118,9 @@
               <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Row="1"
-                    CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"/>
+                    CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"/>
             <!--<RepeatButton x:Name="PART_LineUpButton" Command="{x:Static ScrollBar.LineUpCommand}" IsEnabled="{TemplateBinding IsMouseOver}"
-                          Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{StaticResource SmallTopCornerRadius}">
+                          Style="{StaticResource ScrollBarButton}" local:ControlAttach.CornerRadius="{StaticResource SmallTopCornerRadius}">
               <Path x:Name="ArrowTop" Data="M 0,4 C0,4 0,6 0,6 0,6 3.5,2.5 3.5,2.5 3.5,2.5 7,6 7,6 7,6 7,4 7,4 7,4 3.5,0.5 3.5,0.5 3.5,0.5 0,4 0,4 z"
                     Fill="{TemplateBinding Foreground}" Margin="0" Stretch="Uniform"/>
             </RepeatButton>-->
@@ -136,7 +136,7 @@
               </Track.Thumb>
             </Track>
             <!--<RepeatButton x:Name="PART_LineDownButton" Command="{x:Static ScrollBar.LineDownCommand}" IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="2"
-                          Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{StaticResource SmallBottomCornerRadius}">
+                          Style="{StaticResource ScrollBarButton}" local:ControlAttach.CornerRadius="{StaticResource SmallBottomCornerRadius}">
               <Path x:Name="ArrowBottom"
                     Data="M 0,2.5 C0,2.5 0,0.5 0,0.5 0,0.5 3.5,4 3.5,4 3.5,4 7,0.5 7,0.5 7,0.5 7,2.5 7,2.5 7,2.5 3.5,6 3.5,6 3.5,6 0,2.5 0,2.5 z"
                     Fill="{TemplateBinding Foreground}" Margin="0" Stretch="Uniform"/>
@@ -169,9 +169,9 @@
                   <ColumnDefinition Width="auto"/>
                 </Grid.ColumnDefinitions>
                 <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="1"
-                        CornerRadius="{TemplateBinding local:BorderAttach.CornerRadius}"/>
+                        CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"/>
                 <!--<RepeatButton x:Name="PART_LineLeftButton" Command="{x:Static ScrollBar.LineLeftCommand}" IsEnabled="{TemplateBinding IsMouseOver}"
-                              Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{StaticResource SmallLeftCornerRadius}"> 
+                              Style="{StaticResource ScrollBarButton}" local:ControlAttach.CornerRadius="{StaticResource SmallLeftCornerRadius}"> 
                   <Path x:Name="ArrowLeft" Data="M 3.18,7 C3.18,7 5,7 5,7 5,7 1.81,3.5 1.81,3.5 1.81,3.5 5,0 5,0 5,0 3.18,0 3.18,0 3.18,0 0,3.5 0,3.5 0,3.5 3.18,7 3.18,7 z"
                         Fill="{TemplateBinding Foreground}" Margin="0" Stretch="Uniform"/>
                 </RepeatButton>-->
@@ -187,7 +187,7 @@
                   </Track.Thumb>
                 </Track>
                 <!--<RepeatButton x:Name="PART_LineRightButton" Command="{x:Static ScrollBar.LineRightCommand}" Grid.Column="2" IsEnabled="{TemplateBinding IsMouseOver}"
-                              Style="{StaticResource ScrollBarButton}" local:BorderAttach.CornerRadius="{StaticResource SmallRightCornerRadius}">
+                              Style="{StaticResource ScrollBarButton}" local:ControlAttach.CornerRadius="{StaticResource SmallRightCornerRadius}">
                   <Path x:Name="ArrowRight" Data="M 1.81,7 C1.81,7 0,7 0,7 0,7 3.18,3.5 3.18,3.5 3.18,3.5 0,0 0,0 0,0 1.81,0 1.81,0 1.81,0 5,3.5 5,3.5 5,3.5 1.81,7 1.81,7 z"
                         Fill="{TemplateBinding Foreground}" Margin="0" Stretch="Uniform"/>
                 </RepeatButton>-->

@@ -23,7 +23,7 @@
               <local:NumericBox x:Name="PART_TextBox" Visibility="Hidden" NumericType="{TemplateBinding NumericType}"
                        Padding="{TemplateBinding Padding}" BorderThickness="0" IsReadOnly="{TemplateBinding IsReadOnly}"
                        VerticalAlignment="Stretch" VerticalContentAlignment="Center"
-                       local:BorderAttach.CornerRadius="{TemplateBinding CornerRadius}"
+                       local:ControlAttach.CornerRadius="{TemplateBinding CornerRadius}"
                        InputScope="Number" TextWrapping="NoWrap" SnapsToDevicePixels="True"
                        Text="{Binding Value,Mode=TwoWay,RelativeSource={RelativeSource Mode=TemplatedParent}}">
               </local:NumericBox>

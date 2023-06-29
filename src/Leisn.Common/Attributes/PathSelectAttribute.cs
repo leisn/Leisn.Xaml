@@ -13,4 +13,10 @@ namespace Leisn.Common.Attributes
         public bool IsTextReadOnly { get; set; } = true;
     }
 
+    public enum PathSelectMode
+    {
+        Folder,
+        OpenFile,
+        SaveFile
+    }
 }

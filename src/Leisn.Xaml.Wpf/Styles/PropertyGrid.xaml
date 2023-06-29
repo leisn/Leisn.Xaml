@@ -64,7 +64,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="ToolTip">
           <Border Margin="8" Background="{StaticResource RegionBrush}" Padding="{TemplateBinding Padding}" BorderThickness="1"
-                  CornerRadius="{Binding Path=(local:BorderAttach.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}"
+                  CornerRadius="{Binding Path=(local:ControlAttach.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}"
                   BorderBrush="{StaticResource BorderBrush}"
                   TextElement.Foreground="{StaticResource TextBrush}">
             <Grid>
@@ -119,8 +119,8 @@
     <Expander Margin="{TemplateBinding Padding}" IsExpanded="True"
               BorderBrush="{TemplateBinding BorderBrush}"
               BorderThickness="{TemplateBinding BorderThickness}"
-              local:LayoutAttach.Padding="25,3,10,5"
-              local:BorderAttach.CornerRadius="{StaticResource DefaultBottomCornerRadius}">
+              local:ControlAttach.Padding="25,3,10,5"
+              local:ControlAttach.CornerRadius="{StaticResource DefaultBottomCornerRadius}">
       <Expander.Header>
         <TextBlock Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Left">
           <TextBlock.ToolTip>
@@ -177,14 +177,14 @@
   <Style x:Key="PropertyGroupItemBaseStyle" TargetType="GroupItem">
     <Setter Property="Margin" Value="0,0,0,2"/>
     <Setter Property="Padding" Value="0"/>
-    <Setter Property="local:LayoutAttach.Padding" Value="5"/>
+    <Setter Property="local:ControlAttach.Padding" Value="5"/>
     <Setter Property="Background" Value="{StaticResource RegionLight1Brush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="GroupItem">
           <Expander Header="{Binding Name}" IsExpanded="True"
                     Padding="{TemplateBinding Padding}"
-                    local:LayoutAttach.Padding="{TemplateBinding local:LayoutAttach.Padding}"
+                    local:ControlAttach.Padding="{TemplateBinding local:ControlAttach.Padding}"
                     Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}">
             <ItemsPresenter/>
           </Expander>
