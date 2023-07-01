@@ -1,8 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using SkiaSharp;
-
-namespace Leisn.Xaml.Wpf.Extensions
+namespace SkiaSharp
 {
     public static class SkiaEx
     {
