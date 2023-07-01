@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls"
                     xmlns:internals="clr-namespace:Leisn.Xaml.Wpf.Internals">
+
   <Style x:Key="DatePickerTextBoxBaseStyle" TargetType="{x:Type DatePickerTextBox}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
     <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
@@ -50,7 +51,6 @@
       </Setter.Value>
     </Setter>
   </Style>
-
   <Style x:Key="DatePickerBaseStyle" TargetType="{x:Type DatePicker}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="IsTodayHighlighted" Value="True"/>
@@ -138,4 +138,75 @@
     </Setter>
   </Style>
   <Style TargetType="DatePicker" BasedOn="{StaticResource DatePickerBaseStyle}"/>
+
+  <Style x:Key="TimePickerBaseStyle" TargetType="local:TimePicker" BasedOn="{StaticResource BaseInputStyle}">
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:TimePicker">
+          <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"
+                  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
+            <Grid>
+              <ToggleButton x:Name="toggle" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0" IsChecked="False">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                  </Grid.ColumnDefinitions>
+                  <Border x:Name="InnerBorder" Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding Foreground}"/>
+                  <TextBlock HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                           Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hour,Mode=OneWay,StringFormat={}{0:D2}}"/>
+                  <TextBlock Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                           Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Minute,Mode=OneWay,StringFormat={}{0:D2}}"/>
+                  <TextBlock x:Name="SecondBlock" Grid.Column="2" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                           Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Second,Mode=OneWay,StringFormat={}{0:D2}}"/>
+                </Grid>
+              </ToggleButton>
+              <Popup x:Name="PART_Popup" AllowsTransparency="true"
+                   Placement="Center" PopupAnimation="{StaticResource {x:Static SystemParameters.ToolTipPopupAnimationKey}}"
+                   IsOpen="{Binding ElementName=toggle,Path=IsChecked, Mode=TwoWay}" StaysOpen="False">
+                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}"
+                      MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="300" MinHeight="100"
+                      Background="{TemplateBinding Background}"
+                      BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                      CornerRadius="{StaticResource DefaultCornerRadius}">
+                  <Grid>
+                    <Grid.RowDefinitions>
+                      <RowDefinition Height="*"/>
+                      <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                      <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Grid.Column="0"/>
+                    <ListBox Grid.Column="1"/>
+                    <ListBox Grid.Column="2"/>
+
+                    <UniformGrid Grid.Row="1" Grid.ColumnSpan="5" Rows="1">
+                      <Button Focusable="False" Content="√" local:ControlAttach.CornerRadius="0,0,0,3"/>
+                      <Button Focusable="False" Content="×" local:ControlAttach.CornerRadius="0,0,3,0"/>
+                    </UniformGrid>
+                  </Grid>
+                </Border>
+              </Popup>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="ShowSecond" Value="False">
+              <Setter Property="Visibility" Value="Collapsed" TargetName="SecondBlock" />
+              <Setter Property="BorderThickness" Value="1,0,0,0" TargetName="InnerBorder" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="local:TimePicker" BasedOn="{StaticResource TimePickerBaseStyle}"/>
 </ResourceDictionary>

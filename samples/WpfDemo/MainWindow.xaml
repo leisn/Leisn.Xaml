@@ -29,7 +29,7 @@
       </ComboBox>
       <Button Content="{ln:Lang Ask}"  HorizontalAlignment="Center" Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
       <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
-      <Button Content="切换主题" Click="ThemeButton_Click"/>
+      <ln:TimePicker  />
       <DatePicker/>
     </ln:StackPanel>
     <ln:PropertyGrid Grid.Column="2" x:Name="perpertyGrid"/>
