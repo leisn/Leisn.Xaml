@@ -12,4 +12,5 @@
   <converters:StringCompareVisibiltyConverter x:Key="StringCompareVisibiltyConverter"/>
   <converters:ColorHexStringConverter x:Key="ColorHexStringConverter"/>
   <converters:ColorSolidBurshConverter x:Key="ColorSolidBurshConverter"/>
+  <converters:MutexVisilityConverter x:Key="MutexVisilityConverter"/>
 </ResourceDictionary>

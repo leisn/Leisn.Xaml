@@ -23,14 +23,11 @@
                           VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
                           HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
               <Border x:Name="clearButton" HorizontalAlignment="Right" Background="Transparent" Padding="3,0" Visibility="Collapsed">
-                <Button Width="18" MinHeight="18" Padding="0" local:ControlAttach.CornerRadius="9"
+                <Button Width="18" MinHeight="18" Padding="4" local:ControlAttach.CornerRadius="9"
                         CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}"
                         Command="{x:Static internals:InternalCommands.ClearTextboxCommand}"
                       VerticalAlignment="Center"  Focusable="False">
-                  <Canvas Width="12" Height="12">
-                    <Line X1="2" Y1="2" X2="10" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1"/>
-                    <Line X1="10" Y1="2" X2="2" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1"/>
-                  </Canvas>
+                  <Path  Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform"/>
                 </Button>
               </Border>
               <TextBlock IsHitTestVisible="False" Visibility="Collapsed" x:Name="placeholder" Opacity=".56" Text="{TemplateBinding local:ControlAttach.Placeholder}" Margin="{TemplateBinding Padding}"/>

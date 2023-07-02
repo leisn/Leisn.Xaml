@@ -35,12 +35,13 @@
           <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
             <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" VerticalOffset="-1"
                    Placement="Top" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
-                   IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
+                   IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
               <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}"
                       MinWidth="{Binding ActualWidth, ElementName=templateRoot}"
-                      Background="{TemplateBinding Background}"
+                      Background="{TemplateBinding Background}" Margin="2"
                       BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                      CornerRadius="{StaticResource DefaultCornerRadius}">
+                      CornerRadius="{StaticResource DefaultCornerRadius}"
+                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                 <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                   <local:ColorPicker Style="{StaticResource ColorPickerBaseStyle}" x:Name="PART_ColorPicker"
                                        KeyboardNavigation.DirectionalNavigation="Contained"/>
@@ -119,7 +120,7 @@
     <Expander Margin="{TemplateBinding Padding}" IsExpanded="True"
               BorderBrush="{TemplateBinding BorderBrush}"
               BorderThickness="{TemplateBinding BorderThickness}"
-              local:ControlAttach.Padding="25,3,10,5"
+              local:ControlAttach.Padding="22,3,10,5"
               local:ControlAttach.CornerRadius="{StaticResource DefaultBottomCornerRadius}">
       <Expander.Header>
         <TextBlock Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Left">

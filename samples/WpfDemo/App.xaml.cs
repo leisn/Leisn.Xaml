@@ -19,6 +19,7 @@ using Leisn.Xaml.Wpf.Controls;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Leisn.Xaml.Wpf.Input;
+using System.Windows.Controls.Primitives;
 
 namespace WpfDemo
 {
@@ -29,15 +30,6 @@ namespace WpfDemo
     {
         public App()
         {
-            // Process process = new();
-            // process.StartInfo.UseShellExecute = false;
-            // process.StartInfo.FileName = "cmd";
-            // process.StartInfo.Arguments = @"/C ""more""";
-            // process.StartInfo.RedirectStandardInput = true;
-            // process.Start();
-            // Console.SetOut(process.StandardInput);
-            // Console.SetError(process.StandardInput);
-
             Console.WriteLine("Lang init...");
             Lang.Initialize(Thread.CurrentThread.CurrentCulture.Name);
 

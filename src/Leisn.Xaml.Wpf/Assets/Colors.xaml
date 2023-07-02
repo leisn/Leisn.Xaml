@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <Color x:Key="BorderColor">#404040</Color>
-  <Color x:Key="BorderLightColor">#979899</Color>
+  <Color x:Key="BorderColor">#987987</Color>
+  <Color x:Key="BorderLightColor">#A0A0A0</Color>
+  <Color x:Key="BorderDarkColor">#404040</Color>
 
   <Color x:Key="TextColor">#E0E0E0</Color>
   <Color x:Key="TextLightColor">#F0F0F0</Color>

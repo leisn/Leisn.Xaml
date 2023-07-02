@@ -1,7 +1,8 @@
 ﻿<!--This file is auto-generated, any changes of this file will lost after regenerated.-->
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" xmlns:converters="clr-namespace:Leisn.Xaml.Wpf.Converters" xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls" xmlns:internals="clr-namespace:Leisn.Xaml.Wpf.Internals" xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:lang="clr-namespace:Leisn.Xaml.Wpf.Locales" xmlns:editor="clr-namespace:Leisn.Xaml.Wpf.Controls.Editors">
-  <Color x:Key="BorderColor">#404040</Color>
-  <Color x:Key="BorderLightColor">#979899</Color>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" xmlns:converters="clr-namespace:Leisn.Xaml.Wpf.Converters" xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls" xmlns:internals="clr-namespace:Leisn.Xaml.Wpf.Internals" xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:linq="clr-namespace:System.Linq;assembly=System.Core" xmlns:lang="clr-namespace:Leisn.Xaml.Wpf.Locales" xmlns:editor="clr-namespace:Leisn.Xaml.Wpf.Controls.Editors">
+  <Color x:Key="BorderColor">#987987</Color>
+  <Color x:Key="BorderLightColor">#A0A0A0</Color>
+  <Color x:Key="BorderDarkColor">#404040</Color>
   <Color x:Key="TextColor">#E0E0E0</Color>
   <Color x:Key="TextLightColor">#F0F0F0</Color>
   <Color x:Key="TextDarkColor">#B3B4B5</Color>
@@ -85,6 +86,9 @@
   <PathGeometry x:Key="UpGeometry" o:Freeze="True" Figures="M50.000001,0 L100,51.262779 94.262627,57.141584 50.000001,11.767713 5.7373757,57.151686 0,51.27288 z" />
   <PathGeometry x:Key="EyedropperGeometry" o:Freeze="True" Figures="M 803.328 104.619 c 17.5787 0 34.432 6.99733 46.848 19.456 l 40.6613 40.6187 c 25.8987 25.8987 25.9413 67.8827 0.085334 93.824 L 796.501 352.853 l 15.4453 15.4453 l 3.584 4.01067 a 42.624 42.624 0 0 1 -3.584 56.32 l -29.9093 29.8667 a 42.6667 42.6667 0 0 1 -60.288 0.085333 l -0.981333 -0.981333 l -372.395 370.688 c -14.848 14.9333 -34.1333 24.4907 -54.912 27.3067 l -7.808 0.725333 l -15.2747 15.1893 A 82.688 82.688 0 0 1 211.413 896 a 83.4987 83.4987 0 0 1 -63.872 -137.216 l 4.864 -5.29067 l 15.1893 -15.1467 c 1.152 -21.0347 9.17333 -41.0027 22.6987 -56.96 l 5.33333 -5.80267 l 372.48 -370.773 l -4.224 -4.18133 l -7.38133 -7.38133 l -3.584 -4.05333 a 42.6667 42.6667 0 0 1 3.54133 -56.32 l 29.8667 -29.8667 a 42.6667 42.6667 0 0 1 60.3307 0 l 15.4027 15.4453 l 94.3787 -94.3787 a 66.176 66.176 0 0 1 46.8907 -19.456 Z m -205.099 230.4 L 225.792 705.707 c -7.97867 8.02133 -13.2267 18.304 -15.0187 29.3547 l -0.597333 5.58933 l -0.896 16.2987 l -26.6667 26.6667 a 40.832 40.832 0 0 0 53.5893 61.2693 l 4.05333 -3.584 l 26.8373 -26.7947 l 16.3413 -0.853334 c 11.2213 -0.597333 21.888 -4.69333 30.6347 -11.8613 l 4.224 -3.79733 l 372.267 -370.603 l -92.3307 -92.4587 Z" />
   <PathGeometry x:Key="CalendarGeometry" o:Freeze="True" Figures="M 5.1,0.792 H 4.07 V 0.203 C 4.02,-0.067 3.55,-0.067 3.5,0.203 V 0.792 H 1.8 V 0.203 C 1.75,-0.067 1.28,-0.067 1.23,0.203 V 0.792 H 0.3 C 0.14,0.763 0,0.892 0,1.05 V 4.86 C 0,5.02 0.14,5.15 0.3,5.12 H 5.1 C 5.22,5.09 5.3,4.98 5.3,4.86 V 1.05 C 5.31,0.933 5.22,0.823 5.1,0.792 Z M 0.57,1.3 H 4.73 V 1.8 H 0.57 Z M 2.43,4.62 H 0.9 V 4.19 H 1.47 V 2.86 L 1.03,3 V 2.66 C 1.28,2.59 1.47,2.43 1.59,2.33 H 1.97 V 4.19 H 2.43 Z M 4.3,4.62 H 2.81 V 4.31 C 3.41,3.78 3.71,3.36 3.71,3.03 3.71,2.83 3.56,2.71 3.41,2.71 3.27,2.71 3.04,2.84 2.99,2.99 L 2.81,2.62 C 2.97,2.41 3.16,2.28 3.56,2.28 4.01,2.28 4.3,2.56 4.3,3 4.3,3.41 3.86,3.85 3.56,4.19 3.71,4.18 3.87,4.16 4.01,4.16 H 4.3 Z" />
+  <PathGeometry x:Key="TickGeometry" o:Freeze="True" Figures="M392.533333 806.4L85.333333 503.466667l59.733334-59.733334 247.466666 247.466667L866.133333 213.333333l59.733334 59.733334L392.533333 806.4z" />
+  <PathGeometry x:Key="CloseGeometry" o:Freeze="True" Figures="M844.8 241.066667l-61.866667-61.866667L512 452.266667 241.066667 179.2l-61.866667 61.866667L452.266667 512 179.2 782.933333l61.866667 61.866667L512 571.733333l270.933333 273.066667 61.866667-61.866667L571.733333 512z" FillRule="Nonzero" />
+  <PathGeometry x:Key="RoundTriangleGeometry" o:Freeze="True" Figures="M912.724884 429.355681L208.797545 13.198638C151.603449-20.597874 64.01249 12.198741 64.01249 95.790112V927.904219c0 74.992259 81.391599 120.187594 144.785055 82.591475l703.927339-415.957064c62.793518-36.996181 62.993498-128.186768 0-165.182949z" />
   <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}" />
   <SolidColorBrush x:Key="BorderLightBrush" Color="{DynamicResource BorderLightColor}" />
   <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}" />
@@ -176,6 +180,7 @@
   <converters:StringCompareVisibiltyConverter x:Key="StringCompareVisibiltyConverter" />
   <converters:ColorHexStringConverter x:Key="ColorHexStringConverter" />
   <converters:ColorSolidBurshConverter x:Key="ColorSolidBurshConverter" />
+  <converters:MutexVisilityConverter x:Key="MutexVisilityConverter" />
   <Style x:Key="FocusVisual">
     <Setter Property="Control.Template">
       <Setter.Value>
@@ -788,11 +793,8 @@
             <Grid>
               <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
               <Border x:Name="clearButton" HorizontalAlignment="Right" Background="Transparent" Padding="3,0" Visibility="Collapsed">
-                <Button Width="18" MinHeight="18" Padding="0" local:ControlAttach.CornerRadius="9" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearTextboxCommand}" VerticalAlignment="Center" Focusable="False">
-                  <Canvas Width="12" Height="12">
-                    <Line X1="2" Y1="2" X2="10" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1" />
-                    <Line X1="10" Y1="2" X2="2" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1" />
-                  </Canvas>
+                <Button Width="18" MinHeight="18" Padding="4" local:ControlAttach.CornerRadius="9" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearTextboxCommand}" VerticalAlignment="Center" Focusable="False">
+                  <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
                 </Button>
               </Border>
               <TextBlock IsHitTestVisible="False" Visibility="Collapsed" x:Name="placeholder" Opacity=".56" Text="{TemplateBinding local:ControlAttach.Placeholder}" Margin="{TemplateBinding Padding}" />
@@ -1021,6 +1023,84 @@
     </Style.Triggers>
   </Style>
   <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxBaseStyle}" />
+  <SolidColorBrush x:Key="Item.MouseOver.Background" Color="{DynamicResource ControlLight2Color}" />
+  <SolidColorBrush x:Key="Item.MouseOver.Border" Color="{DynamicResource BorderColor}" />
+  <SolidColorBrush x:Key="Item.Selected.Background" Color="{DynamicResource PrimaryColor}" />
+  <SolidColorBrush x:Key="Item.Selected.Border" Color="{DynamicResource PrimaryLightColor}" />
+  <Style x:Key="ListBoxItemBaseStyle" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource BaseControlStyle}">
+    <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Setter Property="Padding" Value="4,1" />
+    <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+    <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+          <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}" />
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.Selected.Background}" />
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.Selected.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource TextDarkBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle}" />
+  <SolidColorBrush x:Key="ListBox.Static.Background" Color="{DynamicResource RegionColor}" />
+  <SolidColorBrush x:Key="ListBox.Static.Border" Color="{DynamicResource BorderColor}" />
+  <SolidColorBrush x:Key="ListBox.Disabled.Background" Color="{DynamicResource RegionLight2Color}" />
+  <SolidColorBrush x:Key="ListBox.Disabled.Border" Color="{DynamicResource BorderDarkColor}" />
+  <Style x:Key="ListBoxBaseStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource BaseControlStyle}">
+    <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+    <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+    <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ListBox}">
+          <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" SnapsToDevicePixels="true">
+            <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
+              <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+            </ScrollViewer>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Background" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Background}" />
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Border}" />
+            </Trigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsGrouping" Value="true" />
+                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false" />
+              </MultiTrigger.Conditions>
+              <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+            </MultiTrigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="ListBox" BasedOn="{StaticResource ListBoxBaseStyle}" />
   <Style x:Key="CalendarButtonBaseStyle" TargetType="{x:Type CalendarButton}" BasedOn="{StaticResource ButtonBaseStyle}">
     <Setter Property="Background" Value="{StaticResource RegionBrush}" />
     <Setter Property="MinWidth" Value="50" />
@@ -1235,7 +1315,7 @@
         <ControlTemplate TargetType="{x:Type CalendarItem}">
           <ControlTemplate.Resources>
             <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
-              <TextBlock Foreground="{StaticResource TextBrush}" FontFamily="Verdana" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,6,0,6" Text="{Binding}" VerticalAlignment="Center" />
+              <TextBlock Foreground="{StaticResource TextDarkBrush}" FontFamily="Verdana" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,6,0,6" Text="{Binding}" VerticalAlignment="Center" />
             </DataTemplate>
           </ControlTemplate.Resources>
           <Grid x:Name="PART_Root">
@@ -1263,16 +1343,16 @@
                 <Button x:Name="PART_HeaderButton" Background="Transparent" Grid.Column="0" Focusable="False" FontFamily="Verdana" FontWeight="Bold" HorizontalAlignment="Stretch" Grid.Row="0" Cursor="Hand" VerticalAlignment="Center" HorizontalContentAlignment="Left" Margin="5,5,0,0" />
                 <Button x:Name="PART_PreviousButton" Grid.Column="1" Focusable="False" Margin="5,5,0,0" Height="30" Grid.Row="0" Width="30" Background="Transparent">
                   <Grid>
-                    <Path Data="M288.75,232.25 L288.75,240.625 L283,236.625 z" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                    <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
                       <Path.RenderTransform>
-                        <RotateTransform Angle="90" />
+                        <RotateTransform Angle="-90" />
                       </Path.RenderTransform>
                     </Path>
                   </Grid>
                 </Button>
                 <Button x:Name="PART_NextButton" Grid.Column="2" Focusable="False" Margin="0,5,5,0" Height="30" Grid.Row="0" Width="30" Background="Transparent">
                   <Grid>
-                    <Path Data="M282.875,231.875 L282.875,240.375 L288.625,236 z" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                    <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
                       <Path.RenderTransform>
                         <RotateTransform Angle="90" />
                       </Path.RenderTransform>
@@ -1423,29 +1503,25 @@
                 </VisualState>
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
-            <Grid x:Name="PART_Root" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+            <Grid x:Name="PART_Root" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
               <Button x:Name="PART_Button" HorizontalContentAlignment="Stretch" Padding="0">
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="24" />
                   </Grid.ColumnDefinitions>
-                  <Path Grid.Column="1" Height="16" HorizontalAlignment="Center" Stretch="Uniform" Fill="{TemplateBinding Foreground}" Data="{StaticResource CalendarGeometry}" />
-                  <DatePickerTextBox x:Name="PART_TextBox" Style="{StaticResource DatePickerTextBoxBaseStyle}" IsEnabled="False" Grid.Column="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" VerticalAlignment="Stretch" />
+                  <Path Grid.Column="1" Height="16" HorizontalAlignment="Center" Stretch="Uniform" Fill="{TemplateBinding Foreground}" Data="{StaticResource CalendarGeometry}" Visibility="{Binding ElementName=clearButton,Path=Visibility,Converter={StaticResource MutexVisilityConverter}}" />
+                  <DatePickerTextBox x:Name="PART_TextBox" Style="{StaticResource DatePickerTextBoxBaseStyle}" IsEnabled="False" Grid.Column="0" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="Center" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
                 </Grid>
               </Button>
-              <Grid x:Name="clearGrid">
+              <Grid>
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="*" />
-                  <ColumnDefinition Width="28" />
                   <ColumnDefinition Width="24" />
                 </Grid.ColumnDefinitions>
-                <Border Grid.Column="1" Background="Transparent">
-                  <Button Width="20" MinHeight="20" Padding="0" local:ControlAttach.CornerRadius="10" VerticalAlignment="Center" Background="{DynamicResource ControlLight2Brush}" Focusable="False" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearDatePickerCommand}">
-                    <Canvas Width="12" Height="12">
-                      <Line X1="2" Y1="2" X2="10" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1" />
-                      <Line X1="10" Y1="2" X2="2" Y2="10" Stroke="{TemplateBinding Foreground}" StrokeThickness="1" />
-                    </Canvas>
+                <Border x:Name="clearButton" Grid.Column="1" Background="Transparent">
+                  <Button Width="18" MinHeight="18" local:ControlAttach.CornerRadius="9" VerticalAlignment="Center" Padding="4" Background="{DynamicResource ControlLight2Brush}" Focusable="False" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearDatePickerCommand}">
+                    <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
                   </Button>
                 </Border>
               </Grid>
@@ -1454,7 +1530,7 @@
                   <ColumnDefinition Width="*" />
                   <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="False" />
+                <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="True" />
               </Grid>
             </Grid>
           </Border>
@@ -1463,14 +1539,15 @@
               <Setter Property="Foreground" TargetName="PART_TextBox" Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
             </DataTrigger>
             <Trigger Property="SelectedDate" Value="{x:Null}">
-              <Setter Property="Visibility" Value="Hidden" TargetName="clearGrid" />
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearButton" />
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearButton" />
             </Trigger>
             <Trigger Property="local:ControlAttach.ShowClear" Value="False">
-              <Setter Property="Visibility" Value="Hidden" TargetName="clearGrid" />
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearButton" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="Opacity" Value=".56" />
-              <Setter Property="Visibility" Value="Hidden" TargetName="clearGrid" />
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearButton" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -1478,9 +1555,26 @@
     </Setter>
   </Style>
   <Style TargetType="DatePicker" BasedOn="{StaticResource DatePickerBaseStyle}" />
+  <ObjectDataProvider x:Key="Hours" ObjectType="{x:Type linq:Enumerable}" MethodName="Range">
+    <ObjectDataProvider.MethodParameters>
+      <sys:Int32>0</sys:Int32>
+      <sys:Int32>24</sys:Int32>
+    </ObjectDataProvider.MethodParameters>
+  </ObjectDataProvider>
+  <ObjectDataProvider x:Key="Minues" ObjectType="{x:Type linq:Enumerable}" MethodName="Range">
+    <ObjectDataProvider.MethodParameters>
+      <sys:Int32>0</sys:Int32>
+      <sys:Int32>60</sys:Int32>
+    </ObjectDataProvider.MethodParameters>
+  </ObjectDataProvider>
+  <Style x:Key="TimePickerListBoxItemStyle" TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle}">
+    <Setter Property="Padding" Value="0,5" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+  </Style>
   <Style x:Key="TimePickerBaseStyle" TargetType="local:TimePicker" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="HorizontalContentAlignment" Value="Center" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="BorderBrush" Value="{StaticResource TextDarkBrush}" />
     <Setter Property="Padding" Value="0" />
     <Setter Property="Template">
       <Setter.Value>
@@ -1494,14 +1588,14 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                   </Grid.ColumnDefinitions>
-                  <Border x:Name="InnerBorder" Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding Foreground}" />
+                  <Border x:Name="InnerBorder" Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}" />
                   <TextBlock HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hour,Mode=OneWay,StringFormat={}{0:D2}}" />
                   <TextBlock Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Minute,Mode=OneWay,StringFormat={}{0:D2}}" />
                   <TextBlock x:Name="SecondBlock" Grid.Column="2" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Second,Mode=OneWay,StringFormat={}{0:D2}}" />
                 </Grid>
               </ToggleButton>
               <Popup x:Name="PART_Popup" AllowsTransparency="true" Placement="Center" PopupAnimation="{StaticResource {x:Static SystemParameters.ToolTipPopupAnimationKey}}" IsOpen="{Binding ElementName=toggle,Path=IsChecked, Mode=TwoWay}" StaysOpen="False">
-                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="300" MinHeight="100" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource DefaultCornerRadius}">
+                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="300" Margin="1" Background="{DynamicResource RegionBrush}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource DefaultCornerRadius}">
                   <Grid>
                     <Grid.RowDefinitions>
                       <RowDefinition Height="*" />
@@ -1512,13 +1606,19 @@
                       <ColumnDefinition />
                       <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <ListBox Grid.Column="0" />
-                    <ListBox Grid.Column="1" />
-                    <ListBox Grid.Column="2" />
-                    <UniformGrid Grid.Row="1" Grid.ColumnSpan="5" Rows="1">
-                      <Button Focusable="False" Content="√" local:ControlAttach.CornerRadius="0,0,0,3" />
-                      <Button Focusable="False" Content="×" local:ControlAttach.CornerRadius="0,0,3,0" />
-                    </UniformGrid>
+                    <ListBox Grid.Column="0" BorderThickness="0" ItemsSource="{Binding Source={StaticResource Hours}}" ItemContainerStyle="{StaticResource TimePickerListBoxItemStyle}" />
+                    <ListBox Grid.Column="1" BorderThickness="1,0" local:ControlAttach.CornerRadius="0" ItemsSource="{Binding Source={StaticResource Minues}}" ItemContainerStyle="{StaticResource TimePickerListBoxItemStyle}" />
+                    <ListBox Grid.Column="2" BorderThickness="0" ItemsSource="{Binding Source={StaticResource Minues}}" ItemContainerStyle="{StaticResource TimePickerListBoxItemStyle}" />
+                    <Border Grid.Row="1" Grid.ColumnSpan="5" BorderThickness="0,1,0,0" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
+                      <UniformGrid Rows="1">
+                        <Button Focusable="False" Background="Transparent" local:ControlAttach.CornerRadius="0,0,0,3" Padding="0,8">
+                          <Path Data="{StaticResource TickGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Height="{TemplateBinding FontSize}" />
+                        </Button>
+                        <Button Focusable="False" Background="Transparent" local:ControlAttach.CornerRadius="0,0,3,0" Padding="0,8">
+                          <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Height="{TemplateBinding FontSize}" />
+                        </Button>
+                      </UniformGrid>
+                    </Border>
                   </Grid>
                 </Border>
               </Popup>
@@ -1845,8 +1945,8 @@
       <Setter.Value>
         <ControlTemplate TargetType="editor:ColorPickerEditor">
           <Grid x:Name="templateRoot" SnapsToDevicePixels="True">
-            <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" VerticalOffset="-1" Placement="Top" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}">
-              <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" MinWidth="{Binding ActualWidth, ElementName=templateRoot}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource DefaultCornerRadius}">
+            <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" VerticalOffset="-1" Placement="Top" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+              <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" MinWidth="{Binding ActualWidth, ElementName=templateRoot}" Background="{TemplateBinding Background}" Margin="2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource DefaultCornerRadius}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                 <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                   <local:ColorPicker Style="{StaticResource ColorPickerBaseStyle}" x:Name="PART_ColorPicker" KeyboardNavigation.DirectionalNavigation="Contained" />
                 </Grid>
@@ -1906,7 +2006,7 @@
     </Border>
   </ControlTemplate>
   <ControlTemplate x:Key="PropertyItemExpanderTemplate" TargetType="local:PropertyItem">
-    <Expander Margin="{TemplateBinding Padding}" IsExpanded="True" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" local:ControlAttach.Padding="25,3,10,5" local:ControlAttach.CornerRadius="{StaticResource DefaultBottomCornerRadius}">
+    <Expander Margin="{TemplateBinding Padding}" IsExpanded="True" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" local:ControlAttach.Padding="22,3,10,5" local:ControlAttach.CornerRadius="{StaticResource DefaultBottomCornerRadius}">
       <Expander.Header>
         <TextBlock Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Left">
           <TextBlock.ToolTip>

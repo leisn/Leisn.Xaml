@@ -22,6 +22,7 @@ Styles/Expander.xaml
 Styles/Button.xaml
 Styles/TextBox.xaml
 Styles/ComboBox.xaml
+Styles/ListBox.xaml
 Styles/Calendar.xaml
 Styles/DatePicker.xaml
 
