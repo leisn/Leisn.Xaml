@@ -221,14 +221,16 @@
     <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
   </Style>
   <Style x:Key="FontIconBaseStyle" TargetType="local:FontIcon">
-    <Setter Property="local:ControlAttach.CornerRadius" Value="0" />
+    <Setter Property="CornerRadius" Value="0" />
     <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
     <Setter Property="FontSize" Value="{StaticResource FontSize140}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:FontIcon">
-          <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" Padding="{TemplateBinding Padding}">
-            <TextBlock FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" Foreground="{TemplateBinding Foreground}" Text="{TemplateBinding Glyph}" TextAlignment="Center" />
+          <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="{TemplateBinding CornerRadius}" Padding="{TemplateBinding Padding}">
+            <TextBlock FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" Foreground="{TemplateBinding Foreground}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Text="{TemplateBinding Glyph}" />
           </Border>
         </ControlTemplate>
       </Setter.Value>

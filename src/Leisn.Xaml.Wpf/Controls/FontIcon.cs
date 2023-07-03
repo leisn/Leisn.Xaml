@@ -24,5 +24,12 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty GlyphProperty =
             DependencyProperty.Register("Glyph", typeof(string), typeof(FontIcon), new PropertyMetadata(string.Empty));
+
+        public CornerRadius CornerRadius
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+        public static readonly DependencyProperty CornerRadiusProperty = Border.CornerRadiusProperty.AddOwner(typeof(FontIcon));
     }
 }
