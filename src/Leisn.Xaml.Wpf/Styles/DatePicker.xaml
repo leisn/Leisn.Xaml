@@ -86,8 +86,10 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="24"/>
                   </Grid.ColumnDefinitions>
-                  <Path Grid.Column="1" Height="16" HorizontalAlignment="Center" Stretch="Uniform"
-                        Fill="{TemplateBinding Foreground}" Data="{StaticResource CalendarGeometry}" Visibility="{Binding ElementName=clearButton,Path=Visibility,Converter={StaticResource MutexVisilityConverter}}"/>
+                  <local:FontIcon Grid.Column="1"
+                                  FontFamily="{StaticResource SymbolFontFamily}" Glyph="&#xE787;" 
+                                  Foreground="{TemplateBinding Foreground}"
+                                  Visibility="{Binding ElementName=clearButton,Path=Visibility,Converter={StaticResource MutexVisilityConverter}}"/>
                   <DatePickerTextBox x:Name="PART_TextBox" Style="{StaticResource DatePickerTextBoxBaseStyle}"
                                  IsEnabled="False" Grid.Column="0" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                  VerticalContentAlignment="Center" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -188,7 +190,7 @@
                    Placement="Center" PopupAnimation="{StaticResource {x:Static SystemParameters.ToolTipPopupAnimationKey}}"
                    IsOpen="{Binding ElementName=toggle,Path=IsChecked, Mode=TwoWay}" StaysOpen="False">
                 <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}"
-                      MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="300" Margin="1"
+                      MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="{DynamicResource TimePickerPopupMaxHeight}" Margin="1"
                       Background="{DynamicResource RegionBrush}"
                       BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                       CornerRadius="{StaticResource DefaultCornerRadius}">

@@ -31,6 +31,7 @@
       <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
       <ln:TimePicker  />
       <DatePicker/>
+      <ln:FontIcon FontFamily="{StaticResource FluentIconFontFamily}" Glyph="&#xE082;" Foreground="Orange"/>
     </ln:StackPanel>
     <ln:PropertyGrid Grid.Column="2" x:Name="perpertyGrid"/>
   </Grid>

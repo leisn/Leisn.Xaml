@@ -1,8 +1,35 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
   <Style TargetType="TextBlock">
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="VerticalAlignment" Value="Center"/>
     <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
   </Style>
+
+  <Style x:Key="FontIconBaseStyle" TargetType="local:FontIcon">
+    <Setter Property="local:ControlAttach.CornerRadius" Value="0"/>
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+    <Setter Property="FontSize" Value="{StaticResource FontSize140}"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:FontIcon">
+          <Border Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
+                  Padding="{TemplateBinding Padding}">
+            <TextBlock FontFamily="{TemplateBinding FontFamily}"
+                       FontSize="{TemplateBinding FontSize}"
+                       FontStretch="{TemplateBinding FontStretch}"
+                       FontStyle="{TemplateBinding FontStyle}"
+                       FontWeight="{TemplateBinding FontWeight}"
+                       Foreground="{TemplateBinding Foreground}"
+                       Text="{TemplateBinding Glyph}" TextAlignment="Center"/>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="local:FontIcon" BasedOn="{StaticResource FontIconBaseStyle}"/>
 </ResourceDictionary>
