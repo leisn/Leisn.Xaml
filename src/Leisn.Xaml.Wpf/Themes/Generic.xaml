@@ -1197,16 +1197,17 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type CalendarDayButton}">
-          <Grid>
+          <Grid x:Name="root">
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup x:Name="CommonStates">
                 <VisualStateGroup.Transitions>
-                  <VisualTransition GeneratedDuration="0:0:0.1" />
+                  <VisualTransition GeneratedDuration="0" />
                 </VisualStateGroup.Transitions>
                 <VisualState x:Name="Normal" />
                 <VisualState x:Name="MouseOver">
                   <Storyboard>
                     <DoubleAnimation Duration="0" Storyboard.TargetName="HighlightBackground" To="0.5" Storyboard.TargetProperty="Opacity" />
+                    <DoubleAnimation Duration="0" Storyboard.TargetName="root" To="1" Storyboard.TargetProperty="Opacity" />
                   </Storyboard>
                 </VisualState>
                 <VisualState x:Name="Pressed">
@@ -1266,7 +1267,7 @@
                 <VisualState x:Name="Active" />
                 <VisualState x:Name="Inactive">
                   <Storyboard>
-                    <ColorAnimation Duration="0" Storyboard.TargetName="NormalText" To="{StaticResource TextDarkColor}" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" />
+                    <DoubleAnimation Duration="0" Storyboard.TargetName="root" To="0.56" Storyboard.TargetProperty="Opacity" />
                   </Storyboard>
                 </VisualState>
               </VisualStateGroup>

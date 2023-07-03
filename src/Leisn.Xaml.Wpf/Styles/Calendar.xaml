@@ -101,16 +101,17 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type CalendarDayButton}">
-          <Grid>
+          <Grid x:Name="root">
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup x:Name="CommonStates">
                 <VisualStateGroup.Transitions>
-                  <VisualTransition GeneratedDuration="0:0:0.1"/>
+                  <VisualTransition GeneratedDuration="0"/>
                 </VisualStateGroup.Transitions>
                 <VisualState x:Name="Normal"/>
                 <VisualState x:Name="MouseOver">
                   <Storyboard>
                     <DoubleAnimation Duration="0" Storyboard.TargetName="HighlightBackground" To="0.5" Storyboard.TargetProperty="Opacity"/>
+                    <DoubleAnimation Duration="0" Storyboard.TargetName="root" To="1" Storyboard.TargetProperty="Opacity"/>
                   </Storyboard>
                 </VisualState>
                 <VisualState x:Name="Pressed">
@@ -170,7 +171,8 @@
                 <VisualState x:Name="Active"/>
                 <VisualState x:Name="Inactive">
                   <Storyboard>
-                    <ColorAnimation Duration="0" Storyboard.TargetName="NormalText" To="{StaticResource TextDarkColor}" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"/>
+                    <!--<ColorAnimation Duration="0" Storyboard.TargetName="NormalText" To="{StaticResource TextDarkColor}" Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"/>-->
+                    <DoubleAnimation Duration="0" Storyboard.TargetName="root" To="0.56" Storyboard.TargetProperty="Opacity"/>
                   </Storyboard>
                 </VisualState>
               </VisualStateGroup>
@@ -208,6 +210,14 @@
                   Fill="{TemplateBinding Foreground}" HorizontalAlignment="Stretch" Opacity="0" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Stretch"/>
             <Ellipse x:Name="DayButtonFocusVisual" IsHitTestVisible="false" Stretch="Uniform" Stroke="{StaticResource BorderLightBrush}" Visibility="Collapsed"/>
           </Grid>
+          <!--<ControlTemplate.Triggers>
+            <Trigger Property="IsInactive" Value="True">
+              <Setter Property="Opacity" Value=".56" TargetName="root" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Opacity" Value="1" TargetName="root"/>
+            </Trigger>
+          </ControlTemplate.Triggers>-->
         </ControlTemplate>
       </Setter.Value>
     </Setter>
