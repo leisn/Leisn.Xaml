@@ -1,5 +1,5 @@
 
-#Assets
+#assets
 Assets/Colors.xaml
 #Assets/ColorsLight.xaml
 Assets/Values.xaml
@@ -10,11 +10,11 @@ Assets/Images.xaml
 #conveters
 Converters/Converters.xaml
 
-#BaseStyle
+#base style
 Styles/___.xaml
+Styles/FontIcon.xaml
 
-#Override styles
-Styles/TextBlock.xaml
+#override styles
 Styles/ToolTip.xaml
 Styles/ScrollBar.xaml
 Styles/GroupBox.xaml
@@ -26,7 +26,7 @@ Styles/ListBox.xaml
 Styles/Calendar.xaml
 Styles/DatePicker.xaml
 
-#Custom conrol styles
+#custom control styles
 Styles/NumericBox.xaml
 Styles/RangeBox.xaml
 Styles/NumericUpDown.xaml

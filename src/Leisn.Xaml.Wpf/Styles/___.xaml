@@ -32,4 +32,9 @@
     <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}"/>
   </Style>
 
+  <Style TargetType="TextBlock">
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="VerticalAlignment" Value="Center"/>
+    <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
+  </Style>
 </ResourceDictionary>
