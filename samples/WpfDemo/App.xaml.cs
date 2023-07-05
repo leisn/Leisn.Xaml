@@ -38,7 +38,7 @@ namespace WpfDemo
             // process.Start();
             // Console.SetOut(process.StandardInput);
             // Console.SetError(process.StandardInput);
-            
+
             Console.WriteLine("Lang init...");
             Lang.Initialize(Thread.CurrentThread.CurrentCulture.Name);
 

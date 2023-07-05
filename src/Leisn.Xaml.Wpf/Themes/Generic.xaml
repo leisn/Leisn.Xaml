@@ -1,5 +1,5 @@
 ﻿<!--This file is auto-generated, any changes of this file will lost after regenerated.-->
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" xmlns:converters="clr-namespace:Leisn.Xaml.Wpf.Converters" xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls" xmlns:internals="clr-namespace:Leisn.Xaml.Wpf.Internals" xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:linq="clr-namespace:System.Linq;assembly=System.Core" xmlns:lang="clr-namespace:Leisn.Xaml.Wpf.Locales" xmlns:editor="clr-namespace:Leisn.Xaml.Wpf.Controls.Editors">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:o="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" xmlns:converters="clr-namespace:Leisn.Xaml.Wpf.Converters" xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls" xmlns:internals="clr-namespace:Leisn.Xaml.Wpf.Internals" xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2" xmlns:skia="clr-namespace:SkiaSharp.Views.WPF;assembly=SkiaSharp.Views.WPF" xmlns:lang="clr-namespace:Leisn.Xaml.Wpf.Locales" xmlns:editor="clr-namespace:Leisn.Xaml.Wpf.Controls.Editors">
   <Color x:Key="BorderColor">#987987</Color>
   <Color x:Key="BorderLightColor">#A0A0A0</Color>
   <Color x:Key="BorderDarkColor">#404040</Color>
@@ -71,7 +71,7 @@
   <sys:Double x:Key="ScrollBarWidth">8</sys:Double>
   <sys:Double x:Key="ExpenderArrowWidth">7</sys:Double>
   <Thickness x:Key="ComboBoxItemPadding">5,1</Thickness>
-  <sys:Double x:Key="TimePickerPopupMaxHeight">300</sys:Double>
+  <sys:Double x:Key="TimePickerPopupMaxHeight">398</sys:Double>
   <PathGeometry x:Key="SpannerGeometry" o:Freeze="True" Figures="M1024.999766 343.865677c0 190.125732-155.339321 344.665365-345.465053 343.865678-24.290512-0.099961-47.981257-2.698946-70.772355-7.597032-21.091761-4.498243-43.083171 2.09918-58.377196 17.393205L270.094651 977.81804c-30.787973 30.787973-71.37212 46.18196-111.956268 46.18196s-81.168294-15.393987-111.956267-46.18196-46.18196-71.37212-46.18196-111.956267c0-40.584147 15.393987-81.168294 46.18196-111.956267l280.990239-280.990239c15.194065-15.194065 21.791488-37.085513 17.393205-58.077313-4.798126-22.791097-7.29715-46.481843-7.297149-70.672394C337.068489 154.539633 491.508161 0 681.134088 0c24.790316 0 48.980867 2.598985 72.37173 7.597032 6.197579 1.299492 12.395158 2.798907 18.492776 4.498243 23.590785 6.497462 31.387739 36.085904 14.094495 53.47911l-13.59469 13.59469-159.237798 159.137836c-22.991019 22.991019-35.68606 53.778993-35.68606 86.766107 0 32.887153 12.695041 63.675127 35.68606 86.666146 22.991019 22.991019 53.778993 35.68606 86.666146 35.686061 32.887153 0 63.675127-12.695041 86.766107-35.686061L959.425381 238.906677c17.293245-17.293245 46.981648-9.596251 53.479109 14.094494 1.699336 6.097618 3.19875 12.295197 4.498243 18.492777 4.998048 23.390863 7.597032 47.581414 7.597033 72.371729z" />
   <PathGeometry x:Key="RunGeometry" o:Freeze="True" Figures="M510.545882 63.815421c-246.710938 0-446.708971 199.999057-446.708971 446.708971S263.834944 957.234387 510.545882 957.234387 957.255877 757.23533 957.255877 510.525416 757.25682 63.815421 510.545882 63.815421zM754.661715 441.875896 400.205844 796.310278c-4.02364 4.02364-9.382695 6.109138-14.762215 6.109138-3.856841 0-7.756661-1.063215-11.197016-3.231601-8.257058-5.254677-11.738345-15.533788-8.402367-24.707728l73.226768-201.330378L281.192264 573.149708c-8.423857 0-16.034185-5.087878-19.265786-12.885472-3.231601-7.797593-1.438769-16.805758 4.52506-22.768563L579.205635 224.740554c6.547113-6.589069 16.638959-7.985882 24.77015-3.523243 8.132214 4.461615 12.322653 13.761422 10.321066 22.810518l-36.050054 162.319899 161.652703 0c8.423857 0 16.054651 5.045923 19.265786 12.82305C762.396887 426.968371 760.604054 435.913091 754.661715 441.875896z" />
   <PathGeometry x:Key="SettingsGeometry" o:Freeze="True" Figures="M967.882752 603.308032c26.207232-104.832-2.62144-173.251584-2.62144-173.251584l-100.272128-4.922368c-8.786944-31.470592-21.655552-61.147136-38.00576-88.600576l67.64544-76.797952c-55.595008-92.654592-124.363776-120.651776-124.363776-120.651776l-74.48064 67.513344c-27.746304-16.140288-57.759744-28.643328-89.506816-37.108736l-6.390784-100.893696c-104.827904-26.211328-173.251584 2.625536-173.251584 2.625536l-4.7616 96.979968c-31.289344 7.86432-61.060096 19.470336-88.580096 34.787328l-70.501376-63.904768c0 0-68.768768 27.997184-124.363776 120.651776 17.671168 20.058112 52.43904 43.088896 54.524928 72.580096 0.514048 7.28064-33.462272 93.239296-34.927616 93.313024l-90.230784 4.427776c0 0-28.828672 68.41856-2.625536 173.251584l89.423872 5.666816c8.444928 35.557376 21.997568 69.04832 39.94112 99.762176l-58.875904 64.949248c0 0 27.997184 68.768768 120.651776 124.363776l67.101696-59.101184c30.400512 18.198528 63.587328 32.063488 98.861056 40.890368l4.36224 88.844288c0 0 68.422656 28.832768 173.251584 2.625536l5.876736-92.72832c35.72224-9.469952 69.250048-24.103936 99.827712-43.199488l71.151616 62.669824c92.658688-55.590912 120.655872-124.363776 120.655872-124.363776l-64.81408-71.501824c15.968256-28.69248 27.952128-59.809792 35.791872-92.572672L967.882752 603.308032zM516.528128 735.343616c-118.956032 0-215.389184-96.433152-215.389184-215.39328 0-118.956032 96.433152-215.389184 215.389184-215.389184s215.39328 96.433152 215.39328 215.389184C731.921408 638.911488 635.48416 735.343616 516.528128 735.343616z" />
@@ -609,11 +609,11 @@
     </Setter>
   </Style>
   <Style TargetType="Expander" BasedOn="{StaticResource ExpanderBaseStyle}" />
-  <Style x:Key="ButtonBaseStyle" TargetType="Button" BasedOn="{StaticResource BaseInputStyle}">
+  <Style x:Key="ButtonBaseStyle" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Padding" Value="5,1" />
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="Button">
+        <ControlTemplate TargetType="{x:Type ButtonBase}">
           <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
             <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
           </Border>
@@ -633,6 +633,7 @@
     </Setter>
   </Style>
   <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}" />
+  <Style TargetType="RepeatButton" BasedOn="{StaticResource ButtonBaseStyle}" />
   <Style x:Key="ButtonPrimaryStyle" TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}">
     <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
     <Setter Property="Foreground" Value="{StaticResource PrimaryTextBrush}" />
@@ -1049,7 +1050,7 @@
     </Style.Triggers>
   </Style>
   <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxBaseStyle}" />
-  <SolidColorBrush x:Key="Item.MouseOver.Background" Color="{DynamicResource ControlLight2Color}" />
+  <SolidColorBrush x:Key="Item.MouseOver.Background" Color="{DynamicResource RegionLight2Color}" />
   <SolidColorBrush x:Key="Item.MouseOver.Border" Color="{DynamicResource BorderColor}" />
   <SolidColorBrush x:Key="Item.Selected.Background" Color="{DynamicResource PrimaryColor}" />
   <SolidColorBrush x:Key="Item.Selected.Border" Color="{DynamicResource PrimaryLightColor}" />
@@ -1060,7 +1061,7 @@
     <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderBrush" Value="Transparent" />
-    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -1582,22 +1583,71 @@
     </Setter>
   </Style>
   <Style TargetType="DatePicker" BasedOn="{StaticResource DatePickerBaseStyle}" />
-  <ObjectDataProvider x:Key="Hours" ObjectType="{x:Type linq:Enumerable}" MethodName="Range">
-    <ObjectDataProvider.MethodParameters>
-      <sys:Int32>0</sys:Int32>
-      <sys:Int32>24</sys:Int32>
-    </ObjectDataProvider.MethodParameters>
-  </ObjectDataProvider>
-  <ObjectDataProvider x:Key="Minues" ObjectType="{x:Type linq:Enumerable}" MethodName="Range">
-    <ObjectDataProvider.MethodParameters>
-      <sys:Int32>0</sys:Int32>
-      <sys:Int32>60</sys:Int32>
-    </ObjectDataProvider.MethodParameters>
-  </ObjectDataProvider>
-  <Style x:Key="TimePickerListBoxItemStyle" TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle}">
-    <Setter Property="Padding" Value="0,5" />
-    <Setter Property="HorizontalContentAlignment" Value="Center" />
+  <Style x:Key="NumberSelectorButtonStyle" TargetType="RepeatButton" BasedOn="{StaticResource ButtonBaseStyle}">
+    <Setter Property="Visibility" Value="Collapsed" />
+    <Setter Property="Margin" Value="7,0" />
+    <Setter Property="Padding" Value="5,3" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ButtonBase}">
+          <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".5" TargetName="bd" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Foreground" Value="{StaticResource TextLightBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
   </Style>
+  <Style x:Key="NumberSelectorBaseStyle" TargetType="local:NumberSelector">
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+    <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:NumberSelector">
+          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}">
+            <Grid>
+              <skia:SKElement x:Name="PART_Canvas" Margin="{TemplateBinding Padding}" />
+              <RepeatButton x:Name="PART_PreviousButton" VerticalAlignment="Top" Background="{TemplateBinding Background}" Style="{StaticResource NumberSelectorButtonStyle}">
+                <Grid>
+                  <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                      <RotateTransform Angle="-90" />
+                    </Path.RenderTransform>
+                  </Path>
+                </Grid>
+              </RepeatButton>
+              <RepeatButton x:Name="PART_NextButton" VerticalAlignment="Bottom" Background="{TemplateBinding Background}" Style="{StaticResource NumberSelectorButtonStyle}">
+                <Grid>
+                  <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}" HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                    <Path.RenderTransform>
+                      <RotateTransform Angle="90" />
+                    </Path.RenderTransform>
+                  </Path>
+                </Grid>
+              </RepeatButton>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Visibility" Value="Visible" TargetName="PART_PreviousButton" />
+              <Setter Property="Visibility" Value="Visible" TargetName="PART_NextButton" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="local:NumberSelector" BasedOn="{StaticResource NumberSelectorBaseStyle}" />
   <Style x:Key="TimePickerBaseStyle" TargetType="local:TimePicker" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="HorizontalContentAlignment" Value="Center" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -1621,7 +1671,7 @@
                   <TextBlock x:Name="SecondBlock" Grid.Column="2" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Second,Mode=OneWay,StringFormat={}{0:D2}}" />
                 </Grid>
               </ToggleButton>
-              <Popup x:Name="PART_Popup" AllowsTransparency="true" Placement="Center" PopupAnimation="{StaticResource {x:Static SystemParameters.ToolTipPopupAnimationKey}}" IsOpen="{Binding ElementName=toggle,Path=IsChecked, Mode=TwoWay}" StaysOpen="False">
+              <Popup x:Name="PART_Popup" AllowsTransparency="true" Placement="Center" PopupAnimation="{StaticResource {x:Static SystemParameters.ToolTipPopupAnimationKey}}" IsOpen="{Binding ElementName=toggle,Path=IsChecked, Mode=TwoWay}" StaysOpen="True">
                 <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="{DynamicResource TimePickerPopupMaxHeight}" Margin="2" Background="{DynamicResource RegionBrush}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource DefaultCornerRadius}">
                   <Grid>
                     <Grid.RowDefinitions>
@@ -1629,19 +1679,25 @@
                       <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                      <ColumnDefinition />
-                      <ColumnDefinition />
-                      <ColumnDefinition />
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="*" x:Name="ThirdPickerHostColumn" />
                     </Grid.ColumnDefinitions>
-                    <ListBox Grid.Column="0" BorderThickness="0" ItemsSource="{Binding Source={StaticResource Hours}}" ItemContainerStyle="{StaticResource TimePickerListBoxItemStyle}" />
-                    <ListBox Grid.Column="1" BorderThickness="1,0" local:ControlAttach.CornerRadius="0" ItemsSource="{Binding Source={StaticResource Minues}}" ItemContainerStyle="{StaticResource TimePickerListBoxItemStyle}" />
-                    <ListBox Grid.Column="2" BorderThickness="0" ItemsSource="{Binding Source={StaticResource Minues}}" ItemContainerStyle="{StaticResource TimePickerListBoxItemStyle}" />
+                    <Border Grid.Column="0" BorderThickness="0" local:ControlAttach.CornerRadius="3,0,0,0">
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" TextColor="{StaticResource TextDarkColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="23" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hour,Mode=TwoWay}" />
+                    </Border>
+                    <Border Grid.Column="1" BorderThickness="1,0" local:ControlAttach.CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}">
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" TextColor="{StaticResource TextDarkColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="59" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Minute,Mode=TwoWay}" />
+                    </Border>
+                    <Border Grid.Column="2" BorderThickness="0" local:ControlAttach.CornerRadius="0,3,0,0">
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" TextColor="{StaticResource TextDarkColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="59" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Second,Mode=TwoWay}" />
+                    </Border>
                     <Border Grid.Row="1" Grid.ColumnSpan="5" BorderThickness="0,1,0,0" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
                       <UniformGrid Rows="1">
-                        <Button Focusable="False" Background="Transparent" local:ControlAttach.CornerRadius="0,0,0,3" Padding="0,8">
+                        <Button Focusable="False" Background="Transparent" local:ControlAttach.CornerRadius="0,0,0,3" Padding="5,10">
                           <Path Data="{StaticResource TickGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Height="{TemplateBinding FontSize}" />
                         </Button>
-                        <Button Focusable="False" Background="Transparent" local:ControlAttach.CornerRadius="0,0,3,0" Padding="0,8">
+                        <Button Focusable="False" Background="Transparent" local:ControlAttach.CornerRadius="0,0,3,0" Padding="5,10">
                           <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" Height="{TemplateBinding FontSize}" />
                         </Button>
                       </UniformGrid>
@@ -1652,9 +1708,13 @@
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".56" />
+            </Trigger>
             <Trigger Property="ShowSecond" Value="False">
               <Setter Property="Visibility" Value="Collapsed" TargetName="SecondBlock" />
               <Setter Property="BorderThickness" Value="1,0,0,0" TargetName="InnerBorder" />
+              <Setter Property="Width" Value="0" TargetName="ThirdPickerHostColumn" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
