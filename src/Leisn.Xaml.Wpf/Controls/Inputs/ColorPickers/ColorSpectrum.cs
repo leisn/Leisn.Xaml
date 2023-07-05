@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 using Leisn.Common.Media;
+using Leisn.Xaml.Wpf.Extensions;
 
 using SkiaSharp;
 using SkiaSharp.Views.Desktop;
@@ -63,15 +64,23 @@ namespace Leisn.Xaml.Wpf.Controls
 
     public sealed class ColorSpectrum : SKElement
     {
-        public ColorSpectrum()
-        {
-            IgnorePixelScaling = true;
-        }
-
         static ColorSpectrum()
         {
             SnapsToDevicePixelsProperty.OverrideMetadata(typeof(ColorSpectrum), new FrameworkPropertyMetadata(true));
             FocusableProperty.OverrideMetadata(typeof(ColorSpectrum), new FrameworkPropertyMetadata(true));
+        }
+
+        private DpiScale _dpiScale;
+        public ColorSpectrum()
+        {
+            IgnorePixelScaling = false;
+            _dpiScale = VisualEx.GetDpiScale();
+        }
+
+        protected override void OnDpiChanged(DpiScale oldDpi, DpiScale newDpi)
+        {
+            _dpiScale = newDpi;
+            InvalidateVisual();
         }
 
         #region public events
@@ -497,6 +506,9 @@ namespace Leisn.Xaml.Wpf.Controls
         #endregion
 
         #region mouse actions
+        private Point GetRealPoint(Point point)
+            => new(point.X * _dpiScale.DpiScaleX, point.Y * _dpiScale.DpiScaleY);
+
         private bool _isMouseDown;
         private bool _isAdjustHue;
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
@@ -509,7 +521,8 @@ namespace Leisn.Xaml.Wpf.Controls
             _isAdjustHue = false;
             try
             {
-                Point point = e.GetPosition(this);
+                Point point = GetRealPoint(e.GetPosition(this));
+
                 if (TrySetHue(point))
                 {
                     _isAdjustHue = true;
@@ -551,7 +564,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 return;
             }
 
-            Point point = e.GetPosition(this);
+            Point point = GetRealPoint(e.GetPosition(this));
             if (_isAdjustHue)
             {
                 SetHue(point);

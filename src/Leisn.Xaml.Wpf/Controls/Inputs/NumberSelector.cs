@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -29,13 +26,11 @@ namespace Leisn.Xaml.Wpf.Controls
         private SKElement _canvas = null!;
         private ButtonBase? _previousButton;
         private ButtonBase? _nextButton;
-
         static NumberSelector()
         {
             SnapsToDevicePixelsProperty.OverrideMetadata(typeof(NumberSelector), new FrameworkPropertyMetadata(true));
             FocusableProperty.OverrideMetadata(typeof(NumberSelector), new FrameworkPropertyMetadata(true));
         }
-
 
         public CornerRadius CornerRadius
         {
@@ -52,7 +47,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty ItemPaddingProperty =
             DependencyProperty.Register("ItemPadding", typeof(Thickness), typeof(NumberSelector),
-                 new FrameworkPropertyMetadata(new Thickness(7), FrameworkPropertyMetadataOptions.AffectsRender));
+                 new FrameworkPropertyMetadata(new Thickness(7), FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         public TextAlignment TextAlignment
         {
@@ -61,7 +56,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty TextAlignmentProperty =
             DependencyProperty.Register("TextAlignment", typeof(TextAlignment), typeof(NumberSelector),
-                  new FrameworkPropertyMetadata(TextAlignment.Center, FrameworkPropertyMetadataOptions.AffectsRender));
+                  new FrameworkPropertyMetadata(TextAlignment.Center, new PropertyChangedCallback(OnPropertyChanged)));
 
         public Color TextColor
         {
@@ -70,7 +65,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty TextColorProperty =
             DependencyProperty.Register("TextColor", typeof(Color), typeof(NumberSelector),
-                  new FrameworkPropertyMetadata(Colors.Bisque, FrameworkPropertyMetadataOptions.AffectsRender));
+                  new FrameworkPropertyMetadata(Colors.Bisque, new PropertyChangedCallback(OnPropertyChanged)));
 
         public Color SelectedBackground
         {
@@ -79,7 +74,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty SelectedBackgroundProperty =
             DependencyProperty.Register("SelectedBackground", typeof(Color), typeof(NumberSelector),
-                 new FrameworkPropertyMetadata(Colors.CadetBlue, FrameworkPropertyMetadataOptions.AffectsRender));
+                 new FrameworkPropertyMetadata(Colors.CadetBlue, new PropertyChangedCallback(OnPropertyChanged)));
 
         public Color SelectedTextColor
         {
@@ -88,7 +83,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty SelectedTextColorProperty =
             DependencyProperty.Register("SelectedTextColor", typeof(Color), typeof(NumberSelector),
-                 new FrameworkPropertyMetadata(Colors.White, FrameworkPropertyMetadataOptions.AffectsRender));
+                 new FrameworkPropertyMetadata(Colors.White, new PropertyChangedCallback(OnPropertyChanged)));
 
 
         public int MinValue
@@ -99,7 +94,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public static readonly DependencyProperty MinValueProperty =
             DependencyProperty.Register("MinValue", typeof(int), typeof(NumberSelector),
-                new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsRender));
+                new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnPropertyChanged)));
 
         public int MaxValue
         {
@@ -108,7 +103,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty MaxValueProperty =
             DependencyProperty.Register("MaxValue", typeof(int), typeof(NumberSelector),
-                new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsRender));
+                new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnPropertyChanged)));
 
         public int CurrentValue
         {
@@ -118,7 +113,7 @@ namespace Leisn.Xaml.Wpf.Controls
         public static readonly DependencyProperty CurrentValueProperty =
             DependencyProperty.Register("CurrentValue", typeof(int), typeof(NumberSelector),
                 new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsRender,
-                    new PropertyChangedCallback(OnCurrentValueChanged), new CoerceValueCallback(CoerceCurrentValue)));
+                    new PropertyChangedCallback(OnPropertyChanged), new CoerceValueCallback(CoerceCurrentValue)));
 
         private static object CoerceCurrentValue(DependencyObject d, object baseValue)
         {
@@ -131,7 +126,7 @@ namespace Leisn.Xaml.Wpf.Controls
             return baseValue;
         }
 
-        private static void OnCurrentValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ns = (NumberSelector)d;
             ns.UpdateVisual();
@@ -234,8 +229,11 @@ namespace Leisn.Xaml.Wpf.Controls
             };
         }
 
+        //private readonly Dictionary<Rect, int> _numberAreas = new Dictionary<Rect, int>();
+
         protected virtual void OnPaintSurface(object? sender, SKPaintSurfaceEventArgs e)
         {
+            //_numberAreas.Clear();
             SKCanvas canvas = e.Surface.Canvas;
             canvas.Clear();
 
@@ -252,14 +250,14 @@ namespace Leisn.Xaml.Wpf.Controls
 
             float space = (float)(ItemPadding.Bottom + ItemPadding.Top) + textBounds.Height;
             paint.Color = SelectedTextColor.ToSKColor();
-            DrawText(CurrentValue.ToString());
+            DrawText(CurrentValue);
             top += space;
             paint.Color = TextColor.ToSKColor();
             int index = CurrentValue - MinValue + 1;
             while (top < e.Info.Rect.Bottom)
             {
                 var value = GetValue(index);
-                DrawText(value.ToString());
+                DrawText(value);
                 top += space;
                 index++;
             }
@@ -268,13 +266,14 @@ namespace Leisn.Xaml.Wpf.Controls
             while (top > ItemPadding.Top)
             {
                 var value = GetValue(index);
-                DrawText(value.ToString());
+                DrawText(value);
                 top -= space;
                 index--;
             }
 
-            void DrawText(string text)
+            void DrawText(int value)
             {
+                var text = value.ToString();
                 var width = paint!.MeasureText(text);
                 left = TextAlignment switch
                 {
@@ -283,8 +282,10 @@ namespace Leisn.Xaml.Wpf.Controls
                     _ => (float)ItemPadding.Left,
                 };
                 canvas.DrawText(text, left, top, paint);
+                //_numberAreas.Add(new Rect(0, top - ItemPadding.Top, e.Info.Rect.Width, textBounds.Height + ItemPadding.Top + ItemPadding.Bottom), value);
             }
         }
+
 
         private int GetValue(int index)
         {

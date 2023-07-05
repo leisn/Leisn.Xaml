@@ -1,5 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
@@ -73,6 +74,21 @@ namespace Leisn.Xaml.Wpf.Extensions
             }
 
             return null;
+        }
+
+        public static DpiScale GetDpiScale()
+        {
+            var flags = BindingFlags.NonPublic | BindingFlags.Static;
+            var type = typeof(SystemParameters);
+            var dpiXProp = type.GetProperty("DpiX", flags);
+            var dpiYProp = type.GetProperty("Dpi", flags);
+            if (dpiXProp != null && dpiYProp != null)
+            {
+                var x = (int)dpiXProp.GetValue(null, null)!;
+                var y = (int)dpiYProp.GetValue(null, null)!;
+                return new DpiScale(x / 96d, y / 96d);
+            }
+            return new DpiScale(1, 1);
         }
     }
 }
