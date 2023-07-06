@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
+using Leisn.Xaml.Wpf.Internals;
+
 namespace Leisn.Xaml.Wpf.Controls
 {
     public class TimeSelector : Control
@@ -77,9 +79,9 @@ namespace Leisn.Xaml.Wpf.Controls
         private static void OnTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var tp = (TimeSelector)d;
-            if (!tp.BeginEdit())
+            if (!EditorUtil.BeginEdit(tp))
             {
-                tp.EndEdit();
+                EditorUtil.EndEdit(tp);
                 return;
             }
             if (e.Property == HourProperty)
@@ -101,17 +103,6 @@ namespace Leisn.Xaml.Wpf.Controls
                 tp.Minute = time.Minute;
                 tp.Second = time.Second;
             }
-        }
-
-        private int _editCount;
-        private bool BeginEdit()
-        {
-            _editCount++;
-            return _editCount == 1;
-        }
-        private void EndEdit()
-        {
-            _editCount--;
         }
 
     }

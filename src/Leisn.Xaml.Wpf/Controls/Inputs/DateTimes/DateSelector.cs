@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
+using Leisn.Xaml.Wpf.Internals;
+
 namespace Leisn.Xaml.Wpf.Controls
 {
     public class DateSelector : Control
@@ -83,9 +85,9 @@ namespace Leisn.Xaml.Wpf.Controls
         private static void OnDateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var tp = (DateSelector)d;
-            if (!tp.BeginEdit())
+            if (!EditorUtil.BeginEdit(tp))
             {
-                tp.EndEdit();
+                EditorUtil.EndEdit(tp);
                 return;
             }
             if (e.Property == YearProperty)
@@ -113,18 +115,6 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             base.OnApplyTemplate();
             Date = DateOnly.FromDateTime(DateTime.Now);
-        }
-
-
-        private int _editCount;
-        private bool BeginEdit()
-        {
-            _editCount++;
-            return _editCount == 1;
-        }
-        private void EndEdit()
-        {
-            _editCount--;
         }
     }
 }

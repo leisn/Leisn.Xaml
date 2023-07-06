@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 
 using Leisn.Common.Media;
+using Leisn.Xaml.Wpf.Internals;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -225,12 +226,11 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         #endregion
 
-
         private void OnSpectrumHsvChagned(object sender, SelectedHsvChangedEventArgs e)
         {
             try
             {
-                if (!BeginEdit())
+                if (!EditorUtil.BeginEdit(this))
                 {
                     return;
                 }
@@ -257,7 +257,7 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             finally
             {
-                EndEdit();
+                EditorUtil.EndEdit(this);
             }
         }
 
@@ -265,7 +265,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             try
             {
-                if (!BeginEdit())
+                if (!EditorUtil.BeginEdit(this))
                 {
                     return;
                 }
@@ -296,7 +296,7 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             finally
             {
-                EndEdit();
+                EditorUtil.EndEdit(this);
             }
         }
 
@@ -304,7 +304,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             try
             {
-                if (!BeginEdit())
+                if (!EditorUtil.BeginEdit(this))
                 {
                     return;
                 }
@@ -325,22 +325,9 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             finally
             {
-                EndEdit();
+                EditorUtil.EndEdit(this);
             }
         }
 
-        private bool BeginEdit()
-        {
-            _pausePropertyChangedHandle += 1;
-            return _pausePropertyChangedHandle == 1;
-        }
-        private void EndEdit()
-        {
-            if (_pausePropertyChangedHandle > 0)
-            {
-                _pausePropertyChangedHandle -= 1;
-            }
-        }
-        private int _pausePropertyChangedHandle;
     }
 }
