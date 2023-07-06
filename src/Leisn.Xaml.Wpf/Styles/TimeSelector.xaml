@@ -83,7 +83,7 @@
   </Style>
   <Style TargetType="local:NumberSelector" BasedOn="{StaticResource NumberSelectorBaseStyle}"/>
 
-  <Style x:Key="TimePickerBaseStyle" TargetType="local:TimePicker" BasedOn="{StaticResource BaseInputStyle}">
+  <Style x:Key="TimeSelectorBaseStyle" TargetType="local:TimeSelector" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="HorizontalContentAlignment" Value="Center"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="BorderBrush" Value="{StaticResource TextDarkBrush}"/>
@@ -91,7 +91,7 @@
     <Setter Property="Padding" Value="0"/>
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="local:TimePicker">
+        <ControlTemplate TargetType="local:TimeSelector">
           <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}"
                   BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding CornerRadius}">
@@ -115,8 +115,8 @@
               <Popup x:Name="PART_Popup" AllowsTransparency="true"
                    Placement="Center" PopupAnimation="{StaticResource {x:Static SystemParameters.ToolTipPopupAnimationKey}}"
                    IsOpen="{Binding ElementName=toggle,Path=IsChecked, Mode=TwoWay}" StaysOpen="False">
-                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}"
-                      MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="{DynamicResource TimePickerPopupMaxHeight}" Margin="2"
+                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Margin="2"
+                      MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="{StaticResource DateTimeSelectorPopupMaxHeight}" 
                       Background="{DynamicResource RegionBrush}"
                       BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
                       CornerRadius="{TemplateBinding CornerRadius}">
@@ -179,5 +179,5 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="local:TimePicker" BasedOn="{StaticResource TimePickerBaseStyle}"/>
+  <Style TargetType="local:TimeSelector" BasedOn="{StaticResource TimeSelectorBaseStyle}"/>
 </ResourceDictionary>

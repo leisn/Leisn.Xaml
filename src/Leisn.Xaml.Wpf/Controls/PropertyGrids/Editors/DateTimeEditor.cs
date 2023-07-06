@@ -21,7 +21,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                         picker = new DateTimePicker();
                         goto done;
                     case DateTimeType.TimeOnly:
-                        picker = new TimePicker();
+                        picker = new TimeSelector();
                         goto done;
                     case DateTimeType.DateOnly:
                     default:

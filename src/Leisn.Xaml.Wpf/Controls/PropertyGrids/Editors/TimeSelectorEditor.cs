@@ -10,16 +10,16 @@ using Leisn.Common.Attributes;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
-    internal class TimePickerEditor : IPropertyEditor
+    internal class TimeSelectorEditor : IPropertyEditor
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            return new TimePicker() { IsEnabled = !item.IsReadOnly };
+            return new TimeSelector() { IsEnabled = !item.IsReadOnly };
         }
 
         public DependencyProperty GetBindingProperty()
         {
-            return TimePicker.TimeProperty;
+            return TimeSelector.TimeProperty;
         }
     }
 }

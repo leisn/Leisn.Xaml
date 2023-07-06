@@ -10,7 +10,7 @@ using System.Windows.Controls;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
-    public class TimePicker : Control
+    public class TimeSelector : Control
     {
 
         public CornerRadius CornerRadius
@@ -18,7 +18,7 @@ namespace Leisn.Xaml.Wpf.Controls
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
             set { SetValue(CornerRadiusProperty, value); }
         }
-        public static readonly DependencyProperty CornerRadiusProperty = Border.CornerRadiusProperty.AddOwner(typeof(TimePicker));
+        public static readonly DependencyProperty CornerRadiusProperty = Border.CornerRadiusProperty.AddOwner(typeof(TimeSelector));
 
         public int Hour
         {
@@ -26,7 +26,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(HourProperty, value); }
         }
         public static readonly DependencyProperty HourProperty =
-            DependencyProperty.Register("Hour", typeof(int), typeof(TimePicker),
+            DependencyProperty.Register("Hour", typeof(int), typeof(TimeSelector),
                 new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged), new CoerceValueCallback(CoerceHourValue)));
 
         private static object CoerceHourValue(DependencyObject d, object baseValue)
@@ -43,7 +43,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
 
         public static readonly DependencyProperty MinuteProperty =
-            DependencyProperty.Register("Minute", typeof(int), typeof(TimePicker),
+            DependencyProperty.Register("Minute", typeof(int), typeof(TimeSelector),
                 new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged), new CoerceValueCallback(CoerceMinuteAndSecondValue)));
 
         private static object CoerceMinuteAndSecondValue(DependencyObject d, object baseValue)
@@ -59,7 +59,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(SecondProperty, value); }
         }
         public static readonly DependencyProperty SecondProperty =
-            DependencyProperty.Register("Second", typeof(int), typeof(TimePicker),
+            DependencyProperty.Register("Second", typeof(int), typeof(TimeSelector),
                  new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnTimeChanged), new CoerceValueCallback(CoerceMinuteAndSecondValue)));
 
         public bool ShowSecond
@@ -68,7 +68,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(ShowSecondProperty, value); }
         }
         public static readonly DependencyProperty ShowSecondProperty =
-            DependencyProperty.Register("ShowSecond", typeof(bool), typeof(TimePicker), new PropertyMetadata(true));
+            DependencyProperty.Register("ShowSecond", typeof(bool), typeof(TimeSelector), new PropertyMetadata(true));
 
         public TimeOnly Time
         {
@@ -76,12 +76,12 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(TimeProperty, value); }
         }
         public static readonly DependencyProperty TimeProperty =
-            DependencyProperty.Register("Time", typeof(TimeOnly), typeof(TimePicker),
+            DependencyProperty.Register("Time", typeof(TimeOnly), typeof(TimeSelector),
                 new FrameworkPropertyMetadata(TimeOnly.MinValue, new PropertyChangedCallback(OnTimeChanged)));
 
         private static void OnTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var tp = (TimePicker)d;
+            var tp = (TimeSelector)d;
             if (!tp.BeginEdit())
             {
                 tp.EndEdit();
