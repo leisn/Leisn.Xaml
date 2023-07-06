@@ -25,6 +25,12 @@ namespace Leisn.Common.Media
             R = r; G = g; B = b;
         }
 
+        public Rgb(string hex)
+        {
+            var temp = FromHex(hex);
+            R = temp.R; G = temp.G; B = temp.B;
+        }
+
         public static Rgb FromHex(string hex)
         {
             if (hex is null)

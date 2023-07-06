@@ -5,9 +5,9 @@
                     xmlns:internals="clr-namespace:Leisn.Xaml.Wpf.Internals">
 
   <Style x:Key="TextBoxBaseStyle" TargetType="TextBox" BasedOn="{StaticResource BaseInputStyle}">
-    <Setter Property="CaretBrush" Value="{StaticResource TextBrush}"/>
-    <Setter Property="SelectionBrush" Value="{StaticResource PrimaryBrush}"/>
-    <Setter Property="Background" Value="{StaticResource RegionDark2Brush}"/>
+    <Setter Property="CaretBrush" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionDark2Brush}"/>
     <Setter Property="Padding" Value="5,1"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="local:ControlAttach.ShowClear" Value="True"/>
@@ -36,10 +36,10 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{StaticResource RegionDark1Brush}" TargetName="root"/>
+              <Setter Property="Background" Value="{DynamicResource RegionDark1Brush}" TargetName="root"/>
             </Trigger>
             <Trigger Property="IsFocused" Value="True">
-              <Setter Property="Background" Value="{StaticResource RegionDark2Brush}" TargetName="root"/>
+              <Setter Property="Background" Value="{DynamicResource RegionDark2Brush}" TargetName="root"/>
               <Setter Property="Visibility" Value="Visible" TargetName="clearButton"/>
             </Trigger>
             <Trigger Property="Text" Value="{x:Static sys:String.Empty}">
@@ -56,8 +56,8 @@
               <Setter Property="Visibility" Value="Hidden" TargetName="clearButton"/>
             </Trigger>
             <Trigger Property="IsReadOnly" Value="True">
-              <Setter Property="Background" Value="{StaticResource RegionBrush}" TargetName="root"/>
-              <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root"/>
+              <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
               <Setter Property="Visibility" Value="Collapsed" TargetName="clearButton"/>
               <Setter Property="Visibility" Value="Collapsed" TargetName="placeholder"/>
             </Trigger>

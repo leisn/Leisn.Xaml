@@ -22,12 +22,12 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Item.MouseOver.Background}"/>
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource Item.MouseOver.Border}"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.Selected.Background}"/>
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.Selected.Border}"/>
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Item.Selected.Background}"/>
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource Item.Selected.Border}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource TextDarkBrush}"/>
@@ -65,8 +65,8 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Background}"/>
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Border}"/>
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource ListBox.Disabled.Background}"/>
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource ListBox.Disabled.Border}"/>
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>

@@ -16,7 +16,7 @@ Styles/FontIcon.xaml
 
 #override styles
 Styles/ToolTip.xaml
-Styles/ScrollBar.xaml
+Styles/ScrollViewer.xaml
 Styles/GroupBox.xaml
 Styles/Expander.xaml
 Styles/Button.xaml

@@ -4,15 +4,15 @@
 
   <Style TargetType="ToolTip" x:Key="ToolTipBaseStyle">
     <Setter Property="Padding" Value="6"/>
-    <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
-    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
     <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToolTip">
-          <Border x:Name="templateRoot" Margin="8" Background="{StaticResource RegionBrush}"
+          <Border x:Name="templateRoot" Margin="8" Background="{TemplateBinding Background}"
                   Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   BorderBrush="{StaticResource BorderBrush}"

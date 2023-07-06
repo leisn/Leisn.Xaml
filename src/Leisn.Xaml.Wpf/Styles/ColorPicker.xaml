@@ -12,7 +12,7 @@
   <Style TargetType="local:ColorSpectrum" BasedOn="{StaticResource ColorSpectrumStyle}"/>
 
   <Style x:Key="HexColorTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
-    <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
     <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="Padding" Value="0,2,5,2"/>
     <Setter Property="Template">
@@ -37,10 +37,10 @@
               <Setter Property="Opacity" Value=".56" TargetName="root"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{StaticResource RegionDark1Brush}" TargetName="root"/>
+              <Setter Property="Background" Value="{DynamicResource RegionDark1Brush}" TargetName="root"/>
             </Trigger>
             <Trigger Property="IsFocused" Value="True">
-              <Setter Property="Background" Value="{StaticResource RegionDark2Brush}" TargetName="root"/>
+              <Setter Property="Background" Value="{DynamicResource RegionDark2Brush}" TargetName="root"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -51,8 +51,8 @@
   <Style x:Key="ColorPickerBaseStyle" TargetType="local:ColorPicker">
     <Setter Property="MinWidth" Value="183"/>
     <Setter Property="Padding" Value="5"/>
-    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-    <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
     <Setter Property="SpectrumStyle" Value="Disc"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Template">
@@ -72,7 +72,7 @@
               <local:ColorSpectrum x:Name="PART_ColorSpectrum" SpectrumStyle="{TemplateBinding SpectrumStyle}"/>
 
               <Border Grid.Row="1"  Margin="{TemplateBinding Padding}"
-                      BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                      BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
                       CornerRadius="{StaticResource DefaultCornerRadius}">
                 <UniformGrid  Rows="1">
                   <RadioButton x:Name="rgbTab" Content="RGB" IsChecked="True" Style="{StaticResource RadioToggleStyle}"
@@ -84,7 +84,7 @@
 
               <StackPanel Grid.Row="2" Orientation="Vertical" Margin="{TemplateBinding Padding}">
                 <Border Visibility="{Binding ElementName=rgbTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}"
-                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}">
+                        BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}">
                   <local:StackPanel Orientation="Vertical" Spacing="1" >
                     <local:RangeBox Title="{lang:Lang Rgb_Red}" CornerRadius="{StaticResource DefaultTopCornerRadius}"
                                   Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10"
@@ -98,7 +98,7 @@
                   </local:StackPanel>
                 </Border>
                 <Border Visibility="{Binding ElementName=hsvTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}"
-                        BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}">
+                        BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}">
                   <local:StackPanel Orientation="Vertical" Spacing="1" >
                     <local:RangeBox Title="{lang:Lang Hsv_Hue}" CornerRadius="{StaticResource DefaultTopCornerRadius}"
                                   Minimum="0" Maximum="360" NumericType="UInt" SmallChange="1" LargeChange="10"

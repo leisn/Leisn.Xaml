@@ -31,10 +31,10 @@
               </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextLightBrush }"/>
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextLightBrush }"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-              <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextDarkBrush }"/>
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextDarkBrush }"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
               <Setter Property="Opacity" Value=".56"/>
@@ -75,10 +75,10 @@
               </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextLightBrush }"/>
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextLightBrush }"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-              <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextDarkBrush }"/>
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextDarkBrush }"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
               <Setter Property="Opacity" Value=".56"/>
@@ -138,10 +138,10 @@
               </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextLightBrush }"/>
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextLightBrush }"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-              <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextDarkBrush }"/>
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextDarkBrush }"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
               <Setter Property="Opacity" Value=".56"/>
@@ -190,10 +190,10 @@
               </Setter>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextLightBrush }"/>
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextLightBrush }"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-              <Setter Property="Stroke" TargetName="arrow" Value="{StaticResource TextDarkBrush }"/>
+              <Setter Property="Stroke" TargetName="arrow" Value="{DynamicResource TextDarkBrush }"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
               <Setter Property="Opacity" Value=".56"/>
@@ -205,11 +205,11 @@
   </Style>
 
   <Style x:Key="ExpanderBaseStyle" TargetType="{x:Type Expander}">
-    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="Background" Value="Transparent"/>
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="local:ControlAttach.Padding" Value="0"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
@@ -253,7 +253,7 @@
               <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
+              <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

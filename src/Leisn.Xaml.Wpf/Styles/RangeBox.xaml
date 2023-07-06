@@ -6,8 +6,8 @@
     <Setter Property="MinWidth" Value="100"/>
     <Setter Property="Padding" Value="5,1"/>
     <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
-    <Setter Property="ThumbBackground" Value="{StaticResource PrimaryBrush}"/>
-    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    <Setter Property="ThumbBackground" Value="{DynamicResource PrimaryBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:RangeBox">
@@ -43,7 +43,7 @@
               <Setter Property="Opacity" Value="0.5" TargetName="RootBorder"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" TargetName="RootBorder" Value="{StaticResource ControlLight2Brush}"/>
+              <Setter Property="Background" TargetName="RootBorder" Value="{DynamicResource ControlLight2Brush}"/>
             </Trigger>
             <Trigger Property="IsEditing" Value="True">
               <Setter Property="Visibility" Value="Hidden" TargetName="InfoGrid"/>

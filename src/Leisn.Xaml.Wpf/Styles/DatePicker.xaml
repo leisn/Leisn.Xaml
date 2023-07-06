@@ -6,7 +6,7 @@
   <Style x:Key="DatePickerTextBoxBaseStyle" TargetType="{x:Type DatePickerTextBox}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
     <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="Background" Value="Transparent"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="Padding" Value="5,1"/>
@@ -39,11 +39,9 @@
             <Border x:Name="Border" Background="{TemplateBinding Background}"
                     BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                     CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" Opacity="1" >
-              <Grid x:Name="WatermarkContent" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                <Border x:Name="watermark_decorator" >
-                  <ContentControl Margin="{TemplateBinding Padding}" Foreground="{TemplateBinding Foreground}" x:Name="PART_Watermark" Focusable="False" IsHitTestVisible="False" Opacity="0"/>
-                </Border>
-                <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+              <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                <ContentControl x:Name="PART_Watermark" Margin="{TemplateBinding Padding}" Foreground="{TemplateBinding Foreground}"  Focusable="False" IsHitTestVisible="False" Opacity="0"/>
+                <ScrollViewer x:Name="PART_ContentHost" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
               </Grid>
             </Border>
           </Grid>
@@ -56,6 +54,7 @@
     <Setter Property="IsTodayHighlighted" Value="True"/>
     <Setter Property="SelectedDateFormat" Value="Short"/>
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="local:ControlAttach.ShowClear" Value="True"/>
     <Setter Property="BorderThickness" Value="0"/>
@@ -92,8 +91,9 @@
                         Fill="{TemplateBinding Foreground}" Data="{StaticResource CalendarGeometry}"
                         Visibility="{Binding ElementName=clearButton,Path=Visibility,Converter={StaticResource MutexVisilityConverter}}"/>
                   <DatePickerTextBox x:Name="PART_TextBox" Style="{StaticResource DatePickerTextBoxBaseStyle}"
-                                 IsEnabled="False" Grid.Column="0" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                 VerticalContentAlignment="Center" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                     IsEnabled="False" Grid.Column="0"
+                                     HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
                 </Grid>
               </Button>
               <Grid>

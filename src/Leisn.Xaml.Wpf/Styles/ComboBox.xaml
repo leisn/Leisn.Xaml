@@ -29,10 +29,10 @@
               <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultTopCornerRadius}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Background" Value="{StaticResource ControlLight2Brush}" TargetName="templateRoot"/>
+              <Setter Property="Background" Value="{DynamicResource ControlLight2Brush}" TargetName="templateRoot"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-              <Setter Property="Background" Value="{StaticResource ControlLight1Brush}" TargetName="templateRoot"/>
+              <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}" TargetName="templateRoot"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
               <Setter Property="Opacity" Value=".56"/>
@@ -202,13 +202,13 @@
                 <Condition Property="IsSelected" Value="False" />
                 <Condition Property="IsMouseOver" Value="True" />
               </MultiTrigger.Conditions>
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource RegionLight1Brush}" />
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource RegionLight1Brush}" />
             </MultiTrigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="IsSelected" Value="True" />
               </MultiTrigger.Conditions>
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource PrimaryBrush}" />
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource PrimaryBrush}" />
               <Setter Property="Foreground" Value="White" />
             </MultiTrigger>
           </ControlTemplate.Triggers>

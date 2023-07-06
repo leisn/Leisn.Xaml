@@ -3,7 +3,7 @@
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
 
   <Style x:Key="CalendarButtonBaseStyle" TargetType="{x:Type CalendarButton}" BasedOn="{StaticResource ButtonBaseStyle}">
-    <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
     <Setter Property="MinWidth" Value="50"/>
     <Setter Property="MinHeight" Value="50"/>
     <Setter Property="Margin" Value="5"/>
@@ -80,10 +80,10 @@
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Ellipse Fill="{TemplateBinding Background}" Stretch="Uniform"/>
-            <Ellipse x:Name="SelectedBackground" Stretch="Uniform" Fill="{StaticResource PrimaryBrush}" Opacity="0"/>
-            <Ellipse x:Name="HighlightBackground" Fill="{StaticResource ControlLight2Brush}" Opacity="0" Stretch="Uniform"/>
+            <Ellipse x:Name="SelectedBackground" Stretch="Uniform" Fill="{DynamicResource PrimaryBrush}" Opacity="0"/>
+            <Ellipse x:Name="HighlightBackground" Fill="{DynamicResource ControlLight2Brush}" Opacity="0" Stretch="Uniform"/>
             <ContentPresenter x:Name="NormalText" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="5,1,5,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            <Ellipse x:Name="ButtonFocusVisual" IsHitTestVisible="false" Stretch="Uniform" Stroke="{StaticResource BorderLightBrush}" Visibility="Collapsed"/>
+            <Ellipse x:Name="ButtonFocusVisual" IsHitTestVisible="false" Stretch="Uniform" Stroke="{DynamicResource BorderLightBrush}" Visibility="Collapsed"/>
           </Grid>
         </ControlTemplate>
       </Setter.Value>
@@ -92,7 +92,7 @@
   <Style TargetType="CalendarButton" BasedOn="{StaticResource CalendarButtonBaseStyle}"/>
 
   <Style x:Key="CalendarDayButtonBaseStyle" TargetType="{x:Type CalendarDayButton}"  BasedOn="{StaticResource ButtonBaseStyle}">
-    <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
     <Setter Property="Width" Value="40"/>
     <Setter Property="Height" Value="40"/>
     <Setter Property="Margin" Value="2"/>
@@ -202,13 +202,13 @@
             </VisualStateManager.VisualStateGroups>
 
             <Ellipse Fill="{TemplateBinding Background}" Stretch="Uniform"/>
-            <Ellipse x:Name="TodayBackground" Stretch="Uniform" Fill="{StaticResource AccentBrush}" Opacity="0"/>
-            <Ellipse x:Name="SelectedBackground" Stretch="Uniform" Fill="{StaticResource PrimaryBrush}" Opacity="0"/>
-            <Ellipse x:Name="HighlightBackground" Fill="{StaticResource ControlLight2Brush}" Opacity="0" Stretch="Uniform"/>
+            <Ellipse x:Name="TodayBackground" Stretch="Uniform" Fill="{DynamicResource AccentBrush}" Opacity="0"/>
+            <Ellipse x:Name="SelectedBackground" Stretch="Uniform" Fill="{DynamicResource PrimaryBrush}" Opacity="0"/>
+            <Ellipse x:Name="HighlightBackground" Fill="{DynamicResource ControlLight2Brush}" Opacity="0" Stretch="Uniform"/>
             <ContentPresenter x:Name="NormalText" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="5,1,5,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
             <Path x:Name="Blackout" Data="M8.1772461,11.029181 L10.433105,11.029181 L11.700684,12.801641 L12.973633,11.029181 L15.191895,11.029181 L12.844727,13.999395 L15.21875,17.060919 L12.962891,17.060919 L11.673828,15.256231 L10.352539,17.060919 L8.1396484,17.060919 L10.519043,14.042364 z"
                   Fill="{TemplateBinding Foreground}" HorizontalAlignment="Stretch" Opacity="0" RenderTransformOrigin="0.5,0.5" Stretch="Fill" VerticalAlignment="Stretch"/>
-            <Ellipse x:Name="DayButtonFocusVisual" IsHitTestVisible="false" Stretch="Uniform" Stroke="{StaticResource BorderLightBrush}" Visibility="Collapsed"/>
+            <Ellipse x:Name="DayButtonFocusVisual" IsHitTestVisible="false" Stretch="Uniform" Stroke="{DynamicResource BorderLightBrush}" Visibility="Collapsed"/>
           </Grid>
           <!--<ControlTemplate.Triggers>
             <Trigger Property="IsInactive" Value="True">
@@ -226,13 +226,13 @@
 
   <Style x:Key="CalendarItemBaseStyle" TargetType="{x:Type CalendarItem}" BasedOn="{StaticResource BaseControlStyle}">
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
-    <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type CalendarItem}">
           <ControlTemplate.Resources>
             <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
-              <TextBlock Foreground="{StaticResource TextDarkBrush}" FontFamily="Verdana" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,6,0,6" Text="{Binding}" VerticalAlignment="Center"/>
+              <TextBlock Foreground="{DynamicResource TextDarkBrush}" FontFamily="Verdana" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,6,0,6" Text="{Binding}" VerticalAlignment="Center"/>
             </DataTemplate>
           </ControlTemplate.Resources>
           <Grid x:Name="PART_Root">
@@ -320,8 +320,8 @@
                 </Grid>
               </Grid>
             </Border>
-            <Rectangle x:Name="PART_DisabledVisual" Fill="{StaticResource BorderBrush}" Opacity="0" RadiusX="2" RadiusY="2"
-                       Stroke="{StaticResource BorderBrush}" Stretch="Fill" StrokeThickness="1" Visibility="Collapsed"/>
+            <Rectangle x:Name="PART_DisabledVisual" Fill="{DynamicResource BorderBrush}" Opacity="0" RadiusX="2" RadiusY="2"
+                       Stroke="{DynamicResource BorderBrush}" Stretch="Fill" StrokeThickness="1" Visibility="Collapsed"/>
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">
@@ -343,9 +343,9 @@
   <Style TargetType="CalendarItem" BasedOn="{StaticResource CalendarItemBaseStyle}"/>
 
   <Style x:Key="CalendarBaseStyle" TargetType="{x:Type Calendar}" BasedOn="{StaticResource BaseControlStyle}">
-    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-    <Setter Property="Background" Value="{StaticResource RegionBrush}"/>
-    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
     <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="CalendarItemStyle" Value="{StaticResource CalendarItemBaseStyle}"/>
     <Setter Property="CalendarButtonStyle" Value="{StaticResource CalendarButtonBaseStyle}"/>

@@ -29,10 +29,10 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{StaticResource ControlLight2Brush}" TargetName="bd"/>
+              <Setter Property="Background" Value="{DynamicResource ControlLight2Brush}" TargetName="bd"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Background" Value="{StaticResource ControlBrush}" TargetName="bd"/>
+              <Setter Property="Background" Value="{DynamicResource ControlBrush}" TargetName="bd"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -57,14 +57,14 @@
               <Setter Property="Opacity" Value=".5" TargetName="root"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{StaticResource ControlLight2Brush}"/>
+              <Setter Property="Background" Value="{DynamicResource ControlLight2Brush}"/>
             </Trigger>
             <Trigger Property="IsFocused" Value="True">
               <Setter Property="Cursor" Value="IBeam"/>
-              <Setter Property="Background" Value="{StaticResource RegionDark1Brush}" TargetName="root" />
+              <Setter Property="Background" Value="{DynamicResource RegionDark1Brush}" TargetName="root" />
             </Trigger>
             <Trigger Property="IsReadOnly" Value="True">
-              <Setter Property="Background" Value="{StaticResource RegionBrush}" TargetName="root"/>
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -96,9 +96,9 @@
               <Setter Property="Opacity" Value=".5"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{StaticResource ControlLight2Brush}" TargetName="PART_TextBox"/>
-              <Setter Property="Background" Value="{StaticResource ControlLight1Brush}" TargetName="PART_Minus"/>
-              <Setter Property="Background" Value="{StaticResource ControlLight1Brush}" TargetName="PART_Increase"/>
+              <Setter Property="Background" Value="{DynamicResource ControlLight2Brush}" TargetName="PART_TextBox"/>
+              <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}" TargetName="PART_Minus"/>
+              <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}" TargetName="PART_Increase"/>
             </Trigger>
             <Trigger Property="IsEditing" Value="True">
               <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Minus"/>

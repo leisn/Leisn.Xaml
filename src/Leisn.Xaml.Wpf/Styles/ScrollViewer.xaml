@@ -23,7 +23,7 @@
     <Setter Property="Padding" Value="2"/>
     <Setter Property="Focusable" Value="false"/>
     <Setter Property="IsTabStop" Value="false"/>
-    <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="0"/>
     <Setter Property="Template">
       <Setter.Value>
@@ -38,12 +38,12 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Background" TargetName="border" Value="{StaticResource ControlAccentBrush}"/>
-              <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ControlAccentBrush}"/>
+              <Setter Property="Background" TargetName="border" Value="{DynamicResource ControlAccentBrush}"/>
+              <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ControlAccentBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-              <Setter Property="Background" TargetName="border" Value="{StaticResource ControlLighterBrush}"/>
-              <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource ControlLighterBrush}"/>
+              <Setter Property="Background" TargetName="border" Value="{DynamicResource ControlLighterBrush}"/>
+              <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource ControlLighterBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
               <Setter Property="Opacity" TargetName="contentPresenter" Value="0.56"/>
@@ -56,7 +56,7 @@
   <Style x:Key="ScrollBarThumbVertical" TargetType="{x:Type Thumb}">
     <Setter Property="OverridesDefaultStyle" Value="true"/>
     <Setter Property="IsTabStop" Value="false"/>
-    <Setter Property="Background" Value="{StaticResource RegionLight1Brush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionLight1Brush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
@@ -64,10 +64,10 @@
                      Height="{TemplateBinding Height}" SnapsToDevicePixels="True" Width="{TemplateBinding Width}"/>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource ControlBrush}"/>
+              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlBrush}"/>
             </Trigger>
             <Trigger Property="IsDragging" Value="true">
-              <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource ControlLight1Brush}"/>
+              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlLight1Brush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -77,7 +77,7 @@
   <Style x:Key="ScrollBarThumbHorizontal" TargetType="{x:Type Thumb}">
     <Setter Property="OverridesDefaultStyle" Value="true"/>
     <Setter Property="IsTabStop" Value="false"/>
-    <Setter Property="Background" Value="{StaticResource RegionLight1Brush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionLight1Brush}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
@@ -86,10 +86,10 @@
                      SnapsToDevicePixels="True" Width="{TemplateBinding Width}"/>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource ControlBrush}"/>
+              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlBrush}"/>
             </Trigger>
             <Trigger Property="IsDragging" Value="true">
-              <Setter Property="Fill" TargetName="rectangle" Value="{StaticResource ControlLight1Brush}"/>
+              <Setter Property="Fill" TargetName="rectangle" Value="{DynamicResource ControlLight1Brush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -99,9 +99,9 @@
   <Style x:Key="ScrollBarBaseStyle" TargetType="{x:Type ScrollBar}">
     <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
     <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
-    <Setter Property="Background" Value="{StaticResource RegionDark1Brush}"/>
-    <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
-    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionDark1Brush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}"/>
     <Setter Property="Width" Value="{StaticResource ScrollBarWidth}"/>
@@ -205,6 +205,37 @@
       </Trigger>
     </Style.Triggers>
   </Style>
-
   <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollBarBaseStyle}"/>
+
+  <Style x:Key="ScrollViewerBaseStyle" TargetType="{x:Type ScrollViewer}">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ScrollViewer}">
+          <Grid x:Name="Grid" Background="{TemplateBinding Background}">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Rectangle x:Name="Corner" Grid.Column="1" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Grid.Row="1"/>
+            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" CanHorizontallyScroll="False" ContentTemplate="{TemplateBinding ContentTemplate}" CanVerticallyScroll="False" Grid.Column="0" Content="{TemplateBinding Content}" CanContentScroll="{TemplateBinding CanContentScroll}" Margin="{TemplateBinding Padding}" Grid.Row="0"/>
+            <ScrollBar x:Name="PART_VerticalScrollBar" AutomationProperties.AutomationId="VerticalScrollBar" Cursor="Arrow" Grid.Column="1" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Grid.Row="0" Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" ViewportSize="{TemplateBinding ViewportHeight}" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+            <ScrollBar x:Name="PART_HorizontalScrollBar" AutomationProperties.AutomationId="HorizontalScrollBar" Cursor="Arrow" Grid.Column="0" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Orientation="Horizontal" Grid.Row="1" Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" ViewportSize="{TemplateBinding ViewportWidth}" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+          </Grid>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <Trigger Property="IsEnabled" Value="false">
+        <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}"/>
+      </Trigger>
+    </Style.Triggers>
+  </Style>
+  <Style TargetType="{x:Type ScrollViewer}" BasedOn="{StaticResource ScrollViewerBaseStyle}"/>
+
 </ResourceDictionary>

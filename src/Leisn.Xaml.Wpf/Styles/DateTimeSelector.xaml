@@ -35,6 +35,7 @@
   <Style x:Key="NumberSelectorBaseStyle" TargetType="local:NumberSelector">
     <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
     <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}"/>
+    <Setter Property="ItemPadding" Value="5,8"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:NumberSelector">
@@ -43,7 +44,7 @@
                   BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding CornerRadius}">
             <Grid>
-              <skia:SKElement SnapsToDevicePixels="True" IgnorePixelScaling="True" x:Name="PART_Canvas" Margin="{TemplateBinding Padding}"/>
+              <skia:SKElement x:Name="PART_Canvas" IgnorePixelScaling="True" SnapsToDevicePixels="True" Margin="{TemplateBinding Padding}"/>
               <RepeatButton x:Name="PART_PreviousButton" VerticalAlignment="Top"
                             Background="{TemplateBinding Background}"
                             Style="{StaticResource NumberSelectorButtonStyle}">
@@ -87,7 +88,7 @@
   <Style x:Key="TimeSelectorBaseStyle" TargetType="local:TimeSelector" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="HorizontalContentAlignment" Value="Center"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
-    <Setter Property="BorderBrush" Value="{StaticResource TextDarkBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource TextDarkBrush}"/>
     <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Padding" Value="0"/>
     <Setter Property="Template">
@@ -119,7 +120,7 @@
                 <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Margin="2"
                       MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="{StaticResource DateTimeSelectorPopupMaxHeight}" 
                       Background="{DynamicResource RegionBrush}"
-                      BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                      BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
                       CornerRadius="{TemplateBinding CornerRadius}">
                   <Grid>
                     <!--<Grid.RowDefinitions>
@@ -185,7 +186,7 @@
   <Style x:Key="DateSelectorBaseStyle" TargetType="local:DateSelector" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="HorizontalContentAlignment" Value="Center"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
-    <Setter Property="BorderBrush" Value="{StaticResource TextDarkBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource TextDarkBrush}"/>
     <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Padding" Value="0"/>
     <Setter Property="Template">
@@ -198,7 +199,7 @@
               <ToggleButton x:Name="toggle" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0" IsChecked="False" Focusable="False">
                 <Grid>
                   <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.6*" x:Name="YearDisplayColumn"/>
+                    <ColumnDefinition Width="*" x:Name="YearDisplayColumn"/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                   </Grid.ColumnDefinitions>
@@ -217,11 +218,11 @@
                 <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Margin="2"
                       MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="{StaticResource DateTimeSelectorPopupMaxHeight}" 
                       Background="{DynamicResource RegionBrush}"
-                      BorderBrush="{StaticResource BorderBrush}" BorderThickness="1"
+                      BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
                       CornerRadius="{TemplateBinding CornerRadius}">
                   <Grid>
                     <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="1.6*" x:Name="YearHostColumn"/>
+                      <ColumnDefinition Width="*" x:Name="YearHostColumn"/>
                       <ColumnDefinition Width="*" />
                       <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
