@@ -17,25 +17,6 @@ namespace Leisn.Xaml.Wpf.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PropertyItem), new FrameworkPropertyMetadata(typeof(PropertyItem)));
         }
 
-        public static bool GetUseExpanderStyle(DependencyObject obj)
-        {
-            return (bool)obj.GetValue(UseExpanderStyleProperty);
-        }
-        public static void SetUseExpanderStyle(DependencyObject obj, bool value)
-        {
-            obj.SetValue(UseExpanderStyleProperty, value);
-        }
-        public static readonly DependencyProperty UseExpanderStyleProperty =
-            DependencyProperty.RegisterAttached("UseExpanderStyle", typeof(bool), typeof(PropertyItem), new PropertyMetadata(false));
-
-        public bool IsExpander
-        {
-            get => (bool)GetValue(IsExpanderProperty);
-            set => SetValue(IsExpanderProperty, value);
-        }
-        public static readonly DependencyProperty IsExpanderProperty =
-            DependencyProperty.Register("IsExpander", typeof(bool), typeof(PropertyItem), new PropertyMetadata(false));
-
         public PropertyDescriptor PropertyDescriptor { get; internal set; } = null!;
         public Type PropertyType => PropertyDescriptor.PropertyType;
         public string PropertyName => PropertyDescriptor.Name;
@@ -92,6 +73,21 @@ namespace Leisn.Xaml.Wpf.Controls
         public static readonly DependencyProperty EditorElementProperty =
             DependencyProperty.Register(
                 nameof(EditorElement), typeof(FrameworkElement), typeof(PropertyItem), new FrameworkPropertyMetadata(default(FrameworkElement)));
+        public object? OperationContent
+        {
+            get { return GetValue(OperationContentProperty); }
+            set { SetValue(OperationContentProperty, value); }
+        }
+        public static readonly DependencyProperty OperationContentProperty =
+            DependencyProperty.Register("OperationContent", typeof(object), typeof(PropertyItem), new PropertyMetadata(null));
+        public bool UseExpanderStyle
+        {
+            get => (bool)GetValue(UseExpanderStyleProperty);
+            set => SetValue(UseExpanderStyleProperty, value);
+        }
+        public static readonly DependencyProperty UseExpanderStyleProperty =
+            DependencyProperty.Register("UseExpanderStyle", typeof(bool), typeof(PropertyItem), new PropertyMetadata(false));
+
         public IPropertyEditor Editor
         {
             get => (IPropertyEditor)GetValue(EditorProperty);
@@ -131,7 +127,8 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             EditorElement = Editor.CreateElement(this);
-            IsExpander = GetUseExpanderStyle(EditorElement);
+            UseExpanderStyle = Editor.UseExpanderStyle;
+            OperationContent = Editor.GetOperationContent();
             Binding binding = new()
             {
                 Source = Source,

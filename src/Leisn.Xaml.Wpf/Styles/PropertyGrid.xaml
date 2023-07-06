@@ -123,11 +123,14 @@
               local:ControlAttach.Padding="22,3,10,5"
               local:ControlAttach.CornerRadius="{StaticResource DefaultBottomCornerRadius}">
       <Expander.Header>
-        <TextBlock Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Left">
-          <TextBlock.ToolTip>
-            <ToolTip Style="{StaticResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
-          </TextBlock.ToolTip>
-        </TextBlock>
+        <DockPanel>
+          <ContentPresenter ContentSource="OperationContent" DockPanel.Dock="Right"/>
+          <TextBlock Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Left">
+            <TextBlock.ToolTip>
+              <ToolTip Style="{StaticResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
+            </TextBlock.ToolTip>
+          </TextBlock>
+        </DockPanel>
       </Expander.Header>
       <Border Background="{TemplateBinding Background}" Padding="0,5,0,0">
         <ContentPresenter ContentSource="EditorElement"  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
@@ -149,7 +152,7 @@
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     <Setter Property="Template" Value="{StaticResource PropertyItemNormalTemplate}"/>
     <Style.Triggers>
-      <Trigger Property="IsExpander" Value="True">
+      <Trigger Property="UseExpanderStyle" Value="True">
         <Setter Property="Template" Value="{StaticResource PropertyItemExpanderTemplate}"/>
         <Setter Property="Background" Value="{DynamicResource RegionLight2Brush}"/>
       </Trigger>

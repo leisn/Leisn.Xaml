@@ -8,14 +8,14 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            PropertyGrid pg = new() { Style = (Style)item.FindResource("SubPropertyGridBaseStyle") };
-            PropertyItem.SetUseExpanderStyle(pg, true);
-            return pg;
+            return new PropertyGrid() { Style = (Style)item.FindResource("SubPropertyGridBaseStyle") };
         }
 
         public DependencyProperty GetBindingProperty()
         {
             return PropertyGrid.SourceProperty;
         }
+
+        public bool UseExpanderStyle => true;
     }
 }

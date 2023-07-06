@@ -84,13 +84,15 @@ namespace WpfDemo
         }
         private class PgTest
         {
-            public SubClass SubClass { get; set; } = new();
-            //public List<int> ListInts { get; set; } = new();
-            //public IEnumerable<int> EnumInts { get; set; } = new Collection<int>();
+            public List<int> IntValues { get; set; } = new List<int>();
+            public IEnumerable<string> StringValues { get; set; } = new ReadOnlyCollection<string>(new List<string> { "stri 1", "str 2" });
+            public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
+            public List<SubClass> SubClasses { get; set; } = new List<SubClass>();
             public DateTime DateTime { get; set; }
             public DateTime? DateTime2 { get; set; }
             public DateOnly DateOnly { get; set; }
             public TimeOnly TimeOnly { get; set; } = new TimeOnly(5, 12, 9);
+            public SubClass SubClass { get; set; } = new();
             public bool? BoolNullable { get; set; }
             public bool Bool { get; set; }
             public Color Color { get; set; } = ColorEx.FromHex("#7805112c");
