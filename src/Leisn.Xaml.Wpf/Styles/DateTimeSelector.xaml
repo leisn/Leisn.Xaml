@@ -229,8 +229,8 @@
                     <Border Grid.Column="0" BorderThickness="0" >
                       <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}"
                                             CornerRadius="4,0,0,4" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}"     
-                                            MinValue="{Binding Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=-100}"
-                                            MaxValue="{Binding Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=+100}"
+                                            MinValue="{Binding Mode=OneTime,Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=-100}"
+                                            MaxValue="{Binding Mode=OneTime,Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=+100}"
                                             CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Year,Mode=TwoWay}"/>
                     </Border>
                     <Border Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">

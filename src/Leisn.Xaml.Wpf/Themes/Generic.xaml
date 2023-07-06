@@ -611,6 +611,7 @@
   <Style TargetType="Expander" BasedOn="{StaticResource ExpanderBaseStyle}" />
   <Style x:Key="ButtonBaseStyle" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Padding" Value="5,1" />
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ButtonBase}">
@@ -812,6 +813,7 @@
     <Setter Property="Padding" Value="5,1" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="local:ControlAttach.ShowClear" Value="True" />
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
     <Setter Property="local:ControlAttach.Placeholder" Value="{x:Null}" />
     <Setter Property="Template">
       <Setter.Value>
@@ -922,7 +924,7 @@
       </Popup>
       <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}" />
       <Border x:Name="border" Margin="{TemplateBinding BorderThickness}">
-        <TextBox x:Name="PART_EditableTextBox" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="0,0,6,0" Background="Transparent" Padding="{StaticResource ComboBoxItemPadding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        <TextBox x:Name="PART_EditableTextBox" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="0,0,6,0" Background="Transparent" Padding="{StaticResource ComboBoxItemPadding}" local:ControlAttach.CornerRadius="{StaticResource DefaultLeftCornerRadius }" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
       </Border>
     </Grid>
     <ControlTemplate.Triggers>
@@ -1744,7 +1746,7 @@
                       <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" BorderThickness="0">
-                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="4,0,0,4" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="{Binding Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=-100}" MaxValue="{Binding Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=+100}" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Year,Mode=TwoWay}" />
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="4,0,0,4" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="{Binding Mode=OneTime,Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=-100}" MaxValue="{Binding Mode=OneTime,Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=+100}" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Year,Mode=TwoWay}" />
                     </Border>
                     <Border Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
                       <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="0" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="1" MaxValue="12" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Month,Mode=TwoWay}" />

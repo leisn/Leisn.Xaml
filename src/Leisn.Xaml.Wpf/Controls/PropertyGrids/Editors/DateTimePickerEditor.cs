@@ -8,7 +8,7 @@ using Leisn.Common.Attributes;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
-    internal class DateTimeEditor : IPropertyEditor
+    internal class DateTimePickerEditor : IPropertyEditor
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {

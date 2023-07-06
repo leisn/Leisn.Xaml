@@ -46,7 +46,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 TypeCode.Single => new NumericEditor(float.MinValue, float.MaxValue, 1, NumericType.Float),
                 TypeCode.Double => new NumericEditor(double.MinValue, double.MaxValue, 1, NumericType.Float),
                 TypeCode.Decimal => new NumericEditor(Convert.ToDouble(decimal.MinValue), Convert.ToDouble(decimal.MaxValue), 1, NumericType.Float),
-                TypeCode.DateTime => new DateTimeEditor(),
+                TypeCode.DateTime => new DateTimePickerEditor(),
                 TypeCode.String => CreatStringEditor(propertyDescriptor),
                 TypeCode.Object => CreateObjectEditor(propertyDescriptor),
                 _ => new ReadOnlyTextEditor()
@@ -94,7 +94,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
             if (propertyType == typeof(DateTime?))
             {
-                return new DateTimeEditor();
+                return new DateTimePickerEditor();
             }
 
             if (propertyType == typeof(Color))
