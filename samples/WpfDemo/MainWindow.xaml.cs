@@ -89,6 +89,7 @@ namespace WpfDemo
             //public IEnumerable<int> EnumInts { get; set; } = new Collection<int>();
             public DateTime DateTime { get; set; }
             public DateTime? DateTime2 { get; set; }
+            public TimeOnly TimeOnly { get; set; }
             public bool? BoolNullable { get; set; }
             public bool Bool { get; set; }
             public Color Color { get; set; } = ColorEx.FromHex("#7805112c");

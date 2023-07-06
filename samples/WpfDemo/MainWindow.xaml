@@ -29,8 +29,6 @@
       </ComboBox>
       <Button Content="{ln:Lang Ask}"  HorizontalAlignment="Center" Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
       <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
-      <ln:TimePicker  />
-      <DatePicker/>
       <ln:FontIcon FontFamily="{StaticResource FluentIconFontFamily}" Glyph="&#xE082;" Foreground="White"
                    Background="Green" Padding="5" HorizontalAlignment="Center" CornerRadius="7"/>
     </ln:StackPanel>

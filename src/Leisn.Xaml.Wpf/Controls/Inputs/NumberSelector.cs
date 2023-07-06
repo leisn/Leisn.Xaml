@@ -47,7 +47,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty ItemPaddingProperty =
             DependencyProperty.Register("ItemPadding", typeof(Thickness), typeof(NumberSelector),
-                 new FrameworkPropertyMetadata(new Thickness(7), FrameworkPropertyMetadataOptions.AffectsMeasure));
+                 new FrameworkPropertyMetadata(new Thickness(8), FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         public TextAlignment TextAlignment
         {

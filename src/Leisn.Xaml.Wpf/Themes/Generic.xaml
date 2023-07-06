@@ -194,7 +194,7 @@
     <Setter Property="Control.Template">
       <Setter.Value>
         <ControlTemplate>
-          <Rectangle RadiusX="3" RadiusY="3" Margin="-2" Opacity=".6" SnapsToDevicePixels="True" Stroke="{StaticResource BorderLighterBrush}" StrokeThickness="2" StrokeDashArray="1 1" />
+          <Rectangle RadiusX="3" RadiusY="3" Margin="-2" Opacity=".6" SnapsToDevicePixels="True" Stroke="{StaticResource BorderLightBrush}" StrokeThickness="2" StrokeDashArray="1 1" />
         </ControlTemplate>
       </Setter.Value>
     </Setter>
@@ -212,7 +212,6 @@
     <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
     <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}" />
   </Style>
   <Style TargetType="TextBlock">
@@ -1654,11 +1653,12 @@
     <Setter Property="HorizontalContentAlignment" Value="Center" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="BorderBrush" Value="{StaticResource TextDarkBrush}" />
+    <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
     <Setter Property="Padding" Value="0" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:TimePicker">
-          <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
+          <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}">
             <Grid>
               <ToggleButton x:Name="toggle" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0" IsChecked="False" Focusable="False">
                 <Grid>
@@ -1674,21 +1674,21 @@
                 </Grid>
               </ToggleButton>
               <Popup x:Name="PART_Popup" AllowsTransparency="true" Placement="Center" PopupAnimation="{StaticResource {x:Static SystemParameters.ToolTipPopupAnimationKey}}" IsOpen="{Binding ElementName=toggle,Path=IsChecked, Mode=TwoWay}" StaysOpen="False">
-                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="{DynamicResource TimePickerPopupMaxHeight}" Margin="2" Background="{DynamicResource RegionBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}">
+                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="{DynamicResource TimePickerPopupMaxHeight}" Margin="2" Background="{DynamicResource RegionBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="{TemplateBinding CornerRadius}">
                   <Grid>
                     <Grid.ColumnDefinitions>
                       <ColumnDefinition Width="*" />
                       <ColumnDefinition Width="*" />
                       <ColumnDefinition Width="*" x:Name="ThirdPickerHostColumn" />
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" BorderThickness="0" local:ControlAttach.CornerRadius="4,0,0,4">
-                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="23" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hour,Mode=TwoWay}" />
+                    <Border Grid.Column="0" BorderThickness="0">
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="4,0,0,4" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="23" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hour,Mode=TwoWay}" />
                     </Border>
-                    <Border Grid.Column="1" BorderThickness="1,0" local:ControlAttach.CornerRadius="0" BorderBrush="{TemplateBinding BorderBrush}">
-                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="59" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Minute,Mode=TwoWay}" />
+                    <Border Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}">
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="0" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="59" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Minute,Mode=TwoWay}" />
                     </Border>
-                    <Border Grid.Column="2" BorderThickness="0" local:ControlAttach.CornerRadius="0,4,4,0">
-                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="59" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Second,Mode=TwoWay}" />
+                    <Border Grid.Column="2" BorderThickness="0">
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="0,4,4,0" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="59" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Second,Mode=TwoWay}" />
                     </Border>
                   </Grid>
                 </Border>

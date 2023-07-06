@@ -12,6 +12,14 @@ namespace Leisn.Xaml.Wpf.Controls
 {
     public class TimePicker : Control
     {
+
+        public CornerRadius CornerRadius
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+        public static readonly DependencyProperty CornerRadiusProperty = Border.CornerRadiusProperty.AddOwner(typeof(TimePicker));
+
         public int Hour
         {
             get { return (int)GetValue(HourProperty); }

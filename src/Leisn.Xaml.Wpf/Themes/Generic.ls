@@ -25,6 +25,7 @@ Styles/ComboBox.xaml
 Styles/ListBox.xaml
 Styles/Calendar.xaml
 Styles/DatePicker.xaml
+Styles/TimePicker.xaml
 
 #custom control styles
 Styles/NumericBox.xaml
