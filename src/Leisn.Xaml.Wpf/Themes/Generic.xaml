@@ -190,6 +190,7 @@
   <converters:ColorHexStringConverter x:Key="ColorHexStringConverter" />
   <converters:ColorSolidBurshConverter x:Key="ColorSolidBurshConverter" />
   <converters:MutexVisilityConverter x:Key="MutexVisilityConverter" />
+  <converters:DateMaxDayConverter x:Key="DateMaxDayConverter" />
   <Style x:Key="FocusVisual">
     <Setter Property="Control.Template">
       <Setter.Value>
@@ -285,7 +286,7 @@
   <Style x:Key="ScrollBarThumbHorizontal" TargetType="{x:Type Thumb}">
     <Setter Property="OverridesDefaultStyle" Value="true" />
     <Setter Property="IsTabStop" Value="false" />
-    <Setter Property="Background" Value="{StaticResource RegionLighterBrush}" />
+    <Setter Property="Background" Value="{StaticResource RegionLight1Brush}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Thumb}">
@@ -600,7 +601,7 @@
               <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}" />
+              <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -1665,12 +1666,12 @@
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
-                    <ColumnDefinition />
+                    <ColumnDefinition x:Name="ThirdPickerDisplayColumn" />
                   </Grid.ColumnDefinitions>
                   <Border x:Name="InnerBorder" Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}" />
                   <TextBlock HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hour,Mode=OneWay,StringFormat={}{0:D2}}" />
                   <TextBlock Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Minute,Mode=OneWay,StringFormat={}{0:D2}}" />
-                  <TextBlock x:Name="SecondBlock" Grid.Column="2" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Second,Mode=OneWay,StringFormat={}{0:D2}}" />
+                  <TextBlock Grid.Column="2" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Second,Mode=OneWay,StringFormat={}{0:D2}}" />
                 </Grid>
               </ToggleButton>
               <Popup x:Name="PART_Popup" AllowsTransparency="true" Placement="Center" PopupAnimation="{StaticResource {x:Static SystemParameters.ToolTipPopupAnimationKey}}" IsOpen="{Binding ElementName=toggle,Path=IsChecked, Mode=TwoWay}" StaysOpen="False">
@@ -1684,7 +1685,7 @@
                     <Border Grid.Column="0" BorderThickness="0">
                       <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="4,0,0,4" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="23" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hour,Mode=TwoWay}" />
                     </Border>
-                    <Border Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}">
+                    <Border Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
                       <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="0" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="0" MaxValue="59" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Minute,Mode=TwoWay}" />
                     </Border>
                     <Border Grid.Column="2" BorderThickness="0">
@@ -1700,9 +1701,9 @@
               <Setter Property="Opacity" Value=".56" />
             </Trigger>
             <Trigger Property="ShowSecond" Value="False">
-              <Setter Property="Visibility" Value="Collapsed" TargetName="SecondBlock" />
               <Setter Property="BorderThickness" Value="1,0,0,0" TargetName="InnerBorder" />
               <Setter Property="Width" Value="0" TargetName="ThirdPickerHostColumn" />
+              <Setter Property="Width" Value="0" TargetName="ThirdPickerDisplayColumn" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -1710,6 +1711,74 @@
     </Setter>
   </Style>
   <Style TargetType="local:TimeSelector" BasedOn="{StaticResource TimeSelectorBaseStyle}" />
+  <Style x:Key="DateSelectorBaseStyle" TargetType="local:DateSelector" BasedOn="{StaticResource BaseInputStyle}">
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="BorderBrush" Value="{StaticResource TextDarkBrush}" />
+    <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:DateSelector">
+          <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}">
+            <Grid>
+              <ToggleButton x:Name="toggle" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0" IsChecked="False" Focusable="False">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.6*" x:Name="YearDisplayColumn" />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                  </Grid.ColumnDefinitions>
+                  <Border x:Name="InnerBorder" Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}" />
+                  <TextBlock HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Year,Mode=OneWay,StringFormat={}{0:D2}}" />
+                  <TextBlock Grid.Column="1" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Month,Mode=OneWay,StringFormat={}{0:D2}}" />
+                  <TextBlock Grid.Column="2" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Day,Mode=OneWay,StringFormat={}{0:D2}}" />
+                </Grid>
+              </ToggleButton>
+              <Popup x:Name="PART_Popup" AllowsTransparency="true" Placement="Center" PopupAnimation="{StaticResource {x:Static SystemParameters.ToolTipPopupAnimationKey}}" IsOpen="{Binding ElementName=toggle,Path=IsChecked, Mode=TwoWay}" StaysOpen="False">
+                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Margin="2" MinWidth="{Binding ActualWidth, ElementName=toggle}" MaxHeight="{StaticResource DateTimeSelectorPopupMaxHeight}" Background="{DynamicResource RegionBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" CornerRadius="{TemplateBinding CornerRadius}">
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="1.6*" x:Name="YearHostColumn" />
+                      <ColumnDefinition Width="*" />
+                      <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" BorderThickness="0">
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="4,0,0,4" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="{Binding Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=-100}" MaxValue="{Binding Source={x:Static sys:DateTime.Now},Path=Year,Converter={StaticResource NumberOperateConverter},ConverterParameter=+100}" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Year,Mode=TwoWay}" />
+                    </Border>
+                    <Border Grid.Column="1" BorderThickness="1,0" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="0" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="1" MaxValue="12" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Month,Mode=TwoWay}" />
+                    </Border>
+                    <Border Grid.Column="2" BorderThickness="0">
+                      <local:NumberSelector FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}" FontStretch="{TemplateBinding FontStretch}" FontStyle="{TemplateBinding FontStyle}" FontWeight="{TemplateBinding FontWeight}" CornerRadius="0,4,4,0" TextColor="{StaticResource TextColor}" SelectedBackground="{StaticResource PrimaryColor}" SelectedTextColor="{StaticResource TextColor}" MinValue="1" CurrentValue="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Day,Mode=TwoWay}">
+                        <local:NumberSelector.MaxValue>
+                          <MultiBinding Converter="{StaticResource DateMaxDayConverter}" Mode="OneWay">
+                            <Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" Path="Year" />
+                            <Binding RelativeSource="{RelativeSource Mode=TemplatedParent}" Path="Month" />
+                          </MultiBinding>
+                        </local:NumberSelector.MaxValue>
+                      </local:NumberSelector>
+                    </Border>
+                  </Grid>
+                </Border>
+              </Popup>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".56" />
+            </Trigger>
+            <Trigger Property="ShowYear" Value="False">
+              <Setter Property="BorderThickness" Value="0,0,1,0" TargetName="InnerBorder" />
+              <Setter Property="Width" Value="0" TargetName="YearHostColumn" />
+              <Setter Property="Width" Value="0" TargetName="YearDisplayColumn" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="local:DateSelector" BasedOn="{StaticResource DateSelectorBaseStyle}" />
   <Style x:Key="NumericBoxBaseStyle" TargetType="local:NumericBox" BasedOn="{StaticResource TextBoxBaseStyle}">
     <Setter Property="Template">
       <Setter.Value>

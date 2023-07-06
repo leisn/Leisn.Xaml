@@ -13,4 +13,5 @@
   <converters:ColorHexStringConverter x:Key="ColorHexStringConverter"/>
   <converters:ColorSolidBurshConverter x:Key="ColorSolidBurshConverter"/>
   <converters:MutexVisilityConverter x:Key="MutexVisilityConverter"/>
+  <converters:DateMaxDayConverter x:Key="DateMaxDayConverter"/>
 </ResourceDictionary>

@@ -12,7 +12,6 @@ namespace Leisn.Xaml.Wpf.Controls
 {
     public class TimeSelector : Control
     {
-
         public CornerRadius CornerRadius
         {
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
@@ -31,9 +30,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static object CoerceHourValue(DependencyObject d, object baseValue)
         {
-            var v = (int)baseValue;
-            v = Math.Clamp(v, 0, 23);
-            return v;
+            return Math.Clamp((int)baseValue, 0, 23);
         }
 
         public int Minute
@@ -48,9 +45,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static object CoerceMinuteAndSecondValue(DependencyObject d, object baseValue)
         {
-            var v = (int)baseValue;
-            v = Math.Clamp(v, 0, 59);
-            return v;
+            return Math.Clamp((int)baseValue, 0, 59);
         }
 
         public int Second

@@ -22,4 +22,17 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return TimeSelector.TimeProperty;
         }
     }
+
+    internal class DateSelectorEditor : IPropertyEditor
+    {
+        public FrameworkElement CreateElement(PropertyItem item)
+        {
+            return new DateSelector() { IsEnabled = !item.IsReadOnly };
+        }
+
+        public DependencyProperty GetBindingProperty()
+        {
+            return DateSelector.DateProperty;
+        }
+    }
 }

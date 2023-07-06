@@ -87,6 +87,11 @@ namespace Leisn.Xaml.Wpf.Controls
                 return new TimeSelectorEditor();
             }
 
+            if (propertyType == typeof(DateOnly))
+            {
+                return new DateSelectorEditor();
+            }
+
             if (propertyType == typeof(DateTime?))
             {
                 return new DateTimeEditor();

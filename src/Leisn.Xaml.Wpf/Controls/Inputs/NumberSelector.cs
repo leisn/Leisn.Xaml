@@ -103,7 +103,15 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty MaxValueProperty =
             DependencyProperty.Register("MaxValue", typeof(int), typeof(NumberSelector),
-                new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnPropertyChanged)));
+                new FrameworkPropertyMetadata(0, new PropertyChangedCallback(OnPropertyChanged), new CoerceValueCallback(CoerceMaxValue)));
+
+        private static object CoerceMaxValue(DependencyObject d, object baseValue)
+        {
+            var ns = (NumberSelector)d;
+            if (baseValue is int v && v < ns.MinValue)
+                return ns.MinValue;
+            return baseValue;
+        }
 
         public int CurrentValue
         {
@@ -129,6 +137,15 @@ namespace Leisn.Xaml.Wpf.Controls
         private static void OnPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var ns = (NumberSelector)d;
+            if (e.Property == MinValueProperty)
+            {
+                ns.CoerceValue(MaxValueProperty);
+                ns.CoerceValue(CurrentValueProperty);
+            }
+            else if (e.Property == MaxValueProperty)
+            {
+                ns.CoerceValue(CurrentValueProperty);
+            }
             ns.UpdateVisual();
         }
 

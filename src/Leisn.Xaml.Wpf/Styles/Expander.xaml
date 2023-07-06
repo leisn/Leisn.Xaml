@@ -253,7 +253,7 @@
               <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderLeftHeaderStyle}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Foreground" Value="{StaticResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+              <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
