@@ -17,45 +17,6 @@ using SkiaSharp.Views.WPF;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
-    #region events delegate
-    public delegate void SelectedHueChangedEventHandler(object sender, SelectedHueChangedEventArgs e);
-    public class SelectedHueChangedEventArgs : RoutedEventArgs
-    {
-        public Hsv OldValue { get; }
-        public Hsv NewValue { get; }
-        public SelectedHueChangedEventArgs(Hsv oldValue, Hsv newValue)
-        {
-            RoutedEvent = ColorSpectrum.SelectedHueChangedEvent;
-            OldValue = oldValue;
-            NewValue = newValue;
-        }
-    }
-    public delegate void SelectedHsvChangedEventHandler(object sender, SelectedHsvChangedEventArgs e);
-    public class SelectedHsvChangedEventArgs : RoutedEventArgs
-    {
-        public Hsv OldValue { get; }
-        public Hsv NewValue { get; }
-        public SelectedHsvChangedEventArgs(Hsv oldValue, Hsv newValue)
-        {
-            RoutedEvent = ColorSpectrum.SelectedHsvChangedEvent;
-            OldValue = oldValue;
-            NewValue = newValue;
-        }
-    }
-    public delegate void SelectedRgbChangedEventHandler(object sender, SelectedRgbChangedEventArgs e);
-    public class SelectedRgbChangedEventArgs : RoutedEventArgs
-    {
-        public Rgb OldValue { get; }
-        public Rgb NewValue { get; }
-        public SelectedRgbChangedEventArgs(Rgb oldValue, Rgb newValue)
-        {
-            RoutedEvent = ColorSpectrum.SelectedRgbChangedEvent;
-            OldValue = oldValue;
-            NewValue = newValue;
-        }
-    }
-
-    #endregion
 
     public enum ColorSpectrumStyle
     {
@@ -84,41 +45,36 @@ namespace Leisn.Xaml.Wpf.Controls
         }
 
         #region public events
-        public static readonly RoutedEvent SelectedHueChangedEvent = EventManager.RegisterRoutedEvent(
-            nameof(SelectedHueChanged), RoutingStrategy.Bubble, typeof(SelectedHueChangedEventHandler), typeof(ColorSpectrum));
-        /// <summary>
-        ///     An event fired when the hue selection changes.
-        /// </summary>
+        public static readonly RoutedEvent SelectedHueChangedEvent =
+           EventManager.RegisterRoutedEvent(nameof(SelectedHueChanged), RoutingStrategy.Bubble,
+               typeof(RoutedPropertyChangedEventHandler<Hsv>), typeof(ColorSpectrum));
         [Category("Behavior")]
-        public event SelectedHueChangedEventHandler SelectedHueChanged
+        public event RoutedPropertyChangedEventHandler<Hsv> SelectedHueChanged
         {
             add => AddHandler(SelectedHueChangedEvent, value);
             remove => RemoveHandler(SelectedHueChangedEvent, value);
         }
 
-        public static readonly RoutedEvent SelectedHsvChangedEvent = EventManager.RegisterRoutedEvent(
-         nameof(SelectedHsvChanged), RoutingStrategy.Bubble, typeof(SelectedHsvChangedEventHandler), typeof(ColorSpectrum));
-        /// <summary>
-        ///     An event fired when the hsv selection changes.
-        /// </summary>
+        public static readonly RoutedEvent SelectedHsvChangedEvent =
+          EventManager.RegisterRoutedEvent(nameof(SelectedHsvChanged), RoutingStrategy.Bubble,
+              typeof(RoutedPropertyChangedEventHandler<Hsv>), typeof(ColorSpectrum));
         [Category("Behavior")]
-        public event SelectedHsvChangedEventHandler SelectedHsvChanged
+        public event RoutedPropertyChangedEventHandler<Hsv> SelectedHsvChanged
         {
             add => AddHandler(SelectedHsvChangedEvent, value);
             remove => RemoveHandler(SelectedHsvChangedEvent, value);
         }
 
-        public static readonly RoutedEvent SelectedRgbChangedEvent = EventManager.RegisterRoutedEvent(
-           nameof(SelectedRgbChanged), RoutingStrategy.Bubble, typeof(SelectedRgbChangedEventHandler), typeof(ColorSpectrum));
-        /// <summary>
-        ///     An event fired when the color selection changes.
-        /// </summary>
+        public static readonly RoutedEvent SelectedRgbChangedEvent =
+          EventManager.RegisterRoutedEvent(nameof(SelectedRgbChanged), RoutingStrategy.Bubble,
+              typeof(RoutedPropertyChangedEventHandler<Rgb>), typeof(ColorSpectrum));
         [Category("Behavior")]
-        public event SelectedRgbChangedEventHandler SelectedRgbChanged
+        public event RoutedPropertyChangedEventHandler<Rgb> SelectedRgbChanged
         {
             add => AddHandler(SelectedRgbChangedEvent, value);
             remove => RemoveHandler(SelectedRgbChangedEvent, value);
         }
+
         #endregion
 
         #region public properties
@@ -172,7 +128,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             ColorSpectrum cs = (ColorSpectrum)d;
             Hsv value = (Hsv)e.NewValue;
-            cs.RaiseEvent(new SelectedHueChangedEventArgs((Hsv)e.OldValue, (Hsv)e.NewValue) { Source = cs });
+            cs.RaiseEvent(new RoutedPropertyChangedEventArgs<Hsv>((Hsv)e.OldValue, (Hsv)e.NewValue, SelectedHueChangedEvent));
             cs.SelectedHsv = new Hsv(value.H, cs.SelectedHsv.S, cs.SelectedHsv.V);
         }
 
@@ -191,7 +147,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             ColorSpectrum cs = (ColorSpectrum)d;
             Hsv newHsv = (Hsv)e.NewValue;
-            cs.RaiseEvent(new SelectedHsvChangedEventArgs((Hsv)e.OldValue, newHsv) { Source = cs });
+            cs.RaiseEvent(new RoutedPropertyChangedEventArgs<Hsv>((Hsv)e.OldValue, newHsv, SelectedHsvChangedEvent));
             cs.SelectedHue = new Hsv(newHsv.H, 1, 1);
             cs.SelectedRgb = newHsv.ToRgb();
         }
@@ -211,7 +167,7 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             ColorSpectrum cs = (ColorSpectrum)d;
             Rgb value = (Rgb)e.NewValue;
-            cs.RaiseEvent(new SelectedRgbChangedEventArgs((Rgb)e.OldValue, value) { Source = cs });
+            cs.RaiseEvent(new RoutedPropertyChangedEventArgs<Rgb>((Rgb)e.OldValue, value, SelectedRgbChangedEvent));
             if (Equals(value, cs.SelectedHsv.ToRgb()))
             {
                 return;

@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -125,7 +126,6 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 return;
             }
-
             EditorElement = Editor.CreateElement(this);
             UseExpanderStyle = Editor.UseExpanderStyle;
             OperationContent = Editor.GetOperationContent();

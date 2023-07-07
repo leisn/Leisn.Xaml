@@ -99,11 +99,11 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
             _colorPicker = (ColorPicker)GetTemplateChild(PART_ColorPickerName);
             _colorPicker.SelectedColor = SelectedColor;
-            _colorPicker.SelectedColorChanged += OnPickerColorChanged;
+            _colorPicker.SelectedColorChanged += OnPickerColorChanged; ;
             _colorPicker.IsEnabled = !IsReadOnly;
         }
 
-        private void OnPickerColorChanged(object sender, SelectedColorChangedEventArgs e)
+        private void OnPickerColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
             SelectedColor = e.NewValue;
         }

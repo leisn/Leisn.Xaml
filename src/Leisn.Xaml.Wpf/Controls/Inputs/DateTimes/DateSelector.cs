@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,6 +9,16 @@ namespace Leisn.Xaml.Wpf.Controls
 {
     public class DateSelector : Control
     {
+        public static readonly RoutedEvent DateChangedEvent =
+          EventManager.RegisterRoutedEvent(nameof(DateChanged), RoutingStrategy.Bubble,
+              typeof(RoutedPropertyChangedEventHandler<DateOnly>), typeof(DateSelector));
+        [Category("Behavior")]
+        public event RoutedPropertyChangedEventHandler<DateOnly> DateChanged
+        {
+            add => AddHandler(DateChangedEvent, value);
+            remove => RemoveHandler(DateChangedEvent, value);
+        }
+
         public CornerRadius CornerRadius
         {
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
@@ -108,6 +115,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 tp.Year = date.Year;
                 tp.Month = date.Month;
                 tp.Day = date.Day;
+                tp.RaiseEvent(new RoutedPropertyChangedEventArgs<DateOnly>((DateOnly)e.OldValue, date, DateChangedEvent));
             }
         }
 

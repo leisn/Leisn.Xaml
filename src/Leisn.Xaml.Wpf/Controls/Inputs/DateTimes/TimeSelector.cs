@@ -1,10 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,6 +11,16 @@ namespace Leisn.Xaml.Wpf.Controls
 {
     public class TimeSelector : Control
     {
+        public static readonly RoutedEvent TimeChangedEvent =
+           EventManager.RegisterRoutedEvent(nameof(TimeChanged), RoutingStrategy.Bubble,
+               typeof(RoutedPropertyChangedEventHandler<TimeOnly>), typeof(TimeSelector));
+        [Category("Behavior")]
+        public event RoutedPropertyChangedEventHandler<TimeOnly> TimeChanged
+        {
+            add => AddHandler(TimeChangedEvent, value);
+            remove => RemoveHandler(TimeChangedEvent, value);
+        }
+
         public CornerRadius CornerRadius
         {
             get { return (CornerRadius)GetValue(CornerRadiusProperty); }
@@ -102,6 +109,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 tp.Hour = time.Hour;
                 tp.Minute = time.Minute;
                 tp.Second = time.Second;
+                tp.RaiseEvent(new RoutedPropertyChangedEventArgs<TimeOnly>((TimeOnly)e.OldValue, time, TimeChangedEvent));
             }
         }
 

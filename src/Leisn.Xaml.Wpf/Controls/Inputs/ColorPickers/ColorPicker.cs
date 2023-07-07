@@ -1,5 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
@@ -15,19 +16,6 @@ using Leisn.Xaml.Wpf.Internals;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
-    public delegate void SelectedColorChangedEventHandler(object sender, SelectedColorChangedEventArgs e);
-    public class SelectedColorChangedEventArgs : RoutedEventArgs
-    {
-        public Color OldValue { get; }
-        public Color NewValue { get; }
-        public SelectedColorChangedEventArgs(Color oldValue, Color newValue)
-        {
-            RoutedEvent = ColorPicker.SelectedColorChangedEvent;
-            OldValue = oldValue;
-            NewValue = newValue;
-        }
-    }
-
     [TemplatePart(Name = PART_ColorSpectrumName, Type = typeof(ColorSpectrum))]
     [TemplatePart(Name = PART_TextBoxName, Type = typeof(TextBox))]
     [TemplatePart(Name = PART_PickScreenButtonName, Type = typeof(ButtonBase))]
@@ -55,22 +43,21 @@ namespace Leisn.Xaml.Wpf.Controls
             DependencyProperty.Register("SelectedColor", typeof(Color), typeof(ColorPicker),
                 new FrameworkPropertyMetadata(Colors.White, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, new PropertyChangedCallback(OnSelectedColorChanged)));
 
-        public static readonly RoutedEvent SelectedColorChangedEvent = EventManager.RegisterRoutedEvent(
-           nameof(SelectedColorChanged), RoutingStrategy.Bubble, typeof(SelectedColorChangedEventHandler), typeof(ColorPicker));
-        /// <summary>
-        ///     An event fired when the color selection changes.
-        /// </summary>
+        public static readonly RoutedEvent SelectedColorChangedEvent =
+          EventManager.RegisterRoutedEvent(nameof(SelectedColorChanged), RoutingStrategy.Bubble,
+              typeof(RoutedPropertyChangedEventHandler<Color>), typeof(ColorPicker));
         [Category("Behavior")]
-        public event SelectedColorChangedEventHandler SelectedColorChanged
+        public event RoutedPropertyChangedEventHandler<Color> SelectedColorChanged
         {
             add => AddHandler(SelectedColorChangedEvent, value);
             remove => RemoveHandler(SelectedColorChangedEvent, value);
         }
+
         private static void OnSelectedColorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             ColorPicker cs = (ColorPicker)d;
             Color value = (Color)e.NewValue;
-            cs.RaiseEvent(new SelectedColorChangedEventArgs((Color)e.OldValue, value) { Source = cs });
+            cs.RaiseEvent(new RoutedPropertyChangedEventArgs<Color>((Color)e.OldValue, value, SelectedColorChangedEvent));
             cs.UpdateToValues();
         }
 
@@ -226,7 +213,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         #endregion
 
-        private void OnSpectrumHsvChagned(object sender, SelectedHsvChangedEventArgs e)
+        private void OnSpectrumHsvChagned(object sender, RoutedPropertyChangedEventArgs<Hsv> e)
         {
             try
             {

@@ -30,6 +30,19 @@ namespace WpfDemo
     {
         public App()
         {
+            //IEnumerable<int> ints = new List<int>();
+            //var type0 = typeof(IList<>);
+            //var type1 = typeof(IList<object>);
+            //var type2 = typeof(IList<int>);
+            //var type3 = typeof(List<int>);
+            //var type4 = type3.GetGenericTypeDefinition();
+            //var type5 = ints.GetType();
+
+
+            //var type4 = typeof(Dictionary<int, string>);
+            //var type5 = typeof(IDictionary<int, string>);
+            //var type6 = typeof(IDictionary<,>);
+
             // Process process = new();
             // process.StartInfo.UseShellExecute = false;
             // process.StartInfo.FileName = "cmd";

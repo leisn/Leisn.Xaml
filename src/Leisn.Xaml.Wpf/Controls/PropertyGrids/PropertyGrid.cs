@@ -3,13 +3,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-using Leisn.Common.Attributes;
 using Leisn.Xaml.Wpf.Locales;
 
 namespace Leisn.Xaml.Wpf.Controls
@@ -18,7 +15,6 @@ namespace Leisn.Xaml.Wpf.Controls
     public class PropertyGrid : Control
     {
         private const string ItemsControlName = "PART_ItemsControl";
-        private const string OTHER_KEY = "Misc";
         private ItemsControl _itemsControl = null!;
         private ICollectionView? _collectionView;
 
@@ -32,6 +28,7 @@ namespace Leisn.Xaml.Wpf.Controls
             Lang.LangChanged += OnLangChanged;
         }
 
+        #region properties
         public CornerRadius CornerRadius
         {
             get => (CornerRadius)GetValue(CornerRadiusProperty);
@@ -39,15 +36,6 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(PropertyGrid), new PropertyMetadata(new CornerRadius()));
-
-        public static readonly RoutedEvent SourceChangedEvent =
-            EventManager.RegisterRoutedEvent("SelectedObjectChanged", RoutingStrategy.Bubble,
-                typeof(RoutedPropertyChangedEventHandler<object>), typeof(PropertyGrid));
-        public event RoutedPropertyChangedEventHandler<object> SourceChanged
-        {
-            add => AddHandler(SourceChangedEvent, value);
-            remove => RemoveHandler(SourceChangedEvent, value);
-        }
 
         public IPropertyEditorSelector EditorSelector
         {
@@ -63,7 +51,8 @@ namespace Leisn.Xaml.Wpf.Controls
             if (e.NewValue is null)
             {
                 throw new ArgumentNullException(nameof(EditorSelector), "Editor Selector cannot be null");
-            } (d as PropertyGrid)?.UpdateItems();
+            }
+            (d as PropertyGrid)?.UpdateItems();
         }
 
         public object Source { get => GetValue(SourceProperty); set => SetValue(SourceProperty, value); }
@@ -74,7 +63,17 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             (d as PropertyGrid)?.OnSourceChanged(e.OldValue, e.NewValue);
         }
+        #endregion
 
+        public static readonly RoutedEvent SourceChangedEvent =
+            EventManager.RegisterRoutedEvent(nameof(SourceChanged), RoutingStrategy.Bubble,
+                typeof(RoutedPropertyChangedEventHandler<object>), typeof(PropertyGrid));
+        [Category("Behavior")]
+        public event RoutedPropertyChangedEventHandler<object> SourceChanged
+        {
+            add => AddHandler(SourceChangedEvent, value);
+            remove => RemoveHandler(SourceChangedEvent, value);
+        }
         protected virtual void OnSourceChanged(object oldValue, object newValue)
         {
             UpdateItems();
@@ -88,6 +87,10 @@ namespace Leisn.Xaml.Wpf.Controls
             UpdateItems();
         }
 
+        protected virtual void OnLangChanged()
+        {
+            _ = Dispatcher.InvokeAsync(() => _collectionView?.Refresh());
+        }
 
         protected virtual void UpdateItems()
         {
@@ -95,55 +98,14 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 return;
             }
-            List<PropertyItem> items = TypeDescriptor.GetProperties(Source.GetType())
-                 .OfType<PropertyDescriptor>()
-                 .Where(x => x.IsBrowsable)
-                 .Select(CreatePropertyItem).ToList();
-            //var miscs = items.Where(x => string.IsNullOrEmpty(x.PropertyDescriptor.Category)
-            //                            || OTHER_KEY.Equals(x.PropertyDescriptor.Category))
-            //                 .ToList();
-            //if (miscs != null)
-            //{
-            //    foreach (var item in miscs)
-            //    {
-            //        items.Remove(item);
-            //        items.Add(item);
-            //    }
-            //}
-            _collectionView = CollectionViewSource.GetDefaultView(items);
+            _collectionView = CollectionViewSource.GetDefaultView(CreatePropertyItems());
             _collectionView.GroupDescriptions.Add(new PropertyGroupDescription(PropertyItem.CategoryProperty.Name));
             _itemsControl.ItemsSource = _collectionView;
         }
 
-        protected virtual void OnLangChanged()
+        protected virtual List<PropertyItem> CreatePropertyItems()
         {
-            _ = Dispatcher.InvokeAsync(() => _collectionView?.Refresh());
-        }
-
-        protected virtual PropertyItem CreatePropertyItem(PropertyDescriptor propertyDescriptor)
-        {
-            PropertyItem item = new()
-            {
-                PropertyDescriptor = propertyDescriptor,
-                Source = Source,
-                DefaultValue = propertyDescriptor.Attr<DefaultValueAttribute>()?.Value!,
-                IsReadOnly = propertyDescriptor.IsReadOnly,
-                Editor = EditorSelector.CreateEditor(propertyDescriptor)
-            };
-            string displayName = propertyDescriptor.DisplayName ?? propertyDescriptor.Name;
-            if (propertyDescriptor.IsLocalizable)
-            {
-                item.SetBindingLangKey(PropertyItem.CategoryProperty, propertyDescriptor.Category);
-                item.SetBindingLangKey(PropertyItem.DisplayNameProperty, displayName);
-                item.SetBindingLangKey(PropertyItem.DescriptionProperty, propertyDescriptor.Description);
-            }
-            else
-            {
-                item.SetBindingLangFormat(PropertyItem.CategoryProperty, OTHER_KEY.Equals(propertyDescriptor.Category) ? $"{{{OTHER_KEY}}}" : propertyDescriptor.Category);
-                item.SetBindingLangFormat(PropertyItem.DisplayNameProperty, displayName);
-                item.SetBindingLangFormat(PropertyItem.DescriptionProperty, propertyDescriptor.Description);
-            }
-            return item;
+            return EditorHelper.CreatePropertyItems(Source, EditorSelector);
         }
     }
 }

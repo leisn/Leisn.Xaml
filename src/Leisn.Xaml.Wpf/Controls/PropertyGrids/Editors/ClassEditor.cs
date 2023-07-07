@@ -8,7 +8,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            return new PropertyGrid() { Style = (Style)item.FindResource("SubPropertyGridBaseStyle") };
+            return new PropertyGrid()/* { Style = (Style)item.FindResource("SubPropertyGridBaseStyle") }*/;
         }
 
         public DependencyProperty GetBindingProperty()

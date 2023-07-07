@@ -2249,31 +2249,6 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="PropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
-    <Setter Property="Focusable" Value="False" />
-    <Setter Property="Padding" Value="7" />
-    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
-    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
-    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-    <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="local:PropertyGrid">
-          <Border SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" CornerRadius="{TemplateBinding CornerRadius}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-            <DockPanel>
-              <local:PropertyItemsControl x:Name="PART_ItemsControl" Margin="{TemplateBinding Padding}" Style="{StaticResource PropertyItemsControlBaseStyle}">
-                <local:PropertyItemsControl.GroupStyle>
-                  <GroupStyle ContainerStyle="{StaticResource PropertyGroupItemBaseStyle}" />
-                </local:PropertyItemsControl.GroupStyle>
-              </local:PropertyItemsControl>
-            </DockPanel>
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-  <Style TargetType="{x:Type local:PropertyGrid}" BasedOn="{StaticResource PropertyGridBaseStyle}" />
   <Style x:Key="SubPropertyItemsControlBaseStyle" TargetType="local:PropertyItemsControl">
     <Setter Property="ItemContainerStyle" Value="{StaticResource PropertyItemBaseStyle}" />
     <Setter Property="Focusable" Value="False" />
@@ -2300,4 +2275,32 @@
       </Setter.Value>
     </Setter>
   </Style>
+  <Style x:Key="PropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="Padding" Value="7" />
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+    <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:PropertyGrid">
+          <ControlTemplate.Resources>
+            <Style TargetType="local:PropertyGrid" BasedOn="{StaticResource SubPropertyGridBaseStyle}" />
+          </ControlTemplate.Resources>
+          <Border SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" CornerRadius="{TemplateBinding CornerRadius}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+            <DockPanel>
+              <local:PropertyItemsControl x:Name="PART_ItemsControl" Margin="{TemplateBinding Padding}" Style="{StaticResource PropertyItemsControlBaseStyle}">
+                <local:PropertyItemsControl.GroupStyle>
+                  <GroupStyle ContainerStyle="{StaticResource PropertyGroupItemBaseStyle}" />
+                </local:PropertyItemsControl.GroupStyle>
+              </local:PropertyItemsControl>
+            </DockPanel>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="{x:Type local:PropertyGrid}" BasedOn="{StaticResource PropertyGridBaseStyle}" />
 </ResourceDictionary>

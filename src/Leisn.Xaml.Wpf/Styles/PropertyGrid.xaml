@@ -197,6 +197,37 @@
     </Setter>
   </Style>
 
+  <Style x:Key="SubPropertyItemsControlBaseStyle" TargetType="local:PropertyItemsControl">
+    <Setter Property="ItemContainerStyle" Value="{StaticResource PropertyItemBaseStyle}"/>
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:PropertyItemsControl">
+          <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="SubPropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:PropertyGrid">
+          <Border SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                  Background="{TemplateBinding Background}" BorderThickness="0">
+            <local:PropertyItemsControl x:Name="PART_ItemsControl"
+                                        Margin="{TemplateBinding Padding}"
+                                        Style="{StaticResource SubPropertyItemsControlBaseStyle}"/>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
   <Style x:Key="PropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
     <Setter Property="Focusable" Value="False"/>
     <Setter Property="Padding" Value="7"/>
@@ -208,6 +239,9 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:PropertyGrid">
+          <ControlTemplate.Resources>
+            <Style TargetType="local:PropertyGrid" BasedOn="{StaticResource SubPropertyGridBaseStyle}"/>
+          </ControlTemplate.Resources>
           <Border SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                   CornerRadius="{TemplateBinding CornerRadius}"
                   Background="{TemplateBinding Background}"
@@ -240,36 +274,5 @@
     </Setter>
   </Style>
   <Style TargetType="{x:Type local:PropertyGrid}" BasedOn="{StaticResource PropertyGridBaseStyle}"/>
-
-  <Style x:Key="SubPropertyItemsControlBaseStyle" TargetType="local:PropertyItemsControl">
-    <Setter Property="ItemContainerStyle" Value="{StaticResource PropertyItemBaseStyle}"/>
-    <Setter Property="Focusable" Value="False"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="local:PropertyItemsControl">
-          <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-
-  <Style x:Key="SubPropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
-    <Setter Property="Focusable" Value="False"/>
-    <Setter Property="Padding" Value="0"/>
-    <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="local:PropertyGrid">
-          <Border SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                  Background="{TemplateBinding Background}" BorderThickness="0">
-            <local:PropertyItemsControl x:Name="PART_ItemsControl"
-                                        Margin="{TemplateBinding Padding}"
-                                        Style="{StaticResource SubPropertyItemsControlBaseStyle}"/>
-          </Border>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
 
 </ResourceDictionary>
