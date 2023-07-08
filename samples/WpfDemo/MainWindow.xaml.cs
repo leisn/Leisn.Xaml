@@ -88,9 +88,9 @@ namespace WpfDemo
             public IEnumerable<string> StringValues { get; set; } = new ReadOnlyCollection<string>(new List<string> { "stri 1", "str 2" });
             public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
             public List<SubClass> SubClasses { get; set; } = new List<SubClass>();
-            public DateTime DateTime { get; set; }
+            public DateTime DateTime { get; set; } = DateTime.Now;
             public DateTime? DateTime2 { get; set; }
-            public DateOnly DateOnly { get; set; }
+            public DateOnly DateOnly { get; set; } = new DateOnly(2000, 02, 20);
             public TimeOnly TimeOnly { get; set; } = new TimeOnly(5, 12, 9);
             public SubClass SubClass { get; set; } = new();
             public bool? BoolNullable { get; set; }

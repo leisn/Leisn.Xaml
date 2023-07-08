@@ -28,8 +28,25 @@ namespace WpfDemo
     /// </summary>
     public partial class App : Application
     {
+        protected int[] SubSteps(int[] array, int index, int size)
+        {
+            int start = index - size / 2;
+            if (start < 0)
+                start = 0;
+            var end = start + size;
+            if (end > array.Length)
+            {
+                start -= end - array.Length;
+                end = array.Length;
+                if (start < 0)
+                    start = 0;
+            }
+
+            return array[start..end];
+        }
         public App()
         {
+
             //IEnumerable<int> ints = new List<int>();
             //var type0 = typeof(IList<>);
             //var type1 = typeof(IList<object>);
