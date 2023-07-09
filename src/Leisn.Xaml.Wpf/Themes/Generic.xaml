@@ -666,7 +666,7 @@
   </Style>
   <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}" />
   <Style x:Key="TextButtonStyle" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource BaseControlStyle}">
-    <Setter Property="Padding" Value="3" />
+    <Setter Property="Padding" Value="0" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="Template">
       <Setter.Value>
@@ -2156,63 +2156,6 @@
             <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" Focusable="False" ClickMode="Press" IsTabStop="False" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource ColorPickerEditorToggleButtonStyle}" />
           </Grid>
         </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-  <Style x:Key="StringCollectionTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="TextBox">
-          <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="auto" />
-              </Grid.ColumnDefinitions>
-              <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
-              <Border Grid.Column="1" x:Name="deleteButton" Background="Transparent" Padding="3,0">
-                <Button Width="16" MinHeight="16" Padding="4" local:ControlAttach.CornerRadius="9" CommandParameter="{Binding Tag,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{Binding RelativeSource={RelativeSource AncestorType=editor:StringCollectionEditor},Path=DeleteItemCommand}" VerticalAlignment="Center" Focusable="False">
-                  <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
-                </Button>
-              </Border>
-              <TextBlock IsHitTestVisible="False" Visibility="Collapsed" x:Name="placeholder" Opacity=".56" Text="{TemplateBinding local:ControlAttach.Placeholder}" Margin="{TemplateBinding Padding}" />
-            </Grid>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{DynamicResource RegionDark1Brush}" TargetName="root" />
-            </Trigger>
-            <Trigger Property="IsFocused" Value="True">
-              <Setter Property="Background" Value="{DynamicResource RegionDark2Brush}" TargetName="root" />
-            </Trigger>
-            <Trigger Property="IsReadOnly" Value="True">
-              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root" />
-              <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
-              <Setter Property="Visibility" Value="Collapsed" TargetName="deleteButton" />
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-              <Setter Property="Opacity" Value=".56" TargetName="root" />
-              <Setter Property="Visibility" Value="Collapsed" TargetName="deleteButton" />
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
-  <Style TargetType="editor:StringCollectionEditor">
-    <Setter Property="AlternationCount" Value="{Binding RelativeSource={RelativeSource Mode=Self},Path=ItemsSource.Count}" />
-    <Setter Property="ItemsPanel">
-      <Setter.Value>
-        <ItemsPanelTemplate>
-          <local:WrapPanel Orientation="Horizontal" Spacing="6" Padding="5" />
-        </ItemsPanelTemplate>
-      </Setter.Value>
-    </Setter>
-    <Setter Property="ItemTemplate">
-      <Setter.Value>
-        <DataTemplate>
-          <TextBox Text="{Binding .}" Tag="{Binding Path=(ItemsControl.AlternationIndex),RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource StringCollectionTextBoxStyle}" IsReadOnly="{Binding RelativeSource={RelativeSource AncestorType=editor:StringCollectionEditor},Path=IsReadOnly,Mode=OneWay}" />
-        </DataTemplate>
       </Setter.Value>
     </Setter>
   </Style>

@@ -64,16 +64,15 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             var button = new Button
             {
                 Padding = new Thickness(),
-                MinHeight = 16,
                 Height = double.NaN,
                 Style = (Style)FindResource("TextButtonStyle")
             };
-            var path = new Path { Data = (Geometry)FindResource("AddGeometry"), Height = 10, Stretch = Stretch.Uniform };
+            var path = new Path { Data = (Geometry)FindResource("AddGeometry"), Stretch = Stretch.Uniform };
             path.SetBinding(Shape.FillProperty, new Binding("Foreground") { Source = button });
+            path.SetBinding(HeightProperty, new Binding("FontSize") { Source = button });
             button.Content = path;
             button.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = button });
             button.SetBinding(Button.CommandProperty, new Binding(nameof(AddItemCommand)) { Source = this });
-            ControlAttach.SetIsCircle(button, true);
             return button;
         }
 
