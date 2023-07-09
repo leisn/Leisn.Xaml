@@ -9,7 +9,7 @@ namespace Leisn.Common.Collections
     public static class EnumerableEx
     {
 
-        public static IEnumerable<T> ForEeach<T>(this IEnumerable<T> self, Action<T> action)
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> self, Action<T> action)
         {
             foreach (T? item in self)
             {
@@ -25,6 +25,27 @@ namespace Leisn.Common.Collections
                 action?.Invoke(item);
             }
             return self;
+        }
+
+        /// <summary>
+        /// Sub array,keep length with `size` or less, and keep `midIndex` in middle.
+        /// </summary>
+        /// <typeparam name="T">Type of array</typeparam>
+        /// <param name="array">Source array</param>
+        /// <param name="midIndex">The index of middle item</param>
+        /// <param name="size">The max size of return array</param>
+        /// <returns></returns>
+        public static ArraySegment<T> SubMidIndex<T>(this T[] array, int midIndex, int size)
+        {
+            int start = Math.Max(0, midIndex - size / 2);
+            var end = start + size;
+            if (end > array.Length)
+            {
+                start -= end - array.Length;
+                end = array.Length;
+                start = Math.Max(0, start);
+            }
+            return new ArraySegment<T>(array, start, end - start);
         }
 
     }

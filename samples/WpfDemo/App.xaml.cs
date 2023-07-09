@@ -28,33 +28,18 @@ namespace WpfDemo
     /// </summary>
     public partial class App : Application
     {
-        protected int[] SubSteps(int[] array, int index, int size)
-        {
-            int start = index - size / 2;
-            if (start < 0)
-                start = 0;
-            var end = start + size;
-            if (end > array.Length)
-            {
-                start -= end - array.Length;
-                end = array.Length;
-                if (start < 0)
-                    start = 0;
-            }
-
-            return array[start..end];
-        }
         public App()
         {
-
-            //IEnumerable<int> ints = new List<int>();
-            //var type0 = typeof(IList<>);
-            //var type1 = typeof(IList<object>);
-            //var type2 = typeof(IList<int>);
-            //var type3 = typeof(List<int>);
-            //var type4 = type3.GetGenericTypeDefinition();
-            //var type5 = ints.GetType();
-
+            IEnumerable<int> ints = new List<int>();
+            var type0 = typeof(IList<>);
+            var type1 = typeof(IList<object>);
+            var type2 = typeof(IList<int>);
+            var type3 = typeof(List<int>);
+            var type4 = type3.GetGenericTypeDefinition();
+            var type5 = typeof(ICollection<int>);
+            var type6 = ints.GetType();
+            var re1 = type3.IsAssignableTo(type5);
+            var re2 = type2.GetGenericTypeDefinition()==type0;
 
             //var type4 = typeof(Dictionary<int, string>);
             //var type5 = typeof(IDictionary<int, string>);

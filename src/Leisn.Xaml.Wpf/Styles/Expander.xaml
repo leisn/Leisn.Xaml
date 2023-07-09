@@ -19,7 +19,7 @@
                   <RotateTransform Angle="-90"/>
                 </Path.RenderTransform>
               </Path>
-              <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+              <ContentPresenter Grid.Column="1" HorizontalAlignment="Stretch" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -63,7 +63,7 @@
                   <RotateTransform Angle="-90"/>
                 </Path.RenderTransform>
               </Path>
-              <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+              <ContentPresenter Grid.Column="1" HorizontalAlignment="Stretch" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -126,7 +126,7 @@
                   </Path.RenderTransform>
                 </Path>
               </Grid>
-              <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Row="1" Grid.Column="1" SnapsToDevicePixels="True" />
+              <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Row="1" Grid.Column="1" SnapsToDevicePixels="True" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -178,7 +178,7 @@
                   <RotateTransform Angle="-90"/>
                 </Path.RenderTransform>
               </Path>
-              <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Column="1" SnapsToDevicePixels="True" />
+              <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Column="1" SnapsToDevicePixels="True" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>

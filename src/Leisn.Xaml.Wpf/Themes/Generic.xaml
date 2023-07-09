@@ -98,6 +98,7 @@
   <PathGeometry x:Key="TickGeometry" o:Freeze="True" Figures="M392.533333 806.4L85.333333 503.466667l59.733334-59.733334 247.466666 247.466667L866.133333 213.333333l59.733334 59.733334L392.533333 806.4z" />
   <PathGeometry x:Key="CloseGeometry" o:Freeze="True" Figures="M844.8 241.066667l-61.866667-61.866667L512 452.266667 241.066667 179.2l-61.866667 61.866667L452.266667 512 179.2 782.933333l61.866667 61.866667L512 571.733333l270.933333 273.066667 61.866667-61.866667L571.733333 512z" FillRule="Nonzero" />
   <PathGeometry x:Key="RoundTriangleGeometry" o:Freeze="True" Figures="M912.724884 429.355681L208.797545 13.198638C151.603449-20.597874 64.01249 12.198741 64.01249 95.790112V927.904219c0 74.992259 81.391599 120.187594 144.785055 82.591475l703.927339-415.957064c62.793518-36.996181 62.993498-128.186768 0-165.182949z" />
+  <PathGeometry x:Key="AddGeometry" o:Freeze="True" Figures="M848 474H550V152h-76v322H176c-4.4 0-8 3.6-8 8v60c0 4.4 3.6 8 8 8h298v322h76V550h298c4.4 0 8-3.6 8-8v-60c0-4.4-3.6-8-8-8z" />
   <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}" />
   <SolidColorBrush x:Key="BorderLightBrush" Color="{DynamicResource BorderLightColor}" />
   <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}" />
@@ -419,7 +420,7 @@
                   <RotateTransform Angle="-90" />
                 </Path.RenderTransform>
               </Path>
-              <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" />
+              <ContentPresenter Grid.Column="1" HorizontalAlignment="Stretch" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -459,7 +460,7 @@
                   <RotateTransform Angle="-90" />
                 </Path.RenderTransform>
               </Path>
-              <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" />
+              <ContentPresenter Grid.Column="1" HorizontalAlignment="Stretch" Margin="3,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -519,7 +520,7 @@
                   </Path.RenderTransform>
                 </Path>
               </Grid>
-              <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Row="1" Grid.Column="1" SnapsToDevicePixels="True" />
+              <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Row="1" Grid.Column="1" SnapsToDevicePixels="True" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -568,7 +569,7 @@
                   <RotateTransform Angle="-90" />
                 </Path.RenderTransform>
               </Path>
-              <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Column="1" SnapsToDevicePixels="True" />
+              <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="0,0,0,0" RecognizesAccessKey="True" Grid.Column="1" SnapsToDevicePixels="True" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -664,6 +665,30 @@
     </Setter>
   </Style>
   <Style TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}" />
+  <Style x:Key="TextButtonStyle" TargetType="{x:Type ButtonBase}" BasedOn="{StaticResource BaseControlStyle}">
+    <Setter Property="Padding" Value="3" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ButtonBase}">
+          <Border x:Name="bd" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Background="{TemplateBinding Background}">
+            <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".5" TargetName="bd" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Foreground" Value="{DynamicResource TextLightBrush}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Foreground" Value="{DynamicResource  TextDarkBrush}" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
   <Style TargetType="RepeatButton" BasedOn="{StaticResource ButtonBaseStyle}" />
   <Style x:Key="ButtonPrimaryStyle" TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}">
     <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
@@ -2111,7 +2136,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ColorPickerEditorStyle" TargetType="editor:ColorPickerEditor" BasedOn="{StaticResource BaseInputStyle}">
+  <Style TargetType="editor:ColorPickerEditor" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Focusable" Value="True" />
     <Setter Property="IsTabStop" Value="True" />
     <Setter Property="Background" Value="{DynamicResource OpacityGridTileBrush}" />
@@ -2134,7 +2159,63 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="editor:ColorPickerEditor" BasedOn="{StaticResource ColorPickerEditorStyle}" />
+  <Style x:Key="StringCollectionTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="TextBox">
+          <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+              </Grid.ColumnDefinitions>
+              <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+              <Border Grid.Column="1" x:Name="deleteButton" Background="Transparent" Padding="3,0">
+                <Button Width="16" MinHeight="16" Padding="4" local:ControlAttach.CornerRadius="9" CommandParameter="{Binding Tag,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{Binding RelativeSource={RelativeSource AncestorType=editor:StringCollectionEditor},Path=DeleteItemCommand}" VerticalAlignment="Center" Focusable="False">
+                  <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
+                </Button>
+              </Border>
+              <TextBlock IsHitTestVisible="False" Visibility="Collapsed" x:Name="placeholder" Opacity=".56" Text="{TemplateBinding local:ControlAttach.Placeholder}" Margin="{TemplateBinding Padding}" />
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionDark1Brush}" TargetName="root" />
+            </Trigger>
+            <Trigger Property="IsFocused" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionDark2Brush}" TargetName="root" />
+            </Trigger>
+            <Trigger Property="IsReadOnly" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root" />
+              <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
+              <Setter Property="Visibility" Value="Collapsed" TargetName="deleteButton" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".56" TargetName="root" />
+              <Setter Property="Visibility" Value="Collapsed" TargetName="deleteButton" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="editor:StringCollectionEditor">
+    <Setter Property="AlternationCount" Value="{Binding RelativeSource={RelativeSource Mode=Self},Path=ItemsSource.Count}" />
+    <Setter Property="ItemsPanel">
+      <Setter.Value>
+        <ItemsPanelTemplate>
+          <local:WrapPanel Orientation="Horizontal" Spacing="6" Padding="5" />
+        </ItemsPanelTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ItemTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <TextBox Text="{Binding .}" Tag="{Binding Path=(ItemsControl.AlternationIndex),RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource StringCollectionTextBoxStyle}" IsReadOnly="{Binding RelativeSource={RelativeSource AncestorType=editor:StringCollectionEditor},Path=IsReadOnly,Mode=OneWay}" />
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
   <Style x:Key="PropertyItemToolTipBaseStyle" BasedOn="{StaticResource ToolTipBaseStyle}" TargetType="ToolTip">
     <Setter Property="Padding" Value="10" />
     <Setter Property="Template">
@@ -2182,7 +2263,7 @@
     </Border>
   </ControlTemplate>
   <ControlTemplate x:Key="PropertyItemExpanderTemplate" TargetType="local:PropertyItem">
-    <Expander Margin="{TemplateBinding Padding}" IsExpanded="True" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" local:ControlAttach.Padding="22,3,10,5" local:ControlAttach.CornerRadius="{StaticResource DefaultBottomCornerRadius}">
+    <Expander Margin="{TemplateBinding Padding}" IsExpanded="True" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" local:ControlAttach.Padding="22,3,10,5" HorizontalContentAlignment="Stretch" local:ControlAttach.CornerRadius="{StaticResource DefaultBottomCornerRadius}">
       <Expander.Header>
         <DockPanel>
           <ContentPresenter ContentSource="OperationContent" DockPanel.Dock="Right" />

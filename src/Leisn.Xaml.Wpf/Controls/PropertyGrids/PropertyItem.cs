@@ -120,6 +120,11 @@ namespace Leisn.Xaml.Wpf.Controls
             }
         }
 
+        public object? GetPropertyValue()
+        {
+            return Source.GetType().GetProperty(PropertyName)?.GetValue(Source);
+        }
+
         protected virtual void CreateElement()
         {
             if (Editor == null)
