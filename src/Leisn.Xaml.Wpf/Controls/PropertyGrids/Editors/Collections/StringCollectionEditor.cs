@@ -5,10 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -43,17 +41,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement CreateElement(PropertyItem item)
         {
             _propertyItem = item;
-            if (item.IsReadOnly)
-            {
-                IsReadOnly = true;
-            }
-            else
-            {
-                if (item.GetPropertyValue() is ICollection<string> collection)
-                {
-                    IsReadOnly = collection.IsReadOnly;
-                }
-            }
+
+            IsReadOnly = item.IsReadOnly
+                || (item.GetPropertyValue() is ICollection<string> collection && collection.IsReadOnly);
             return this;
         }
         public FrameworkElement? GetOperationContent()
@@ -65,13 +55,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             {
                 Padding = new Thickness(),
                 Height = double.NaN,
-                Style = (Style)FindResource("TextButtonStyle")
+                Style = (Style)FindResource("TextButtonStyle"),
+                Content = new FontIcon { Glyph = "\xE109" }
             };
-            var path = new Path { Data = (Geometry)FindResource("AddGeometry"), Stretch = Stretch.Uniform };
-            path.SetBinding(Shape.FillProperty, new Binding("Foreground") { Source = button });
-            path.SetBinding(HeightProperty, new Binding("FontSize") { Source = button });
-            button.Content = path;
-            button.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = button });
+            //button.SetBinding(WidthProperty, new Binding("ActualHeight") { Source = button });
             button.SetBinding(Button.CommandProperty, new Binding(nameof(AddItemCommand)) { Source = this });
             return button;
         }

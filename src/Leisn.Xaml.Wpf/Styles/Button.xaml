@@ -41,7 +41,7 @@
         <ControlTemplate TargetType="{x:Type ButtonBase}">
           <Border x:Name="bd" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                   Background="{TemplateBinding Background}">
-            <ContentPresenter Margin="{TemplateBinding Padding}"
+            <ContentPresenter Margin="{TemplateBinding Padding}" 
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
           </Border>
