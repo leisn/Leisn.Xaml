@@ -13,6 +13,7 @@
     <Setter Property="local:ControlAttach.ShowClear" Value="True"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="local:ControlAttach.Placeholder" Value="{x:Null}"/>
+    <Setter Property="local:ControlAttach.EnterMoveFocus" Value="True"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="TextBox">

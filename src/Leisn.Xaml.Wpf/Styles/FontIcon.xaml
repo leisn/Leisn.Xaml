@@ -5,6 +5,7 @@
     <Setter Property="CornerRadius" Value="0"/>
     <Setter Property="HorizontalContentAlignment" Value="Center"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:FontIcon">
@@ -21,7 +22,8 @@
                        Foreground="{TemplateBinding Foreground}"
                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                       Text="{TemplateBinding Glyph}"/>
+                       Text="{TemplateBinding Glyph}"
+                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
           </Border>
         </ControlTemplate>
       </Setter.Value>

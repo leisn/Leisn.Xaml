@@ -8,11 +8,6 @@ namespace Leisn.Xaml.Wpf.Controls
 {
     public class WrapPanel : SpacedPanelBase
     {
-        static WrapPanel()
-        {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(WrapPanel), new FrameworkPropertyMetadata(typeof(WrapPanel)));
-        }
-
         /// <summary>
         /// 每几个换一次行或列，默认0（自动换）
         /// </summary>
@@ -34,6 +29,9 @@ namespace Leisn.Xaml.Wpf.Controls
                 return new Size();
             }
 
+            availableSize.Width -= Padding.Left + Padding.Right;
+            availableSize.Height -= Padding.Top + Padding.Bottom;
+
             double width = 0, height = 0;
             double wrapWidth = 0, wrapHeight = 0;
             int row = 0, column = 0;
@@ -50,9 +48,10 @@ namespace Leisn.Xaml.Wpf.Controls
 
                 child!.Measure(availableSize);
                 Size childSize = child.DesiredSize;
-                if (Orientation == System.Windows.Controls.Orientation.Vertical)
+
+                if (Orientation == System.Windows.Controls.Orientation.Vertical)//垂直方向
                 {
-                    bool needWrap = WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0
+                    bool needWrap = (WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0)
                                         || wrapHeight + childSize.Height + vspace > availableSize.Height;
                     if (needWrap)
                     {
@@ -70,7 +69,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 }
                 else
                 {
-                    bool needWrap = WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0
+                    bool needWrap = (WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0)
                                          || wrapWidth + childSize.Width + hspace > availableSize.Width;
                     if (needWrap)
                     {
@@ -127,6 +126,9 @@ namespace Leisn.Xaml.Wpf.Controls
                 finalSize.Width = DesiredSize.Width;
             }
 
+            var paddingedSize = new Size(finalSize.Width - Padding.Left - Padding.Right,
+                finalSize.Height - Padding.Top - Padding.Bottom);
+
             foreach (FrameworkElement? child in Children)
             {
                 if (child == null || child.Visibility == Visibility.Collapsed)
@@ -137,8 +139,9 @@ namespace Leisn.Xaml.Wpf.Controls
                 Size childSize = child!.DesiredSize;
                 if (Orientation == System.Windows.Controls.Orientation.Vertical)
                 {
-                    bool needWrap = WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0
-                                        || wrapHeight + childSize.Height + vspace > finalSize.Height && row != 0;
+                    childSize.Height = Math.Min(childSize.Height, paddingedSize.Height);
+                    bool needWrap = (WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0)
+                                        || wrapHeight + childSize.Height + vspace > paddingedSize.Height && row != 0;
                     double maxWidth = _rowOrColumMaxLenght[column];
                     if (needWrap)
                     {
@@ -156,8 +159,9 @@ namespace Leisn.Xaml.Wpf.Controls
                 }
                 else
                 {
-                    bool needWrap = WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0
-                                         || wrapWidth + childSize.Width + hspace > finalSize.Width && column != 0;
+                    childSize.Width = Math.Min(childSize.Width, paddingedSize.Width);
+                    bool needWrap = (WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0)
+                                         || wrapWidth + childSize.Width + hspace > paddingedSize.Width && column != 0;
                     double maxHeight = _rowOrColumMaxLenght[row];
                     if (needWrap)
                     {

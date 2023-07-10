@@ -1,8 +1,11 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 
 using Leisn.Xaml.Wpf.Converters;
@@ -11,6 +14,7 @@ namespace Leisn.Xaml.Wpf.Controls
 {
     public class ControlAttach
     {
+        #region about text
         public static bool GetShowClear(DependencyObject obj)
         {
             return (bool)obj.GetValue(ShowClearProperty);
@@ -32,8 +36,9 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty PlaceholderProperty =
             DependencyProperty.RegisterAttached("Placeholder", typeof(string), typeof(ControlAttach), new PropertyMetadata(null));
+        #endregion
 
-
+        #region layout
         public static Thickness GetPadding(DependencyObject obj)
         {
             return (Thickness)obj.GetValue(PaddingProperty);
@@ -45,6 +50,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty PaddingProperty =
             DependencyProperty.RegisterAttached("Padding", typeof(Thickness), typeof(ControlAttach), new PropertyMetadata(new Thickness()));
+        #endregion
 
         #region border
         public static Thickness GetBorderThickness(DependencyObject obj)
@@ -120,5 +126,41 @@ namespace Leisn.Xaml.Wpf.Controls
             }
         }
         #endregion
+
+        public static bool GetEnterMoveFocus(DependencyObject obj)
+        {
+            return (bool)obj.GetValue(EnterMoveFocusProperty);
+        }
+        public static void SetEnterMoveFocus(DependencyObject obj, bool value)
+        {
+            obj.SetValue(EnterMoveFocusProperty, value);
+        }
+        public static readonly DependencyProperty EnterMoveFocusProperty =
+            DependencyProperty.RegisterAttached("EnterMoveFocus", typeof(bool), typeof(ControlAttach),
+                new PropertyMetadata(false, new PropertyChangedCallback(OnEnterMoveFocusChanged)));
+        private static void OnEnterMoveFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var fe = (FrameworkElement)d;
+            if ((bool)e.NewValue)
+            {
+                fe.KeyDown += OnEnterDown;
+            }
+            else
+            {
+                fe.KeyDown -= OnEnterDown;
+            }
+        }
+
+        private static void OnEnterDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (Keyboard.FocusedElement is UIElement element)
+                {
+                    element.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
+                    e.Handled = true;
+                }
+            }
+        }
     }
 }
