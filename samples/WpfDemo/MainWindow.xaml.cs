@@ -84,9 +84,10 @@ namespace WpfDemo
         }
         private class PgTest
         {
-            public List<int> IntValues { get; set; } = new List<int>();
-            public IEnumerable<string> StringValues { get; set; } = new ReadOnlyCollection<string>(new List<string> { "stri 1", "str 2" });
+            public string[] StringArray { get; set; } = new string[] { "stri 1", "str 2", "stri 3", "str 4" };
+            public IEnumerable<string> ReadOnlyStrings { get; set; } = new ReadOnlyCollection<string>(new List<string> { "stri 1", "str 2" });
             public List<string> ListStrings { get; set; } = new List<string>() { "stri 1", "str 2" };
+            public List<int> IntValues { get; set; } = new List<int>();
             public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
             public List<SubClass> SubClasses { get; set; } = new List<SubClass>();
             public DateTime DateTime { get; set; } = DateTime.Now;

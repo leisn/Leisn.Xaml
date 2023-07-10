@@ -27,7 +27,7 @@ namespace Leisn.Common.Media
 
         public Rgb(string hex)
         {
-            var temp = FromHex(hex);
+            Rgb temp = FromHex(hex);
             R = temp.R; G = temp.G; B = temp.B;
         }
 

@@ -1,6 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -53,17 +52,19 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public bool IsReadOnly
         {
-            get { return (bool)GetValue(IsReadOnlyProperty); }
-            set { SetValue(IsReadOnlyProperty, value); }
+            get => (bool)GetValue(IsReadOnlyProperty);
+            set => SetValue(IsReadOnlyProperty, value);
         }
         public static readonly DependencyProperty IsReadOnlyProperty =
             DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(ColorPickerEditor), new PropertyMetadata(false, new PropertyChangedCallback(OnIsReadOnlyChanged)));
 
         private static void OnIsReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var c = (ColorPickerEditor)d;
+            ColorPickerEditor c = (ColorPickerEditor)d;
             if (c._colorPicker != null)
+            {
                 c._colorPicker.IsEnabled = !(bool)e.NewValue;
+            }
         }
 
         public Color NoAlphaColor

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using Leisn.Common.Attributes;
+using System.Windows;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {

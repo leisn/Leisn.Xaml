@@ -96,7 +96,10 @@ namespace Leisn.Common.Media
         public override bool Equals(object obj)
         {
             if (obj is not Hsv hsv)
+            {
                 return false;
+            }
+
             return hsv.H == H && hsv.V == V && hsv.S == S;
         }
 

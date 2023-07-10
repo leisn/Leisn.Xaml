@@ -23,15 +23,15 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public CornerRadius CornerRadius
         {
-            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
+            get => (CornerRadius)GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
         }
         public static readonly DependencyProperty CornerRadiusProperty = Border.CornerRadiusProperty.AddOwner(typeof(TimeSelector));
 
         public int Hour
         {
-            get { return (int)GetValue(HourProperty); }
-            set { SetValue(HourProperty, value); }
+            get => (int)GetValue(HourProperty);
+            set => SetValue(HourProperty, value);
         }
         public static readonly DependencyProperty HourProperty =
             DependencyProperty.Register("Hour", typeof(int), typeof(TimeSelector),
@@ -44,8 +44,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public int Minute
         {
-            get { return (int)GetValue(MinuteProperty); }
-            set { SetValue(MinuteProperty, value); }
+            get => (int)GetValue(MinuteProperty);
+            set => SetValue(MinuteProperty, value);
         }
 
         public static readonly DependencyProperty MinuteProperty =
@@ -59,8 +59,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public int Second
         {
-            get { return (int)GetValue(SecondProperty); }
-            set { SetValue(SecondProperty, value); }
+            get => (int)GetValue(SecondProperty);
+            set => SetValue(SecondProperty, value);
         }
         public static readonly DependencyProperty SecondProperty =
             DependencyProperty.Register("Second", typeof(int), typeof(TimeSelector),
@@ -68,16 +68,16 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public bool ShowSecond
         {
-            get { return (bool)GetValue(ShowSecondProperty); }
-            set { SetValue(ShowSecondProperty, value); }
+            get => (bool)GetValue(ShowSecondProperty);
+            set => SetValue(ShowSecondProperty, value);
         }
         public static readonly DependencyProperty ShowSecondProperty =
             DependencyProperty.Register("ShowSecond", typeof(bool), typeof(TimeSelector), new PropertyMetadata(true));
 
         public TimeOnly Time
         {
-            get { return (TimeOnly)GetValue(TimeProperty); }
-            set { SetValue(TimeProperty, value); }
+            get => (TimeOnly)GetValue(TimeProperty);
+            set => SetValue(TimeProperty, value);
         }
         public static readonly DependencyProperty TimeProperty =
             DependencyProperty.Register("Time", typeof(TimeOnly), typeof(TimeSelector),
@@ -85,7 +85,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var tp = (TimeSelector)d;
+            TimeSelector tp = (TimeSelector)d;
             if (!EditorUtil.BeginEdit(tp))
             {
                 EditorUtil.EndEdit(tp);
@@ -105,7 +105,7 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             else if (e.Property == TimeProperty)
             {
-                var time = (TimeOnly)e.NewValue;
+                TimeOnly time = (TimeOnly)e.NewValue;
                 tp.Hour = time.Hour;
                 tp.Minute = time.Minute;
                 tp.Second = time.Second;

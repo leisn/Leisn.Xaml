@@ -38,7 +38,7 @@ namespace Leisn.Common.Collections
         public static ArraySegment<T> SubMidIndex<T>(this T[] array, int midIndex, int size)
         {
             int start = Math.Max(0, midIndex - size / 2);
-            var end = start + size;
+            int end = start + size;
             if (end > array.Length)
             {
                 start -= end - array.Length;

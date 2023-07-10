@@ -2,11 +2,8 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-
-using Leisn.Common.Attributes;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
@@ -19,13 +16,17 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     }
     internal class CollectionEditor : Control, IPropertyEditor
     {
-        private Type? _genericType;
+        private readonly Type? _genericType;
         public bool UseExpanderStyle => true;
-        public DependencyProperty GetBindingProperty() => SourceProperty;
+        public DependencyProperty GetBindingProperty()
+        {
+            return SourceProperty;
+        }
+
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            
-            var type = item.PropertyType;
+
+            Type? type = item.PropertyType;
             if (type?.IsAssignableTo(typeof(IEnumerable)) != true)
             {
                 throw new InvalidOperationException($"PropertyType `{type}`非IEnumerable类型");
@@ -42,23 +43,25 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement? GetOperationContent()
         {
             if (IsReadOnly)
+            {
                 return null;
+            }
 
             return null;
         }
 
         public bool IsReadOnly
         {
-            get { return (bool)GetValue(IsReadOnlyProperty); }
-            set { SetValue(IsReadOnlyProperty, value); }
+            get => (bool)GetValue(IsReadOnlyProperty);
+            set => SetValue(IsReadOnlyProperty, value);
         }
         public static readonly DependencyProperty IsReadOnlyProperty =
             DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(CollectionEditor), new PropertyMetadata(false));
 
         public object Source
         {
-            get { return GetValue(SourceProperty); }
-            set { SetValue(SourceProperty, value); }
+            get => GetValue(SourceProperty);
+            set => SetValue(SourceProperty, value);
         }
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.Register("Source", typeof(object), typeof(CollectionEditor),
@@ -66,7 +69,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var type = e.NewValue.GetType();
+            Type? type = e.NewValue.GetType();
             if (type?.IsAssignableTo(typeof(IEnumerable)) != true)
             {
                 throw new InvalidOperationException($"Source `{type}`非IEnumerable类型");

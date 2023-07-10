@@ -4,7 +4,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.DirectoryServices.ActiveDirectory;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
@@ -115,13 +114,11 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual IPropertyEditor CreateCollectionEditor(PropertyDescriptor propertyDescriptor)
         {
-            var type = propertyDescriptor.PropertyType;
+            Type type = propertyDescriptor.PropertyType;
             if (type.IsAssignableTo(typeof(IEnumerable<string>)))
             {
                 return new StringCollectionEditor();
             }
-
-            bool editable = false, moveable = false;
             Type[] elementTypes;
             if (type.IsGenericType)
             {
@@ -129,12 +126,13 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             else if (type.IsArray)
             {
-                editable = false;
-                moveable = true;
-                var rank = type.GetArrayRank();
+                int rank = type.GetArrayRank();
                 if (rank > 1)
+                {
                     throw new NotSupportedException($"Array rank `{rank}` greate than 1 is not supported");
-                var elementType = type.GetElementType()
+                }
+
+                Type elementType = type.GetElementType()
                      ?? throw new NotSupportedException($"Array must have a element type");
                 elementTypes = new Type[] { elementType };
             }

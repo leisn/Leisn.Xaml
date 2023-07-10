@@ -1,4 +1,6 @@
-﻿using System;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,23 +23,23 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public CornerRadius CornerRadius
         {
-            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
-            set { SetValue(CornerRadiusProperty, value); }
+            get => (CornerRadius)GetValue(CornerRadiusProperty);
+            set => SetValue(CornerRadiusProperty, value);
         }
         public static readonly DependencyProperty CornerRadiusProperty = Border.CornerRadiusProperty.AddOwner(typeof(DateSelector));
 
         public bool ShowYear
         {
-            get { return (bool)GetValue(ShowYearProperty); }
-            set { SetValue(ShowYearProperty, value); }
+            get => (bool)GetValue(ShowYearProperty);
+            set => SetValue(ShowYearProperty, value);
         }
         public static readonly DependencyProperty ShowYearProperty =
             DependencyProperty.Register("ShowYear", typeof(bool), typeof(DateSelector), new PropertyMetadata(true));
 
         public int Year
         {
-            get { return (int)GetValue(YearProperty); }
-            set { SetValue(YearProperty, value); }
+            get => (int)GetValue(YearProperty);
+            set => SetValue(YearProperty, value);
         }
         public static readonly DependencyProperty YearProperty =
             DependencyProperty.Register("Year", typeof(int), typeof(DateSelector),
@@ -50,8 +52,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public int Month
         {
-            get { return (int)GetValue(MonthProperty); }
-            set { SetValue(MonthProperty, value); }
+            get => (int)GetValue(MonthProperty);
+            set => SetValue(MonthProperty, value);
         }
 
         public static readonly DependencyProperty MonthProperty =
@@ -65,8 +67,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public int Day
         {
-            get { return (int)GetValue(DayProperty); }
-            set { SetValue(DayProperty, value); }
+            get => (int)GetValue(DayProperty);
+            set => SetValue(DayProperty, value);
         }
         public static readonly DependencyProperty DayProperty =
             DependencyProperty.Register("Day", typeof(int), typeof(DateSelector),
@@ -74,16 +76,16 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static object CoerceDayValue(DependencyObject d, object baseValue)
         {
-            var ds = (DateSelector)d;
-            var v = (int)baseValue;
-            var max = DateTime.DaysInMonth(ds.Year, ds.Month);
+            DateSelector ds = (DateSelector)d;
+            int v = (int)baseValue;
+            int max = DateTime.DaysInMonth(ds.Year, ds.Month);
             return Math.Clamp(v, 1, max);
         }
 
         public DateOnly Date
         {
-            get { return (DateOnly)GetValue(DateProperty); }
-            set { SetValue(DateProperty, value); }
+            get => (DateOnly)GetValue(DateProperty);
+            set => SetValue(DateProperty, value);
         }
         public static readonly DependencyProperty DateProperty =
             DependencyProperty.Register("Date", typeof(DateOnly), typeof(DateSelector),
@@ -91,7 +93,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnDateChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var tp = (DateSelector)d;
+            DateSelector tp = (DateSelector)d;
             if (!EditorUtil.BeginEdit(tp))
             {
                 EditorUtil.EndEdit(tp);
@@ -111,7 +113,7 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             else if (e.Property == DateProperty)
             {
-                var date = (DateOnly)e.NewValue;
+                DateOnly date = (DateOnly)e.NewValue;
                 tp.Year = date.Year;
                 tp.Month = date.Month;
                 tp.Day = date.Day;

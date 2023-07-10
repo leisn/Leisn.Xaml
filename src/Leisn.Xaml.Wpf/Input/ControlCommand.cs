@@ -1,10 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Leisn.Xaml.Wpf.Input
@@ -20,7 +16,10 @@ namespace Leisn.Xaml.Wpf.Input
             _action = action;
             _canExecute = canExecute;
         }
-        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
 
         public virtual bool CanExecute(object? parameter)
         {

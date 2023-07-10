@@ -20,17 +20,28 @@ namespace Leisn.Xaml.Wpf.Input
             _canExecuteFunc = canExecuteFunc;
         }
 
-        bool ICommand.CanExecute(object? parameter) => CanExecute((T?)parameter);
+        bool ICommand.CanExecute(object? parameter)
+        {
+            return CanExecute((T?)parameter);
+        }
 
-        void ICommand.Execute(object? parameter) => Execute((T?)parameter);
+        void ICommand.Execute(object? parameter)
+        {
+            Execute((T?)parameter);
+        }
 
         public bool CanExecute(T? parameter)
-            => _canExecute && (_canExecuteFunc == null || _canExecuteFunc(parameter));
+        {
+            return _canExecute && (_canExecuteFunc == null || _canExecuteFunc(parameter));
+        }
 
         public async void Execute(T? parameter)
         {
             if (!_canExecute)
+            {
                 return;
+            }
+
             _canExecute = false;
             RaiseCanExecuteChanged();
             await _task(parameter);
@@ -38,6 +49,9 @@ namespace Leisn.Xaml.Wpf.Input
             RaiseCanExecuteChanged();
         }
 
-        public void RaiseCanExecuteChanged() => CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

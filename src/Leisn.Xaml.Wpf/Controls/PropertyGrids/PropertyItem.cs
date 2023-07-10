@@ -2,7 +2,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -76,8 +75,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 nameof(EditorElement), typeof(FrameworkElement), typeof(PropertyItem), new FrameworkPropertyMetadata(default(FrameworkElement)));
         public object? OperationContent
         {
-            get { return GetValue(OperationContentProperty); }
-            set { SetValue(OperationContentProperty, value); }
+            get => GetValue(OperationContentProperty);
+            set => SetValue(OperationContentProperty, value);
         }
         public static readonly DependencyProperty OperationContentProperty =
             DependencyProperty.Register("OperationContent", typeof(object), typeof(PropertyItem), new PropertyMetadata(null));

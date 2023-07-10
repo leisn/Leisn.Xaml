@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
-using System.Windows;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -37,13 +35,14 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnBreatheChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var control = (Control)d;
-            if (e.NewValue is bool b)
+            Control control = (Control)d;
+            if ((bool)e.NewValue)
             {
-                if (b)
-                    control.BeginAnimation(UIElement.OpacityProperty, BreatheAnimation);
-                else
-                    control.BeginAnimation(UIElement.OpacityProperty, null);
+                control.BeginAnimation(UIElement.OpacityProperty, BreatheAnimation);
+            }
+            else
+            {
+                control.BeginAnimation(UIElement.OpacityProperty, null);
             }
         }
     }

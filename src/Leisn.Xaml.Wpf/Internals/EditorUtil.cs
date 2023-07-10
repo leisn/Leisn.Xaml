@@ -1,8 +1,6 @@
-﻿using System;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Leisn.Xaml.Wpf.Internals
 {
@@ -15,7 +13,7 @@ namespace Leisn.Xaml.Wpf.Internals
         {
             lock (_editCounts)
             {
-                if (!_editCounts.TryGetValue(editor, out var count))
+                if (!_editCounts.TryGetValue(editor, out int count))
                 {
                     _editCounts.Add(editor, 1);
                 }
@@ -31,12 +29,16 @@ namespace Leisn.Xaml.Wpf.Internals
         {
             lock (_editCounts)
             {
-                if (_editCounts.TryGetValue(editor, out var count))
+                if (_editCounts.TryGetValue(editor, out int count))
                 {
                     if (count == 1)
+                    {
                         _editCounts.Remove(editor);
+                    }
                     else
+                    {
                         _editCounts[editor] = count - 1;
+                    }
                 }
             }
         }

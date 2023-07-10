@@ -463,7 +463,9 @@ namespace Leisn.Xaml.Wpf.Controls
 
         #region mouse actions
         private Point GetRealPoint(Point point)
-            => new(point.X * _dpiScale.DpiScaleX, point.Y * _dpiScale.DpiScaleY);
+        {
+            return new(point.X * _dpiScale.DpiScaleX, point.Y * _dpiScale.DpiScaleY);
+        }
 
         private bool _isMouseDown;
         private bool _isAdjustHue;

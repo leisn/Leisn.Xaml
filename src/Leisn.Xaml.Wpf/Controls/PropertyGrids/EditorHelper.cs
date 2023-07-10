@@ -2,16 +2,16 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Media;
 
-using Leisn.Common.Data;
 using Leisn.Common.Attributes;
+using Leisn.Common.Data;
 using Leisn.Xaml.Wpf.Locales;
-using System.Linq;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
@@ -39,8 +39,7 @@ namespace Leisn.Xaml.Wpf.Controls
             return box;
         }
 
-
-        const string Misc = "Misc";
+        private const string Misc = "Misc";
         public static List<PropertyItem> CreatePropertyItems(object source, IPropertyEditorSelector editorSelector)
         {
             return TypeDescriptor.GetProperties(source)

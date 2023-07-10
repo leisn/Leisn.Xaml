@@ -1,7 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -140,7 +138,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 new PropertyMetadata(false, new PropertyChangedCallback(OnEnterMoveFocusChanged)));
         private static void OnEnterMoveFocusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var fe = (FrameworkElement)d;
+            FrameworkElement fe = (FrameworkElement)d;
             if ((bool)e.NewValue)
             {
                 fe.KeyDown += OnEnterDown;

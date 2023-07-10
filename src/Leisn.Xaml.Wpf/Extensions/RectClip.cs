@@ -1,17 +1,12 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Leisn.Xaml.Wpf.Extensions
 {
     public struct RectClip
     {
-        public static RectClip Empty => new RectClip();
+        public static RectClip Empty => new();
 
         public Rect Target;
 

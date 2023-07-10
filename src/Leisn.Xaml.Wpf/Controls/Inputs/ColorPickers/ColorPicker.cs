@@ -1,6 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;

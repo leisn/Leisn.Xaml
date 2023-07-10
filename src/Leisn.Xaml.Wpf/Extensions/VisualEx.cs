@@ -78,14 +78,14 @@ namespace Leisn.Xaml.Wpf.Extensions
 
         public static DpiScale GetDpiScale()
         {
-            var flags = BindingFlags.NonPublic | BindingFlags.Static;
-            var type = typeof(SystemParameters);
-            var dpiXProp = type.GetProperty("DpiX", flags);
-            var dpiYProp = type.GetProperty("Dpi", flags);
+            BindingFlags flags = BindingFlags.NonPublic | BindingFlags.Static;
+            System.Type type = typeof(SystemParameters);
+            PropertyInfo? dpiXProp = type.GetProperty("DpiX", flags);
+            PropertyInfo? dpiYProp = type.GetProperty("Dpi", flags);
             if (dpiXProp != null && dpiYProp != null)
             {
-                var x = (int)dpiXProp.GetValue(null, null)!;
-                var y = (int)dpiYProp.GetValue(null, null)!;
+                int x = (int)dpiXProp.GetValue(null, null)!;
+                int y = (int)dpiYProp.GetValue(null, null)!;
                 return new DpiScale(x / 96d, y / 96d);
             }
             return new DpiScale(1, 1);

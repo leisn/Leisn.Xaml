@@ -3,16 +3,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Leisn.Xaml.Wpf.Extensions
 {
     public class RectClips : ISet<Rect>, IList<Rect>
     {
-        private readonly List<Rect> _list = new List<Rect>();
+        private readonly List<Rect> _list = new();
 
         public int Count => _list.Count;
 
@@ -39,23 +36,39 @@ namespace Leisn.Xaml.Wpf.Extensions
         {
             int index = _list.IndexOf(item);
             if (index != -1)
+            {
                 return false;
+            }
+
             _list.Add(item);
             return true;
         }
 
-        public void Add(params Rect[] items) => AddAll(items, false);
+        public void Add(params Rect[] items)
+        {
+            AddAll(items, false);
+        }
 
-        public void AddIfNotEmpty(params Rect[] items) => AddAll(items, true);
+        public void AddIfNotEmpty(params Rect[] items)
+        {
+            AddAll(items, true);
+        }
 
         public void AddAll(IEnumerable<Rect> items, bool ignoreEmpty = true)
         {
-            foreach (var item in items)
+            foreach (Rect item in items)
+            {
                 if (!(ignoreEmpty && item.IsEmpty()))
+                {
                     Add(item);
+                }
+            }
         }
 
-        public bool MergeItem(params Rect[] items) => MergeItems(items);
+        public bool MergeItem(params Rect[] items)
+        {
+            return MergeItems(items);
+        }
 
         /// <summary>
         /// 添加对象，后对集合中每一项尝试合并为更大的矩形，
@@ -65,7 +78,7 @@ namespace Leisn.Xaml.Wpf.Extensions
         public bool MergeItems(IEnumerable<Rect> items)
         {
             AddAll(items, true);
-            var oldCount = Count;
+            int oldCount = Count;
             int newCount = MergeEachOthers();
             return newCount == oldCount;
         }
@@ -88,7 +101,9 @@ namespace Leisn.Xaml.Wpf.Extensions
                     }
                 }
                 if (merged)//被合并就没有必要存在了
+                {
                     _list.RemoveAt(i);
+                }
             }
             return Count;
         }
@@ -100,7 +115,7 @@ namespace Leisn.Xaml.Wpf.Extensions
         {
             for (int i = Count - 1; i >= 0; i--)
             {
-                var x = _list[i].Clip(target);
+                (bool Clipped, RectClip ClipResult) x = _list[i].Clip(target);
                 if (x.Clipped)
                 {
                     _list.RemoveAt(i);
@@ -112,8 +127,10 @@ namespace Leisn.Xaml.Wpf.Extensions
         }
 
 
-        public void RemoveAt(int index) => _list.RemoveAt(index);
-
+        public void RemoveAt(int index)
+        {
+            _list.RemoveAt(index);
+        }
 
         public void Sort(Comparison<Rect> comparison)
         {
@@ -144,7 +161,7 @@ namespace Leisn.Xaml.Wpf.Extensions
 
         public void ExceptWith(IEnumerable<Rect> other)
         {
-            foreach (var item in other)
+            foreach (Rect item in other)
             {
                 _list.Remove(item);
             }
@@ -174,31 +191,37 @@ namespace Leisn.Xaml.Wpf.Extensions
 
         public void IntersectWith(IEnumerable<Rect> other)
         {
-            var temp = new List<Rect>(other);
-            foreach (var item in temp)
+            List<Rect> temp = new(other);
+            foreach (Rect item in temp)
             {
                 if (!_list.Contains(item))
+                {
                     _list.Remove(item);
+                }
             }
         }
 
         public bool IsProperSubsetOf(IEnumerable<Rect> other)
         {
-            var temp = new List<Rect>(other);
-            foreach (var item in _list)
+            List<Rect> temp = new(other);
+            foreach (Rect item in _list)
             {
                 if (!temp.Contains(item))
+                {
                     return false;
+                }
             }
             return true;
         }
 
         public bool IsProperSupersetOf(IEnumerable<Rect> other)
         {
-            foreach (var item in other)
+            foreach (Rect item in other)
             {
                 if (!_list.Contains(item))
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -215,10 +238,12 @@ namespace Leisn.Xaml.Wpf.Extensions
 
         public bool Overlaps(IEnumerable<Rect> other)
         {
-            foreach (var item in other)
+            foreach (Rect item in other)
             {
                 if (_list.Contains(item))
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -230,40 +255,56 @@ namespace Leisn.Xaml.Wpf.Extensions
 
         public bool SetEquals(IEnumerable<Rect> other)
         {
-            var temp = new List<Rect>(other);
+            List<Rect> temp = new(other);
             if (temp.Count != _list.Count)
+            {
                 return false;
-            foreach (var item in temp)
+            }
+
+            foreach (Rect item in temp)
             {
                 if (!_list.Contains(item))
+                {
                     return false;
+                }
             }
             return true;
         }
 
         public void SymmetricExceptWith(IEnumerable<Rect> other)
         {
-            var temp = new List<Rect>(other);
-            foreach (var item in temp)
+            List<Rect> temp = new(other);
+            foreach (Rect item in temp)
             {
                 if (_list.Contains(item))
+                {
                     _list.Remove(item);
+                }
                 else
+                {
                     _list.Add(item);
+                }
             }
         }
 
         public void UnionWith(IEnumerable<Rect> other)
         {
             if (other == null)
+            {
                 return;
-            foreach (var item in other)
+            }
+
+            foreach (Rect item in other)
             {
                 int index = _list.IndexOf(item);
                 if (index != -1)
+                {
                     _list[index] = item;
+                }
                 else
+                {
                     _list.Add(item);
+                }
             }
         }
 

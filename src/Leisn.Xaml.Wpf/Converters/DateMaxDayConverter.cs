@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// @Leisn (https://leisn.com , https://github.com/leisn)
+
+using System;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace Leisn.Xaml.Wpf.Converters
@@ -15,8 +13,8 @@ namespace Leisn.Xaml.Wpf.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var year = (int)values[0];
-            var month = (int)values[1];
+            int year = (int)values[0];
+            int month = (int)values[1];
             return DateTime.DaysInMonth(year, month);
         }
 

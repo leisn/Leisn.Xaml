@@ -126,7 +126,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 finalSize.Width = DesiredSize.Width;
             }
 
-            var paddingedSize = new Size(finalSize.Width - Padding.Left - Padding.Right,
+            Size paddingedSize = new(finalSize.Width - Padding.Left - Padding.Right,
                 finalSize.Height - Padding.Top - Padding.Bottom);
 
             foreach (FrameworkElement? child in Children)
