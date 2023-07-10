@@ -16,7 +16,9 @@
               <Button Grid.Column="1" x:Name="deleteButton" Style="{StaticResource ClearButtonStyle}"
                       CommandParameter="{Binding Tag,RelativeSource={RelativeSource Mode=TemplatedParent}}"
                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=DeleteItemCommand}"
-                      Visibility="{Binding  RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}"/>
+                      Visibility="{Binding  RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}">
+                <Rectangle Width="{TemplateBinding FontSize}" Fill="{TemplateBinding Foreground}" Height="2"/>
+              </Button>
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
