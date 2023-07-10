@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Metadata;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,13 +28,6 @@ namespace Leisn.Xaml.Wpf.Controls
         const string PART_ItemsHostName = "PART_ItemsHost";
         const string PART_AddButtonName = "PART_AddButton";
 
-        public bool IsReadOnly
-        {
-            get { return (bool)GetValue(IsReadOnlyProperty); }
-            set { SetValue(IsReadOnlyProperty, value); }
-        }
-        public static readonly DependencyProperty IsReadOnlyProperty = TextBoxBase.IsReadOnlyProperty.AddOwner(typeof(StringItemsView));
-
         public Style TextBoxStyle
         {
             get { return (Style)GetValue(TextBoxStyleProperty); }
@@ -41,6 +35,39 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty TextBoxStyleProperty =
             DependencyProperty.Register("TextBoxStyle", typeof(Style), typeof(StringItemsView), new PropertyMetadata(null));
+
+        public bool IsCoerceReadOnly
+        {
+            get { return (bool)GetValue(IsCoerceReadOnlyProperty); }
+            set { SetValue(IsCoerceReadOnlyProperty, value); }
+        }
+        public static readonly DependencyProperty IsCoerceReadOnlyProperty =
+            DependencyProperty.Register("IsCoerceReadOnly", typeof(bool), typeof(StringItemsView),
+                new PropertyMetadata(false, new PropertyChangedCallback(OnIsCoerceReadOnlyChanged)));
+
+        private static void OnIsCoerceReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var sce = (StringItemsView)d;
+            var value = (bool)e.NewValue;
+            sce.ShowOperationButtons = !value;
+            sce.IsItemReadOnly = value;
+        }
+
+        public bool IsItemReadOnly
+        {
+            get { return (bool)GetValue(IsItemReadOnlyProperty); }
+            set { SetValue(IsItemReadOnlyProperty, value); }
+        }
+        public static readonly DependencyProperty IsItemReadOnlyProperty =
+            DependencyProperty.Register("IsItemReadOnly", typeof(bool), typeof(StringItemsView), new PropertyMetadata(false));
+
+        public bool ShowOperationButtons
+        {
+            get { return (bool)GetValue(ShowOperationButtonsProperty); }
+            set { SetValue(ShowOperationButtonsProperty, value); }
+        }
+        public static readonly DependencyProperty ShowOperationButtonsProperty =
+            DependencyProperty.Register("ShowOperationButtons", typeof(bool), typeof(StringItemsView), new PropertyMetadata(true));
 
         public IEnumerable<string> ItemsSource
         {
@@ -50,20 +77,12 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register("ItemsSource", typeof(IEnumerable<string>), typeof(StringItemsView),
-                new PropertyMetadata(null, new PropertyChangedCallback(OnSourceChanged)));
+                new PropertyMetadata(null, new PropertyChangedCallback(OnItemsSourceChanged)));
 
-        private static void OnSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var sce = (StringItemsView)d;
-            if (e.NewValue is not ICollection<string> collection)
-            {
-                sce.IsReadOnly = true;
-            }
-            else if (!sce.IsReadOnly)
-            {
-                sce.IsReadOnly = collection.IsReadOnly;
-            }
-            sce.InitItems();
+            sce.OnItemsSourceChanged();
         }
 
         public ICommand DeleteItemCommand { get; }
@@ -71,11 +90,40 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private Panel _itemsHost = null!;
         private ButtonBase _addButtont = null!;
-
         public StringItemsView()
         {
             DeleteItemCommand = new ControlCommand<int>(DoDelecteItem);
             AddItemCommand = new ControlCommand(DoAddItem);
+        }
+
+        protected virtual void OnItemsSourceChanged()
+        {
+            try
+            {
+                if (IsCoerceReadOnly)
+                    return;
+
+                if (ItemsSource is string[])
+                {
+                    ShowOperationButtons = false;
+                    IsItemReadOnly = true;
+                    return;
+                }
+
+                if (ItemsSource is ICollection<string> collection)
+                {
+                    IsItemReadOnly = collection.IsReadOnly;
+                    ShowOperationButtons = !collection.IsReadOnly;
+                    return;
+                }
+
+                ShowOperationButtons = false;
+                IsItemReadOnly = true;
+            }
+            finally
+            {
+                InitItems();
+            }
         }
 
         public override void OnApplyTemplate()
@@ -126,7 +174,6 @@ namespace Leisn.Xaml.Wpf.Controls
                 var textBox = (TextBox)_itemsHost.Children[index];
                 textBox.Tag = index;
                 textBox.Text = item;
-                textBox.IsReadOnly = IsReadOnly;
                 index++;
             }
             _isInit = false;
@@ -137,10 +184,10 @@ namespace Leisn.Xaml.Wpf.Controls
             var textBox = new TextBox
             {
                 Tag = _itemsHost.Children.Count - 1,
-                IsReadOnly = IsReadOnly
             };
+            textBox.SetBinding(TextBoxBase.IsReadOnlyProperty, new Binding(nameof(IsItemReadOnly)) { Source = this });
             textBox.SetBinding(StyleProperty, new Binding(nameof(TextBoxStyle)) { Source = this });
-            if (!IsReadOnly)
+            if (!IsItemReadOnly)
                 textBox.LostFocus += TextBox_LostFocus;
             var index = _itemsHost.Children.Count - 1;
             _itemsHost.Children.Insert(index, textBox);
@@ -160,7 +207,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (IsReadOnly)
+            if (IsItemReadOnly)
                 return;
             var textBox = (TextBox)sender;
             var index = (int)textBox.Tag;
@@ -169,6 +216,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual void DoDelecteItem(int index)
         {
+            if (!ShowOperationButtons)
+                return;
             RemoveTextBox(index);
             if (ItemsSource is IList<string> list)
             {
@@ -180,6 +229,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual void DoAddItem()
         {
+            if (!ShowOperationButtons)
+                return;
             var textBox = AppendTextBox();
             if (ItemsSource is ICollection<string> list)
             {
@@ -191,9 +242,16 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual void DoUpdateItem(int index, string value)
         {
+            if (IsItemReadOnly)
+                return;
             if (ItemsSource is IList<string> list)
             {
                 list[index] = value;
+                return;
+            }
+            if (ItemsSource is string[] strings)
+            {
+                strings[index] = value;
                 return;
             }
             UpdateToSource();
@@ -201,7 +259,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected virtual void UpdateToSource()
         {
-            if (IsReadOnly || _isInit || ItemsSource is not ICollection<string> source)
+            if (_isInit || ItemsSource is not ICollection<string> source)
                 return;
             source.Clear();
             foreach (var item in _itemsHost.Children)

@@ -2132,8 +2132,8 @@
               </Grid.ColumnDefinitions>
               <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
               <Border Grid.Column="1" x:Name="deleteButton" Background="Transparent" Padding="3,0">
-                <Button MinHeight="18" Width="18" Height="18" Padding="4" local:ControlAttach.CornerRadius="9" CommandParameter="{Binding Tag,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{Binding RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=DeleteItemCommand}" VerticalAlignment="Center" Focusable="False">
-                  <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
+                <Button MinHeight="19" Width="19" Height="19" Padding="0" local:ControlAttach.CornerRadius="10" CommandParameter="{Binding Tag,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{Binding RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=DeleteItemCommand}" VerticalAlignment="Center" Focusable="False" Visibility="{Binding  RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}">
+                  <Path Height="10" Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
                 </Button>
               </Border>
               <TextBlock IsHitTestVisible="False" Visibility="Collapsed" x:Name="placeholder" Opacity=".56" Text="{TemplateBinding local:ControlAttach.Placeholder}" Margin="{TemplateBinding Padding}" />
@@ -2149,7 +2149,6 @@
             <Trigger Property="IsReadOnly" Value="True">
               <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="root" />
               <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
-              <Setter Property="Visibility" Value="Collapsed" TargetName="deleteButton" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="Opacity" Value=".56" TargetName="root" />
@@ -2167,7 +2166,7 @@
         <ControlTemplate TargetType="local:StringItemsView">
           <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
             <local:WrapPanel x:Name="PART_ItemsHost" Spacing="5" Orientation="Horizontal">
-              <Button x:Name="PART_AddButton" Height="auto" Padding="0" local:ControlAttach.IsCircle="True" Width="{Binding RelativeSource={RelativeSource Mode=Self},Path=ActualHeight}" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IsReadOnly,Converter={StaticResource BoolVisibilityConverter},ConverterParameter=TrueCollapsed}">
+              <Button x:Name="PART_AddButton" MinHeight="20" Height="20" Width="20" Padding="0" local:ControlAttach.CornerRadius="10" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}">
                 <local:FontIcon Glyph="" />
               </Button>
             </local:WrapPanel>
