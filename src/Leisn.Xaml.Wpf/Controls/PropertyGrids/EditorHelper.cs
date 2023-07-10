@@ -22,10 +22,10 @@ namespace Leisn.Xaml.Wpf.Controls
             FrameworkElementFactory contaniner = new(typeof(Border));
             contaniner.SetValue(Border.BackgroundProperty, Brushes.Transparent);
             contaniner.SetValue(FrameworkElement.HorizontalAlignmentProperty, HorizontalAlignment.Stretch);
-            contaniner.SetBinding(FrameworkElement.ToolTipProperty, new Binding("Description"));
+            contaniner.SetBinding(FrameworkElement.ToolTipProperty, new Binding(nameof(DataDeclaration.Description)));
             contaniner.SetValue(ToolTip.PlacementProperty, PlacementMode.Top);
             FrameworkElementFactory textBlock = new(typeof(TextBlock));
-            textBlock.SetBinding(TextBlock.TextProperty, new Binding("DisplayName"));
+            textBlock.SetBinding(TextBlock.TextProperty, new Binding(nameof(DataDeclaration.DisplayName)));
             contaniner.AppendChild(textBlock);
             DataTemplate dataTemplate = new() { VisualTree = contaniner };
 

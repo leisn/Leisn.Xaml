@@ -263,4 +263,50 @@
     </Setter>
   </Style>
   <Style TargetType="local:ToggleSwitch" BasedOn="{StaticResource ToggleSwitchStyle}"/>
+
+  <Style x:Key="ClearButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}">
+    <Setter Property="MinHeight" Value="18"/>
+    <Setter Property="Padding" Value="4"/>
+    <Setter Property="Focusable" Value="False"/>
+    <Setter Property="SnapsToDevicePixels" Value="True"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ButtonBase}">
+          <Border Background="Transparent" Padding="3,0">
+            <Border x:Name="bd" Width="18" Height="18" CornerRadius="9"
+                  Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                  Padding="{TemplateBinding Padding}">
+              <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" >
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition/>
+                  <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                <Path x:Name="closePath" Height="10" Data="{StaticResource CloseGeometry}"  Fill="{TemplateBinding Foreground}" Stretch="Uniform"
+                    SnapsToDevicePixels="True" Visibility="Collapsed"/>
+              </Grid>
+            </Border>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".5" TargetName="bd"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}" TargetName="bd"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="bd"/>
+            </Trigger>
+            <Trigger Property="Content" Value="{x:Null}">
+              <Setter Property="Visibility" Value="Visible" TargetName="closePath"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

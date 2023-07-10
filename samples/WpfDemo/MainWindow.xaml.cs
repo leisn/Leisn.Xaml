@@ -84,8 +84,8 @@ namespace WpfDemo
         }
         private class PgTest
         {
-            public string[] StringArray { get; set; } = new string[] { "stri 1", "str 2", "stri 3", "str 4" };
             public IEnumerable<string> ReadOnlyStrings { get; set; } = new ReadOnlyCollection<string>(new List<string> { "stri 1", "str 2" });
+            public string[] StringArray { get; set; } = new string[] { "stri 1", "str 2", "stri 3", "str 4" };
             public List<string> ListStrings { get; set; } = new List<string>() { "stri 1", "str 2" };
             public List<int> IntValues { get; set; } = new List<int>();
             public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
@@ -116,13 +116,13 @@ namespace WpfDemo
             public string ReadOnlyText { get; set; } = "ReadOnlyText 1";
             [Category("DataProvider")]
             [DataProvider(typeof(SampleTextProvider))]
-            public string TextProvider { get; set; } = "Text 1";
+            public string TextProvider { get; set; } = "Sample Text5";
             [Category("DataProvider")]
-            [DataProvider(typeof(SampleTextWidthDescProvider))]
-            public string ArrayTextProvider { get; set; } = "Text 1";
+            [DataProvider(typeof(SampleArrayProvider))]
+            public int? ArrayTextProvider { get; set; } = 2;
             [Category("DataProvider")]
             [DataProvider(typeof(SampleObjectProvider))]
-            public SampleObject ObjectProvider { get; set; } = null!;
+            public SampleObject? ObjectProvider { get; set; }
         }
 
     }

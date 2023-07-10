@@ -10,7 +10,7 @@
   <Color x:Key="PrimaryColor">#326CF3</Color>
   <Color x:Key="PrimaryLightColor">#4575E5</Color>
   <Color x:Key="PrimaryDarkColor">#1060FD</Color>
-  <Color x:Key="PrimaryTextColor">#FFE0E0E0</Color>
+  <Color x:Key="PrimaryTextColor">#FFE7E7E7</Color>
   <Color x:Key="AccentColor">#f8491e</Color>
   <Color x:Key="AccentTextColor">#FFE0E0E0</Color>
   <Color x:Key="InfoColor">#00bcd4</Color>
@@ -860,6 +860,44 @@
     </Setter>
   </Style>
   <Style TargetType="local:ToggleSwitch" BasedOn="{StaticResource ToggleSwitchStyle}" />
+  <Style x:Key="ClearButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}">
+    <Setter Property="MinHeight" Value="18" />
+    <Setter Property="Padding" Value="4" />
+    <Setter Property="Focusable" Value="False" />
+    <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ButtonBase}">
+          <Border Background="Transparent" Padding="3,0">
+            <Border x:Name="bd" Width="18" Height="18" CornerRadius="9" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Padding="{TemplateBinding Padding}">
+              <Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <Path x:Name="closePath" Height="10" Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" SnapsToDevicePixels="True" Visibility="Collapsed" />
+              </Grid>
+            </Border>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".5" TargetName="bd" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}" TargetName="bd" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="bd" />
+            </Trigger>
+            <Trigger Property="Content" Value="{x:Null}">
+              <Setter Property="Visibility" Value="Visible" TargetName="closePath" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
   <Style x:Key="TextBoxBaseStyle" TargetType="TextBox" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="CaretBrush" Value="{DynamicResource TextBrush}" />
     <Setter Property="SelectionBrush" Value="{DynamicResource PrimaryBrush}" />
@@ -876,11 +914,7 @@
           <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
             <Grid>
               <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
-              <Border x:Name="clearButton" HorizontalAlignment="Right" Background="Transparent" Padding="3,0" Visibility="Collapsed">
-                <Button Width="18" MinHeight="18" Padding="4" local:ControlAttach.CornerRadius="9" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearTextboxCommand}" VerticalAlignment="Center" Focusable="False">
-                  <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
-                </Button>
-              </Border>
+              <Button x:Name="clearButton" Style="{StaticResource ClearButtonStyle}" HorizontalAlignment="Right" Visibility="Collapsed" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearTextboxCommand}" />
               <TextBlock IsHitTestVisible="False" Visibility="Collapsed" x:Name="placeholder" Opacity=".56" Text="{TemplateBinding local:ControlAttach.Placeholder}" Margin="{TemplateBinding Padding}" />
             </Grid>
           </Border>
@@ -1603,11 +1637,7 @@
                   <ColumnDefinition Width="*" />
                   <ColumnDefinition Width="28" />
                 </Grid.ColumnDefinitions>
-                <Border x:Name="clearButton" Grid.Column="1" Background="Transparent">
-                  <Button Width="18" MinHeight="18" local:ControlAttach.CornerRadius="9" VerticalAlignment="Center" Padding="4" Background="{DynamicResource ControlLight2Brush}" Focusable="False" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearDatePickerCommand}">
-                    <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
-                  </Button>
-                </Border>
+                <Button x:Name="clearButton" Grid.Column="1" Style="{StaticResource ClearButtonStyle}" Background="{DynamicResource RegionBrush}" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearDatePickerCommand}" />
               </Grid>
               <Grid x:Name="PART_DisabledVisual" Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="False" Opacity="0" Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -2131,12 +2161,7 @@
                 <ColumnDefinition Width="auto" />
               </Grid.ColumnDefinitions>
               <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
-              <Border Grid.Column="1" x:Name="deleteButton" Background="Transparent" Padding="3,0">
-                <Button MinHeight="19" Width="19" Height="19" Padding="0" local:ControlAttach.CornerRadius="10" CommandParameter="{Binding Tag,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{Binding RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=DeleteItemCommand}" VerticalAlignment="Center" Focusable="False" Visibility="{Binding  RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}">
-                  <Path Height="10" Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform" />
-                </Button>
-              </Border>
-              <TextBlock IsHitTestVisible="False" Visibility="Collapsed" x:Name="placeholder" Opacity=".56" Text="{TemplateBinding local:ControlAttach.Placeholder}" Margin="{TemplateBinding Padding}" />
+              <Button Grid.Column="1" x:Name="deleteButton" Style="{StaticResource ClearButtonStyle}" CommandParameter="{Binding Tag,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{Binding RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=DeleteItemCommand}" Visibility="{Binding  RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -2166,8 +2191,8 @@
         <ControlTemplate TargetType="local:StringItemsView">
           <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
             <local:WrapPanel x:Name="PART_ItemsHost" Spacing="5" Orientation="Horizontal">
-              <Button x:Name="PART_AddButton" MinHeight="20" Height="20" Width="20" Padding="0" local:ControlAttach.CornerRadius="10" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}">
-                <local:FontIcon Glyph="" />
+              <Button x:Name="PART_AddButton" Style="{StaticResource ButtonPrimaryStyle}" MinHeight="20" Height="20" Width="20" Margin="2" Padding="0" local:ControlAttach.CornerRadius="10" Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}">
+                <local:FontIcon Glyph="" SnapsToDevicePixels="True" />
               </Button>
             </local:WrapPanel>
           </Border>

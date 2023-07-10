@@ -27,17 +27,19 @@ namespace Leisn.Xaml.Wpf.Controls
         protected virtual IPropertyEditor CreateAttributeEditor(EditorAttribute editorAttr, PropertyDescriptor propertyDescriptor)
         {
             Type editorType = Type.GetType(editorAttr.EditorTypeName)!;
-            return (IPropertyEditor)UIContext.Create(editorType)!;
+            return (IPropertyEditor)Activator.CreateInstance(editorType)!;
         }
 
         protected virtual IPropertyEditor? CreateCustomEditor(PropertyDescriptor propertyDescriptor)
         {
+            Type propertyType = propertyDescriptor.PropertyType;
+
             if (propertyDescriptor.Attr<DataProviderAttribute>() is not null)
             {
                 return new ComboDataEditor();
             }
 
-            Type propertyType = propertyDescriptor.PropertyType;
+            #region special types
 
             if (propertyType.IsEnum)
             {
@@ -68,6 +70,8 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 return new ColorPickerEditor();
             }
+            #endregion
+
             return null;
         }
 
@@ -119,6 +123,8 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 return new StringCollectionEditor();
             }
+
+
             Type[] elementTypes;
             if (type.IsGenericType)
             {

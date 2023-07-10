@@ -28,17 +28,12 @@ namespace WpfDemo.Providers
 
     internal class SampleObjectProvider : IDataProvider<SampleObjectDeclaration>
     {
-        private static SampleObjectProvider _instance = null!;
-        public static SampleObjectProvider GetInstance()
-        {
-            return _instance ??= new SampleObjectProvider();
-        }
         public IEnumerable<SampleObjectDeclaration> GetData()
         {
             return new List<SampleObjectDeclaration>
             {
-                new SampleObjectDeclaration(new SampleObject{Value=1 }),
-                 new SampleObjectDeclaration(new SampleObject{Value=2 }),
+                new SampleObjectDeclaration(new SampleObject{ Value=1 }),
+                 new SampleObjectDeclaration(new SampleObject{ Value=2 }),
                   new SampleObjectDeclaration(new SampleObject { Value = 3 } )
             };
         }

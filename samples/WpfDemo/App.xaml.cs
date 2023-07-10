@@ -39,7 +39,7 @@ namespace WpfDemo
             var type5 = typeof(ICollection<int>);
             var type6 = ints.GetType();
             var re1 = type3.IsAssignableTo(type5);
-            var re2 = type2.GetGenericTypeDefinition()==type0;
+            var re2 = type2.GetGenericTypeDefinition() == type0;
 
             //var type4 = typeof(Dictionary<int, string>);
             //var type5 = typeof(IDictionary<int, string>);
@@ -60,10 +60,11 @@ namespace WpfDemo
             Console.WriteLine("Sevices init...");
             var sevices = new ServiceCollection();
             sevices.AddSingleton<SampleTextProvider>()
-                   .AddSingleton<SampleTextWidthDescProvider>();
+                   .AddSingleton<SampleArrayProvider>()
+                   .AddSingleton<SampleObjectProvider>();
 
             Console.WriteLine("UIContext init...");
-            UIContext.Initialize(sevices.BuildServiceProvider());
+            AppIoc.Initialize(sevices.BuildServiceProvider());
             Console.WriteLine("App started.");
         }
     }

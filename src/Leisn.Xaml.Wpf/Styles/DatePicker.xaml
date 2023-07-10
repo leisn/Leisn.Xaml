@@ -101,14 +101,11 @@
                   <ColumnDefinition Width="*"/>
                   <ColumnDefinition Width="28"/>
                 </Grid.ColumnDefinitions>
-                <Border x:Name="clearButton" Grid.Column="1" Background="Transparent">
-                  <Button Width="18" MinHeight="18" local:ControlAttach.CornerRadius="9" VerticalAlignment="Center" Padding="4"
-                          Background="{DynamicResource ControlLight2Brush}" Focusable="False"
-                          CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                          Command="{x:Static internals:InternalCommands.ClearDatePickerCommand}">
-                    <Path Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" Stretch="Uniform"/>
-                  </Button>
-                </Border>
+
+                <Button x:Name="clearButton" Grid.Column="1" Style="{StaticResource ClearButtonStyle}"
+                        Background="{DynamicResource RegionBrush}"
+                        CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                        Command="{x:Static internals:InternalCommands.ClearDatePickerCommand}"/>
               </Grid>
               <Grid x:Name="PART_DisabledVisual" Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="False" Opacity="0" Grid.Row="0">
                 <Grid.ColumnDefinitions>

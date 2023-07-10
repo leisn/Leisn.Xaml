@@ -105,8 +105,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
                 if (ItemsSource is ICollection<string> collection)
                 {
-                    IsItemReadOnly = collection.IsReadOnly;
                     ShowOperationButtons = !collection.IsReadOnly;
+                    IsItemReadOnly = collection.IsReadOnly;
                     return;
                 }
 

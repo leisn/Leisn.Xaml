@@ -12,7 +12,7 @@
   <Color x:Key="PrimaryColor">#326CF3</Color>
   <Color x:Key="PrimaryLightColor">#4575E5</Color>
   <Color x:Key="PrimaryDarkColor">#1060FD</Color>
-  <Color x:Key="PrimaryTextColor">#FFE0E0E0</Color>
+  <Color x:Key="PrimaryTextColor">#FFE7E7E7</Color>
   <Color x:Key="AccentColor">#f8491e</Color>
   <Color x:Key="AccentTextColor">#FFE0E0E0</Color>
   <Color x:Key="InfoColor">#00bcd4</Color>

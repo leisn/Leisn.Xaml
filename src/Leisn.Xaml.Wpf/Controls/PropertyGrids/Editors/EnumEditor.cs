@@ -1,6 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -14,13 +15,13 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            System.Collections.Generic.IEnumerable<DataDeclaration> values = Enum.GetValues(item.PropertyType).OfType<Enum>().Select(x => new DataDeclaration
-            {
-                Value = x,
-                DisplayName = x.Attr<CategoryAttribute>()?.Category ?? x.ToString(),
-                Description = x.Attr<DescriptionAttribute>()?.Description ?? x.ToString()
-            });
-
+            IEnumerable<DataDeclaration> values =
+                Enum.GetValues(item.PropertyType).OfType<Enum>().Select(x => new DataDeclaration
+                {
+                    Value = x,
+                    DisplayName = x.Attr<CategoryAttribute>()?.Category ?? x.ToString(),
+                    Description = x.Attr<DescriptionAttribute>()?.Description ?? x.ToString()
+                });
             ComboBox box = EditorHelper.CreateComboBox(values);
             box.IsReadOnly = item.IsReadOnly;
             return box;
