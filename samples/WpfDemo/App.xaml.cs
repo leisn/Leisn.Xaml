@@ -21,6 +21,7 @@ using System.Windows.Input;
 using Leisn.Xaml.Wpf.Input;
 using System.Windows.Controls.Primitives;
 using System.Collections;
+using System.Collections.ObjectModel;
 
 namespace WpfDemo
 {
@@ -29,15 +30,13 @@ namespace WpfDemo
     /// </summary>
     public partial class App : Application
     {
-        class A : List<string> { }
         public App()
         {
-
+            var pros=typeof(ReadOnlyCollection<int>).GetProperties();
             var type0 = typeof(IList<>);
             var type1 = typeof(IList<object>);
             var type2 = typeof(IList<int>);
             var type3 = typeof(List<int>);
-            var methods = type3.GetMethod("Add");
             var type4 = typeof(Dictionary<int, string>);
             var type5 = typeof(IDictionary<int, string>);
             var type6 = typeof(IDictionary<,>);

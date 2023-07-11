@@ -17,7 +17,7 @@ using Leisn.Xaml.Wpf.Converters;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
-    internal abstract class CollectionEditorBase : ContentControl, IPropertyEditor
+    internal abstract class CollectionEditorBase<T> : ContentControl, IPropertyEditor where T : UIElement
     {
         public bool UseExpanderStyle => true;
 
@@ -57,18 +57,19 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         {
             return SourceProperty;
         }
+
         public bool IsCoerceReadOnly
         {
             get => (bool)GetValue(IsCoerceReadOnlyProperty);
             set => SetValue(IsCoerceReadOnlyProperty, value);
         }
         public static readonly DependencyProperty IsCoerceReadOnlyProperty =
-            DependencyProperty.Register("IsCoerceReadOnly", typeof(bool), typeof(CollectionEditorBase),
+            DependencyProperty.Register("IsCoerceReadOnly", typeof(bool), typeof(CollectionEditorBase<T>),
                 new PropertyMetadata(false, new PropertyChangedCallback(OnIsCoerceReadOnlyChanged)));
 
         private static void OnIsCoerceReadOnlyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            CollectionEditorBase sce = (CollectionEditorBase)d;
+            CollectionEditorBase<T> sce = (CollectionEditorBase<T>)d;
             bool value = (bool)e.NewValue;
             sce.ShowOperationButtons = !value;
             sce.IsItemReadOnly = value;
@@ -80,7 +81,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             set => SetValue(IsItemReadOnlyProperty, value);
         }
         public static readonly DependencyProperty IsItemReadOnlyProperty =
-            DependencyProperty.Register("IsItemReadOnly", typeof(bool), typeof(CollectionEditorBase), new PropertyMetadata(false));
+            DependencyProperty.Register("IsItemReadOnly", typeof(bool), typeof(CollectionEditorBase<T>), new PropertyMetadata(false));
 
         public bool ShowOperationButtons
         {
@@ -88,7 +89,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             set => SetValue(ShowOperationButtonsProperty, value);
         }
         public static readonly DependencyProperty ShowOperationButtonsProperty =
-            DependencyProperty.Register("ShowOperationButtons", typeof(bool), typeof(CollectionEditorBase), new PropertyMetadata(true));
+            DependencyProperty.Register("ShowOperationButtons", typeof(bool), typeof(CollectionEditorBase<T>), new PropertyMetadata(true));
 
         public IEnumerable Source
         {
@@ -96,12 +97,12 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             set { SetValue(SourceProperty, value); }
         }
         public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source", typeof(IEnumerable), typeof(CollectionEditorBase),
+            DependencyProperty.Register("Source", typeof(IEnumerable), typeof(CollectionEditorBase<T>),
                 new PropertyMetadata(null, new PropertyChangedCallback(OnSourceChagned)));
 
         private static void OnSourceChagned(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var v = (CollectionEditorBase)d;
+            var v = (CollectionEditorBase<T>)d;
             v.OnSourceChanged();
         }
         protected virtual void OnSourceChanged()
@@ -127,10 +128,13 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
                 if (type.IsImplementOf(typeof(ICollection<>)))
                 {
-                    var isReadonly = (bool)type.GetProperty("System.Collections.Generic.ICollection<T>.IsReadOnly",
-                        BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(Source)!;
-                    ShowOperationButtons = !isReadonly;
-                    IsItemReadOnly = isReadonly;
+                    var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+                    var property = (type.GetProperty("IsReadOnly", flags)
+                        ?? type.GetProperty("System.Collections.IList.IsReadOnly", flags))
+                        ?? type.GetProperty("System.Collections.Generic.ICollection<T>.IsReadOnly", flags);
+                    bool isReadOnly = property?.GetValue(Source) is bool b && b;
+                    ShowOperationButtons = !isReadOnly;
+                    IsItemReadOnly = isReadOnly;
                     return;
                 }
 
@@ -161,7 +165,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             var grid = (Grid)GetContanier().Children[index];
             var button = (Button)grid.Children[^1];
             button.Click -= DeleteButton_Click;
-
+            var element = GetElementAt(index);
+            OnRemoveElement(element);
             GetContanier().Children.RemoveAt(index);
             var count = GetElementCount();
             for (int i = index; i < count; i++)
@@ -253,7 +258,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 for (int i = 0; i < count; i++)
                 {
                     var element = GetElementAt(i);
-                    var value = GetItemValue(element);
+                    var value = GetElementValue(element);
                     method.Invoke(Source, new object[] { value });
                 }
             }
@@ -264,14 +269,62 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return GetContanier().Children.Count;
         }
 
-        protected UIElement GetElementAt(int index)
+        protected T GetElementAt(int index)
         {
             var grid = (Grid)GetContanier().Children[index];
-            return grid.Children[1];
+            return (T)grid.Children[1];
         }
 
-        protected abstract UIElement CreateItemElement(object? item);
-        protected abstract object GetItemValue(UIElement element);
+        internal int GetElementIndex(T element)
+        {
+            var count = GetElementCount();
+            for (int i = 0; i < count; i++)
+            {
+                if (element == GetElementAt(i))
+                    return i;
+            }
+            return -1;
+        }
+
+        protected void UpdateItemValue(T element)
+        {
+            var index = GetElementIndex(element);
+            var value = GetElementValue(element);
+            var type = Source.GetType();
+            MethodInfo? method;
+            if (type.IsArray)
+            {
+                method = type.GetMethod("SetValue");
+                method!.Invoke(Source, new object[] { index, value });
+                return;
+            }
+
+            method = type.GetMethod("set_Item");
+            if (method is not null)
+            {
+                method!.Invoke(Source, new object[] { index, value });
+                return;
+            }
+
+            //clear and add
+            method = Source.GetType().GetMethod("Clear");
+            if (method is null)
+                return;
+            method.Invoke(Source, Array.Empty<object>());
+            method = Source.GetType().GetMethod("Add");
+            if (method is null)
+                return;
+            var count = GetElementCount();
+            for (int i = 0; i < count; i++)
+            {
+                var v = GetElementValue(GetElementAt(i));
+                method.Invoke(Source, new object[] { v });
+            }
+        }
+
+        protected abstract T CreateItemElement(object? item);
+        protected abstract object GetElementValue(T element);
         protected abstract object CreateNewItem();
+        protected abstract void OnRemoveElement(T element);
     }
 }

@@ -18,7 +18,7 @@ using Leisn.Common.Data;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
-    internal class ComboCollecitonEditor : CollectionEditorBase
+    internal class ComboCollecitonEditor : CollectionEditorBase<ComboBox>
     {
         public IEnumerable<IDataDeclaration<object>> _dataSource = null!;
         public ComboCollecitonEditor()
@@ -32,11 +32,17 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return base.CreateElement(item);
         }
 
-        protected override UIElement CreateItemElement(object? item)
+        protected override ComboBox CreateItemElement(object? item)
         {
             var comboBox = EditorHelper.CreateComboBox(_dataSource);
             comboBox.SelectedValue = item;
+            comboBox.SelectionChanged += ComboBox_SelectionChanged;
             return comboBox;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateItemValue((ComboBox)sender);
         }
 
         protected override object CreateNewItem()
@@ -44,10 +50,14 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return _dataSource.First().Value;
         }
 
-        protected override object GetItemValue(UIElement element)
+        protected override object GetElementValue(ComboBox element)
         {
-            var comboBox = (ComboBox)element;
-            return comboBox.SelectedValue;
+            return element.SelectedValue;
+        }
+
+        protected override void OnRemoveElement(ComboBox element)
+        {
+            element.SelectionChanged -= ComboBox_SelectionChanged;
         }
     }
 }
