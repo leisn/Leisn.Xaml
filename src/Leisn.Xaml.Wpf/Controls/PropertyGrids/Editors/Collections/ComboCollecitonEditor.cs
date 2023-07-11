@@ -39,15 +39,15 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return comboBox;
         }
 
-        protected override bool CreateNewItem(out object? newItem)
+        protected override object CreateNewItem()
         {
-            newItem = null;
-            return true;
+            return _dataSource.First().Value;
         }
 
-        protected override bool DeleteItemAt(int index)
+        protected override object GetItemValue(UIElement element)
         {
-            return true;
+            var comboBox = (ComboBox)element;
+            return comboBox.SelectedValue;
         }
     }
 }

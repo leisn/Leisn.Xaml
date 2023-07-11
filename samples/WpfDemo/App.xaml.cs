@@ -37,7 +37,7 @@ namespace WpfDemo
             var type1 = typeof(IList<object>);
             var type2 = typeof(IList<int>);
             var type3 = typeof(List<int>);
-            
+            var methods = type3.GetMethod("Add");
             var type4 = typeof(Dictionary<int, string>);
             var type5 = typeof(IDictionary<int, string>);
             var type6 = typeof(IDictionary<,>);

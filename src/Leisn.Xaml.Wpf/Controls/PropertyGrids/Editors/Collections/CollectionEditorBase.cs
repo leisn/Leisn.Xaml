@@ -3,6 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -162,7 +163,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             button.Click -= DeleteButton_Click;
 
             GetContanier().Children.RemoveAt(index);
-            var count = GetContanier().Children.Count;
+            var count = GetElementCount();
             for (int i = index; i < count; i++)
             {
                 var panel = (Panel)GetContanier().Children[i];
@@ -170,9 +171,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 textBlock.Text = $"{index + 1}.";
             }
         }
+
         private void AddItem(object? item)
         {
-            var count = GetContanier().Children.Count;
+            var count = GetElementCount();
             GetContanier().Children.Add(CreateItemContaniner(count, item));
         }
 
@@ -214,28 +216,62 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             grid.Children.Add(button);
             return grid;
         }
+
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CreateNewItem(out var item))
+            var item = CreateNewItem();
+            var method = Source.GetType().GetMethod("Add");
+            if (method is not null)
+            {
+                method.Invoke(Source, new object[] { item });
                 AddItem(item);
+            }
         }
+
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var index = (int)((Button)sender).Tag;
-            if (DeleteItemAt(index))
+
+            var method = Source.GetType().GetMethod("RemoveAt");
+            if (method is not null)
+            {
+                method.Invoke(Source, new object[] { index });
                 RemoveItemAt(index);
+            }
+            else
+            {
+                //clear and add
+                method = Source.GetType().GetMethod("Clear");
+                if (method is null)
+                    return;
+                method.Invoke(Source, Array.Empty<object>());
+                method = Source.GetType().GetMethod("Add");
+                if (method is null)
+                    return;
+                RemoveItemAt(index);
+                var count = GetElementCount();
+                for (int i = 0; i < count; i++)
+                {
+                    var element = GetElementAt(i);
+                    var value = GetItemValue(element);
+                    method.Invoke(Source, new object[] { value });
+                }
+            }
         }
+
         protected int GetElementCount()
         {
             return GetContanier().Children.Count;
         }
+
         protected UIElement GetElementAt(int index)
         {
             var grid = (Grid)GetContanier().Children[index];
             return grid.Children[1];
         }
+
         protected abstract UIElement CreateItemElement(object? item);
-        protected abstract bool CreateNewItem(out object? newItem);
-        protected abstract bool DeleteItemAt(int index);
+        protected abstract object GetItemValue(UIElement element);
+        protected abstract object CreateNewItem();
     }
 }
