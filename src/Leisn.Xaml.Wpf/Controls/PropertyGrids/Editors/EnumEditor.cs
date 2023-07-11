@@ -15,14 +15,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            IEnumerable<DataDeclaration> values =
-                Enum.GetValues(item.PropertyType).OfType<Enum>().Select(x => new DataDeclaration
-                {
-                    Value = x,
-                    DisplayName = x.Attr<CategoryAttribute>()?.Category ?? x.ToString(),
-                    Description = x.Attr<DescriptionAttribute>()?.Description ?? x.ToString()
-                });
-            ComboBox box = EditorHelper.CreateComboBox(values);
+            var datas = EditorHelper.ResolveDataProvider(item.PropertyType);
+            ComboBox box = EditorHelper.CreateComboBox(datas);
             box.IsReadOnly = item.IsReadOnly;
             return box;
         }

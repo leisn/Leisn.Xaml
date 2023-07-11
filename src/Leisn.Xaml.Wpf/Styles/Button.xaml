@@ -269,6 +269,7 @@
     <Setter Property="Padding" Value="4"/>
     <Setter Property="Focusable" Value="False"/>
     <Setter Property="SnapsToDevicePixels" Value="True"/>
+    <Setter Property="local:ControlAttach.ShowClear" Value="True"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ButtonBase}">
@@ -288,6 +289,8 @@
                 <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                 <Path x:Name="closePath" Height="10" Data="{StaticResource CloseGeometry}"  Fill="{TemplateBinding Foreground}" Stretch="Uniform"
                     SnapsToDevicePixels="True" Visibility="Collapsed"/>
+                <Rectangle x:Name="deletePath" Height="1.5" Fill="{TemplateBinding Foreground}" Width="{TemplateBinding FontSize}"
+                           Visibility="Collapsed" SnapsToDevicePixels="True"/>
               </Grid>
             </Border>
           </Border>
@@ -301,8 +304,69 @@
             <Trigger Property="IsPressed" Value="True">
               <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="bd"/>
             </Trigger>
-            <Trigger Property="Content" Value="{x:Null}">
+
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="Content" Value="{x:Null}"/>
+                <Condition Property="local:ControlAttach.ShowClear" Value="False"/>
+              </MultiTrigger.Conditions>
+              <Setter Property="Visibility" Value="Visible" TargetName="deletePath"/>
+              <Setter Property="Visibility" Value="Collapsed" TargetName="closePath"/>
+            </MultiTrigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="Content" Value="{x:Null}"/>
+                <Condition Property="local:ControlAttach.ShowClear" Value="True"/>
+              </MultiTrigger.Conditions>
               <Setter Property="Visibility" Value="Visible" TargetName="closePath"/>
+              <Setter Property="Visibility" Value="Collapsed" TargetName="deletePath"/>
+            </MultiTrigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="AddButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonPrimaryStyle}">
+    <Setter Property="MinHeight" Value="20"/>
+    <Setter Property="Width" Value="20"/>
+    <Setter Property="Height" Value="20"/>
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="10"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="Button">
+          <Border x:Name="bd" Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
+                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <Grid>
+              <ContentPresenter Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+              <Grid x:Name="addPath" Visibility="Collapsed">
+                <Rectangle x:Name="stick"
+                     Width="{TemplateBinding FontSize}" Fill="{TemplateBinding Foreground}" Height="1.5" />
+                <Rectangle Height="{Binding ElementName=stick,Path=Width}"
+                     Width="{Binding ElementName=stick,Path=Height}"
+                     Fill="{Binding ElementName=stick,Path=Fill}"/>
+              </Grid>
+            </Grid>
+
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".5" TargetName="bd"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource PrimaryLightBrush}" TargetName="bd"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{DynamicResource PrimaryDarkBrush}" TargetName="bd"/>
+            </Trigger>
+            <Trigger Property="Content" Value="{x:Null}">
+              <Setter Property="Visibility" Value="Visible" TargetName="addPath"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

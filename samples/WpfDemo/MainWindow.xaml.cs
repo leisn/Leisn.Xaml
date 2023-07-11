@@ -50,7 +50,6 @@ namespace WpfDemo
             langsBox.ItemsSource = list;
             langsBox.SelectedItem = new CultureInfo(Lang.CurrentLanguage);
             langsBox.SelectionChanged += LangsBox_SelectionChanged;
-
             perpertyGrid.Source = new PgTest();
         }
 
@@ -123,6 +122,10 @@ namespace WpfDemo
             [Category("DataProvider")]
             [DataProvider(typeof(SampleObjectProvider))]
             public SampleObject? ObjectProvider { get; set; }
+
+            [Category("DataProvider")]
+            [DataProvider(typeof(SampleArrayProvider))]
+            public List<int> ArrayProviderTextList { get; set; } = new() { 1, 2, 3 };
         }
 
     }

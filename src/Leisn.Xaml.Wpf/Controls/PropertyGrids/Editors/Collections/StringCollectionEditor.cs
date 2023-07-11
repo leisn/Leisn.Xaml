@@ -14,7 +14,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return new StringItemsView
             {
                 Padding = new Thickness(5, 0, 5, 5),
-                IsCoerceReadOnly = item.IsReadOnly ||!item.PropertyType.IsAssignableTo(typeof(ICollection<string>)),
+                IsCoerceReadOnly = item.IsReadOnly,
             };
         }
 

@@ -20,6 +20,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Leisn.Xaml.Wpf.Input;
 using System.Windows.Controls.Primitives;
+using System.Collections;
 
 namespace WpfDemo
 {
@@ -28,23 +29,19 @@ namespace WpfDemo
     /// </summary>
     public partial class App : Application
     {
+        class A : List<string> { }
         public App()
         {
-            IEnumerable<int> ints = new List<int>();
+
             var type0 = typeof(IList<>);
             var type1 = typeof(IList<object>);
             var type2 = typeof(IList<int>);
             var type3 = typeof(List<int>);
-            var type4 = type3.GetGenericTypeDefinition();
-            var type5 = typeof(ICollection<int>);
-            var type6 = ints.GetType();
-            var re1 = type3.IsAssignableTo(type5);
-            var re2 = type2.GetGenericTypeDefinition() == type0;
-
-            //var type4 = typeof(Dictionary<int, string>);
-            //var type5 = typeof(IDictionary<int, string>);
-            //var type6 = typeof(IDictionary<,>);
-
+            
+            var type4 = typeof(Dictionary<int, string>);
+            var type5 = typeof(IDictionary<int, string>);
+            var type6 = typeof(IDictionary<,>);
+            var re2 = type4.IsTypeOf(type5);
             // Process process = new();
             // process.StartInfo.UseShellExecute = false;
             // process.StartInfo.FileName = "cmd";

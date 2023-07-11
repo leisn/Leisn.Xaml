@@ -1,17 +1,68 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System.Collections;
+using System.Collections.Generic;
+
 namespace System
 {
     public static class TypeEx
     {
+        /// <summary>
+        /// Is derived or implement of [parentType]
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="parentType">Parent class or interface type</param>
+        /// <returns></returns>
+        public static bool IsTypeOf(this Type type, Type parentType)
+        {
+            return type.IsSubclassOf(parentType) || type.IsImplementOf(parentType);
+        }
+
+        /// <summary>
+        /// Is type <see cref="Nullable{T}"/>, e.g. bool? , int?
+        /// </summary>
         public static bool IsNullable(this Type type)
         {
             return type.IsGenericType && Equals(typeof(Nullable<>), type.GetGenericTypeDefinition());
         }
 
-        public static bool IsClassOrNullable(this Type type)
+        /// <summary>
+        /// Is type implment of [interfaceType], GenericTypeDefinition supported.
+        /// </summary>
+        /// <param name="interfaceType"> Type of interface</param>
+        public static bool IsImplementOf(this Type type, Type interfaceType)
         {
-            return type.IsClass || type.IsNullable();
+            var interfaces = type.GetInterfaces();
+            foreach (var item in interfaces)
+            {
+                if (Equals(interfaceType, item))
+                {
+                    return true;
+                }
+                if (item.IsGenericType && Equals(interfaceType, item.GetGenericTypeDefinition()))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
+
+        /// <summary>
+        ///  Is type implment of <see cref="IEnumerable"/>, Notice <see cref="string"/> also return true.
+        /// </summary>
+        public static bool IsEnumerable(this Type type)
+        {
+            return typeof(IEnumerable).IsAssignableFrom(type);
+        }
+
+        /// <summary>
+        /// Is type implment of <see cref="IEnumerable{T}"/> />, Notice <see cref="string"/> also return true.
+        /// </summary>
+        public static bool IsEnumerableT(this Type type)
+        {
+            return type.IsImplementOf(typeof(IEnumerable<>));
+        }
+
+
     }
 }

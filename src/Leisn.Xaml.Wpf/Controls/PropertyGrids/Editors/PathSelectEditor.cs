@@ -1,5 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System;
 using System.Windows;
 
 using Leisn.Common.Attributes;
@@ -10,7 +11,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            PathSelectAttribute attr = item.PropertyDescriptor.Attr<PathSelectAttribute>() ?? new PathSelectAttribute();
+            PathSelectAttribute attr = item.PropertyDescriptor.Attr<PathSelectAttribute>()
+                ?? throw new InvalidOperationException("No PathSelectAttribute");
             return new PathSelector
             {
                 Mode = attr.Mode,

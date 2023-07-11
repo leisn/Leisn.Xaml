@@ -14,11 +14,11 @@
               </Grid.ColumnDefinitions>
               <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
               <Button Grid.Column="1" x:Name="deleteButton" Style="{StaticResource ClearButtonStyle}"
+                      local:ControlAttach.ShowClear="False"
                       CommandParameter="{Binding Tag,RelativeSource={RelativeSource Mode=TemplatedParent}}"
                       Command="{Binding RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=DeleteItemCommand}"
-                      Visibility="{Binding  RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}">
-                <Rectangle Width="{TemplateBinding FontSize}" Fill="{TemplateBinding Foreground}" Height="2"/>
-              </Button>
+                      Visibility="{Binding  RelativeSource={RelativeSource AncestorType=local:StringItemsView},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}"/>
+
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -50,11 +50,8 @@
           <Border Background="{TemplateBinding Background}"
                   Padding="{TemplateBinding Padding}">
             <local:WrapPanel x:Name="PART_ItemsHost" Spacing="5" Orientation="Horizontal">
-              <Button x:Name="PART_AddButton" Style="{StaticResource ButtonPrimaryStyle}"
-                      MinHeight="20" Height="20" Width="20" Margin="2" Padding="0" local:ControlAttach.CornerRadius="10"
-                      Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}">
-                <local:FontIcon Glyph="&#xE109;" SnapsToDevicePixels="True"/>
-              </Button>
+              <Button x:Name="PART_AddButton" Margin="2" Style="{StaticResource AddButtonStyle}"
+                      Visibility="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}"/>
             </local:WrapPanel>
           </Border>
         </ControlTemplate>

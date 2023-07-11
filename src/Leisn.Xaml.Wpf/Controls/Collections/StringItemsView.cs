@@ -93,6 +93,8 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 if (IsCoerceReadOnly)
                 {
+                    ShowOperationButtons = false;
+                    IsItemReadOnly = true;
                     return;
                 }
 

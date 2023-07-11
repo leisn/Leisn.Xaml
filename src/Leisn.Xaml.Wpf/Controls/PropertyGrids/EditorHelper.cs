@@ -1,5 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -17,6 +18,53 @@ namespace Leisn.Xaml.Wpf.Controls
 {
     public class EditorHelper
     {
+        public static IEnumerable<IDataDeclaration<object>> ResolveDataProvider(Type providerType)
+        {
+            if (providerType.IsEnum)
+            {
+                return Enum.GetValues(providerType).OfType<Enum>().Select(x => new DataDeclaration
+                {
+                    Value = x,
+                    DisplayName = x.Attr<CategoryAttribute>()?.Category ?? x.ToString(),
+                    Description = x.Attr<DescriptionAttribute>()?.Description ?? x.ToString()
+                });
+            }
+
+            object? instance = AppIoc.GetRequired(providerType);
+            if (instance is not IDataProvider<object> provider)
+            {
+                throw new InvalidCastException($"{providerType} is not IDataProvider.");
+            }
+            IEnumerable<object> values = provider.GetData();
+            Type dataType = provider.GetDataType();
+            if (values is not IEnumerable<IDataDeclaration<object>> data)
+            {
+                if (dataType.IsArray)
+                {
+                    data = values.Select(x =>
+                    {
+                        Array array = (Array)x;
+                        object? value = array.GetValue(0);
+                        return new DataDeclaration
+                        {
+                            Value = value,
+                            DisplayName = array.Length > 1 ? array.GetValue(1)?.ToString() : value?.ToString(),
+                            Description = array.Length > 2 ? array.GetValue(2)?.ToString() : null
+                        };
+                    });
+                }
+                else
+                {
+                    data = values.Select(x => new DataDeclaration
+                    {
+                        Value = x,
+                        DisplayName = x.ToString(),
+                    });
+                }
+            }
+            return data;
+        }
+
         public static ComboBox CreateComboBox(IEnumerable<IDataDeclaration<object>> datas)
         {
             FrameworkElementFactory contaniner = new(typeof(Border));

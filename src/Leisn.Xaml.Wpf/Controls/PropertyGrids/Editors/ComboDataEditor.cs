@@ -16,41 +16,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            Type providerType = item.PropertyDescriptor.Attr<DataProviderAttribute>()!.ProviderType;
-            object? instance = AppIoc.GetRequired(providerType);
-            if (instance is not IDataProvider<object> provider)
-            {
-                throw new InvalidCastException($"{providerType} is not IDataProvider.");
-            }
-            bool isNullable = item.PropertyType.IsClassOrNullable();
-            IEnumerable<object> values = provider.GetData();
-            Type dataType = provider.GetDataType();
-            if (values is not IEnumerable<IDataDeclaration<object>> data)
-            {
-                if (dataType.IsArray)
-                {
-                    data = values.Select(x =>
-                    {
-                        Array array = (Array)x;
-                        object? value = array.GetValue(0);
-                        return new DataDeclaration
-                        {
-                            Value = value,
-                            DisplayName = array.Length > 1 ? array.GetValue(1)?.ToString() : value?.ToString(),
-                            Description = array.Length > 2 ? array.GetValue(2)?.ToString() : null
-                        };
-                    });
-                }
-                else
-                {
-                    data = values.Select(x => new DataDeclaration
-                    {
-                        Value = x,
-                        DisplayName = x.ToString(),
-                    });
-                }
-            }
-            ComboBox box = EditorHelper.CreateComboBox(data);
+            var type = item.PropertyDescriptor.Attr<DataProviderAttribute>()!.ProviderType;
+            var datas = EditorHelper.ResolveDataProvider(type);
+            ComboBox box = EditorHelper.CreateComboBox(datas);
             box.IsEditable = false; //Cannot edit
             box.IsReadOnly = item.IsReadOnly;
             return box;
