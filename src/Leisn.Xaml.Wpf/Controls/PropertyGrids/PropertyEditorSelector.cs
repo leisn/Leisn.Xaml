@@ -40,10 +40,10 @@ namespace Leisn.Xaml.Wpf.Controls
                 return new PathSelectEditor();
             }
 
-            if (propertyDescriptor.Attr<DataProviderAttribute>() is not null)
+            if (propertyDescriptor.Attr<DataProviderAttribute>() is DataProviderAttribute providerAttribute)
             {
                 if (propertyType != typeof(string) && propertyType.IsEnumerable())
-                    return new ComboCollecitonEditor();
+                    return new ComboCollecitonEditor(providerAttribute.ProviderType);
                 return new ComboDataEditor();
             }
 
@@ -80,9 +80,17 @@ namespace Leisn.Xaml.Wpf.Controls
                 elementTypes = new Type[] { elementType };
             }
 
-            if (elementTypes?.Length == 1 && elementTypes[0].IsNumericType())
+            if (elementTypes?.Length == 1)
             {
-                return new NumericCollectionEditor(elementTypes[0]);
+                var elementType = elementTypes[0];
+                if (elementType.IsEnum) return new ComboCollecitonEditor(elementType);
+                if (elementType.IsNumericType()) return new NumericCollectionEditor(elementType);
+
+
+                if (elementType.IsClass)
+                {
+
+                }
             }
 
             return new CollectionEditor();

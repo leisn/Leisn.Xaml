@@ -1,19 +1,15 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class NumericCollectionEditor : CollectionEditorBase<NumericUpDown>
     {
         private NumericEditorParams _params;
-        private Type _numberType;
+        private readonly Type _numberType;
+        private double? _defaultVale;
         public NumericCollectionEditor(Type numberType)
         {
             _numberType = numberType;
@@ -22,6 +18,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public override FrameworkElement CreateElement(PropertyItem item)
         {
+            if (item.DefaultValue is IConvertible value)
+            {
+                _defaultVale = value.ToDouble(null);
+            }
             _params = EditorHelper.ResolveAttrNumericParams(_params, item.PropertyDescriptor);
             return base.CreateElement(item);
         }
@@ -49,7 +49,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override object CreateNewItem()
         {
-            var value = _params.Minimum > 0 ? _params.Minimum : _params.Maximum < 0 ? _params.Maximum : 0;
+            var value = _defaultVale ?? (_params.Minimum > 0 ? _params.Minimum : _params.Maximum < 0 ? _params.Maximum : 0);
             return ((IConvertible)value).ToType(_numberType, null);
         }
 

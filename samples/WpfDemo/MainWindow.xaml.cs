@@ -23,6 +23,7 @@ using Leisn.Xaml.Wpf;
 using System.Globalization;
 using Leisn.Common.Data;
 using System.Collections.ObjectModel;
+using System.Collections;
 
 namespace WpfDemo
 {
@@ -87,9 +88,10 @@ namespace WpfDemo
             public string[] StringArray { get; set; } = new string[] { "stri 1", "str 2", "stri 3", "str 4" };
             [StringLength(10)]
             public List<string> ListStrings { get; set; } = new List<string>() { "stri 1", "str 2" };
-            [Range(4, 10)]
+            [Range(1, 10)]
             [Increment(1)]
-            public int[] IntValues { get; set; } = new int[5];
+            [DefaultValue(9)]
+            public IEnumerable<int> IntValues { get; set; } = new List<int>() { 1, 2, 3, 4, 5 };
             public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
             public List<SubClass> SubClasses { get; set; } = new List<SubClass>();
             public DateTime DateTime { get; set; } = DateTime.Now;

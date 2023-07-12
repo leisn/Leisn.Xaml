@@ -21,15 +21,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     internal class ComboCollecitonEditor : CollectionEditorBase<ComboBox>
     {
         public IEnumerable<IDataDeclaration<object>> _dataSource = null!;
-        public ComboCollecitonEditor()
+        public ComboCollecitonEditor(Type dateProviderType)
         {
-        }
-
-        public override FrameworkElement CreateElement(PropertyItem item)
-        {
-            var type = item.PropertyDescriptor.Attr<DataProviderAttribute>()!.ProviderType;
-            _dataSource = EditorHelper.ResolveDataProvider(type);
-            return base.CreateElement(item);
+            _dataSource = EditorHelper.ResolveDataProvider(dateProviderType);
         }
 
         protected override ComboBox CreateItemElement(object? item)
