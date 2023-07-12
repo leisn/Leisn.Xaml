@@ -291,7 +291,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             MethodInfo? method;
             if (type.IsArray)
             {
-                method = type.GetMethod("SetValue");
+                method = type.GetMethod("Set");
                 method!.Invoke(Source, new object[] { index, value });
                 return;
             }

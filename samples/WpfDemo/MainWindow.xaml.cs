@@ -89,7 +89,7 @@ namespace WpfDemo
             public List<string> ListStrings { get; set; } = new List<string>() { "stri 1", "str 2" };
             [Range(4, 10)]
             [Increment(1)]
-            public List<int> IntValues { get; set; } = new List<int>();
+            public int[] IntValues { get; set; } = new int[5];
             public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
             public List<SubClass> SubClasses { get; set; } = new List<SubClass>();
             public DateTime DateTime { get; set; } = DateTime.Now;
