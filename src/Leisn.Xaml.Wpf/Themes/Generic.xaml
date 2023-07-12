@@ -23,11 +23,13 @@
   <Color x:Key="DangerTextColor">#FFE0E0E0</Color>
   <Color x:Key="HighlightColor">#EFEFEF</Color>
   <Color x:Key="HighlightTextColor">#FF212121</Color>
-  <Color x:Key="RegionColor">#303030</Color>
-  <Color x:Key="RegionLight1Color">#363636</Color>
-  <Color x:Key="RegionLight2Color">#3d3d3d</Color>
-  <Color x:Key="RegionDark1Color">#282828</Color>
-  <Color x:Key="RegionDark2Color">#222222</Color>
+  <Color x:Key="RegionLight3Color">#404040</Color>
+  <Color x:Key="RegionLight2Color">#363636</Color>
+  <Color x:Key="RegionLight1Color">#303030</Color>
+  <Color x:Key="RegionColor">#292929</Color>
+  <Color x:Key="RegionDark1Color">#232222</Color>
+  <Color x:Key="RegionDark2Color">#1f1f1f</Color>
+  <Color x:Key="RegionDark3Color">#161616</Color>
   <Color x:Key="ControlColor">#545454</Color>
   <Color x:Key="ControlTextColor">#FFE0E0E0</Color>
   <Color x:Key="ControlLight1Color">#656565</Color>
@@ -121,11 +123,13 @@
   <SolidColorBrush x:Key="DangerTextBrush" Color="{DynamicResource DangerTextColor}" />
   <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource HighlightColor}" />
   <SolidColorBrush x:Key="HighlightTextBrush" Color="{DynamicResource HighlightTextColor}" />
-  <SolidColorBrush x:Key="RegionBrush" Color="{DynamicResource RegionColor}" />
-  <SolidColorBrush x:Key="RegionLight1Brush" Color="{DynamicResource RegionLight1Color}" />
+  <SolidColorBrush x:Key="RegionLight3Brush" Color="{DynamicResource RegionLight3Color}" />
   <SolidColorBrush x:Key="RegionLight2Brush" Color="{DynamicResource RegionLight2Color}" />
+  <SolidColorBrush x:Key="RegionLight1Brush" Color="{DynamicResource RegionLight1Color}" />
+  <SolidColorBrush x:Key="RegionBrush" Color="{DynamicResource RegionColor}" />
   <SolidColorBrush x:Key="RegionDark1Brush" Color="{DynamicResource RegionDark1Color}" />
   <SolidColorBrush x:Key="RegionDark2Brush" Color="{DynamicResource RegionDark2Color}" />
+  <SolidColorBrush x:Key="RegionDark3Brush" Color="{DynamicResource RegionDark3Color}" />
   <SolidColorBrush x:Key="ControlBrush" Color="{DynamicResource ControlColor}" />
   <SolidColorBrush x:Key="ControlTextBrush" Color="{DynamicResource ControlTextColor}" />
   <SolidColorBrush x:Key="ControlLight1Brush" Color="{DynamicResource ControlLight1Color}" />
@@ -237,6 +241,15 @@
     </Setter>
   </Style>
   <Style TargetType="local:FontIcon" BasedOn="{StaticResource FontIconBaseStyle}" />
+  <Style x:Key="WindowBaseStyle" TargetType="Window">
+    <Setter Property="Background" Value="{DynamicResource RegionDark3Brush}" />
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderLightBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="UseLayoutRounding" Value="True" />
+    <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
+  </Style>
+  <Style TargetType="Window" BasedOn="{StaticResource WindowBaseStyle}" />
   <Style TargetType="ToolTip" x:Key="ToolTipBaseStyle">
     <Setter Property="Padding" Value="6" />
     <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
@@ -607,7 +620,7 @@
         <ControlTemplate TargetType="{x:Type Expander}">
           <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" SnapsToDevicePixels="true">
             <DockPanel>
-              <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Focusable="False" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}" Foreground="{TemplateBinding Foreground}" FontStyle="{TemplateBinding FontStyle}" FontFamily="{TemplateBinding FontFamily}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding local:ControlAttach.Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+              <ToggleButton x:Name="HeaderSite" Focusable="False" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}" Foreground="{TemplateBinding Foreground}" FontStyle="{TemplateBinding FontStyle}" FontFamily="{TemplateBinding FontFamily}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding local:ControlAttach.Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
               <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed" />
             </DockPanel>
           </Border>
@@ -2459,14 +2472,11 @@
     </Setter>
   </Style>
   <Style TargetType="{x:Type local:PropertyGrid}" BasedOn="{StaticResource PropertyGridBaseStyle}" />
-  <Style x:Key="ClassEditorWindowStyle" TargetType="{x:Type Window}">
+  <Style x:Key="ClassEditorWindowStyle" TargetType="{x:Type Window}" BasedOn="{StaticResource WindowBaseStyle}">
     <Setter Property="ShowInTaskbar" Value="False" />
-    <Setter Property="MaxHeight" Value="800" />
-    <Setter Property="MaxHeight" Value="1000" />
     <Setter Property="MinWidth" Value="300" />
     <Setter Property="Width" Value="500" />
     <Setter Property="Height" Value="440" />
-    <Setter Property="Icon" Value="{x:Null}" />
     <Setter Property="Content">
       <Setter.Value>
         <local:PropertyGrid Grid.Row="1" Source="{Binding .,Mode=OneWay}" />

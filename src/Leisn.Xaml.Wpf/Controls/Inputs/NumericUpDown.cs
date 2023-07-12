@@ -127,13 +127,6 @@ namespace Leisn.Xaml.Wpf.Controls
             SetValue(IsEditingPropertyKey, value);
         }
 
-        protected override void OnValueChanged(double oldValue, double newValue)
-        {
-            var pre = GetBindingExpression(ValueProperty);
-            base.OnValueChanged(oldValue, newValue);
-
-        }
-
         protected override void OnMinimumChanged(double oldMinimum, double newMinimum)
         {
             base.OnMinimumChanged(oldMinimum, newMinimum);
