@@ -15,3 +15,5 @@ Hsv_Value=明度
 ValueRange= 数值范围:
 ValueFormat= 值 = {0}
 Ask=替我问候他
+Edit=编辑
+Edit Item=编辑项

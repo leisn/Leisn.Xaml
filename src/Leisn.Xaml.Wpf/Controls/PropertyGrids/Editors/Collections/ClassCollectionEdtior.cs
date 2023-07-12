@@ -13,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
+using Leisn.Xaml.Wpf.Locales;
+
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class ClassCollectionEdtior : CollectionEditorBase<ToggleButton>
@@ -97,6 +99,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             var index = (int)button.CommandParameter;
             var window = new Window
             {
+                Title = $"{Lang.Get("Edit Item")} - {PropertyItem.DisplayName}",
                 Owner = Window.GetWindow(this),
                 DataContext = button.Tag,
                 Style = (Style)FindResource("ClassEditorWindowStyle"),

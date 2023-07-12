@@ -22,6 +22,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public bool UseExpanderStyle => true;
 
         private readonly Panel _contanier;
+
+        public PropertyItem PropertyItem { get; private set; } = null!;
         public CollectionEditorBase()
         {
             _contanier = GetContanier();
@@ -36,6 +38,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public virtual FrameworkElement CreateElement(PropertyItem item)
         {
+            PropertyItem = item;
             IsCoerceReadOnly = item.IsReadOnly;
             return this;
         }
