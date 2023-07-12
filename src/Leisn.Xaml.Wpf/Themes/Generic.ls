@@ -33,6 +33,5 @@ Styles/RangeBox.xaml
 Styles/NumericUpDown.xaml
 Styles/PathSelector.xaml
 Styles/ColorPicker.xaml
-Styles/StringItemsView.xaml
 
 Styles/PropertyGrid.xaml
