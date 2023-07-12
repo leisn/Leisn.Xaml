@@ -15,9 +15,12 @@ namespace Leisn.Common.Attributes
         }
         public static T? Attr<T>(this PropertyDescriptor propertyDescriptor) where T : Attribute
         {
-            return propertyDescriptor.Attributes.OfType<T>().FirstOrDefault();
+            return propertyDescriptor.Attributes.Attr<T>();
         }
-
+        public static T? Attr<T>(this AttributeCollection attributes) where T : Attribute
+        {
+            return attributes.OfType<T>().FirstOrDefault();
+        }
         public static IEnumerable<T> Attrs<T>(this PropertyDescriptor propertyDescriptor) where T : Attribute
         {
             return propertyDescriptor.Attributes.OfType<T>();

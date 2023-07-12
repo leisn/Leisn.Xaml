@@ -265,8 +265,7 @@
   <Style TargetType="local:ToggleSwitch" BasedOn="{StaticResource ToggleSwitchStyle}"/>
 
   <Style x:Key="ClearButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}">
-    <Setter Property="MinHeight" Value="18"/>
-    <Setter Property="Padding" Value="4"/>
+    <Setter Property="Padding" Value="0"/>
     <Setter Property="Focusable" Value="False"/>
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="local:ControlAttach.ShowClear" Value="True"/>
@@ -274,7 +273,7 @@
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ButtonBase}">
           <Border Background="Transparent" Padding="3,0">
-            <Border x:Name="bd" Width="18" Height="18" CornerRadius="9"
+            <Border x:Name="bd" Width="18" Height="18" CornerRadius="10"
                   Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
@@ -289,7 +288,7 @@
                 <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                 <Path x:Name="closePath" Height="10" Data="{StaticResource CloseGeometry}"  Fill="{TemplateBinding Foreground}" Stretch="Uniform"
                     SnapsToDevicePixels="True" Visibility="Collapsed"/>
-                <Rectangle x:Name="deletePath" Height="1.5" Fill="{TemplateBinding Foreground}" Width="{TemplateBinding FontSize}"
+                <Rectangle x:Name="deletePath" Height="2" Fill="{TemplateBinding Foreground}" Width="{TemplateBinding FontSize}"
                            Visibility="Collapsed" SnapsToDevicePixels="True"/>
               </Grid>
             </Border>
@@ -328,32 +327,30 @@
   </Style>
 
   <Style x:Key="AddButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonPrimaryStyle}">
-    <Setter Property="MinHeight" Value="20"/>
-    <Setter Property="Width" Value="20"/>
-    <Setter Property="Height" Value="20"/>
     <Setter Property="Padding" Value="0"/>
-    <Setter Property="local:ControlAttach.CornerRadius" Value="10"/>
+    <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
-          <Border x:Name="bd" Background="{TemplateBinding Background}"
+          <Border Background="Transparent" Padding="2,0">
+            <Border x:Name="bd" Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
-                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
+                  Width="18" Height="18" CornerRadius="10"
                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-            <Grid>
-              <ContentPresenter Margin="{TemplateBinding Padding}"
-                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-              <Grid x:Name="addPath" Visibility="Collapsed">
-                <Rectangle x:Name="stick"
-                     Width="{TemplateBinding FontSize}" Fill="{TemplateBinding Foreground}" Height="1.5" />
-                <Rectangle Height="{Binding ElementName=stick,Path=Width}"
-                     Width="{Binding ElementName=stick,Path=Height}"
-                     Fill="{Binding ElementName=stick,Path=Fill}"/>
+              <Grid>
+                <ContentPresenter Margin="{TemplateBinding Padding}"
+                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                <Grid x:Name="addPath" Visibility="Collapsed">
+                  <Rectangle x:Name="stick"  SnapsToDevicePixels="True"
+                     Width="{TemplateBinding FontSize}" Fill="{TemplateBinding Foreground}" Height="2"/>
+                  <Rectangle Height="{Binding ElementName=stick,Path=Width}" Width="{Binding ElementName=stick,Path=Height}"
+                     Fill="{Binding ElementName=stick,Path=Fill}" SnapsToDevicePixels="True"/>
+                </Grid>
               </Grid>
-            </Grid>
-
+            </Border>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="False">

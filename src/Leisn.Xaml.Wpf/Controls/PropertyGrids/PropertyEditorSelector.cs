@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.DirectoryServices.ActiveDirectory;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
@@ -46,38 +47,10 @@ namespace Leisn.Xaml.Wpf.Controls
                 return new ComboDataEditor();
             }
 
-            #region special types
-            if (propertyType == typeof(bool?))
-            {
-                return new BoolEditor();
-            }
-
-            if (propertyType == typeof(TimeOnly))
-            {
-                return new TimeSelectorEditor();
-            }
-
-            if (propertyType == typeof(DateOnly))
-            {
-                return new DateSelectorEditor();
-            }
-
-            if (propertyType == typeof(DateTime?))
-            {
-                return new DateTimePickerEditor();
-            }
-
-            if (propertyType == typeof(Color))
-            {
-                return new ColorPickerEditor();
-            }
-            #endregion
-
             if (propertyType != typeof(string) && propertyType.IsEnumerable())
             {
                 return CreateCollectionEditor(propertyDescriptor);
             }
-
             return null;
         }
 
@@ -89,7 +62,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 return new StringCollectionEditor();
             }
 
-            Type[] elementTypes;
+            Type[] elementTypes = null!;
             if (type.IsGenericType)
             {
                 elementTypes = type.GetGenericArguments();
@@ -106,6 +79,12 @@ namespace Leisn.Xaml.Wpf.Controls
                      ?? throw new NotSupportedException($"Array must have a element type");
                 elementTypes = new Type[] { elementType };
             }
+
+            if (elementTypes?.Length == 1 && elementTypes[0].IsNumericType())
+            {
+                return new NumericCollectionEditor(elementTypes[0]);
+            }
+
             return new CollectionEditor();
         }
 
@@ -113,24 +92,15 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             var type = propertyDescriptor.PropertyType;
             if (type.IsEnum) return new EnumEditor();
-            return Type.GetTypeCode(type) switch
-            {
-                TypeCode.Boolean => new BoolEditor(),
-                TypeCode.SByte => new NumericEditor(sbyte.MinValue, sbyte.MaxValue, 1, NumericType.Int),
-                TypeCode.Byte => new NumericEditor(byte.MinValue, byte.MaxValue, 1, NumericType.UInt),
-                TypeCode.Int16 => new NumericEditor(short.MinValue, short.MaxValue, 1, NumericType.Int),
-                TypeCode.UInt16 => new NumericEditor(ushort.MinValue, ushort.MaxValue, 1, NumericType.UInt),
-                TypeCode.Int32 => new NumericEditor(int.MinValue, int.MaxValue, 1, NumericType.Int),
-                TypeCode.UInt32 => new NumericEditor(uint.MinValue, uint.MaxValue, 1, NumericType.UInt),
-                TypeCode.Int64 => new NumericEditor(long.MinValue, long.MaxValue, 1, NumericType.Int),
-                TypeCode.UInt64 => new NumericEditor(ulong.MinValue, ulong.MaxValue, 1, NumericType.UInt),
-                TypeCode.Single => new NumericEditor(float.MinValue, float.MaxValue, 1, NumericType.Float),
-                TypeCode.Double => new NumericEditor(double.MinValue, double.MaxValue, 1, NumericType.Float),
-                TypeCode.Decimal => new NumericEditor(Convert.ToDouble(decimal.MinValue), Convert.ToDouble(decimal.MaxValue), 1, NumericType.Float),
-                TypeCode.DateTime => new DateTimePickerEditor(),
-                TypeCode.String => new TextEditor(),
-                _ => type.IsClass ? new ClassEditor() : new ReadOnlyTextEditor()
-            };
+            if (type.IsNumericType()) return new NumericEditor(EditorHelper.ResolveTypeNumericParams(type));
+            if (type == typeof(string)) return new TextEditor();
+            if (type == typeof(bool) || type == typeof(bool?)) return new BoolEditor();
+            if (type == typeof(DateTime) || type == typeof(DateTime?)) return new DateTimePickerEditor();
+            if (type == typeof(TimeOnly)) return new TimeSelectorEditor();
+            if (type == typeof(DateOnly)) return new DateSelectorEditor();
+            if (type == typeof(Color)) return new ColorPickerEditor();
+            if (type.IsClass) return new ClassEditor();
+            return new ReadOnlyTextEditor();
         }
 
     }

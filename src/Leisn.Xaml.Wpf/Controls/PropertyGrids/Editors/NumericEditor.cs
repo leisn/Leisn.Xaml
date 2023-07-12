@@ -1,72 +1,49 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Windows;
-
-using Leisn.Common.Attributes;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
-    internal class NumericEditor : IPropertyEditor
+    internal struct NumericEditorParams
     {
         public double Minimum { get; set; }
         public double Maximum { get; set; }
         public double Increment { get; set; }
         public NumericType NumericType { get; set; }
+        public NumericFormat Format { get; set; }
 
-        public NumericEditor(double minium, double maximum, double increment, NumericType type)
+        public NumericEditorParams(double minium, double maximum, double increment, NumericType type)
         {
             Minimum = minium;
             Maximum = maximum;
             Increment = increment;
             NumericType = type;
+            Format = new NumericFormat();
+        }
+    }
+
+    internal class NumericEditor : IPropertyEditor
+    {
+        private NumericEditorParams _params = new();
+
+        public NumericEditor(NumericEditorParams param)
+        {
+            _params = param;
         }
 
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            if (Minimum > Maximum)
-            {
-                throw new InvalidOperationException($"Minimum > Maxium: {Minimum} > {Maximum}");
-            }
-
-            PropertyDescriptor propertyDescriptor = item.PropertyDescriptor;
-            if (propertyDescriptor.Attr<NumericUpDownAttribute>() is NumericUpDownAttribute attr)
-            {
-                Maximum = attr.Maximum;
-                Minimum = attr.Minimum;
-                Increment = attr.Increment;
-            }
-            if (propertyDescriptor.Attr<RangeAttribute>() is RangeAttribute range)
-            {
-                Maximum = Convert.ToDouble(range.Maximum);
-                Minimum = Convert.ToDouble(range.Minimum);
-            }
-            if (propertyDescriptor.Attr<IncrementAttribute>()?.Increment is double increment)
-            {
-                Increment = increment;
-            }
-            if (Maximum - Minimum < Increment)
-            {
-                Increment = (Maximum - Minimum) / 10;
-            }
-
-            NumericFormat numberFormat = new();
-            if (propertyDescriptor.Attr<NumericFormatAttribute>() is NumericFormatAttribute format)
-            {
-                numberFormat.Suffix = format.Suffix;
-                numberFormat.Decimals = format.Decimals;
-            }
+            _params = EditorHelper.ResolveAttrNumericParams(_params, item.PropertyDescriptor);
 
             return new NumericUpDown
             {
                 IsReadOnly = item.IsReadOnly,
-                NumericType = NumericType,
-                Minimum = Minimum,
-                Maximum = Maximum,
-                Increment = Increment,
-                Format = numberFormat
+                NumericType = _params.NumericType,
+                Minimum = _params.Minimum,
+                Maximum = _params.Maximum,
+                Increment = _params.Increment,
+                Format = _params.Format
             };
         }
 

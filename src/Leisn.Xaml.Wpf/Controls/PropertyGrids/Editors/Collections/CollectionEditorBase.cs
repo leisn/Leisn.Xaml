@@ -25,14 +25,14 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public CollectionEditorBase()
         {
             _contanier = GetContanier();
-            DockPanel panel = new() { Margin = new Thickness(7, 0, 7, 5), };
+            DockPanel panel = new() { Margin = new Thickness(6, 0, 6, 5), };
             var addButton = new Button
             {
                 Style = (Style)FindResource("AddButtonStyle"),
                 Visibility = Visibility.Visible,
                 HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(1.5, 8, 0, 0)
+                VerticalAlignment = VerticalAlignment.Stretch,
+                Margin = new Thickness(0, 5, 0, 0)
             };
             addButton.SetBinding(VisibilityProperty, new Binding("ShowOperationButtons")
             {
@@ -160,7 +160,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             };
         }
 
-        private void RemoveItemAt(int index)
+        protected virtual void RemoveItemAt(int index)
         {
             var grid = (Grid)GetContanier().Children[index];
             var button = (Button)grid.Children[^1];
@@ -183,7 +183,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             GetContanier().Children.Add(CreateItemContaniner(count, item));
         }
 
-        private UIElement CreateItemContaniner(int index, object? item)
+        protected virtual UIElement CreateItemContaniner(int index, object? item)
         {
             var grid = new Grid();
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.38, GridUnitType.Star), MinWidth = 81 });
@@ -210,11 +210,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 Converter = (IValueConverter)FindResource("BoolVisibilityConverter"),
                 ConverterParameter = BoolVisibilityConverterMode.FalseCollapsed
             });
+            ControlAttach.SetShowClear(button, false);
             button.Click += DeleteButton_Click;
-            var rectangle = new Rectangle { Height = 1.5 };
-            rectangle.SetBinding(WidthProperty, new Binding("FontSize") { Source = button });
-            rectangle.SetBinding(Shape.FillProperty, new Binding("Foreground") { Source = button });
-            button.Content = rectangle;
 
             grid.Children.Add(textBlock);
             grid.Children.Add(itemElement);
@@ -269,13 +266,13 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return GetContanier().Children.Count;
         }
 
-        protected T GetElementAt(int index)
+        protected virtual T GetElementAt(int index)
         {
             var grid = (Grid)GetContanier().Children[index];
             return (T)grid.Children[1];
         }
 
-        internal int GetElementIndex(T element)
+        protected virtual int GetElementIndex(T element)
         {
             var count = GetElementCount();
             for (int i = 0; i < count; i++)

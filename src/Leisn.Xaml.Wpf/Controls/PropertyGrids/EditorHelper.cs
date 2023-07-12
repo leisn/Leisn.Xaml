@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,12 +13,14 @@ using System.Windows.Media;
 
 using Leisn.Common.Attributes;
 using Leisn.Common.Data;
+using Leisn.Xaml.Wpf.Controls.Editors;
 using Leisn.Xaml.Wpf.Locales;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
     public class EditorHelper
     {
+        #region data provider
         public static IEnumerable<IDataDeclaration<object>> ResolveDataProvider(Type providerType)
         {
             if (providerType.IsEnum)
@@ -64,7 +67,6 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             return data;
         }
-
         public static ComboBox CreateComboBox(IEnumerable<IDataDeclaration<object>> datas)
         {
             FrameworkElementFactory contaniner = new(typeof(Border));
@@ -86,7 +88,68 @@ namespace Leisn.Xaml.Wpf.Controls
             };
             return box;
         }
+        #endregion
 
+        #region numeric editor
+        internal static NumericEditorParams ResolveAttrNumericParams(NumericEditorParams current, PropertyDescriptor propertyDescriptor)
+        {
+            if (propertyDescriptor.Attr<NumericUpDownAttribute>() is NumericUpDownAttribute attr)
+            {
+                current.Maximum = attr.Maximum;
+                current.Minimum = attr.Minimum;
+                current.Increment = attr.Increment;
+            }
+            if (propertyDescriptor.Attr<RangeAttribute>() is RangeAttribute range)
+            {
+                current.Maximum = Convert.ToDouble(range.Maximum);
+                current.Minimum = Convert.ToDouble(range.Minimum);
+            }
+
+            if (propertyDescriptor.Attr<IncrementAttribute>()?.Increment is double increment)
+            {
+                current.Increment = increment;
+            }
+            if (current.Maximum - current.Minimum < current.Increment)
+            {
+                current.Increment = (current.Maximum - current.Minimum) / 10;
+            }
+
+            NumericFormat numberFormat = new();
+            if (propertyDescriptor.Attr<NumericFormatAttribute>() is NumericFormatAttribute format)
+            {
+                numberFormat.Suffix = format.Suffix;
+                numberFormat.Decimals = format.Decimals;
+            }
+            current.Format = numberFormat;
+
+            if (current.Minimum > current.Maximum)
+            {
+                throw new InvalidOperationException($"Minimum > Maxium: {current.Minimum} > {current.Maximum}");
+            }
+            return current;
+        }
+
+        internal static NumericEditorParams ResolveTypeNumericParams(Type type)
+        {
+            return Type.GetTypeCode(type) switch
+            {
+                TypeCode.SByte => new NumericEditorParams(sbyte.MinValue, sbyte.MaxValue, 1, NumericType.Int),
+                TypeCode.Byte => new NumericEditorParams(byte.MinValue, byte.MaxValue, 1, NumericType.UInt),
+                TypeCode.Int16 => new NumericEditorParams(short.MinValue, short.MaxValue, 1, NumericType.Int),
+                TypeCode.UInt16 => new NumericEditorParams(ushort.MinValue, ushort.MaxValue, 1, NumericType.UInt),
+                TypeCode.Int32 => new NumericEditorParams(int.MinValue, int.MaxValue, 1, NumericType.Int),
+                TypeCode.UInt32 => new NumericEditorParams(uint.MinValue, uint.MaxValue, 1, NumericType.UInt),
+                TypeCode.Int64 => new NumericEditorParams(long.MinValue, long.MaxValue, 1, NumericType.Int),
+                TypeCode.UInt64 => new NumericEditorParams(ulong.MinValue, ulong.MaxValue, 1, NumericType.UInt),
+                TypeCode.Single => new NumericEditorParams(float.MinValue, float.MaxValue, 1, NumericType.Float),
+                TypeCode.Double => new NumericEditorParams(double.MinValue, double.MaxValue, 1, NumericType.Float),
+                TypeCode.Decimal => new NumericEditorParams(Convert.ToDouble(decimal.MinValue), Convert.ToDouble(decimal.MaxValue), 1, NumericType.Float),
+                _ => throw new ArithmeticException($"{nameof(type)} Not a NumericType")
+            };
+        }
+        #endregion
+
+        #region property item
         private const string Misc = "Misc";
         public static List<PropertyItem> CreatePropertyItems(object source, IPropertyEditorSelector editorSelector)
         {
@@ -121,5 +184,6 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             return item;
         }
+        #endregion
     }
 }

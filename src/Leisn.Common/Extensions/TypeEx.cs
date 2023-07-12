@@ -63,6 +63,28 @@ namespace System
             return type.IsImplementOf(typeof(IEnumerable<>));
         }
 
-
+        /// <summary>
+        /// Is type for Numeric, Notice Enum return false
+        /// </summary>
+        public static bool IsNumericType(this Type type)
+        {
+            if (!type.IsValueType || type.IsEnum)
+                return false;
+            return Type.GetTypeCode(type) switch
+            {
+                TypeCode.Byte
+                or TypeCode.Decimal
+                or TypeCode.Double
+                or TypeCode.Int16
+                or TypeCode.Int32
+                or TypeCode.Int64
+                or TypeCode.SByte
+                or TypeCode.Single
+                or TypeCode.UInt16
+                or TypeCode.UInt32
+                or TypeCode.UInt64 => true,
+                _ => false,
+            };
+        }
     }
 }

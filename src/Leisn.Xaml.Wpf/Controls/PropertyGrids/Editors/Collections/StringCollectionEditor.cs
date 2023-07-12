@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
-using Leisn.Xaml.Wpf.Input;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.ComponentModel.DataAnnotations;
+
+using Leisn.Common.Attributes;
+using Leisn.Xaml.Wpf.Input;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
@@ -23,7 +26,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private Panel _itemsHost = null!;
         private ButtonBase _addButtont = null!;
-
+        private int _maxLength;
         public StringCollectionEditor()
         {
             Padding = new Thickness(5, 0, 5, 5);
@@ -34,6 +37,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement CreateElement(PropertyItem item)
         {
             IsCoerceReadOnly = item.IsReadOnly;
+            if (item.PropertyDescriptor.Attr<StringLengthAttribute>() is StringLengthAttribute len)
+            {
+                _maxLength = len.MaximumLength;
+            }
             return this;
         }
 
@@ -194,6 +201,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             TextBox textBox = new()
             {
                 Tag = _itemsHost.Children.Count - 1,
+                MaxLength = _maxLength
             };
             textBox.SetBinding(TextBoxBase.IsReadOnlyProperty, new Binding(nameof(IsItemReadOnly)) { Source = this });
             textBox.SetBinding(StyleProperty, new Binding(nameof(TextBoxStyle)) { Source = this });

@@ -40,7 +40,7 @@ namespace WpfDemo
             var type4 = typeof(Dictionary<int, string>);
             var type5 = typeof(IDictionary<int, string>);
             var type6 = typeof(IDictionary<,>);
-            var re2 = type4.IsTypeOf(type5);
+            var re2 = type4.GetGenericArguments();
             // Process process = new();
             // process.StartInfo.UseShellExecute = false;
             // process.StartInfo.FileName = "cmd";
