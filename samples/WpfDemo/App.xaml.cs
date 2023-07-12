@@ -22,6 +22,7 @@ using Leisn.Xaml.Wpf.Input;
 using System.Windows.Controls.Primitives;
 using System.Collections;
 using System.Collections.ObjectModel;
+using Microsoft.VisualBasic;
 
 namespace WpfDemo
 {
@@ -30,9 +31,11 @@ namespace WpfDemo
     /// </summary>
     public partial class App : Application
     {
+        class A : Dictionary<int, string> { }
+        class B : A { }
         public App()
         {
-            var pros=typeof(ReadOnlyCollection<int>).GetProperties();
+            var pros = typeof(ReadOnlyCollection<int>).GetProperties();
             var type0 = typeof(IList<>);
             var type1 = typeof(IList<object>);
             var type2 = typeof(IList<int>);
@@ -40,7 +43,9 @@ namespace WpfDemo
             var type4 = typeof(Dictionary<int, string>);
             var type5 = typeof(IDictionary<int, string>);
             var type6 = typeof(IDictionary<,>);
-            var re2 = type4.GetGenericArguments();
+            var re1 = typeof(B);
+            var r = re1.GetGenericInterfaceTypeOf(type6);
+            var re2 = typeof(A).IsTypeOf(type6);
             // Process process = new();
             // process.StartInfo.UseShellExecute = false;
             // process.StartInfo.FileName = "cmd";

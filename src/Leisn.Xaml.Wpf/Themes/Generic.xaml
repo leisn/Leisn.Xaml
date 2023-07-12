@@ -607,7 +607,7 @@
         <ControlTemplate TargetType="{x:Type Expander}">
           <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" SnapsToDevicePixels="true">
             <DockPanel>
-              <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}" Foreground="{TemplateBinding Foreground}" FontStyle="{TemplateBinding FontStyle}" FontFamily="{TemplateBinding FontFamily}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding local:ControlAttach.Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+              <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Focusable="False" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}" Foreground="{TemplateBinding Foreground}" FontStyle="{TemplateBinding FontStyle}" FontFamily="{TemplateBinding FontFamily}" FontWeight="{TemplateBinding FontWeight}" FontSize="{TemplateBinding FontSize}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding local:ControlAttach.Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
               <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Visibility="Collapsed" />
             </DockPanel>
           </Border>
@@ -746,7 +746,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ToggleButtonBaseSyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseInputStyle}">
+  <Style x:Key="ToggleButtonBaseSyle" TargetType="ToggleButton" BasedOn="{StaticResource ButtonBaseStyle}">
     <Setter Property="Padding" Value="5,1" />
     <Setter Property="Template">
       <Setter.Value>
@@ -861,7 +861,7 @@
   </Style>
   <Style TargetType="local:ToggleSwitch" BasedOn="{StaticResource ToggleSwitchStyle}" />
   <Style x:Key="ClearButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBaseStyle}">
-    <Setter Property="Padding" Value="0" />
+    <Setter Property="Padding" Value="1" />
     <Setter Property="Focusable" Value="False" />
     <Setter Property="SnapsToDevicePixels" Value="True" />
     <Setter Property="local:ControlAttach.ShowClear" Value="True" />
@@ -913,7 +913,7 @@
     </Setter>
   </Style>
   <Style x:Key="AddButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonPrimaryStyle}">
-    <Setter Property="Padding" Value="0" />
+    <Setter Property="Padding" Value="1" />
     <Setter Property="SnapsToDevicePixels" Value="True" />
     <Setter Property="Template">
       <Setter.Value>
@@ -1752,7 +1752,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:NumberSelector">
-          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}">
+          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding CornerRadius}" RenderOptions.ClearTypeHint="Enabled">
             <Grid>
               <skia:SKElement x:Name="PART_Canvas" IgnorePixelScaling="True" SnapsToDevicePixels="True" Margin="{TemplateBinding Padding}" />
               <RepeatButton x:Name="PART_PreviousButton" VerticalAlignment="Top" Background="{TemplateBinding Background}" Style="{StaticResource NumberSelectorButtonStyle}">
@@ -2013,11 +2013,11 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="NumericDownTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
+  <Style x:Key="NumericDownTextBoxStyle" TargetType="local:NumericBox" BasedOn="{StaticResource NumericBoxBaseStyle}">
     <Setter Property="Cursor" Value="Arrow" />
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="TextBox">
+        <ControlTemplate TargetType="local:NumericBox">
           <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
             <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
           </Border>
@@ -2114,7 +2114,7 @@
   <Style TargetType="local:ColorSpectrum" BasedOn="{StaticResource ColorSpectrumStyle}" />
   <Style x:Key="HexColorTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
     <Setter Property="Background" Value="{DynamicResource ControlBrush}" />
-    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Padding" Value="0,2,5,2" />
     <Setter Property="Template">
       <Setter.Value>
@@ -2162,33 +2162,33 @@
                 <RowDefinition Height="Auto" />
               </Grid.RowDefinitions>
               <local:ColorSpectrum x:Name="PART_ColorSpectrum" SpectrumStyle="{TemplateBinding SpectrumStyle}" />
-              <Border Grid.Row="1" Margin="{TemplateBinding Padding}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}">
+              <Border Grid.Row="1" Margin="{TemplateBinding Padding}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0" CornerRadius="{StaticResource DefaultCornerRadius}">
                 <UniformGrid Rows="1">
                   <RadioButton x:Name="rgbTab" Content="RGB" IsChecked="True" Style="{StaticResource RadioToggleStyle}" local:ControlAttach.CornerRadius="{StaticResource DefaultLeftCornerRadius}" />
                   <RadioButton x:Name="hsvTab" Content="HSV" Style="{StaticResource RadioToggleStyle}" local:ControlAttach.CornerRadius="{StaticResource DefaultRightCornerRadius}" />
                 </UniformGrid>
               </Border>
               <StackPanel Grid.Row="2" Orientation="Vertical" Margin="{TemplateBinding Padding}">
-                <Border Visibility="{Binding ElementName=rgbTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}">
+                <Border Visibility="{Binding ElementName=rgbTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0" CornerRadius="{StaticResource DefaultCornerRadius}">
                   <local:StackPanel Orientation="Vertical" Spacing="1">
                     <local:RangeBox Title="{lang:Lang Rgb_Red}" CornerRadius="{StaticResource DefaultTopCornerRadius}" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Red,Mode=TwoWay}" />
                     <local:RangeBox Title="{lang:Lang Rgb_Green}" CornerRadius="0" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Green,Mode=TwoWay}" />
                     <local:RangeBox Title="{lang:Lang Rgb_Blue}" CornerRadius="{StaticResource DefaultBottomCornerRadius}" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Blue,Mode=TwoWay}" />
                   </local:StackPanel>
                 </Border>
-                <Border Visibility="{Binding ElementName=hsvTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}">
+                <Border Visibility="{Binding ElementName=hsvTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}" BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0" CornerRadius="{StaticResource DefaultCornerRadius}">
                   <local:StackPanel Orientation="Vertical" Spacing="1">
                     <local:RangeBox Title="{lang:Lang Hsv_Hue}" CornerRadius="{StaticResource DefaultTopCornerRadius}" Minimum="0" Maximum="360" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Hue,Mode=TwoWay}" />
                     <local:RangeBox Title="{lang:Lang Hsv_Saturation}" CornerRadius="0" Minimum="0" Maximum="1" Decimals="3" NumericType="UFloat" SmallChange="0.01" LargeChange="0.1" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Saturation,Mode=TwoWay}" />
                     <local:RangeBox Title="{lang:Lang Hsv_Value}" CornerRadius="{StaticResource DefaultBottomCornerRadius}" Minimum="0" Maximum="1" Decimals="3" NumericType="UFloat" SmallChange="0.01" LargeChange="0.1" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Brightness,Mode=TwoWay}" />
                   </local:StackPanel>
                 </Border>
-                <local:RangeBox Title="{lang:Lang Opacity}" BorderThickness="1" Margin="0,3,0,0" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Alpha,Mode=TwoWay}" />
-                <DockPanel Margin="0,3,0,0">
-                  <Button x:Name="PART_PickScreenButton" Margin="7,0,0,0" DockPanel.Dock="Right" BorderThickness="1">
+                <local:RangeBox Title="{lang:Lang Opacity}" BorderThickness="0" Margin="0,5,0,0" Minimum="0" Maximum="255" NumericType="UInt" SmallChange="1" LargeChange="10" Value="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Alpha,Mode=TwoWay}" />
+                <DockPanel Margin="0,6,0,0">
+                  <Button x:Name="PART_PickScreenButton" Margin="7,0,0,0" DockPanel.Dock="Right" BorderThickness="0">
                     <Path Fill="{TemplateBinding Foreground}" Data="{StaticResource EyedropperGeometry}" Stretch="Uniform" Height="16" />
                   </Button>
-                  <TextBox x:Name="PART_TextBox" Style="{StaticResource HexColorTextBoxStyle}" MaxLength="8" BorderThickness="1" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=SelectedColor,Converter={StaticResource ColorHexStringConverter}}" IsReadOnly="{Binding ElementName=hsvTab,Path=IsChecked}" />
+                  <TextBox x:Name="PART_TextBox" Style="{StaticResource HexColorTextBoxStyle}" MaxLength="8" BorderThickness="0" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=SelectedColor,Converter={StaticResource ColorHexStringConverter}}" IsReadOnly="{Binding ElementName=hsvTab,Path=IsChecked}" />
                 </DockPanel>
               </StackPanel>
             </Grid>
@@ -2321,15 +2321,17 @@
     <Border x:Name="bd" Padding="7,1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
       <Grid Margin="{TemplateBinding Padding}">
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width=".38*" MinWidth="81" />
-          <ColumnDefinition Width=".62*" />
+          <ColumnDefinition Width="30" />
+          <ColumnDefinition Width=".4*" MinWidth="50" />
+          <ColumnDefinition Width=".6*" />
+          <ColumnDefinition Width="30" />
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="header" Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
+        <TextBlock x:Name="header" Grid.ColumnSpan="2" Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
           <TextBlock.ToolTip>
             <ToolTip Style="{StaticResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}" />
           </TextBlock.ToolTip>
         </TextBlock>
-        <ContentPresenter Grid.Column="1" ContentSource="EditorElement" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        <ContentPresenter Grid.Column="2" Grid.ColumnSpan="2" ContentSource="EditorElement" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
       </Grid>
     </Border>
   </ControlTemplate>
@@ -2417,6 +2419,7 @@
     <Setter Property="Padding" Value="0" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="MinWidth" Value="200" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:PropertyGrid">
@@ -2430,6 +2433,7 @@
   <Style x:Key="PropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
     <Setter Property="Focusable" Value="False" />
     <Setter Property="Padding" Value="7" />
+    <Setter Property="MinWidth" Value="200" />
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
     <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
@@ -2455,4 +2459,18 @@
     </Setter>
   </Style>
   <Style TargetType="{x:Type local:PropertyGrid}" BasedOn="{StaticResource PropertyGridBaseStyle}" />
+  <Style x:Key="ClassEditorWindowStyle" TargetType="{x:Type Window}">
+    <Setter Property="ShowInTaskbar" Value="False" />
+    <Setter Property="MaxHeight" Value="800" />
+    <Setter Property="MaxHeight" Value="1000" />
+    <Setter Property="MinWidth" Value="300" />
+    <Setter Property="Width" Value="500" />
+    <Setter Property="Height" Value="440" />
+    <Setter Property="Icon" Value="{x:Null}" />
+    <Setter Property="Content">
+      <Setter.Value>
+        <local:PropertyGrid Grid.Row="1" Source="{Binding .,Mode=OneWay}" />
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

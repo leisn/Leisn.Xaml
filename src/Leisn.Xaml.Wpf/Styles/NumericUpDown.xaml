@@ -40,11 +40,11 @@
     </Setter>
   </Style>
 
-  <Style x:Key="NumericDownTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
+  <Style x:Key="NumericDownTextBoxStyle" TargetType="local:NumericBox" BasedOn="{StaticResource NumericBoxBaseStyle}">
     <Setter Property="Cursor" Value="Arrow"/>
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="TextBox">
+        <ControlTemplate TargetType="local:NumericBox">
           <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
             <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}"

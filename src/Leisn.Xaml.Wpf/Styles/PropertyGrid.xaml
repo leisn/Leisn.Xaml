@@ -3,6 +3,7 @@
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls"
                     xmlns:editor="clr-namespace:Leisn.Xaml.Wpf.Controls.Editors">
 
+  <!--#region color picker editor-->
   <Style x:Key="ColorPickerEditorToggleButtonStyle" TargetType="ToggleButton">
     <Setter Property="Template">
       <Setter.Value>
@@ -57,7 +58,9 @@
       </Setter.Value>
     </Setter>
   </Style>
+  <!--#endregion-->
 
+  <!--#region string collecion editor-->
   <Style x:Key="StringCollectionEditorTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}">
     <Setter Property="MinWidth" Value="50"/>
     <Setter Property="Template">
@@ -114,6 +117,8 @@
       </Setter.Value>
     </Setter>
   </Style>
+  <!--#endregion-->
+
 
   <!--#region property grid-->
 
@@ -158,15 +163,17 @@
             BorderThickness="{TemplateBinding BorderThickness}">
       <Grid Margin="{TemplateBinding Padding}">
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width=".38*" MinWidth="81"/>
-          <ColumnDefinition Width=".62*"/>
+          <ColumnDefinition Width="30"/>
+          <ColumnDefinition Width=".4*" MinWidth="50"/>
+          <ColumnDefinition Width=".6*"/>
+          <ColumnDefinition Width="30"/>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="header" Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
+        <TextBlock x:Name="header" Grid.ColumnSpan="2" Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
           <TextBlock.ToolTip>
             <ToolTip Style="{StaticResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
           </TextBlock.ToolTip>
         </TextBlock>
-        <ContentPresenter Grid.Column="1" ContentSource="EditorElement"
+        <ContentPresenter Grid.Column="2" Grid.ColumnSpan="2" ContentSource="EditorElement"
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
@@ -272,6 +279,7 @@
     <Setter Property="Padding" Value="0"/>
     <Setter Property="Background" Value="Transparent"/>
     <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="MinWidth" Value="200"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:PropertyGrid">
@@ -289,6 +297,7 @@
   <Style x:Key="PropertyGridBaseStyle" TargetType="{x:Type local:PropertyGrid}">
     <Setter Property="Focusable" Value="False"/>
     <Setter Property="Padding" Value="7"/>
+    <Setter Property="MinWidth" Value="200"/>
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
@@ -332,6 +341,23 @@
     </Setter>
   </Style>
   <Style TargetType="{x:Type local:PropertyGrid}" BasedOn="{StaticResource PropertyGridBaseStyle}"/>
-<!--#endregion-->
-  
+  <!--#endregion-->
+
+
+  <Style x:Key="ClassEditorWindowStyle" TargetType="{x:Type Window}">
+    <Setter Property="ShowInTaskbar" Value="False"/>
+    <Setter Property="MaxHeight" Value="800"/>
+    <Setter Property="MaxHeight" Value="1000"/>
+    <Setter Property="MinWidth" Value="300"/>
+    <Setter Property="Width" Value="500"/>
+    <Setter Property="Height" Value="440"/>
+    <Setter Property="Icon" Value="{x:Null}"/>
+    <Setter Property="Content">
+      <Setter.Value>
+        <local:PropertyGrid Grid.Row="1" Source="{Binding .,Mode=OneWay}"/>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+
 </ResourceDictionary>

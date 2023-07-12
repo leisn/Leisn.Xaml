@@ -71,16 +71,19 @@ namespace WpfDemo
 
         public class SubClass
         {
-            [Category("sbyte value")]
             [DisplayName("sbyte value 2")]
             [Description("Range 4-10, Increment=2 \n{ValueRange}：[4,10]")]
             [Range(4, 10)]
             [Increment(2)]
             public sbyte sbValue2 { get; set; }
-            [Category("int value")]
             [DisplayName("int value 1")]
             [Description("int not limited")]
             public int Value1 { get; set; }
+
+            public override string ToString()
+            {
+                return $"S{sbValue2},I{Value1}";
+            }
         }
         private class PgTest
         {

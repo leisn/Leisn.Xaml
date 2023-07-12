@@ -29,8 +29,8 @@ namespace Leisn.Xaml.Wpf.Controls
             set => SetValue(NumericTypeProperty, value);
         }
         public static readonly DependencyProperty NumericTypeProperty =
-            DependencyProperty.Register(nameof(NumericType), typeof(NumericType), typeof(NumericBox), new FrameworkPropertyMetadata(NumericType.Float, FrameworkPropertyMetadataOptions.Inherits));
-
+            DependencyProperty.Register(nameof(NumericType), typeof(NumericType), typeof(NumericBox),
+                new FrameworkPropertyMetadata(NumericType.Float, FrameworkPropertyMetadataOptions.Inherits));
 
         protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {

@@ -39,12 +39,33 @@ namespace System
                 {
                     return true;
                 }
-                if (item.IsGenericType && Equals(interfaceType, item.GetGenericTypeDefinition()))
+                if (interfaceType.IsTypeDefinition && item.IsGenericType &&
+                    Equals(interfaceType, item.GetGenericTypeDefinition()))
                 {
                     return true;
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Return generic type of interface of given type definition.<br/>
+        /// </summary>
+        /// <exception cref="ArgumentException"></exception>
+        public static Type? GetGenericInterfaceTypeOf(this Type type, Type interfaceGenericTypeDefinition)
+        {
+            if (!interfaceGenericTypeDefinition.IsTypeDefinition)
+                throw new ArgumentException($"{interfaceGenericTypeDefinition} not type definition", nameof(interfaceGenericTypeDefinition));
+            var interfaces = type.GetInterfaces();
+            foreach (var item in interfaces)
+            {
+                if (item.IsGenericType &&
+                    Equals(interfaceGenericTypeDefinition, item.GetGenericTypeDefinition()))
+                {
+                    return item;
+                }
+            }
+            return default;
         }
 
         /// <summary>

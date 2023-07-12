@@ -26,7 +26,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             _dataSource = EditorHelper.ResolveDataProvider(dateProviderType);
         }
 
-        protected override ComboBox CreateItemElement(object? item)
+        protected override ComboBox CreateItemElement(int index, object? item)
         {
             var comboBox = EditorHelper.CreateComboBox(_dataSource);
             comboBox.SelectedValue = item;

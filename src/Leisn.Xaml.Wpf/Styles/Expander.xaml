@@ -219,8 +219,8 @@
           <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" SnapsToDevicePixels="true">
             <DockPanel>
-              <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}"
-                            Content="{TemplateBinding Header}"
+              <ToggleButton x:Name="HeaderSite" Focusable="False" 
+                            ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}"
                             ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
                             DockPanel.Dock="Top" FontStretch="{TemplateBinding FontStretch}"
                             Foreground="{TemplateBinding Foreground}"

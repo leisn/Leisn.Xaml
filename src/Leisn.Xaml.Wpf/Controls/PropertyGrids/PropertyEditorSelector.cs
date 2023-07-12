@@ -57,10 +57,7 @@ namespace Leisn.Xaml.Wpf.Controls
         protected virtual IPropertyEditor CreateCollectionEditor(PropertyDescriptor propertyDescriptor)
         {
             Type type = propertyDescriptor.PropertyType;
-            if (type.IsAssignableTo(typeof(IEnumerable<string>)))
-            {
-                return new StringCollectionEditor();
-            }
+            if (type.IsAssignableTo(typeof(IEnumerable<string>))) return new StringCollectionEditor();
 
             Type[] elementTypes = null!;
             if (type.IsGenericType)
@@ -80,17 +77,18 @@ namespace Leisn.Xaml.Wpf.Controls
                 elementTypes = new Type[] { elementType };
             }
 
+            if (type.GetGenericInterfaceTypeOf(typeof(IDictionary<,>)) is Type dictType)
+            {
+                var arguments = dictType.GetGenericArguments();
+
+            }
+
             if (elementTypes?.Length == 1)
             {
                 var elementType = elementTypes[0];
                 if (elementType.IsEnum) return new ComboCollecitonEditor(elementType);
                 if (elementType.IsNumericType()) return new NumericCollectionEditor(elementType);
-
-
-                if (elementType.IsClass)
-                {
-
-                }
+                if (elementType.IsClass) return new ClassCollectionEdtior(elementType);
             }
 
             return new CollectionEditor();

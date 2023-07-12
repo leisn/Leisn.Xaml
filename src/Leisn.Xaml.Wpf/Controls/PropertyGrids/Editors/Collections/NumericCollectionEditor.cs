@@ -26,7 +26,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return base.CreateElement(item);
         }
 
-        protected override NumericUpDown CreateItemElement(object? item)
+        protected override NumericUpDown CreateItemElement(int index, object? item)
         {
             var control = new NumericUpDown
             {

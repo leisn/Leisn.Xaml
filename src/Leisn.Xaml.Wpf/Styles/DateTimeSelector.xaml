@@ -42,7 +42,8 @@
           <Border Background="{TemplateBinding Background}"
                   BorderBrush="{TemplateBinding BorderBrush}"
                   BorderThickness="{TemplateBinding BorderThickness}"
-                  CornerRadius="{TemplateBinding CornerRadius}">
+                  CornerRadius="{TemplateBinding CornerRadius}"
+                  RenderOptions.ClearTypeHint="Enabled">
             <Grid>
               <skia:SKElement x:Name="PART_Canvas" IgnorePixelScaling="True" SnapsToDevicePixels="True" Margin="{TemplateBinding Padding}"/>
               <RepeatButton x:Name="PART_PreviousButton" VerticalAlignment="Top"

@@ -1,5 +1,8 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -124,32 +127,18 @@ namespace Leisn.Xaml.Wpf.Controls
             SetValue(IsEditingPropertyKey, value);
         }
 
+        protected override void OnValueChanged(double oldValue, double newValue)
+        {
+            var pre = GetBindingExpression(ValueProperty);
+            base.OnValueChanged(oldValue, newValue);
+
+        }
+
         protected override void OnMinimumChanged(double oldMinimum, double newMinimum)
         {
             base.OnMinimumChanged(oldMinimum, newMinimum);
             NumericType = (NumericType)CoerceNumericType(this, NumericType);
         }
-
-        //protected override void OnValueChanged(double oldValue, double newValue)
-        //{
-        //    base.OnValueChanged(oldValue, newValue);
-        //    if (_minusButton == null)
-        //        return;
-        //    _minusButton.Visibility = newValue <= Minimum ? Visibility.Collapsed : Visibility.Visible;
-        //    _increaseButton.Visibility = newValue >= Maximum ? Visibility.Collapsed : Visibility.Visible;
-        //    var corner = new CornerRadius();
-        //    if (newValue <= Minimum)
-        //    {
-        //        corner.TopLeft = 4;
-        //        corner.BottomLeft = 4;
-        //    }
-        //    if (newValue >= Maximum)
-        //    {
-        //        corner.TopRight = 4;
-        //        corner.BottomRight = 4;
-        //    }
-        //    ControlAttach.SetCornerRadius(_textBox, corner);
-        //}
 
         public override void OnApplyTemplate()
         {
@@ -186,6 +175,12 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            var text = _textBox.Text;
+            var v = NumericFormatConverter.Instance.ConvertBack(text, typeof(double), Format, CultureInfo.InvariantCulture);
+            if (v is double value && SetValue(value))
+            {
+                BindingOperations.GetBindingExpression(_textBox, TextBox.TextProperty).UpdateTarget();
+            }
             SetIsEditing(false);
         }
 
@@ -203,16 +198,21 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             BindingOperations.ClearBinding(_textBox, TextBox.TextProperty);
-            Binding binding = new("Value")
+            Binding binding = new(nameof(Value))
             {
                 Source = this,
-                Mode = BindingMode.TwoWay,
+                Mode = BindingMode.OneWay,
                 Converter = NumericFormatConverter.Instance,
-                ConverterParameter = Format
+                ConverterParameter = Format,
             };
-            _ = BindingOperations.SetBinding(_textBox, TextBox.TextProperty, binding);
+            _textBox.SetBinding(TextBox.TextProperty, binding);
         }
 
+        public bool SetValue(double value)
+        {
+            Value = Math.Clamp(value, Minimum, Maximum);
+            return Value != value;
+        }
 
         private void IncreaseValue(object sender, RoutedEventArgs e)
         {
@@ -220,8 +220,7 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 return;
             }
-
-            Value += Increment;
+            SetValue(Value + Increment);
         }
 
         private void MinusValue(object sender, RoutedEventArgs e)
@@ -230,8 +229,7 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 return;
             }
-
-            Value -= Increment;
+            SetValue(Value - Increment);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -245,28 +243,28 @@ namespace Leisn.Xaml.Wpf.Controls
             switch (e.Key)
             {
                 case Key.Left:
-                    Value -= Increment;
+                    SetValue(Value - Increment);
                     break;
                 case Key.Right:
-                    Value += Increment;
+                    SetValue(Value + Increment);
                     break;
                 case Key.Up:
-                    Value -= SmallChange;
+                    SetValue(Value - SmallChange);
                     break;
                 case Key.Down:
-                    Value += SmallChange;
+                    SetValue(Value + SmallChange);
                     break;
                 case Key.PageUp:
-                    Value -= LargeChange;
+                    SetValue(Value - LargeChange);
                     break;
                 case Key.PageDown:
-                    Value += LargeChange;
+                    SetValue(Value + LargeChange);
                     break;
                 case Key.Home:
-                    Value = Minimum;
+                    SetValue(Minimum);
                     break;
                 case Key.End:
-                    Value = Maximum;
+                    SetValue(Maximum);
                     break;
                 default:
                     e.Handled = false;

@@ -26,23 +26,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         {
             _contanier = GetContanier();
             DockPanel panel = new() { Margin = new Thickness(6, 0, 6, 5), };
-            var addButton = new Button
-            {
-                Style = (Style)FindResource("AddButtonStyle"),
-                Visibility = Visibility.Visible,
-                HorizontalAlignment = HorizontalAlignment.Left,
-                VerticalAlignment = VerticalAlignment.Stretch,
-                Margin = new Thickness(0, 5, 0, 0)
-            };
-            addButton.SetBinding(VisibilityProperty, new Binding("ShowOperationButtons")
-            {
-                Source = this,
-                Converter = (IValueConverter)FindResource("BoolVisibilityConverter"),
-                ConverterParameter = BoolVisibilityConverterMode.FalseCollapsed
-            });
-            addButton.Click += AddButton_Click;
-            DockPanel.SetDock(addButton, Dock.Bottom);
-            panel.Children.Add(addButton);
+
+            var operationBar = CreateOperationBar();
+            DockPanel.SetDock(operationBar, Dock.Bottom);
+            panel.Children.Add(operationBar);
             panel.Children.Add(_contanier);
             Content = panel;
         }
@@ -160,6 +147,32 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             };
         }
 
+        protected virtual UIElement CreateOperationBar()
+        {
+            var stackPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Spacing = 10,
+                Margin = new Thickness(0, 5, 0, 0)
+            };
+            var addButton = new Button
+            {
+                Style = (Style)FindResource("AddButtonStyle"),
+                Visibility = Visibility.Visible,
+                HorizontalAlignment = HorizontalAlignment.Left,
+                VerticalAlignment = VerticalAlignment.Stretch,
+            };
+            addButton.SetBinding(VisibilityProperty, new Binding("ShowOperationButtons")
+            {
+                Source = this,
+                Converter = (IValueConverter)FindResource("BoolVisibilityConverter"),
+                ConverterParameter = BoolVisibilityConverterMode.FalseCollapsed
+            });
+            addButton.Click += AddButton_Click;
+            stackPanel.Children.Add(addButton);
+            return stackPanel;
+        }
+
         protected virtual void RemoveItemAt(int index)
         {
             var grid = (Grid)GetContanier().Children[index];
@@ -171,9 +184,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             var count = GetElementCount();
             for (int i = index; i < count; i++)
             {
-                var panel = (Panel)GetContanier().Children[i];
-                var textBlock = (TextBlock)panel.Children[0];
-                textBlock.Text = $"{index + 1}.";
+                UpdateIndexText(i);
             }
         }
 
@@ -183,19 +194,41 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             GetContanier().Children.Add(CreateItemContaniner(count, item));
         }
 
-        protected virtual UIElement CreateItemContaniner(int index, object? item)
+        protected virtual void UpdateIndexText(int index)
+        {
+            var panel = (Panel)GetContanier().Children[index];
+            var textBlock = (TextBlock)panel.Children[0];
+            textBlock.Text = $"{index + 1}.";
+        }
+
+        protected virtual Panel CreateItemContaniner(int index, object? item)
         {
             var grid = new Grid();
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.38, GridUnitType.Star), MinWidth = 81 });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.62, GridUnitType.Star) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.4, GridUnitType.Star), MinWidth = 50 });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.6, GridUnitType.Star) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
+
+            var deleteButton = CreateDeleteButton(index);
             var textBlock = new TextBlock
             {
                 TextAlignment = TextAlignment.Right,
                 Margin = new Thickness(0, 0, 10, 0),
                 Text = $"{index + 1}."
             };
-            var itemElement = CreateItemElement(item);
-            Grid.SetColumn(itemElement, 1);
+            Grid.SetColumn(textBlock, 1);
+            var itemElement = CreateItemElement(index, item);
+            Grid.SetColumn(itemElement, 2);
+            Grid.SetColumnSpan(itemElement, 2);
+
+            grid.Children.Add(textBlock);
+            grid.Children.Add(itemElement);
+            grid.Children.Add(deleteButton);
+            return grid;
+        }
+
+        protected Button CreateDeleteButton(int index)
+        {
             var button = new Button
             {
                 Name = "deleteButton",
@@ -212,11 +245,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             });
             ControlAttach.SetShowClear(button, false);
             button.Click += DeleteButton_Click;
-
-            grid.Children.Add(textBlock);
-            grid.Children.Add(itemElement);
-            grid.Children.Add(button);
-            return grid;
+            return button;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -319,7 +348,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             }
         }
 
-        protected abstract T CreateItemElement(object? item);
+        protected abstract T CreateItemElement(int index, object? item);
         protected abstract object GetElementValue(T element);
         protected abstract object CreateNewItem();
         protected abstract void OnRemoveElement(T element);
