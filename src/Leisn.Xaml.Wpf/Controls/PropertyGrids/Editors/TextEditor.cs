@@ -15,11 +15,11 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement CreateElement(PropertyItem item)
         {
             TextBox element = new() { IsReadOnly = item.IsReadOnly, };
-            if (item.PropertyDescriptor.Attr<StringLengthAttribute>() is StringLengthAttribute len)
+            if (item.Attributes.Attr<StringLengthAttribute>() is StringLengthAttribute len)
             {
                 element.MaxLength = len.MaximumLength;
             }
-            if (item.PropertyDescriptor.Attr<PlaceholderAttribute>() is PlaceholderAttribute p)
+            if (item.Attributes.Attr<PlaceholderAttribute>() is PlaceholderAttribute p)
             {
                 element.SetBindingLangFormat(ControlAttach.PlaceholderProperty, p.Placeholder);
             }

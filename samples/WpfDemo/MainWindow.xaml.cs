@@ -104,9 +104,13 @@ namespace WpfDemo
         private class PgTest
         {
             public IEnumerable<string> ReadOnlyStrings { get; set; } = new ReadOnlyCollection<string>(new List<string> { "stri 1", "str 2" });
-            public string[] StringArray { get; set; } = new string[] { "stri 1", "str 2", "stri 3", "str 4" };
+            [PathSelect(Mode = PathSelectMode.Folder)]
+            public string[] FolderArray { get; set; } = new string[] { "stri 1", "str 2", "stri 3", "str 4" };
             [StringLength(10)]
             public List<string> ListStrings { get; set; } = new List<string>() { "stri 1", "str 2" };
+
+            public Dictionary<Enumv, string> DictionaryStrings { get; set; } = new Dictionary<Enumv, string>();
+
             [Range(1, 10)]
             [Increment(1)]
             [DefaultValue(9)]

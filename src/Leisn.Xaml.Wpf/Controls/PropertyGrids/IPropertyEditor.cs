@@ -7,14 +7,9 @@ namespace Leisn.Xaml.Wpf.Controls
     public interface IPropertyEditor
     {
         public bool UseExpanderStyle => false;
+        public FrameworkElement? GetOperationContent() { return null; }
 
         FrameworkElement CreateElement(PropertyItem item);
-
         DependencyProperty GetBindingProperty();
-
-        public FrameworkElement? GetOperationContent()
-        {
-            return null;
-        }
     }
 }

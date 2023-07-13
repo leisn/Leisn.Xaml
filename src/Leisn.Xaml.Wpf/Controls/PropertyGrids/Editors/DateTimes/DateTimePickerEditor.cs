@@ -14,7 +14,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement CreateElement(PropertyItem item)
         {
             FrameworkElement picker;
-            if (item.PropertyDescriptor.Attr<DateTimePickAttribute>() is DateTimePickAttribute kind)
+            if (item.Attributes.Attr<DateTimePickAttribute>() is DateTimePickAttribute kind)
             {
                 switch (kind.DateTimeType)
                 {

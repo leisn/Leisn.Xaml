@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.DirectoryServices.ActiveDirectory;
+using System.Reflection;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
@@ -16,86 +17,95 @@ namespace Leisn.Xaml.Wpf.Controls
     {
         public virtual IPropertyEditor CreateEditor(PropertyDescriptor propertyDescriptor)
         {
-            if (propertyDescriptor.Attr<EditorAttribute>() is EditorAttribute editorAttr && !string.IsNullOrEmpty(editorAttr.EditorTypeName))
-            {
-                return CreateAttributeEditor(editorAttr, propertyDescriptor);
-            }
-
-            return CreateCustomEditor(propertyDescriptor) ?? CreateDefalutEditor(propertyDescriptor);
+            return CreateEditor(propertyDescriptor.PropertyType, propertyDescriptor.Attributes);
         }
 
-        protected virtual IPropertyEditor CreateAttributeEditor(EditorAttribute editorAttr, PropertyDescriptor propertyDescriptor)
+        public IPropertyEditor CreateEditor(Type propertyType, AttributeCollection propertyAttributes)
+        {
+            if (propertyAttributes.Attr<EditorAttribute>() is EditorAttribute editorAttr && !string.IsNullOrEmpty(editorAttr.EditorTypeName))
+            {
+                return CreateAttributeEditor(editorAttr, propertyAttributes);
+            }
+            return CreateCustomEditor(propertyType, propertyAttributes) ?? CreateDefalutEditor(propertyType, propertyAttributes);
+        }
+
+        protected virtual IPropertyEditor CreateAttributeEditor(EditorAttribute editorAttr, AttributeCollection propertyAttributes)
         {
             Type editorType = Type.GetType(editorAttr.EditorTypeName)!;
             return (IPropertyEditor)Activator.CreateInstance(editorType)!;
         }
 
-        protected virtual IPropertyEditor? CreateCustomEditor(PropertyDescriptor propertyDescriptor)
+        protected virtual IPropertyEditor? CreateCustomEditor(Type propertyType, AttributeCollection propertyAttributes)
         {
-            Type propertyType = propertyDescriptor.PropertyType;
 
-            if (propertyDescriptor.Attr<PathSelectAttribute>() is not null)
+            if (propertyType != typeof(string) && propertyType.IsEnumerable())
+            {
+                return CreateCollectionEditor(propertyType, propertyAttributes);
+            }
+
+            if (propertyAttributes.Contains<PathSelectAttribute>())
             {
                 return new PathSelectEditor();
             }
 
-            if (propertyDescriptor.Attr<DataProviderAttribute>() is DataProviderAttribute providerAttribute)
+            if (propertyAttributes.Contains<DataProviderAttribute>())
             {
-                if (propertyType != typeof(string) && propertyType.IsEnumerable())
-                    return new ComboCollecitonEditor(providerAttribute.ProviderType);
                 return new ComboDataEditor();
             }
 
-            if (propertyType != typeof(string) && propertyType.IsEnumerable())
-            {
-                return CreateCollectionEditor(propertyDescriptor);
-            }
             return null;
         }
 
-        protected virtual IPropertyEditor CreateCollectionEditor(PropertyDescriptor propertyDescriptor)
+        protected virtual IPropertyEditor? CreateCollectionEditor(Type propertyType, AttributeCollection propertyAttributes)
         {
-            Type type = propertyDescriptor.PropertyType;
-            if (type.IsAssignableTo(typeof(IEnumerable<string>))) return new StringCollectionEditor();
+            if (propertyType.IsAssignableTo(typeof(IEnumerable<string>)))
+            {
+                if (propertyAttributes.Attr<PathSelectAttribute>() is PathSelectAttribute pathSelectAttribute)
+                    return new PathCollectionEditor(pathSelectAttribute);
+                return new StringCollectionEditor();
+            }
 
             Type[] elementTypes = null!;
-            if (type.IsGenericType)
+            if (propertyType.IsGenericType)
             {
-                elementTypes = type.GetGenericArguments();
+                elementTypes = propertyType.GetGenericArguments();
             }
-            else if (type.IsArray)
+            else if (propertyType.IsArray)
             {
-                int rank = type.GetArrayRank();
+                int rank = propertyType.GetArrayRank();
                 if (rank > 1)
                 {
                     throw new NotSupportedException($"Array rank `{rank}` greate than 1 is not supported");
                 }
 
-                Type elementType = type.GetElementType()
+                Type elementType = propertyType.GetElementType()
                      ?? throw new NotSupportedException($"Array must have a element type");
                 elementTypes = new Type[] { elementType };
             }
 
-            if (type.GetGenericInterfaceTypeOf(typeof(IDictionary<,>)) is Type dictType)
+            if (propertyType.GetGenericInterfaceTypeOf(typeof(IDictionary<,>)) is Type dictType)
             {
                 var arguments = dictType.GetGenericArguments();
-
+                var keyType = arguments[0];
+                var valueType = arguments[1];
+                if (DictionaryEditor.IsSupportType(keyType, valueType))
+                    return new DictionaryEditor(keyType, valueType, propertyAttributes, this);
             }
 
             if (elementTypes?.Length == 1)
             {
                 var elementType = elementTypes[0];
                 if (elementType.IsEnum) return new ComboCollecitonEditor(elementType);
+                if (propertyAttributes.Attr<DataProviderAttribute>() is DataProviderAttribute providerAttribute)
+                    return new ComboCollecitonEditor(providerAttribute.ProviderType);
                 if (elementType.IsNumericType()) return new NumericCollectionEditor(elementType);
-                if (elementType.IsClass) return new ClassCollectionEdtior(elementType, propertyDescriptor);
+                if (elementType.IsClass) return new ClassCollectionEdtior(elementType, propertyAttributes);
             }
-
-            return new CollectionEditor();
+            return null;
         }
 
-        protected virtual IPropertyEditor CreateDefalutEditor(PropertyDescriptor propertyDescriptor)
+        protected virtual IPropertyEditor CreateDefalutEditor(Type type, AttributeCollection propertyAttributes)
         {
-            var type = propertyDescriptor.PropertyType;
             if (type.IsEnum) return new EnumEditor();
             if (type.IsNumericType()) return new NumericEditor(EditorHelper.ResolveTypeNumericParams(type));
             if (type == typeof(string)) return new TextEditor();
@@ -107,6 +117,5 @@ namespace Leisn.Xaml.Wpf.Controls
             if (type.IsClass) return new ClassEditor();
             return new ReadOnlyTextEditor();
         }
-
     }
 }

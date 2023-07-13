@@ -37,7 +37,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement CreateElement(PropertyItem item)
         {
             IsCoerceReadOnly = item.IsReadOnly;
-            if (item.PropertyDescriptor.Attr<StringLengthAttribute>() is StringLengthAttribute len)
+            if (item.Attributes.Attr<StringLengthAttribute>() is StringLengthAttribute len)
             {
                 _maxLength = len.MaximumLength;
             }

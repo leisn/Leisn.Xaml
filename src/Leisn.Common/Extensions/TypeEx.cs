@@ -107,5 +107,35 @@ namespace System
                 _ => false,
             };
         }
+
+        public static bool IsValueTuple(this Type type)
+        {
+            if (!type.IsConstructedGenericType || !type.IsValueType)
+                return false;
+            var typeDef = type.GetGenericTypeDefinition();
+            return Equals(typeDef, typeof(ValueTuple<>))
+                     || Equals(typeDef, typeof(ValueTuple<,>))
+                     || Equals(typeDef, typeof(ValueTuple<,,>))
+                     || Equals(typeDef, typeof(ValueTuple<,,,>))
+                     || Equals(typeDef, typeof(ValueTuple<,,,,>))
+                     || Equals(typeDef, typeof(ValueTuple<,,,,,>))
+                     || Equals(typeDef, typeof(ValueTuple<,,,,,,>))
+                     || Equals(typeDef, typeof(ValueTuple<,,,,,,,>));
+        }
+
+        public static bool IsTuple(this Type type)
+        {
+            if (!type.IsConstructedGenericType || type.IsValueType)
+                return false;
+            var typeDef = type.GetGenericTypeDefinition();
+            return Equals(typeDef, typeof(Tuple<>))
+                     || Equals(typeDef, typeof(Tuple<,>))
+                     || Equals(typeDef, typeof(Tuple<,,>))
+                     || Equals(typeDef, typeof(Tuple<,,,>))
+                     || Equals(typeDef, typeof(Tuple<,,,,>))
+                     || Equals(typeDef, typeof(Tuple<,,,,,>))
+                     || Equals(typeDef, typeof(Tuple<,,,,,,>))
+                     || Equals(typeDef, typeof(Tuple<,,,,,,,>));
+        }
     }
 }

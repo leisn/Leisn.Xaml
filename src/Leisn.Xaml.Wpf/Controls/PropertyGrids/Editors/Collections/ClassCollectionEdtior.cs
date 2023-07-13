@@ -25,7 +25,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         private Type _elementType;
         private readonly List<Type> _instanceTypes;
-        public ClassCollectionEdtior(Type elementType, PropertyDescriptor descriptor)
+        public ClassCollectionEdtior(Type elementType, AttributeCollection propertyAttributes)
         {
             _elementType = elementType;
             _instanceTypes = new();
@@ -35,10 +35,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 _instanceTypes.Add(_elementType);
             }
 
-            descriptor.Attrs<InstanceTypesAttribute>()
+            propertyAttributes.OfType<InstanceTypesAttribute>()
                 .ForEach(attrType => attrType.InstanceTypes.ForEach(AddInstanceType));
 
-            if (descriptor.Attr<InstanceTypeProviderAttribute>() is InstanceTypeProviderAttribute attr)
+            if (propertyAttributes.Attr<InstanceTypeProviderAttribute>() is InstanceTypeProviderAttribute attr)
             {
                 var provider = AppIoc.GetRequired(attr.ProviderType) as IDataProvider<Type>
                     ?? throw new ArgumentException($"{attr.ProviderType} is null or not IDataProvider<Type>");
@@ -164,7 +164,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             var index = (int)button.CommandParameter;
             var window = new Window
             {
-                Title = $"{Lang.Get("Edit_Item")} - {_elementType.Name} - {PropertyItem.DisplayName}",
+                Title = $"{Lang.Get("Edit_Item")} {index + 1} - {_elementType.Name} - {PropertyItem.DisplayName}",
                 Owner = Window.GetWindow(this),
                 DataContext = button.Tag,
                 Style = (Style)FindResource("ClassEditorWindowStyle"),

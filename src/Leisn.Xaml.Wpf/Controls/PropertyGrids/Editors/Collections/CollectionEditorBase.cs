@@ -3,17 +3,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Reflection;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Shapes;
+using System.Windows.Documents;
 
 using Leisn.Xaml.Wpf.Converters;
 
@@ -130,7 +125,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 GetContanier().Children.Clear();
                 foreach (var item in Source)
                 {
-                    AddItem(item);
+                    CreateAddElement(item);
                 }
             }
         }
@@ -212,7 +207,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             }
         }
 
-        private void AddItem(object? item)
+        private void CreateAddElement(object? item)
         {
             var count = GetElementCount();
             GetContanier().Children.Add(CreateItemContaniner(count, item));
@@ -233,7 +228,6 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.6, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
 
-            var deleteButton = CreateDeleteButton(index);
             var textBlock = new TextBlock
             {
                 TextAlignment = TextAlignment.Right,
@@ -247,7 +241,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
             grid.Children.Add(textBlock);
             grid.Children.Add(itemElement);
-            grid.Children.Add(deleteButton);
+            grid.Children.Add(CreateDeleteButton(index));
             return grid;
         }
 
@@ -275,18 +269,40 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var item = CreateNewItem();
+            if (AddItemToSource(item))
+            {
+                CreateAddElement(item);
+                return;
+            }
             var method = Source.GetType().GetMethod("Add");
             if (method is not null)
             {
-                method.Invoke(Source, new object[] { item });
-                AddItem(item);
+                object[] arguments;
+                if (item is ITuple tuple)
+                {
+                    arguments = new object[tuple.Length];
+                    for (int i = 0; i < tuple.Length; i++)
+                    {
+                        arguments[i] = tuple[i]!;
+                    }
+                }
+                else
+                {
+                    arguments = new object[] { item };
+                }
+                method.Invoke(Source, arguments);
+                CreateAddElement(item);
             }
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var index = (int)((Button)sender).Tag;
-
+            if (DeleteItemFromSource(index))
+            {
+                RemoveItemAt(index);
+                return;
+            }
             var method = Source.GetType().GetMethod("RemoveAt");
             if (method is not null)
             {
@@ -336,7 +352,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return -1;
         }
 
-        protected void UpdateItemValue(T element)
+        protected virtual void UpdateItemValue(T element)
         {
             var index = GetElementIndex(element);
             var value = GetElementValue(element);
@@ -372,9 +388,19 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             }
         }
 
+        protected virtual bool AddItemToSource(object? item)
+        {
+            return false;
+        }
+        protected virtual bool DeleteItemFromSource(int index)
+        {
+            return false;
+        }
+
         protected abstract T CreateItemElement(int index, object? item);
         protected abstract object GetElementValue(T element);
         protected abstract object CreateNewItem();
         protected abstract void OnRemoveElement(T element);
+
     }
 }

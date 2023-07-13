@@ -11,6 +11,10 @@ namespace System.ComponentModel
         {
             return self.OfType<T>().Any();
         }
+        public static bool ContainsAttribute<T>(this PropertyDescriptor self) where T : Attribute
+        {
+            return self.Attributes.OfType<T>().Any();
+        }
         public static T? Attr<T>(this PropertyDescriptor propertyDescriptor) where T : Attribute
         {
             return propertyDescriptor.Attributes.Attr<T>();

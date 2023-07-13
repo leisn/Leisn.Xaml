@@ -23,6 +23,7 @@ using System.Windows.Controls.Primitives;
 using System.Collections;
 using System.Collections.ObjectModel;
 using Microsoft.VisualBasic;
+using System.Runtime.CompilerServices;
 
 namespace WpfDemo
 {
@@ -31,8 +32,6 @@ namespace WpfDemo
     /// </summary>
     public partial class App : Application
     {
-        class A : Dictionary<int, string> { }
-        class B : A { }
         public App()
         {
             var pros = typeof(ReadOnlyCollection<int>).GetProperties();
@@ -43,9 +42,6 @@ namespace WpfDemo
             var type4 = typeof(Dictionary<int, string>);
             var type5 = typeof(IDictionary<int, string>);
             var type6 = typeof(IDictionary<,>);
-            var re1 = typeof(B);
-            var r = re1.GetGenericInterfaceTypeOf(type6);
-            var re2 = typeof(A).IsTypeOf(type6);
             // Process process = new();
             // process.StartInfo.UseShellExecute = false;
             // process.StartInfo.FileName = "cmd";

@@ -17,10 +17,10 @@ namespace Leisn.Xaml.Wpf.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PropertyItem), new FrameworkPropertyMetadata(typeof(PropertyItem)));
         }
 
-        public PropertyDescriptor PropertyDescriptor { get; internal set; } = null!;
-        public Type PropertyType => PropertyDescriptor.PropertyType;
-        public string PropertyName => PropertyDescriptor.Name;
-        public string PropertyTypeName => $"{PropertyDescriptor.PropertyType.Namespace}.{PropertyType.Name}";
+        public AttributeCollection Attributes { get; internal set; } = null!;
+        public Type PropertyType { get; internal set; } = null!;
+        public string PropertyName { get; internal set; } = null!;
+        public string PropertyTypeName { get; internal set; } = null!;
 
         public object Source
         {

@@ -34,7 +34,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            _params = EditorHelper.ResolveAttrNumericParams(_params, item.PropertyDescriptor);
+            _params = EditorHelper.ResolveAttrNumericParams(_params, item.Attributes);
 
             return new NumericUpDown
             {

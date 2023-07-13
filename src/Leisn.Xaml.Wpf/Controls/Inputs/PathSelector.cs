@@ -1,5 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -23,13 +25,16 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private TextBox _textBox = null!;
         private ButtonBase _button = null!;
-        public PathSelectMode Mode
+
+        public static readonly RoutedEvent PathChangedEvent =
+          EventManager.RegisterRoutedEvent(nameof(PathChanged), RoutingStrategy.Bubble,
+              typeof(RoutedPropertyChangedEventHandler<string>), typeof(PathSelector));
+        [Category("Behavior")]
+        public event RoutedPropertyChangedEventHandler<string> PathChanged
         {
-            get => (PathSelectMode)GetValue(ModeProperty);
-            set => SetValue(ModeProperty, value);
+            add => AddHandler(PathChangedEvent, value);
+            remove => RemoveHandler(PathChangedEvent, value);
         }
-        public static readonly DependencyProperty ModeProperty =
-            DependencyProperty.Register("Mode", typeof(PathSelectMode), typeof(PathSelector), new PropertyMetadata(PathSelectMode.Folder));
 
         public string Path
         {
@@ -37,7 +42,22 @@ namespace Leisn.Xaml.Wpf.Controls
             set => SetValue(PathProperty, value);
         }
         public static readonly DependencyProperty PathProperty =
-            DependencyProperty.Register("Path", typeof(string), typeof(PathSelector), new PropertyMetadata(default));
+            DependencyProperty.Register("Path", typeof(string), typeof(PathSelector), new PropertyMetadata(default, new PropertyChangedCallback(OnPathChanged)));
+
+        public PathSelectMode Mode
+        {
+            get => (PathSelectMode)GetValue(ModeProperty);
+            set => SetValue(ModeProperty, value);
+        }
+        public static readonly DependencyProperty ModeProperty =
+            DependencyProperty.Register("Mode", typeof(PathSelectMode), typeof(PathSelector), new PropertyMetadata(PathSelectMode.Folder));
+       
+        private static void OnPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            PathSelector cs = (PathSelector)d;
+            string value = (string)e.NewValue;
+            cs.RaiseEvent(new RoutedPropertyChangedEventArgs<string>((string)e.OldValue, value, PathChangedEvent));
+        }
 
         public bool IsTextReadOnly
         {
@@ -47,7 +67,7 @@ namespace Leisn.Xaml.Wpf.Controls
         public static readonly DependencyProperty IsTextReadOnlyProperty =
             DependencyProperty.Register("IsTextReadOnly", typeof(bool), typeof(PathSelector), new PropertyMetadata(true));
 
-        public string DialogTitle
+        public string? DialogTitle
         {
             get => (string)GetValue(DialogTitleProperty);
             set => SetValue(DialogTitleProperty, value);
@@ -55,7 +75,7 @@ namespace Leisn.Xaml.Wpf.Controls
         public static readonly DependencyProperty DialogTitleProperty =
             DependencyProperty.Register("DialogTitle", typeof(string), typeof(PathSelector), new PropertyMetadata(string.Empty));
 
-        public string FileFilter
+        public string? FileFilter
         {
             get => (string)GetValue(FileFilterProperty);
             set => SetValue(FileFilterProperty, value);

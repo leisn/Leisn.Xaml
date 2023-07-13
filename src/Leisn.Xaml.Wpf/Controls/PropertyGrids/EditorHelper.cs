@@ -91,21 +91,21 @@ namespace Leisn.Xaml.Wpf.Controls
         #endregion
 
         #region numeric editor
-        internal static NumericEditorParams ResolveAttrNumericParams(NumericEditorParams current, PropertyDescriptor propertyDescriptor)
+        internal static NumericEditorParams ResolveAttrNumericParams(NumericEditorParams current, AttributeCollection attributes)
         {
-            if (propertyDescriptor.Attr<NumericUpDownAttribute>() is NumericUpDownAttribute attr)
+            if (attributes.Attr<NumericUpDownAttribute>() is NumericUpDownAttribute attr)
             {
                 current.Maximum = attr.Maximum;
                 current.Minimum = attr.Minimum;
                 current.Increment = attr.Increment;
             }
-            if (propertyDescriptor.Attr<RangeAttribute>() is RangeAttribute range)
+            if (attributes.Attr<RangeAttribute>() is RangeAttribute range)
             {
                 current.Maximum = Convert.ToDouble(range.Maximum);
                 current.Minimum = Convert.ToDouble(range.Minimum);
             }
 
-            if (propertyDescriptor.Attr<IncrementAttribute>()?.Increment is double increment)
+            if (attributes.Attr<IncrementAttribute>()?.Increment is double increment)
             {
                 current.Increment = increment;
             }
@@ -115,7 +115,7 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             NumericFormat numberFormat = new();
-            if (propertyDescriptor.Attr<NumericFormatAttribute>() is NumericFormatAttribute format)
+            if (attributes.Attr<NumericFormatAttribute>() is NumericFormatAttribute format)
             {
                 numberFormat.Suffix = format.Suffix;
                 numberFormat.Decimals = format.Decimals;
@@ -163,7 +163,10 @@ namespace Leisn.Xaml.Wpf.Controls
         {
             PropertyItem item = new()
             {
-                PropertyDescriptor = propertyDescriptor,
+                Attributes = propertyDescriptor.Attributes,
+                PropertyName = propertyDescriptor.Name,
+                PropertyType = propertyDescriptor.PropertyType,
+                PropertyTypeName = $"{propertyDescriptor.PropertyType.Namespace}.{propertyDescriptor.Name}",
                 Source = source,
                 DefaultValue = propertyDescriptor.Attr<DefaultValueAttribute>()?.Value!,
                 IsReadOnly = propertyDescriptor.IsReadOnly,

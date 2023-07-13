@@ -12,7 +12,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            PathSelectAttribute attr = item.PropertyDescriptor.Attr<PathSelectAttribute>()
+            PathSelectAttribute attr = item.Attributes.Attr<PathSelectAttribute>()
                 ?? throw new InvalidOperationException("No PathSelectAttribute");
             return new PathSelector
             {
