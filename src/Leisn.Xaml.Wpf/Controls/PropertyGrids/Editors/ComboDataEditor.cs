@@ -1,14 +1,12 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 
 using Leisn.Common.Attributes;
-using Leisn.Common.Data;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {

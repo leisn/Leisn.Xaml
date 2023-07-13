@@ -6,10 +6,12 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Shapes;
 
@@ -21,19 +23,11 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public bool UseExpanderStyle => true;
 
-        private readonly Panel _contanier;
+        private Panel _contanier = null!;
 
         public PropertyItem PropertyItem { get; private set; } = null!;
         public CollectionEditorBase()
         {
-            _contanier = GetContanier();
-            DockPanel panel = new() { Margin = new Thickness(6, 0, 6, 5), };
-
-            var operationBar = CreateOperationBar();
-            DockPanel.SetDock(operationBar, Dock.Bottom);
-            panel.Children.Add(operationBar);
-            panel.Children.Add(_contanier);
-            Content = panel;
         }
 
         public virtual FrameworkElement CreateElement(PropertyItem item)
@@ -141,23 +135,51 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             }
         }
 
+        protected override void OnInitialized(EventArgs e)
+        {
+            DockPanel panel = new() { Margin = new Thickness(6, 0, 6, 5), };
+            var header = CreateHeader();
+            if (header is not null)
+            {
+                DockPanel.SetDock(header, Dock.Top);
+                panel.Children.Add(header);
+            }
+            var operationBar = CreateOperationBar();
+            DockPanel.SetDock(operationBar, Dock.Bottom);
+            panel.Children.Add(operationBar);
+            panel.Children.Add(GetContanier());
+            Content = panel;
+
+            base.OnInitialized(e);
+        }
+
         protected virtual Panel GetContanier()
         {
-            return _contanier ?? new StackPanel
+            return _contanier ??= new StackPanel
             {
                 Spacing = 6,
                 Orientation = Orientation.Vertical,
             };
         }
 
+        protected virtual UIElement? CreateHeader()
+        {
+            return null;
+        }
+
         protected virtual UIElement CreateOperationBar()
         {
-            var stackPanel = new StackPanel
-            {
-                Orientation = Orientation.Horizontal,
-                Spacing = 10,
-                Margin = new Thickness(0, 5, 0, 0)
-            };
+            var grid = new Grid { Margin = new Thickness(0, 5, 0, 0) };
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.4, GridUnitType.Star), MinWidth = 50 });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.6, GridUnitType.Star) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
+            grid.Children.Add(CreateAddButton());
+            return grid;
+        }
+
+        protected virtual Button CreateAddButton()
+        {
             var addButton = new Button
             {
                 Style = (Style)FindResource("AddButtonStyle"),
@@ -172,8 +194,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 ConverterParameter = BoolVisibilityConverterMode.FalseCollapsed
             });
             addButton.Click += AddButton_Click;
-            stackPanel.Children.Add(addButton);
-            return stackPanel;
+            return addButton;
         }
 
         protected virtual void RemoveItemAt(int index)

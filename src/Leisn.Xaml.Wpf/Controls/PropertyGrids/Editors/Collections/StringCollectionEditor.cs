@@ -7,9 +7,9 @@ using System.Windows.Controls;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-using Leisn.Common.Attributes;
 using Leisn.Xaml.Wpf.Input;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors

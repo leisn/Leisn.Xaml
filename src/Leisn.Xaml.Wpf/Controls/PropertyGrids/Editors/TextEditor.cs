@@ -1,5 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;

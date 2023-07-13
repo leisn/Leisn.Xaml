@@ -2,10 +2,12 @@
 
 using System;
 
-namespace Leisn.Common.Data
+using Leisn.Common.Data;
+
+namespace Leisn.Common.Attributes
 {
 
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class DataProviderAttribute : Attribute
     {
         public Type ProviderType { get; }

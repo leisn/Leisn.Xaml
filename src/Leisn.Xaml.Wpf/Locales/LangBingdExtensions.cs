@@ -9,13 +9,14 @@ namespace Leisn.Xaml.Wpf.Locales
 {
     public static class LangBingdExtensions
     {
-        public static void SetBindingLangKey(this DependencyObject targetObject, DependencyProperty targetProperty, string key)
+        public static void SetBindingLangKey(this DependencyObject targetObject, DependencyProperty targetProperty, string key, string? stringFormat = null)
         {
             Binding binding = new()
             {
                 Source = Lang.Current,
                 Path = new PropertyPath($"Values[{key}]"),
                 Mode = BindingMode.OneWay,
+                StringFormat = stringFormat
             };
             _ = BindingOperations.SetBinding(targetObject, targetProperty, binding);
         }

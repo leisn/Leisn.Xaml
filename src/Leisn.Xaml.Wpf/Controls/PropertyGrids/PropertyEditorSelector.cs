@@ -8,7 +8,6 @@ using System.DirectoryServices.ActiveDirectory;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
-using Leisn.Common.Data;
 using Leisn.Xaml.Wpf.Controls.Editors;
 
 namespace Leisn.Xaml.Wpf.Controls
@@ -88,7 +87,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 var elementType = elementTypes[0];
                 if (elementType.IsEnum) return new ComboCollecitonEditor(elementType);
                 if (elementType.IsNumericType()) return new NumericCollectionEditor(elementType);
-                if (elementType.IsClass) return new ClassCollectionEdtior(elementType);
+                if (elementType.IsClass) return new ClassCollectionEdtior(elementType, propertyDescriptor);
             }
 
             return new CollectionEditor();

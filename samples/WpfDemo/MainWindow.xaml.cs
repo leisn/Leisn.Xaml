@@ -79,12 +79,28 @@ namespace WpfDemo
             [DisplayName("int value 1")]
             [Description("int not limited")]
             public int Value1 { get; set; }
-
             public override string ToString()
             {
                 return $"S{sbValue2},I{Value1}";
             }
         }
+        public class SubClass1 : SubClass
+        {
+            public string? StringValue { get; set; }
+            public override string ToString()
+            {
+                return $"S{sbValue2},I{Value1},SV{StringValue}";
+            }
+        }
+        public class SubClass2 : SubClass
+        {
+            public Enumv EnumValue { get; }
+            public override string ToString()
+            {
+                return $"S{sbValue2},I{Value1},E{EnumValue}";
+            }
+        }
+
         private class PgTest
         {
             public IEnumerable<string> ReadOnlyStrings { get; set; } = new ReadOnlyCollection<string>(new List<string> { "stri 1", "str 2" });
@@ -96,6 +112,7 @@ namespace WpfDemo
             [DefaultValue(9)]
             public IEnumerable<int> IntValues { get; set; } = new List<int>() { 1, 2, 3, 4, 5 };
             public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
+            [InstanceTypes(typeof(SubClass1), typeof(SubClass2))]
             public List<SubClass> SubClasses { get; set; } = new List<SubClass>();
             public DateTime DateTime { get; set; } = DateTime.Now;
             public DateTime? DateTime2 { get; set; }

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +14,80 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
+using Leisn.Common.Attributes;
+using Leisn.Common.Collections;
+using Leisn.Common.Data;
 using Leisn.Xaml.Wpf.Locales;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
     internal class ClassCollectionEdtior : CollectionEditorBase<ToggleButton>
     {
-        private readonly Type _classType;
-        public ClassCollectionEdtior(Type classType)
+        private Type _elementType;
+        private readonly List<Type> _instanceTypes;
+        public ClassCollectionEdtior(Type elementType, PropertyDescriptor descriptor)
         {
-            _classType = classType;
+            _elementType = elementType;
+            _instanceTypes = new();
+            if (!(_elementType.IsInterface || _elementType.IsAbstract)
+                || _elementType.GetConstructor(Array.Empty<Type>()) is null)
+            {
+                _instanceTypes.Add(_elementType);
+            }
+
+            descriptor.Attrs<InstanceTypesAttribute>()
+                .ForEach(attrType => attrType.InstanceTypes.ForEach(AddInstanceType));
+
+            if (descriptor.Attr<InstanceTypeProviderAttribute>() is InstanceTypeProviderAttribute attr)
+            {
+                var provider = AppIoc.GetRequired(attr.ProviderType) as IDataProvider<Type>
+                    ?? throw new ArgumentException($"{attr.ProviderType} is null or not IDataProvider<Type>");
+                provider.GetData().ForEach(AddInstanceType);
+            }
+
+            void AddInstanceType(Type type)
+            {
+                if (!type.IsTypeOf(elementType))
+                    throw new InvalidOperationException($"{type} is not a subclass or implement of {elementType}");
+                if (type.GetConstructor(Array.Empty<Type>()) is null)
+                    throw new InvalidOperationException($"{type} must have a non-parameter constructor {elementType}");
+                _instanceTypes.Add(type);
+            }
+        }
+
+        protected override UIElement CreateOperationBar()
+        {
+            var grid = (Grid)base.CreateOperationBar();
+            var typeTitle = new TextBlock
+            {
+                Margin = new Thickness(0, 0, 10, 0),
+                TextAlignment = TextAlignment.Right,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                Foreground = (Brush)FindResource("TextDarkBrush")
+            };
+            Grid.SetColumn(typeTitle, 1);
+            typeTitle.SetBindingLangKey(TextBlock.TextProperty, "Type");
+            grid.Children.Add(typeTitle);
+            var typeList = new List<DataDeclaration>();
+            _instanceTypes.ForEach(type => typeList.Add(new DataDeclaration
+            {
+                DisplayName = type.Name,
+                Description = type.FullName,
+                Value = type
+            }));
+            var comboBox = EditorHelper.CreateComboBox(typeList);
+            comboBox.SelectedValue = _instanceTypes.FirstOrDefault();
+            comboBox.SelectionChanged += TypeSelectionChanged;
+            Grid.SetColumn(comboBox, 2);
+            Grid.SetColumnSpan(comboBox, 2);
+            grid.Children.Add(comboBox);
+            return grid;
+        }
+
+        private void TypeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = (ComboBox)sender;
+            _elementType = (Type)comboBox.SelectedValue;
         }
 
         protected override void UpdateIndexText(int index)
@@ -80,7 +145,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override object CreateNewItem()
         {
-            return Activator.CreateInstance(_classType)!;
+            return Activator.CreateInstance(_elementType)!;
         }
 
         protected override object GetElementValue(ToggleButton element)
@@ -99,7 +164,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             var index = (int)button.CommandParameter;
             var window = new Window
             {
-                Title = $"{Lang.Get("Edit Item")} - {PropertyItem.DisplayName}",
+                Title = $"{Lang.Get("Edit_Item")} - {_elementType.Name} - {PropertyItem.DisplayName}",
                 Owner = Window.GetWindow(this),
                 DataContext = button.Tag,
                 Style = (Style)FindResource("ClassEditorWindowStyle"),
