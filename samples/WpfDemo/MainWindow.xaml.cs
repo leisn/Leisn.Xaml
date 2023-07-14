@@ -103,6 +103,8 @@ namespace WpfDemo
 
         private class PgTest
         {
+            [InstanceTypes(typeof(SubClass1), typeof(SubClass2))]
+            public List<SubClass> SubClasses { get; set; } = new List<SubClass>();
             public IEnumerable<string> ReadOnlyStrings { get; set; } = new ReadOnlyCollection<string>(new List<string> { "stri 1", "str 2" });
             [PathSelect(Mode = PathSelectMode.Folder)]
             public string[] FolderArray { get; set; } = new string[] { "stri 1", "str 2", "stri 3", "str 4" };
@@ -117,8 +119,7 @@ namespace WpfDemo
             [DefaultValue(9)]
             public IEnumerable<int> IntValues { get; set; } = new List<int>() { 1, 2, 3, 4, 5 };
             public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
-            [InstanceTypes(typeof(SubClass1), typeof(SubClass2))]
-            public List<SubClass> SubClasses { get; set; } = new List<SubClass>();
+
             public DateTime DateTime { get; set; } = DateTime.Now;
             public DateTime? DateTime2 { get; set; }
             public DateOnly DateOnly { get; set; } = new DateOnly(2000, 02, 20);

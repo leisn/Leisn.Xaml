@@ -338,6 +338,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override void OnRemoveElement(Grid element)
         {
+            //var keyElment = (FrameworkElement)element.Children[0];
             var valueElement = (FrameworkElement)element.Children[1];
             if (valueElement is Button button)
             {

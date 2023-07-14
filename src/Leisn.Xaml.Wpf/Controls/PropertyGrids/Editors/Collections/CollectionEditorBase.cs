@@ -24,6 +24,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public CollectionEditorBase()
         {
+            Padding = new Thickness(7, 0, 7, 5);
         }
 
         public virtual FrameworkElement CreateElement(PropertyItem item)
@@ -133,7 +134,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override void OnInitialized(EventArgs e)
         {
-            DockPanel panel = new() { Margin = new Thickness(6, 0, 6, 5), };
+            DockPanel panel = new() { Margin = Padding, };
             var header = CreateHeader();
             if (header is not null)
             {

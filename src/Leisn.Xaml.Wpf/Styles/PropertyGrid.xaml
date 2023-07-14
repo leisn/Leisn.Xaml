@@ -119,9 +119,7 @@
   </Style>
   <!--#endregion-->
 
-
   <!--#region property grid-->
-
   <Style x:Key="PropertyItemToolTipBaseStyle" BasedOn="{StaticResource ToolTipBaseStyle}" TargetType="ToolTip">
     <Setter Property="Padding" Value="10"/>
     <Setter Property="Template">

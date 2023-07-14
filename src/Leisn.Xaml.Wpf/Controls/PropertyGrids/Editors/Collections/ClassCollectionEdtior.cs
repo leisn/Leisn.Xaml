@@ -4,15 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 
 using Leisn.Common.Attributes;
 using Leisn.Common.Collections;
@@ -21,16 +16,17 @@ using Leisn.Xaml.Wpf.Locales;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
-    internal class ClassCollectionEdtior : CollectionEditorBase<ToggleButton>
+    internal class ClassCollectionEdtior : CollectionEditorBase<PropertyGrid>
     {
         private Type _elementType;
         private readonly List<Type> _instanceTypes;
         public ClassCollectionEdtior(Type elementType, AttributeCollection propertyAttributes)
         {
+            Padding = new Thickness(0, 0, 0, 5);
             _elementType = elementType;
             _instanceTypes = new();
             if (!(_elementType.IsInterface || _elementType.IsAbstract)
-                || _elementType.GetConstructor(Array.Empty<Type>()) is null)
+                || _elementType.GetConstructor(Type.EmptyTypes) is null)
             {
                 _instanceTypes.Add(_elementType);
             }
@@ -58,6 +54,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         protected override UIElement CreateOperationBar()
         {
             var grid = (Grid)base.CreateOperationBar();
+            grid.Margin = new Thickness(7, 6, 7, 0);
             var typeTitle = new TextBlock
             {
                 Margin = new Thickness(0, 0, 10, 0),
@@ -90,57 +87,44 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             _elementType = (Type)comboBox.SelectedValue;
         }
 
-        protected override void UpdateIndexText(int index)
-        {
-            var panel = (Panel)GetContanier().Children[index];
-            var textBlock = (TextBlock)panel.Children[0];
-            var value = GetElementValue(GetElementAt(index));
-            textBlock.Text = $"{index + 1}. {value?.ToString()}";
-            //textBlock.ToolTip = value;
-        }
 
         protected override Panel CreateItemContaniner(int index, object? item)
         {
             var grid = new Grid();
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
-
-            var deleteButton = CreateDeleteButton(index);
-            var textBlock = new TextBlock
+            var expander = new Expander
             {
-                TextAlignment = TextAlignment.Left,
-                Margin = new Thickness(0, 0, 10, 0),
-                Text = $"{index + 1}. {item?.ToString()}",
-                TextTrimming = TextTrimming.CharacterEllipsis,
-                //ToolTip = item
+                Header = $"{index + 1}. {item?.ToString()} - {item?.GetType()?.GetShortName()}",
+                Content = CreateItemElement(index, item),
+                Padding = new Thickness(0, 5, 0, 0)
             };
-            //ToolTipService.SetPlacement(textBlock, System.Windows.Controls.Primitives.PlacementMode.Top);
-            Grid.SetColumn(textBlock, 1);
-            var itemElement = CreateItemElement(index, item);
-            Grid.SetColumn(itemElement, 2);
-
-            grid.Children.Add(textBlock);
-            grid.Children.Add(itemElement);
+            ControlAttach.SetPadding(expander, new Thickness(37, 3, 0, 0));
+            Grid.SetColumn(expander, 1);
+            grid.Children.Add(expander);
+            var deleteButton = CreateDeleteButton(index);
+            deleteButton.VerticalAlignment = VerticalAlignment.Top;
+            deleteButton.Margin = new Thickness(7, 0, 0, 0);
             grid.Children.Add(deleteButton);
             return grid;
         }
 
-        protected override ToggleButton CreateItemElement(int index, object? item)
+        protected override PropertyGrid GetElementAt(int index)
         {
-            var path = new Path { Data = (Geometry)FindResource("EditGeometry"), Stretch = Stretch.Uniform };
-            var button = new ToggleButton
-            {
-                Content = path,
-                IsEnabled = !IsCoerceReadOnly,
-                Tag = item,
-                CommandParameter = index,
-                Padding = new Thickness(3),
-            };
-            path.SetBinding(Shape.FillProperty, new Binding(nameof(Foreground)) { Source = button });
-            button.SetBinding(WidthProperty, new Binding(nameof(ActualHeight)) { RelativeSource = new RelativeSource(RelativeSourceMode.Self) });
-            button.Click += EditButtonClicked;
-            return button;
+            var grid = (Grid)GetContanier().Children[index];
+            var expaner = (Expander)grid.Children[0];
+            return (PropertyGrid)expaner.Content;
+        }
+
+        protected override void UpdateIndexText(int index)
+        {
+            var panel = (Panel)GetContanier().Children[index];
+            var expaner = (Expander)panel.Children[0];
+            var item = ((PropertyGrid)expaner.Content).Source;
+            expaner.Header = $"{index + 1}. {item?.ToString()} - {item?.GetType()?.GetShortName()}";
+        }
+
+        protected override PropertyGrid CreateItemElement(int index, object? item)
+        {
+            return new PropertyGrid { Source = item! };
         }
 
         protected override object CreateNewItem()
@@ -148,38 +132,13 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return Activator.CreateInstance(_elementType)!;
         }
 
-        protected override object GetElementValue(ToggleButton element)
+        protected override object GetElementValue(PropertyGrid element)
         {
-            return element.Tag;
+            return element.Source;
         }
 
-        protected override void OnRemoveElement(ToggleButton element)
+        protected override void OnRemoveElement(PropertyGrid element)
         {
-            element.Click -= EditButtonClicked;
         }
-
-        private void EditButtonClicked(object sender, RoutedEventArgs e)
-        {
-            var button = (ToggleButton)sender;
-            var index = (int)button.CommandParameter;
-            var window = new Window
-            {
-                Title = $"{Lang.Get("Edit_Item")} {index + 1} - {_elementType.Name} - {PropertyItem.DisplayName}",
-                Owner = Window.GetWindow(this),
-                DataContext = button.Tag,
-                Style = (Style)FindResource("ClassEditorWindowStyle"),
-            };
-            var pos = button.PointToScreen(new Point(0, 0));
-            pos.X -= window.Width + 10;
-            pos.Y -= window.Height / 2;
-            pos.X = Math.Max(0, pos.X);
-            pos.Y = Math.Max(0, pos.Y);
-            window.Left = pos.X;
-            window.Top = pos.Y;
-            window.ShowDialog();
-            button.IsChecked = false;
-            UpdateIndexText(index);
-        }
-
     }
 }
