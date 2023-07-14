@@ -8,6 +8,7 @@ namespace Leisn.Common.Attributes
     public class DateTimePickAttribute : Attribute
     {
         public DateTimeType DateTimeType { get; }
+
         public DateTimePickAttribute(DateTimeType type)
         {
             DateTimeType = type;

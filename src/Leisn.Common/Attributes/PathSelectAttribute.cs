@@ -4,7 +4,7 @@ using System;
 
 namespace Leisn.Common.Attributes
 {
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public class PathSelectAttribute : Attribute
     {
         public PathSelectMode Mode { get; set; }

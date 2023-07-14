@@ -45,10 +45,20 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             var valueAttrList = new List<Attribute>();
             foreach (Attribute attr in propertyAttributes)
             {
-                if (attr.GetType().Name.StartsWith("Key"))
-                    keyAttrList.Add(attr);
+                if (attr is IDictionaryAttributeTarget forKey)
+                {
+                    if (forKey.DictionaryTarget is DictionaryTarget.Key) keyAttrList.Add(attr);
+                    else if (forKey.DictionaryTarget is DictionaryTarget.Value) valueAttrList.Add(attr);
+                    else if (forKey.DictionaryTarget is DictionaryTarget.Both)
+                    {
+                        keyAttrList.Add(attr);
+                        valueAttrList.Add(attr);
+                    }
+                }
                 else
+                {
                     valueAttrList.Add(attr);
+                }
             }
             _keyAttributes = new AttributeCollection(keyAttrList.ToArray());
             _valueAttributes = new AttributeCollection(valueAttrList.ToArray());

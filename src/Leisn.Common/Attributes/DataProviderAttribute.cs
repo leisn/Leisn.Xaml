@@ -7,10 +7,12 @@ using Leisn.Common.Data;
 namespace Leisn.Common.Attributes
 {
 
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class DataProviderAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    public class DataProviderAttribute : Attribute, IDictionaryAttributeTarget
     {
         public Type ProviderType { get; }
+
+        public DictionaryTarget DictionaryTarget { get; set; }
 
         public DataProviderAttribute(Type providerType)
         {
@@ -19,18 +21,7 @@ namespace Leisn.Common.Attributes
             {
                 throw new NotSupportedException($"{providerType} is not IDataProvider");
             }
-            //if (providerType.GetConstructor(Type.EmptyTypes) == null)
-            //{
-            //    throw new NotSupportedException($"{providerType} must have non-paramter constructor");
-            //}
         }
     }
 
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class KeyProviderAttribute : DataProviderAttribute
-    {
-        public KeyProviderAttribute(Type providerType) : base(providerType)
-        {
-        }
-    }
 }

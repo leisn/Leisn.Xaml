@@ -108,8 +108,7 @@ namespace WpfDemo
             public string[] FolderArray { get; set; } = new string[] { "stri 1", "str 2", "stri 3", "str 4" };
             [StringLength(10)]
             public List<string> ListStrings { get; set; } = new List<string>() { "stri 1", "str 2" };
-
-            [KeyProvider(typeof(SampleTextProvider))]
+            [DataProvider(typeof(SampleTextProvider), DictionaryTarget = DictionaryTarget.Key)]
             [PathSelect(Mode = PathSelectMode.Folder)]
             public Dictionary<string, string> DictionaryStrings { get; set; } = new Dictionary<string, string>();
 

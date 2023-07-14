@@ -8,6 +8,7 @@ namespace Leisn.Common.Attributes
     public class PlaceholderAttribute : Attribute
     {
         public string Placeholder { get; }
+
         public PlaceholderAttribute(string placeholder)
         {
             Placeholder = placeholder;

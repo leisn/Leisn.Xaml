@@ -49,7 +49,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             {
                 if (!type.IsTypeOf(elementType))
                     throw new InvalidOperationException($"{type} is not a subclass or implement of {elementType}");
-                if (type.GetConstructor(Array.Empty<Type>()) is null)
+                if (type.GetConstructor(Type.EmptyTypes) is null)
                     throw new InvalidOperationException($"{type} must have a non-parameter constructor {elementType}");
                 _instanceTypes.Add(type);
             }
