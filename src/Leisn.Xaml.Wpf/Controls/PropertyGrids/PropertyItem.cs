@@ -17,7 +17,7 @@ namespace Leisn.Xaml.Wpf.Controls
             DefaultStyleKeyProperty.OverrideMetadata(typeof(PropertyItem), new FrameworkPropertyMetadata(typeof(PropertyItem)));
         }
 
-        public AttributeCollection Attributes { get; internal set; } = null!;
+        public AttributeCollection Attributes { get; internal set; } = AttributeCollection.Empty;
         public Type PropertyType { get; internal set; } = null!;
         public string PropertyName { get; internal set; } = null!;
         public string PropertyTypeName { get; internal set; } = null!;

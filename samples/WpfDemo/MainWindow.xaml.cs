@@ -109,7 +109,9 @@ namespace WpfDemo
             [StringLength(10)]
             public List<string> ListStrings { get; set; } = new List<string>() { "stri 1", "str 2" };
 
-            public Dictionary<Enumv, string> DictionaryStrings { get; set; } = new Dictionary<Enumv, string>();
+            [KeyProvider(typeof(SampleTextProvider))]
+            [PathSelect(Mode = PathSelectMode.Folder)]
+            public Dictionary<string, string> DictionaryStrings { get; set; } = new Dictionary<string, string>();
 
             [Range(1, 10)]
             [Increment(1)]

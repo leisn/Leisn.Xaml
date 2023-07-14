@@ -25,4 +25,12 @@ namespace Leisn.Common.Attributes
             //}
         }
     }
+
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    public class KeyProviderAttribute : DataProviderAttribute
+    {
+        public KeyProviderAttribute(Type providerType) : base(providerType)
+        {
+        }
+    }
 }

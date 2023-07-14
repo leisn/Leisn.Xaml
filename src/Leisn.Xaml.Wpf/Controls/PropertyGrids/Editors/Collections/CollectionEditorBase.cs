@@ -21,6 +21,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         private Panel _contanier = null!;
 
         public PropertyItem PropertyItem { get; private set; } = null!;
+
         public CollectionEditorBase()
         {
         }
@@ -269,11 +270,17 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             var item = CreateNewItem();
-            if (AddItemToSource(item))
+            var result = AddItemToSource(item);
+            if (result == true)
             {
                 CreateAddElement(item);
                 return;
             }
+            if (result == false)
+            {
+                return;
+            }
+
             var method = Source.GetType().GetMethod("Add");
             if (method is not null)
             {
@@ -388,9 +395,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             }
         }
 
-        protected virtual bool AddItemToSource(object? item)
+        protected virtual bool? AddItemToSource(object? item)
         {
-            return false;
+            return null;
         }
         protected virtual bool DeleteItemFromSource(int index)
         {

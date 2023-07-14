@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace System
 {
@@ -136,6 +137,15 @@ namespace System
                      || Equals(typeDef, typeof(Tuple<,,,,,>))
                      || Equals(typeDef, typeof(Tuple<,,,,,,>))
                      || Equals(typeDef, typeof(Tuple<,,,,,,,>));
+        }
+
+        public static string GetShortName(this Type type)
+        {
+            if (type.IsGenericType)
+            {
+                return $"{type.Name[..^2]}<{string.Join(", ", type.GetGenericArguments().Select(x => x.GetShortName()))}>";
+            }
+            return type.Name;
         }
     }
 }

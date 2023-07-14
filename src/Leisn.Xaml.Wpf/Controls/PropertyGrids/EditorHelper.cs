@@ -153,6 +153,8 @@ namespace Leisn.Xaml.Wpf.Controls
         private const string Misc = "Misc";
         public static List<PropertyItem> CreatePropertyItems(object source, IPropertyEditorSelector editorSelector)
         {
+            if (source.GetType().IsEnumerable())
+                return new List<PropertyItem> { new PropertyItem { PropertyType = source.GetType()} };
             return TypeDescriptor.GetProperties(source)
                                  .OfType<PropertyDescriptor>()
                                  .Where(d => d.IsBrowsable)

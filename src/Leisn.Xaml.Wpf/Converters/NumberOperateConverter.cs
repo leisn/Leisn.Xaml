@@ -8,6 +8,9 @@ using System.Windows.Data;
 
 namespace Leisn.Xaml.Wpf.Converters
 {
+    /// <summary>
+    /// Number to Number opreate converter, supports { +, -, *, /, %, ~, &amp;, |, ^ }
+    /// </summary>
     [ValueConversion(typeof(IConvertible), typeof(IConvertible), ParameterType = typeof(string))]
     public class NumberOperateConverter : IValueConverter
     {

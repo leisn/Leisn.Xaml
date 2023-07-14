@@ -34,14 +34,17 @@ namespace WpfDemo
     {
         public App()
         {
-            var pros = typeof(ReadOnlyCollection<int>).GetProperties();
-            var type0 = typeof(IList<>);
-            var type1 = typeof(IList<object>);
-            var type2 = typeof(IList<int>);
-            var type3 = typeof(List<int>);
-            var type4 = typeof(Dictionary<int, string>);
-            var type5 = typeof(IDictionary<int, string>);
-            var type6 = typeof(IDictionary<,>);
+            var type0 = typeof(Dictionary<,>);
+            var methods = type0.GetMethods();
+            var rect = new Dictionary<string, int>() { ["Is"] = 1 };
+            foreach (var item in rect)
+            {
+                var type = item.GetType();
+                methods = type.GetMethods();
+                var fileds = type.GetFields();
+                var pros = type.GetProperties();
+            }
+
             // Process process = new();
             // process.StartInfo.UseShellExecute = false;
             // process.StartInfo.FileName = "cmd";

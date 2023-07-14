@@ -18,3 +18,5 @@ ValueFormat= This value is {0}
 Edit=Edit
 Edit_Item=Edit Item
 Type=Type
+Key=Key
+Value=Value

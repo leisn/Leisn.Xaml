@@ -179,6 +179,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
+            if(IsReadOnly) return;
             SetIsEditing(true);
         }
         #endregion
