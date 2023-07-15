@@ -28,6 +28,15 @@ namespace System
         }
 
         /// <summary>
+        /// Is type <see cref="Nullable{T}"/>, e.g. bool? , int?
+        /// </summary>
+        public static bool IsNullable(this Type type, out Type? elementType)
+        {
+            elementType = Nullable.GetUnderlyingType(type);
+            return elementType != null;
+        }
+
+        /// <summary>
         /// Is type implment of [interfaceType], GenericTypeDefinition supported.
         /// </summary>
         /// <param name="interfaceType"> Type of interface</param>

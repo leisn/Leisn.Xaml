@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -118,10 +119,14 @@ namespace Leisn.Xaml.Wpf.Controls
                 EditorElement = null!;
             }
         }
-
+        public Type SourceType => Source.GetType();
         public object? GetPropertyValue()
         {
-            return Source.GetType().GetProperty(PropertyName)?.GetValue(Source);
+            return SourceType.GetProperty(PropertyName)?.GetValue(Source);
+        }
+        public void SetPropertyValue(object? value)
+        {
+            SourceType.GetProperty(PropertyName)?.SetValue(Source, value);
         }
 
         protected virtual void CreateElement()
@@ -140,7 +145,15 @@ namespace Leisn.Xaml.Wpf.Controls
                 Mode = IsReadOnly ? BindingMode.OneWay : Editor is ReadOnlyTextEditor ? BindingMode.OneWay : BindingMode.TwoWay,
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
             };
-            BindingOperations.SetBinding(EditorElement, Editor.GetBindingProperty(), binding);
+
+            var bindingProperty = Editor.GetBindingProperty();
+            BindingOperations.SetBinding(EditorElement, bindingProperty, binding);
+            //var elementValue = EditorHelper.ConvertValue(EditorElement.GetValue(bindingProperty), PropertyType);
+            //var currentValue = GetPropertyValue();
+            //if (!Equals(elementValue, currentValue))
+            //{
+            //    SetPropertyValue(elementValue);//同步
+            //}
         }
     }
 }

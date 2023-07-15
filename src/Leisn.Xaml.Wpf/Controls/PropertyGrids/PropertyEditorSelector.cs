@@ -43,7 +43,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 return CreateCollectionEditor(propertyType, propertyAttributes);
             }
 
-            if (propertyAttributes.Contains<PathSelectAttribute>())
+            if (propertyType == typeof(string) && propertyAttributes.Contains<PathSelectAttribute>())
             {
                 return new PathSelectEditor();
             }

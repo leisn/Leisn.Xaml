@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
@@ -91,9 +92,13 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         protected override Panel CreateItemContaniner(int index, object? item)
         {
             var grid = new Grid();
+            var stackPanel = new StackPanel { Spacing = 10, Orientation = Orientation.Horizontal };
+            stackPanel.Children.Add(new TextBlock { Text = $"{index + 1}." });
+            stackPanel.Children.Add(new TextBlock { Text = $"{item?.GetType().GetShortName()}" });
+
             var expander = new Expander
             {
-                Header = $"{index + 1}. {item?.ToString()} - {item?.GetType()?.GetShortName()}",
+                Header = stackPanel,
                 Content = CreateItemElement(index, item),
                 Padding = new Thickness(0, 5, 0, 0)
             };
@@ -118,13 +123,13 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         {
             var panel = (Panel)GetContanier().Children[index];
             var expaner = (Expander)panel.Children[0];
-            var item = ((PropertyGrid)expaner.Content).Source;
-            expaner.Header = $"{index + 1}. {item?.ToString()} - {item?.GetType()?.GetShortName()}";
+            var textBlock = (TextBlock)((StackPanel)expaner.Header).Children[0];
+            textBlock.Text = $"{index + 1}.";
         }
 
         protected override PropertyGrid CreateItemElement(int index, object? item)
         {
-            return new PropertyGrid { Source = item! };
+            return new PropertyGrid { Source = item!, Style = (Style)FindResource("SubPropertyGridBaseStyle") };
         }
 
         protected override object CreateNewItem()

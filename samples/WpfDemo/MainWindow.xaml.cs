@@ -111,8 +111,7 @@ namespace WpfDemo
             [StringLength(10)]
             public List<string> ListStrings { get; set; } = new List<string>() { "stri 1", "str 2" };
             [DataProvider(typeof(SampleTextProvider), DictionaryTarget = DictionaryTarget.Key)]
-            [PathSelect(Mode = PathSelectMode.Folder)]
-            public Dictionary<string, string> DictionaryStrings { get; set; } = new Dictionary<string, string>();
+            public Dictionary<string, List<SubClass>> DictionaryStrings { get; set; } = new Dictionary<string, List<SubClass>>();
 
             [Range(1, 10)]
             [Increment(1)]
@@ -135,6 +134,8 @@ namespace WpfDemo
             public string Folder { get; set; } = "";
             [PathSelect(Mode = PathSelectMode.OpenFile)]
             public string File { get; set; } = "D://";
+            [Range(1, 5)]
+            public int Number { get; set; }
 
             [NumericUpDown(Increment = 0.1, Maximum = 1, Minimum = -1)]
             [NumericFormat(Decimals = 3, Suffix = "m")]

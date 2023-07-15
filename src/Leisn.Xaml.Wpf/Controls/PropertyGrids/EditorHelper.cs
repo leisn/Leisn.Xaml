@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +21,26 @@ namespace Leisn.Xaml.Wpf.Controls
 {
     public class EditorHelper
     {
+        #region converter
+
+        [return: NotNullIfNotNull("value")]
+        public static object? ConvertValue(object? value, Type targetType)
+        {
+            if (value is null)
+                return null;
+
+            var valueType = value.GetType();
+            if (valueType == targetType || valueType.IsAssignableTo(targetType))
+                return value;
+
+            if (value is IConvertible cv)
+            {
+                return cv.ToType(targetType, null);
+            }
+            throw new NotSupportedException($"Cannot convert {value} from {valueType} to {targetType}");
+        }
+        #endregion
+
         #region data provider
         public static IEnumerable<IDataDeclaration<object>> ResolveDataProvider(Type providerType)
         {
@@ -154,7 +175,7 @@ namespace Leisn.Xaml.Wpf.Controls
         public static List<PropertyItem> CreatePropertyItems(object source, IPropertyEditorSelector editorSelector)
         {
             if (source.GetType().IsEnumerable())
-                return new List<PropertyItem> { new PropertyItem { PropertyType = source.GetType()} };
+                return new List<PropertyItem> { new PropertyItem { PropertyType = source.GetType() } };
             return TypeDescriptor.GetProperties(source)
                                  .OfType<PropertyDescriptor>()
                                  .Where(d => d.IsBrowsable)

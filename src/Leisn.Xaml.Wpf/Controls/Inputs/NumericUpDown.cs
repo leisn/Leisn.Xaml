@@ -168,6 +168,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            SetValue(IncrementProperty, 1);
             var text = _textBox.Text;
             var v = NumericFormatConverter.Instance.ConvertBack(text, typeof(double), Format, CultureInfo.InvariantCulture);
             if (v is double value && SetValue(value))
@@ -179,7 +180,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if(IsReadOnly) return;
+            if (IsReadOnly) return;
             SetIsEditing(true);
         }
         #endregion

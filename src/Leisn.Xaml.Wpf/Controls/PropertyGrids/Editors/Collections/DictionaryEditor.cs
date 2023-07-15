@@ -171,7 +171,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 Owner = Window.GetWindow(this),
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
                 Content = element,
-                Style = (Style)FindResource("ClassEditorWindowStyle"),
+                Style = (Style)FindResource("DictionaryEditorWindowStyle"),
                 Title = $"{Lang.Get("Edit")} - {_valueType.GetShortName()}"
             };
             window.ShowDialog();
@@ -282,11 +282,11 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private object? GetKeyElementValue(FrameworkElement keyElement)
         {
-            return ValueConverter.Convert(GetKeyValue(keyElement), _keyType);
+            return EditorHelper.ConvertValue(GetKeyValue(keyElement), _keyType);
         }
         private object? GetValueElementValue(FrameworkElement valueElement)
         {
-            return ValueConverter.Convert(GetValueValue((valueElement is Button b) ? (FrameworkElement)b.Tag : valueElement), _valueType);
+            return EditorHelper.ConvertValue(GetValueValue((valueElement is Button b) ? (FrameworkElement)b.Tag : valueElement), _valueType);
         }
 
         private object GetKeyFromValueElement(FrameworkElement valueElement)
@@ -379,21 +379,14 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public static ValueConverter Instance { get; } = new ValueConverter();
 
-        public static object Convert(object value, Type targetType)
-        {
-            if (value is IConvertible cv)
-                return cv.ToType(targetType, null);
-            return value;
-        }
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Convert(value, targetType);
+            return EditorHelper.ConvertValue(value, targetType);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return Convert(value, targetType);
+            return EditorHelper.ConvertValue(value, targetType);
         }
     }
 }

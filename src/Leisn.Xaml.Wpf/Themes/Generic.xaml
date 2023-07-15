@@ -2300,6 +2300,13 @@
       </Setter.Value>
     </Setter>
   </Style>
+  <Style x:Key="DictionaryEditorWindowStyle" TargetType="{x:Type Window}" BasedOn="{StaticResource WindowBaseStyle}">
+    <Setter Property="ShowInTaskbar" Value="False" />
+    <Setter Property="MinWidth" Value="300" />
+    <Setter Property="Width" Value="500" />
+    <Setter Property="Height" Value="440" />
+    <Setter Property="Background" Value="{DynamicResource RegionLight1Brush}" />
+  </Style>
   <Style x:Key="PropertyItemToolTipBaseStyle" BasedOn="{StaticResource ToolTipBaseStyle}" TargetType="ToolTip">
     <Setter Property="Padding" Value="10" />
     <Setter Property="Template">
@@ -2472,15 +2479,4 @@
     </Setter>
   </Style>
   <Style TargetType="{x:Type local:PropertyGrid}" BasedOn="{StaticResource PropertyGridBaseStyle}" />
-  <Style x:Key="ClassEditorWindowStyle" TargetType="{x:Type Window}" BasedOn="{StaticResource WindowBaseStyle}">
-    <Setter Property="ShowInTaskbar" Value="False" />
-    <Setter Property="MinWidth" Value="300" />
-    <Setter Property="Width" Value="500" />
-    <Setter Property="Height" Value="440" />
-    <Setter Property="Content">
-      <Setter.Value>
-        <local:PropertyGrid Grid.Row="1" Source="{Binding .,Mode=OneWay}" />
-      </Setter.Value>
-    </Setter>
-  </Style>
 </ResourceDictionary>
