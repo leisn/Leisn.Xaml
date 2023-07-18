@@ -39,20 +39,19 @@ namespace Leisn.Xaml.Wpf.Controls
                 new FrameworkPropertyMetadata(0,
                     FrameworkPropertyMetadataOptions.AffectsMeasure));
 
-        //[Bindable(true), Category("Layout")]
-        //public bool IsTortuous
-        //{
-        //    get { return (bool)GetValue(IsTortuousProperty); }
-        //    set { SetValue(IsTortuousProperty, value); }
-        //}
-        //public static readonly DependencyProperty IsTortuousProperty =
-        //    DependencyProperty.Register("IsTortuous", typeof(bool), typeof(SpacedUniformGrid),
-        //       new FrameworkPropertyMetadata(false,
-        //            FrameworkPropertyMetadataOptions.AffectsMeasure));
+        [Bindable(true), Category("Layout")]
+        public bool IsTortuous
+        {
+            get { return (bool)GetValue(IsTortuousProperty); }
+            set { SetValue(IsTortuousProperty, value); }
+        }
+        public static readonly DependencyProperty IsTortuousProperty =
+            DependencyProperty.Register("IsTortuous", typeof(bool), typeof(UniformGrid),
+               new FrameworkPropertyMetadata(false,
+                    FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         private int _rows;
         private int _columns;
-
         private void UpdateCells()
         {
             _columns = Columns;
@@ -174,13 +173,13 @@ namespace Leisn.Xaml.Wpf.Controls
                 row = row > _rows - 1 ? _rows - 1 : row; //keep in cells
                 col = col > _columns - 1 ? _columns - 1 : col;
 
-                //if (IsTortuous)
-                //{
-                //    if (Orientation == Orientation.Vertical && col % 2 == 1)//even col
-                //        row = _rows - 1 - row;
-                //    else if (Orientation == Orientation.Horizontal && row % 2 == 1)//even row
-                //        col = _rows - 1 - col;
-                //}
+                if (IsTortuous)
+                {
+                    if (Orientation == Orientation.Vertical && col % 2 == 1)//even col
+                        row = _rows - 1 - row;
+                    else if (Orientation == Orientation.Horizontal && row % 2 == 1)//even row
+                        col = _rows - 1 - col;
+                }
 
                 int grow = Grid.GetRow(child);//start at 1
                 grow = grow > 0 ? grow - 1 : row;
