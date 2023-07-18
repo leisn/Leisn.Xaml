@@ -14,7 +14,7 @@
       <ColumnDefinition/>
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
-    <ln:UniformGrid Spacing="10" Columns="2" Rows="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+    <ln:UniformGrid Spacing="10" Columns="2" Rows="2" IsCurved="True" VerticalAlignment="Center" HorizontalAlignment="Center">
       <Button Content="1"/>
       <Button Content="2"/>
       <Button Content="3"/>
