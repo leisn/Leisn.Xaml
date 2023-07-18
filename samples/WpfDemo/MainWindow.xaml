@@ -14,6 +14,12 @@
       <ColumnDefinition/>
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
+    <ln:UniformGrid Spacing="10" Columns="2" Rows="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+      <Button Content="1"/>
+      <Button Content="2"/>
+      <Button Content="3"/>
+      <Button Content="4"/>
+    </ln:UniformGrid>
     <ln:StackPanel Grid.Column="1" Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
       <ComboBox x:Name="langsBox" Width="{Binding ElementName=rangbox,Path=ActualWidth,Converter={StaticResource NumberOperateConverter}, ConverterParameter=-20}"/>
       <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="200" Decimals="4"/>

@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -94,7 +95,6 @@ namespace Leisn.Xaml.Wpf.Controls
                 _columns = (childCount + _rows - 1) / _rows;
             }
         }
-        private Size _cellSize;
         protected override Size MeasureOverride(Size constraint)
         {
             int count = InternalChildren.Count;
@@ -127,16 +127,14 @@ namespace Leisn.Xaml.Wpf.Controls
                 maxChildDesiredWidth = Math.Max(maxChildDesiredWidth, childDesiredSize.Width);
                 maxChildDesiredHeight = Math.Max(maxChildDesiredHeight, childDesiredSize.Height);
             }
-            _cellSize = new Size(
-               double.IsInfinity(childConstraint.Width) ? maxChildDesiredWidth : childConstraint.Width,
-               double.IsInfinity(childConstraint.Height) ? maxChildDesiredHeight : childConstraint.Height);
-            double finalWidth = _cellSize.Width * _columns + (_columns - 1) * hspace;
-            double finalHeight = _cellSize.Height * _rows + (_rows - 1) * vspace;
-            double width = finalWidth + Padding.Left + Padding.Right;
-            double height = finalHeight + Padding.Top + Padding.Bottom;
-            width = Math.Max(0, width);
-            height = Math.Max(0, height);
-            return new Size(width, height);
+
+            double finalWidth = maxChildDesiredWidth * _columns + (_columns - 1) * hspace;
+            double finalHeight = maxChildDesiredHeight * _rows + (_rows - 1) * vspace;
+            finalWidth += Padding.Left + Padding.Right;
+            finalHeight += Padding.Top + Padding.Bottom;
+            finalWidth = Math.Max(0, finalWidth);
+            finalHeight = Math.Max(0, finalHeight);
+            return new Size(finalWidth, finalHeight);
         }
 
         protected override Size ArrangeOverride(Size finalSize)
@@ -149,8 +147,9 @@ namespace Leisn.Xaml.Wpf.Controls
 
             double hspace = FinalHorizontalSpacing;
             double vspace = FinalVerticalSpacing;
-            double cellWidth = _cellSize.Width;
-            double cellHeight = _cellSize.Height;
+
+            double cellWidth = (finalSize.Width - Padding.Left - Padding.Right - (_columns - 1) * hspace) / _columns;
+            double cellHeight = (finalSize.Height - Padding.Top - Padding.Bottom - (_rows - 1) * vspace) / _rows;
             int row, col;
             double left, top, width, height;
             for (int i = 0; i < count; ++i)
@@ -196,7 +195,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 int columnSpan = Grid.GetColumnSpan(child);
                 width = columnSpan > 1 ? columnSpan * cellWidth + (columnSpan - 1) * hspace : cellWidth;
                 height = rowSpan > 1 ? rowSpan * cellHeight + (rowSpan - 1) * vspace : cellHeight;
-
+                width = Math.Max(width, 0);
+                height = Math.Max(height, 0);
                 child.Arrange(new Rect(left, top, width, height));
             }
             return finalSize;
