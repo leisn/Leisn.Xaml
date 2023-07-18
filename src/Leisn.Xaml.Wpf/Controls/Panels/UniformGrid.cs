@@ -3,6 +3,7 @@
 using System;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -168,15 +169,13 @@ namespace Leisn.Xaml.Wpf.Controls
                     else if (Orientation == Orientation.Horizontal && row % 2 == 1)//even row
                         col = _rows - 1 - col;
                 }
-
                 int grow = Grid.GetRow(child);//start at 1
-                grow = grow > 0 ? grow - 1 : row;
+                row = grow > 0 ? grow - 1 : row;
                 int gcolumn = Grid.GetColumn(child);
-                gcolumn = gcolumn > 0 ? gcolumn - 1 : col;
+                col = gcolumn > 0 ? gcolumn - 1 : col;
 
-
-                left = Padding.Left + gcolumn * cellWidth + gcolumn * hspace;
-                top = Padding.Top + grow * cellHeight + grow * vspace;
+                left = Padding.Left + col * cellWidth + col * hspace;
+                top = Padding.Top + row * cellHeight + row * vspace;
 
                 int rowSpan = Grid.GetRowSpan(child);
                 int columnSpan = Grid.GetColumnSpan(child);
