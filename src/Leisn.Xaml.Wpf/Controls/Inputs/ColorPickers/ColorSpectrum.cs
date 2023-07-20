@@ -85,7 +85,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty CircleLengthProperty =
             DependencyProperty.Register("CircleLength", typeof(double), typeof(ColorSpectrum),
-                new FrameworkPropertyMetadata(.22d, FrameworkPropertyMetadataOptions.AffectsRender));
+                new FrameworkPropertyMetadata(.25d, FrameworkPropertyMetadataOptions.AffectsRender));
         public double Spacing
         {
             get => (double)GetValue(SpacingProperty);
