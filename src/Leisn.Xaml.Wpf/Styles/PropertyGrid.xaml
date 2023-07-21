@@ -124,7 +124,7 @@
     <Setter Property="MinWidth" Value="300"/>
     <Setter Property="Width" Value="500"/>
     <Setter Property="Height" Value="440"/>
-    <Setter Property="Background" Value="{DynamicResource RegionLight1Brush}"/>
+    <Setter Property="Background" Value="{DynamicResource RegionDark1Brush}"/>
   </Style>
 
   <!--#region property grid-->

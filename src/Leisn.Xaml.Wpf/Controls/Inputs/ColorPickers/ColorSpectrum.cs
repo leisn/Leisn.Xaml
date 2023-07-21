@@ -23,7 +23,7 @@ namespace Leisn.Xaml.Wpf.Controls
         Square, Disc
     }
 
-    public sealed class ColorSpectrum : SKElement
+    public class ColorSpectrum : SKElement
     {
         static ColorSpectrum()
         {

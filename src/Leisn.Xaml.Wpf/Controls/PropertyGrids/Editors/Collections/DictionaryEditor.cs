@@ -150,6 +150,11 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             if (editor.UseExpanderStyle)
             {
                 element.Margin = new Thickness(7);
+                var elementType = element.GetType();
+                if (elementType.IsTypeOf(typeof(CollectionEditorBase<>)))
+                {
+                    elementType.GetProperty("CanScroll")?.SetValue(element, true);
+                }
                 var button = new Button
                 {
                     ToolTip = _valueType.ToString(),

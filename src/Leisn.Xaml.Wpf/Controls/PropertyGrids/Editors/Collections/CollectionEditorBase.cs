@@ -132,6 +132,29 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             }
         }
 
+
+        private bool _canScroll;
+        public bool CanScroll
+        {
+            get => _canScroll;
+            set
+            {
+                if (value == _canScroll)
+                    return;
+                _canScroll = value;
+                UpdateCanScroll();
+            }
+        }
+
+        private void UpdateCanScroll()
+        {
+            if ((Content as Panel)?.Children[^1] is not ScrollViewer scrollView)
+            {
+                return;
+            }
+            scrollView.VerticalScrollBarVisibility = CanScroll ? ScrollBarVisibility.Auto : ScrollBarVisibility.Hidden;
+        }
+
         protected override void OnInitialized(EventArgs e)
         {
             DockPanel panel = new() { Margin = Padding, };
@@ -143,12 +166,21 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             }
             var operationBar = CreateOperationBar();
             DockPanel.SetDock(operationBar, Dock.Bottom);
+            var scrollView = new ScrollViewer
+            {
+                Content = GetContanier(),
+                VerticalScrollBarVisibility = CanScroll ? ScrollBarVisibility.Auto : ScrollBarVisibility.Hidden,
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden,
+            };
+
             panel.Children.Add(operationBar);
-            panel.Children.Add(GetContanier());
+            panel.Children.Add(scrollView);
             Content = panel;
 
             base.OnInitialized(e);
         }
+
+
 
         protected virtual Panel GetContanier()
         {
@@ -205,6 +237,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             var count = GetElementCount();
             for (int i = index; i < count; i++)
             {
+                grid = (Grid)GetContanier().Children[i];
+                button = (Button)grid.Children[^1];
+                button.Tag = i;
                 UpdateIndexText(i);
             }
         }

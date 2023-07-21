@@ -16,7 +16,67 @@ namespace System
         /// <returns></returns>
         public static bool IsTypeOf(this Type type, Type parentType)
         {
-            return type.IsSubclassOf(parentType) || type.IsImplementOf(parentType);
+            return Equals(type, parentType) || type.IsDerivedFrom(parentType) || type.IsImplementOf(parentType);
+        }
+
+        /// <summary>
+        /// Is derived from [parentType], if is same type return true
+        /// </summary>
+        public static bool IsDerivedFrom(this Type type, Type parentType)
+        {
+            if (Equals(type, parentType) || type.IsSubclassOf(parentType))
+                return true;
+
+            var parentTypeDefinition = parentType.IsGenericType ? parentType.GetGenericTypeDefinition() : null;
+            if (type.IsGenericType && Equals(parentTypeDefinition, type.GetGenericTypeDefinition()))
+                return true;
+
+            var inheritType = type.GetInheritTypes();
+            foreach (var item in inheritType)
+            {
+                if (Equals(item, parentType))
+                    return true;
+                if (item.IsGenericType && Equals(parentTypeDefinition, item.GetGenericTypeDefinition()))
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Is type implment of [interfaceType], GenericTypeDefinition supported.
+        /// </summary>
+        /// <param name="interfaceType"> Type of interface</param>
+        public static bool IsImplementOf(this Type type, Type interfaceType)
+        {
+            var interfaces = type.GetInterfaces();
+            var interfaceTypeDefinition = interfaceType.IsGenericType ? interfaceType.GetGenericTypeDefinition() : null;
+            foreach (var item in interfaces)
+            {
+                if (Equals(interfaceType, item))
+                {
+                    return true;
+                }
+                if (item.IsGenericType && Equals(interfaceTypeDefinition, item.GetGenericTypeDefinition()))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Get parent types of current type 
+        /// </summary>
+        public static List<Type> GetInheritTypes(this Type type)
+        {
+            var list = new List<Type>();
+            Type temp = type;
+            while (temp.BaseType != null)
+            {
+                list.Add(temp.BaseType);
+                temp = temp.BaseType;
+            }
+            return list;
         }
 
         /// <summary>
@@ -34,28 +94,6 @@ namespace System
         {
             elementType = Nullable.GetUnderlyingType(type);
             return elementType != null;
-        }
-
-        /// <summary>
-        /// Is type implment of [interfaceType], GenericTypeDefinition supported.
-        /// </summary>
-        /// <param name="interfaceType"> Type of interface</param>
-        public static bool IsImplementOf(this Type type, Type interfaceType)
-        {
-            var interfaces = type.GetInterfaces();
-            foreach (var item in interfaces)
-            {
-                if (Equals(interfaceType, item))
-                {
-                    return true;
-                }
-                if (interfaceType.IsTypeDefinition && item.IsGenericType &&
-                    Equals(interfaceType, item.GetGenericTypeDefinition()))
-                {
-                    return true;
-                }
-            }
-            return false;
         }
 
         /// <summary>
