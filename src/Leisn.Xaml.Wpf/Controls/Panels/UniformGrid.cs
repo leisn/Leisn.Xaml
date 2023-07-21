@@ -1,6 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Common;
@@ -140,7 +141,10 @@ namespace Leisn.Xaml.Wpf.Controls
             double cellHeight = (finalSize.Height - Padding.Top - Padding.Bottom - (_rows - 1) * vspace) / _rows;
             int row, col;
             double left, top, width, height;
-            for (int i = 0; i < count; ++i)
+
+            //先放置含有Grid.row的，再放置其他，已被占据的位置不能再放置，超出边界的叠在最后一格里
+            int index = 0;
+            for (int i = 0; i < count; i++)
             {
                 UIElement child = InternalChildren[i];
                 if (child == null || child.Visibility == Visibility.Collapsed)
@@ -148,19 +152,28 @@ namespace Leisn.Xaml.Wpf.Controls
                     continue;
                 }
 
+                int rowSpan = Grid.GetRowSpan(child);
+                int colSpan = Grid.GetColumnSpan(child);
+                int grow = Grid.GetRow(child);//start at 1
+                int gcol = Grid.GetColumn(child);
+
+                if (grow > 0 && gcol > 0)
+                {
+                    row = grow - 1;
+                    col = gcol - 1;
+                    goto arrange;
+                }
+
                 if (Orientation == Orientation.Vertical)
                 {
-                    col = i / _rows;
-                    row = i % _rows;
+                    col = index / _rows;
+                    row = index % _rows;
                 }
                 else
                 {
-                    row = i / _columns;
-                    col = i % _columns;
+                    row = index / _columns;
+                    col = index % _columns;
                 }
-
-                row = row > _rows - 1 ? _rows - 1 : row; //keep in cells
-                col = col > _columns - 1 ? _columns - 1 : col;
 
                 if (IsCurved)
                 {
@@ -169,20 +182,16 @@ namespace Leisn.Xaml.Wpf.Controls
                     else if (Orientation == Orientation.Horizontal && row % 2 == 1)//even row
                         col = _rows - 1 - col;
                 }
-                int grow = Grid.GetRow(child);//start at 1
-                row = grow > 0 ? grow - 1 : row;
-                int gcolumn = Grid.GetColumn(child);
-                col = gcolumn > 0 ? gcolumn - 1 : col;
-
+                index++; //含有Grid.Row的不参与排列
+            arrange:
+                row = Math.Clamp(row, 0, _rows - 1);
+                col = Math.Clamp(col, 0, _columns - 1);
                 left = Padding.Left + col * cellWidth + col * hspace;
                 top = Padding.Top + row * cellHeight + row * vspace;
-
-                int rowSpan = Grid.GetRowSpan(child);
-                int columnSpan = Grid.GetColumnSpan(child);
-                width = columnSpan > 1 ? columnSpan * cellWidth + (columnSpan - 1) * hspace : cellWidth;
+                rowSpan = Math.Clamp(rowSpan, 0, _rows - row);
+                colSpan = Math.Clamp(colSpan, 0, _columns - col);
+                width = colSpan > 1 ? colSpan * cellWidth + (colSpan - 1) * hspace : cellWidth;
                 height = rowSpan > 1 ? rowSpan * cellHeight + (rowSpan - 1) * vspace : cellHeight;
-                width = Math.Max(width, 0);
-                height = Math.Max(height, 0);
                 child.Arrange(new Rect(left, top, width, height));
             }
             return finalSize;
