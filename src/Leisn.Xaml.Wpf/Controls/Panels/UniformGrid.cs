@@ -3,8 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Data.Common;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -139,31 +137,39 @@ namespace Leisn.Xaml.Wpf.Controls
 
             double cellWidth = (finalSize.Width - Padding.Left - Padding.Right - (_columns - 1) * hspace) / _columns;
             double cellHeight = (finalSize.Height - Padding.Top - Padding.Bottom - (_rows - 1) * vspace) / _rows;
-            int row, col;
+            int row, col, rowSpan, colSpan;
             double left, top, width, height;
-
+            bool[,] _cells = new bool[_rows, _columns];
+            var unArranged = new List<UIElement>();
             //先放置含有Grid.row的，再放置其他，已被占据的位置不能再放置，超出边界的叠在最后一格里
-            int index = 0;
-            for (int i = 0; i < count; i++)
+            foreach (UIElement child in InternalChildren)
             {
-                UIElement child = InternalChildren[i];
                 if (child == null || child.Visibility == Visibility.Collapsed)
                 {
                     continue;
                 }
-
-                int rowSpan = Grid.GetRowSpan(child);
-                int colSpan = Grid.GetColumnSpan(child);
-                int grow = Grid.GetRow(child);//start at 1
-                int gcol = Grid.GetColumn(child);
-
-                if (grow > 0 && gcol > 0)
+                row = Grid.GetRow(child);//start at 1
+                col = Grid.GetColumn(child);
+                rowSpan = Grid.GetRowSpan(child);
+                colSpan = Grid.GetColumnSpan(child);
+                if (row > 0 && col > 0)
                 {
-                    row = grow - 1;
-                    col = gcol - 1;
-                    goto arrange;
+                    row -= 1;
+                    col -= 1;
+                    arrange(child);
                 }
+                else
+                {
+                    unArranged.Add(child);
+                }
+            }
 
+            int index = 0;
+            foreach (UIElement child in unArranged)
+            {
+                rowSpan = Grid.GetRowSpan(child);
+                colSpan = Grid.GetColumnSpan(child);
+            calcCell:
                 if (Orientation == Orientation.Vertical)
                 {
                     col = index / _rows;
@@ -174,25 +180,43 @@ namespace Leisn.Xaml.Wpf.Controls
                     row = index / _columns;
                     col = index % _columns;
                 }
-
                 if (IsCurved)
                 {
                     if (Orientation == Orientation.Vertical && col % 2 == 1)//even col
-                        row = _rows - 1 - row;
+                    {
+                        row = _rows - row - rowSpan;
+                    }
                     else if (Orientation == Orientation.Horizontal && row % 2 == 1)//even row
-                        col = _rows - 1 - col;
+                    {
+                        col = _rows - col - colSpan;
+                    }
                 }
-                index++; //含有Grid.Row的不参与排列
-            arrange:
+                index++;
+                if (_cells[row, col] && !(row == _rows - 1 && col == _columns - 1))
+                {
+                    goto calcCell;
+                }
+                arrange(child);
+            }
+
+            void arrange(UIElement child)
+            {
                 row = Math.Clamp(row, 0, _rows - 1);
                 col = Math.Clamp(col, 0, _columns - 1);
                 left = Padding.Left + col * cellWidth + col * hspace;
                 top = Padding.Top + row * cellHeight + row * vspace;
-                rowSpan = Math.Clamp(rowSpan, 0, _rows - row);
-                colSpan = Math.Clamp(colSpan, 0, _columns - col);
+                rowSpan = Math.Clamp(rowSpan, 1, _rows - row);
+                colSpan = Math.Clamp(colSpan, 1, _columns - col);
                 width = colSpan > 1 ? colSpan * cellWidth + (colSpan - 1) * hspace : cellWidth;
                 height = rowSpan > 1 ? rowSpan * cellHeight + (rowSpan - 1) * vspace : cellHeight;
                 child.Arrange(new Rect(left, top, width, height));
+                for (int i = row; i < row + rowSpan; i++)
+                {
+                    for (int j = col; j < col + colSpan; j++)
+                    {
+                        _cells[i, j] = true;
+                    }
+                }
             }
             return finalSize;
         }
