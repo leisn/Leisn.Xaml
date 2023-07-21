@@ -1731,6 +1731,21 @@
     </Setter>
   </Style>
   <Style TargetType="DatePicker" BasedOn="{StaticResource DatePickerBaseStyle}" />
+  <Style x:Key="DateTimePickerBaseStyle" TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource BaseInputStyle}">
+    <Setter Property="SnapsToDevicePixels" Value="True" />
+    <Setter Property="MinWidth" Value="100" />
+    <Setter Property="MinHeight" Value="100" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:DateTimePicker}">
+          <Border>
+            <local:DateTimeClock />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource DateTimePickerBaseStyle}" />
   <Style x:Key="NumberSelectorButtonStyle" TargetType="{x:Type RepeatButton}" BasedOn="{StaticResource ButtonBaseStyle}">
     <Setter Property="Focusable" Value="False" />
     <Setter Property="Visibility" Value="Collapsed" />
@@ -2305,7 +2320,7 @@
     <Setter Property="MinWidth" Value="300" />
     <Setter Property="Width" Value="500" />
     <Setter Property="Height" Value="440" />
-    <Setter Property="Background" Value="{DynamicResource RegionLight1Brush}" />
+    <Setter Property="Background" Value="{DynamicResource RegionDark1Brush}" />
   </Style>
   <Style x:Key="PropertyItemToolTipBaseStyle" BasedOn="{StaticResource ToolTipBaseStyle}" TargetType="ToolTip">
     <Setter Property="Padding" Value="10" />

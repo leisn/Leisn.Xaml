@@ -47,7 +47,7 @@ namespace WpfDemo
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             var list = Lang.Languages.Select(x => new CultureInfo(x)).ToList();
-            langsBox.DisplayMemberPath = "NativeName";
+            langsBox.DisplayMemberPath = nameof(CultureInfo.NativeName);
             langsBox.ItemsSource = list;
             langsBox.SelectedItem = new CultureInfo(Lang.CurrentLanguage);
             langsBox.SelectionChanged += LangsBox_SelectionChanged;
