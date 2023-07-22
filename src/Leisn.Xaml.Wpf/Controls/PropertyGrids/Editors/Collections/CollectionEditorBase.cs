@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
+using System.Windows.Input;
 
 using Leisn.Xaml.Wpf.Converters;
 
@@ -25,6 +25,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public CollectionEditorBase()
         {
             Padding = new Thickness(7, 0, 7, 5);
+            Focusable = false;
         }
 
         public virtual FrameworkElement CreateElement(PropertyItem item)
@@ -152,6 +153,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             {
                 return;
             }
+            scrollView.CanContentScroll = CanScroll;
             scrollView.VerticalScrollBarVisibility = CanScroll ? ScrollBarVisibility.Auto : ScrollBarVisibility.Hidden;
         }
 
@@ -171,16 +173,16 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 Content = GetContanier(),
                 VerticalScrollBarVisibility = CanScroll ? ScrollBarVisibility.Auto : ScrollBarVisibility.Hidden,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden,
+                CanContentScroll = CanScroll,
+                PanningMode = PanningMode.VerticalOnly,
+                Focusable = false
             };
-
             panel.Children.Add(operationBar);
             panel.Children.Add(scrollView);
             Content = panel;
 
             base.OnInitialized(e);
         }
-
-
 
         protected virtual Panel GetContanier()
         {
@@ -445,5 +447,15 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         protected abstract object CreateNewItem();
         protected abstract void OnRemoveElement(T element);
 
+    }
+
+    internal class ScrollViewer : System.Windows.Controls.ScrollViewer
+    {
+        protected override void OnMouseWheel(MouseWheelEventArgs e)
+        {
+            if (!CanContentScroll)
+                return;
+            base.OnMouseWheel(e);
+        }
     }
 }
