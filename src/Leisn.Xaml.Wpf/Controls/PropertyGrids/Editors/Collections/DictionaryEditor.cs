@@ -13,7 +13,6 @@ using System.Windows.Data;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
-using Leisn.Common.Collections;
 using Leisn.Xaml.Wpf.Extensions;
 using Leisn.Xaml.Wpf.Locales;
 
@@ -153,7 +152,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 var elementType = element.GetType();
                 if (elementType.IsTypeOf(typeof(CollectionEditorBase<>)))
                 {
-                    elementType.GetProperty("CanScroll")?.SetValue(element, true);
+                    ScrollViewer.SetCanContentScroll(element, true);
                 }
                 var button = new Button
                 {

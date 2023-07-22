@@ -133,30 +133,6 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             }
         }
 
-
-        private bool _canScroll;
-        public bool CanScroll
-        {
-            get => _canScroll;
-            set
-            {
-                if (value == _canScroll)
-                    return;
-                _canScroll = value;
-                UpdateCanScroll();
-            }
-        }
-
-        private void UpdateCanScroll()
-        {
-            if ((Content as Panel)?.Children[^1] is not ScrollViewer scrollView)
-            {
-                return;
-            }
-            scrollView.CanContentScroll = CanScroll;
-            scrollView.VerticalScrollBarVisibility = CanScroll ? ScrollBarVisibility.Auto : ScrollBarVisibility.Hidden;
-        }
-
         protected override void OnInitialized(EventArgs e)
         {
             DockPanel panel = new() { Margin = Padding, };
@@ -171,9 +147,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             var scrollView = new ScrollViewer
             {
                 Content = GetContanier(),
-                VerticalScrollBarVisibility = CanScroll ? ScrollBarVisibility.Auto : ScrollBarVisibility.Hidden,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto ,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden,
-                CanContentScroll = CanScroll,
+                CanContentScroll = ScrollViewer.GetCanContentScroll(this),
                 PanningMode = PanningMode.VerticalOnly,
                 Focusable = false
             };
