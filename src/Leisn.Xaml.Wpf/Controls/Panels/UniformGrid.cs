@@ -184,11 +184,11 @@ namespace Leisn.Xaml.Wpf.Controls
                 {
                     if (Orientation == Orientation.Vertical && col % 2 == 1)//even col
                     {
-                        row = _rows - row - rowSpan;
+                        row = Math.Clamp(_rows - row - rowSpan, 0, _rows - 1);
                     }
                     else if (Orientation == Orientation.Horizontal && row % 2 == 1)//even row
                     {
-                        col = _rows - col - colSpan;
+                        col = Math.Clamp(_columns - col - colSpan, 0, _columns - 1);
                     }
                 }
                 index++;
