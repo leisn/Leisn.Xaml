@@ -27,6 +27,7 @@
   
   <ItemGroup>
     <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.3" />
+    <PackageReference Include="System.Globalization.Calendars" Version="4.3.0" />
     <PackageReference Include="WindowsAPICodePack.Shell.CommonFileDialogs.Wpf" Version="1.1.5" />
   </ItemGroup>
 

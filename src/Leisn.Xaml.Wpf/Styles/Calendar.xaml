@@ -232,7 +232,7 @@
         <ControlTemplate TargetType="{x:Type CalendarItem}">
           <ControlTemplate.Resources>
             <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
-              <TextBlock Foreground="{DynamicResource TextDarkBrush}" FontFamily="Verdana" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,6,0,6" Text="{Binding}" VerticalAlignment="Center"/>
+              <TextBlock Opacity=".75" Foreground="{DynamicResource TextDarkBrush}" FontFamily="Verdana" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,6,0,6" Text="{Binding}" VerticalAlignment="Center"/>
             </DataTemplate>
           </ControlTemplate.Resources>
           <Grid x:Name="PART_Root">

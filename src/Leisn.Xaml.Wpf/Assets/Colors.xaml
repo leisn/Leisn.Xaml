@@ -6,7 +6,7 @@
 
   <Color x:Key="TextColor">#E0E0E0</Color>
   <Color x:Key="TextLightColor">#F0F0F0</Color>
-  <Color x:Key="TextDarkColor">#B3B4B5</Color>
+  <Color x:Key="TextDarkColor">#B0B0B0</Color>
   <Color x:Key="TextInverseColor">#FF212121</Color>
 
   <Color x:Key="PrimaryColor">#326CF3</Color>
