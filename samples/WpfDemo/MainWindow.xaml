@@ -19,8 +19,9 @@
       <ln:UniformGrid Spacing="10" Columns="2" Rows="3" IsCurved="True" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Button Content="1"/>
         <Button Content="2"/>
-        <Button Content="3" Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"/>
+        <Button Content="3"/>
         <Button Content="4"/>
+        <Button Content="5" Grid.RowSpan="2"/>
       </ln:UniformGrid>
     </ln:UniformGrid>
     <ln:StackPanel Grid.Column="1" Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -40,6 +41,7 @@
       <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
       <ln:FontIcon FontFamily="{StaticResource FluentIconFontFamily}" Glyph="&#xE082;" Foreground="White"
                    Background="Green" Padding="5" HorizontalAlignment="Center" CornerRadius="7"/>
+      <ln:DateTimePicker/>
     </ln:StackPanel>
     <ln:PropertyGrid Grid.Column="2" x:Name="perpertyGrid"/>
   </Grid>

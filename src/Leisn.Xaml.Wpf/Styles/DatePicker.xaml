@@ -112,7 +112,7 @@
                   <ColumnDefinition Width="*"/>
                   <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Popup x:Name="PART_Popup" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}" StaysOpen="False"/>
+                <Popup x:Name="PART_Popup" StaysOpen="False" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=PART_TextBox}"/>
               </Grid>
             </Grid>
           </Border>
@@ -138,15 +138,79 @@
   </Style>
   <Style TargetType="DatePicker" BasedOn="{StaticResource DatePickerBaseStyle}"/>
 
+  <Style x:Key="DateTimePickerListBoxStyle" TargetType="ListBox" BasedOn="{StaticResource ListBoxBaseStyle}">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="0"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="ItemsPanel">
+      <Setter.Value>
+        <ItemsPanelTemplate>
+          <UniformGrid Rows="6" Columns="7"/>
+        </ItemsPanelTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  
   <Style x:Key="DateTimePickerBaseStyle" TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="MinWidth" Value="100"/>
     <Setter Property="MinHeight" Value="100"/>
+    <Setter Property="Padding" Value="5"/>
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:DateTimePicker}">
-          <Border>
-            <local:DateTimeClock/>
+          <Border Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
+                  BorderBrush="{StaticResource BorderBrush}">
+            <Grid>
+              <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+              </Grid.RowDefinitions>
+              <Grid Margin="{TemplateBinding Padding}">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition/>
+                  <ColumnDefinition Width="auto"/>
+                  <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="auto"/>
+                  <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button x:Name="PART_PreviousButton" Grid.Column="1" Focusable="False" Height="30" Grid.Row="0"  Width="30" Background="Transparent">
+                  <Grid>
+                    <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}"
+                          HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center"
+                          RenderTransformOrigin="0.5,0.5">
+                      <Path.RenderTransform>
+                        <RotateTransform Angle="-90"/>
+                      </Path.RenderTransform>
+                    </Path>
+                  </Grid>
+                </Button>
+                <Button x:Name="PART_NextButton" Grid.Column="2" Focusable="False" Height="30" Grid.Row="0" Width="30" Background="Transparent">
+                  <Grid>
+                    <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}"
+                          HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center"
+                          RenderTransformOrigin="0.5,0.5">
+                      <Path.RenderTransform>
+                        <RotateTransform Angle="90"/>
+                      </Path.RenderTransform>
+                    </Path>
+                  </Grid>
+                </Button>
+                <ListBox x:Name="PART_ItemsControl" Grid.Row="1" Grid.ColumnSpan="3"
+                         Style="{DynamicResource DateTimePickerListBoxStyle}"/>
+              </Grid>
+
+              <UniformGrid Grid.Row="1" Rows="1">
+                <ToggleButton Content="2020/07/23" local:ControlAttach.CornerRadius="0,0,0,4"/>
+                <ToggleButton Content="17:24:53" local:ControlAttach.CornerRadius="0,0,4,0"/>
+              </UniformGrid>
+            </Grid>
           </Border>
         </ControlTemplate>
       </Setter.Value>
