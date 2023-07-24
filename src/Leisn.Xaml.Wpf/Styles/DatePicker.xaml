@@ -138,24 +138,46 @@
   </Style>
   <Style TargetType="DatePicker" BasedOn="{StaticResource DatePickerBaseStyle}"/>
 
-  <Style x:Key="DateTimePickerListBoxStyle" TargetType="ListBox" BasedOn="{StaticResource ListBoxBaseStyle}">
+  <Style x:Key="DateTimePickerItemStyle" TargetType="{x:Type local:DateTimePickerItem}" BasedOn="{StaticResource ButtonBaseStyle}">
+    <Setter Property="Width" Value="40"/>
+    <Setter Property="Height" Value="40"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="20"/>
     <Setter Property="Background" Value="Transparent"/>
-    <Setter Property="local:ControlAttach.CornerRadius" Value="0"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="ItemsPanel">
+    <Setter Property="Template">
       <Setter.Value>
-        <ItemsPanelTemplate>
-          <UniformGrid Rows="6" Columns="7"/>
-        </ItemsPanelTemplate>
+        <ControlTemplate TargetType="{x:Type local:DateTimePickerItem}">
+          <Border x:Name="bd" Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
+                  BorderBrush="{StaticResource BorderBrush}">
+            <StackPanel VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+              <TextBlock TextAlignment="Center" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Value}"/>
+              <TextBlock TextAlignment="Center" Text="{TemplateBinding Subtitle}" Foreground="{DynamicResource TextDarkBrush}"
+                         Visibility="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Subtitle,Converter={StaticResource ObjectVisibilityConverter}}"/>
+            </StackPanel>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".5" TargetName="bd" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}" TargetName="bd" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="bd" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-
+  <Style TargetType="{x:Type local:DateTimePickerItem}" BasedOn="{StaticResource DateTimePickerItemStyle}"/>
   <Style x:Key="DateTimePickerBaseStyle" TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="MinWidth" Value="100"/>
     <Setter Property="MinHeight" Value="100"/>
-    <Setter Property="Padding" Value="5"/>
+    <Setter Property="Padding" Value="7,7,7,10"/>
     <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Template">
@@ -165,61 +187,56 @@
                   BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   BorderBrush="{StaticResource BorderBrush}">
-            <Grid>
+            <Grid >
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+              </Grid.ColumnDefinitions>
               <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
               </Grid.RowDefinitions>
-              <Grid Margin="{TemplateBinding Padding}"
-                    Visibility="{Binding ElementName=dateTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition/>
-                  <ColumnDefinition Width="auto"/>
-                  <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="auto"/>
-                  <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Button x:Name="PART_HeaderButton" Background="Transparent" Content="Header" Height="30" Cursor="Hand"
+              <Button x:Name="PART_HeaderButton" Margin="5,5,0,0" Background="Transparent" Content="Header" Height="30" Cursor="Hand"
                         Grid.Row="0" Grid.Column="0" Focusable="False" FontFamily="Verdana" FontWeight="Bold"
-                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>
-                <Button x:Name="PART_PreviousButton" Grid.Column="1" Focusable="False" Height="30" Grid.Row="0"  Width="30" Background="Transparent">
-                  <Grid>
-                    <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}"
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Stretch"/>
+              <Button x:Name="PART_PreviousButton" Grid.Column="1" Margin="5,5,0,0" Focusable="False" Height="30" Grid.Row="0"  Width="30" Background="Transparent">
+                <Grid>
+                  <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}"
                           HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center"
                           RenderTransformOrigin="0.5,0.5">
-                      <Path.RenderTransform>
-                        <RotateTransform Angle="-90"/>
-                      </Path.RenderTransform>
-                    </Path>
-                  </Grid>
-                </Button>
-                <Button x:Name="PART_NextButton" Grid.Column="2" Focusable="False" Height="30" Grid.Row="0" Width="30" Background="Transparent">
-                  <Grid>
-                    <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}"
+                    <Path.RenderTransform>
+                      <RotateTransform Angle="-90"/>
+                    </Path.RenderTransform>
+                  </Path>
+                </Grid>
+              </Button>
+              <Button x:Name="PART_NextButton" Grid.Column="2" Margin="0,5,5,0" Focusable="False" Height="30" Grid.Row="0" Width="30" Background="Transparent">
+                <Grid>
+                  <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}"
                           HorizontalAlignment="Center" Height="{TemplateBinding FontSize}" Stretch="Uniform" VerticalAlignment="Center"
                           RenderTransformOrigin="0.5,0.5">
-                      <Path.RenderTransform>
-                        <RotateTransform Angle="90"/>
-                      </Path.RenderTransform>
-                    </Path>
-                  </Grid>
-                </Button>
-                <ListBox x:Name="PART_ItemsControl" Grid.Row="1" Grid.ColumnSpan="3"
-                         Style="{DynamicResource DateTimePickerListBoxStyle}"/>
-              </Grid>
-
-              <UniformGrid Grid.Row="1" Rows="1">
-                <RadioButton x:Name="dateTab" IsChecked="True" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,0,3">
+                    <Path.RenderTransform>
+                      <RotateTransform Angle="90"/>
+                    </Path.RenderTransform>
+                  </Path>
+                </Grid>
+              </Button>
+              <local:UniformGrid x:Name="PART_ItemHost" Margin="{TemplateBinding Padding}"
+                                   Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3" />
+              <UniformGrid  Grid.Row="2" Grid.ColumnSpan="3" Rows="1">
+                <RadioButton x:Name="dateTab" Height="30" IsChecked="True" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,0,3">
                   <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=DisplayDateTime,StringFormat={}{0:yyyy/MM/dd}}"/>
                 </RadioButton>
-                <RadioButton x:Name="timeTab" IsChecked="False" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,3,0" >
+                <RadioButton x:Name="timeTab" Height="30" IsChecked="False" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,3,0" >
                   <TextBlock Text="{Binding DisplayDateTime, RelativeSource={RelativeSource Mode=TemplatedParent},StringFormat={}{0:HH:mm:ss}}"/>
                 </RadioButton>
               </UniformGrid>
             </Grid>
           </Border>
+          <ControlTemplate.Triggers>
+          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

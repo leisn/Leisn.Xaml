@@ -180,6 +180,10 @@ namespace Leisn.Xaml.Wpf.Controls
                     row = index / _columns;
                     col = index % _columns;
                 }
+                index++;
+
+                if (row >= _rows || col >= _columns) //忽略范围外的
+                    continue;
                 if (IsCurved)
                 {
                     if (Orientation == Orientation.Vertical && col % 2 == 1)//even col
@@ -191,7 +195,6 @@ namespace Leisn.Xaml.Wpf.Controls
                         col = Math.Clamp(_columns - col - colSpan, 0, _columns - 1);
                     }
                 }
-                index++;
                 if (_cells[row, col] && !(row == _rows - 1 && col == _columns - 1))
                 {
                     goto calcCell;
