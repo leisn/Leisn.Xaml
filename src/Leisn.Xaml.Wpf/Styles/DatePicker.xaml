@@ -150,7 +150,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  
+
   <Style x:Key="DateTimePickerBaseStyle" TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="MinWidth" Value="100"/>
@@ -170,7 +170,8 @@
                 <RowDefinition/>
                 <RowDefinition Height="auto"/>
               </Grid.RowDefinitions>
-              <Grid Margin="{TemplateBinding Padding}">
+              <Grid Margin="{TemplateBinding Padding}"
+                    Visibility="{Binding ElementName=dateTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}">
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition/>
                   <ColumnDefinition Width="auto"/>
@@ -180,6 +181,9 @@
                   <RowDefinition Height="auto"/>
                   <RowDefinition/>
                 </Grid.RowDefinitions>
+                <Button x:Name="PART_HeaderButton" Background="Transparent" Content="Header" Height="30" Cursor="Hand"
+                        Grid.Row="0" Grid.Column="0" Focusable="False" FontFamily="Verdana" FontWeight="Bold"
+                        HorizontalAlignment="Stretch" HorizontalContentAlignment="Left"/>
                 <Button x:Name="PART_PreviousButton" Grid.Column="1" Focusable="False" Height="30" Grid.Row="0"  Width="30" Background="Transparent">
                   <Grid>
                     <Path Data="{StaticResource RoundTriangleGeometry}" Fill="{TemplateBinding Foreground}"
@@ -207,8 +211,12 @@
               </Grid>
 
               <UniformGrid Grid.Row="1" Rows="1">
-                <ToggleButton Content="2020/07/23" local:ControlAttach.CornerRadius="0,0,0,4"/>
-                <ToggleButton Content="17:24:53" local:ControlAttach.CornerRadius="0,0,4,0"/>
+                <RadioButton x:Name="dateTab" IsChecked="True" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,0,3">
+                  <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=DisplayDateTime,StringFormat={}{0:yyyy/MM/dd}}"/>
+                </RadioButton>
+                <RadioButton x:Name="timeTab" IsChecked="False" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,3,0" >
+                  <TextBlock Text="{Binding DisplayDateTime, RelativeSource={RelativeSource Mode=TemplatedParent},StringFormat={}{0:HH:mm:ss}}"/>
+                </RadioButton>
               </UniformGrid>
             </Grid>
           </Border>

@@ -15,7 +15,6 @@
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
     <ln:UniformGrid Columns="1">
-      <ln:DateTimeClock/>
       <ln:UniformGrid Spacing="10" Columns="2" Rows="3" IsCurved="True" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Button Content="1"/>
         <Button Content="2"/>
