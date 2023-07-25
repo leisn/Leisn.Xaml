@@ -262,10 +262,10 @@
               </Button>
               <local:UniformGrid x:Name="PART_ItemHost" Margin="{TemplateBinding Padding}"
                                  Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3"
-                                 Visibility="{Binding ElementName=dateTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}"/>
+                                 Visibility="{Binding ElementName=dateTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter},ConverterParameter=FalseHidden}"/>
               <local:UniformGrid x:Name="PART_TimeItemHost" Margin="{TemplateBinding Padding}"
                                  Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3"
-                                 Visibility="{Binding ElementName=timeTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}"/>
+                                 Visibility="{Binding ElementName=timeTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter},ConverterParameter=FalseHidden}"/>
               <UniformGrid Grid.Row="2" Grid.ColumnSpan="3" Rows="1">
                 <RadioButton x:Name="dateTab" Height="32" IsChecked="True" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,0,3">
                   <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=DisplayDateTime,StringFormat={}{0:yyyy/MM/dd}}"/>
@@ -278,6 +278,14 @@
               </UniformGrid>
             </Grid>
           </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsNowTimeView" Value="True">
+              <Setter Property="Visibility" Value="Hidden" TargetName="PART_PreviousButton"/>
+            </Trigger>
+            <Trigger Property="IsNowTimeView" Value="True">
+              <Setter Property="Visibility" Value="Hidden" TargetName="PART_NextButton"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>

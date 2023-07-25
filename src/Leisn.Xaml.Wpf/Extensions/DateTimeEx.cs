@@ -46,6 +46,11 @@ namespace Leisn.Xaml.Wpf.Extensions
             return self.WithTime(time.Hour, time.Minute, time.Second, time.Millisecond);
         }
 
+        public static DateTime With(this DateTime self, int? Year = null, int? Month = null, int? Day = null, int? Hour = null, int? Minute = null, int? Second = null, int? Millisecond = null)
+        {
+            return new DateTime(Year ?? self.Year, Month ?? self.Month, Day ?? self.Day, Hour ?? self.Hour, Minute ?? self.Minute, Second ?? self.Second, Millisecond ?? self.Millisecond);
+        }
+
         public static DateTime FirstDayOfMonth(this DateTime self)
         {
             return new(self.Year, self.Month, 1, self.Hour, self.Minute, self.Second);
@@ -63,9 +68,12 @@ namespace Leisn.Xaml.Wpf.Extensions
         }
 
         #region 农历
+
         private static readonly string[] Tiangans = { "甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸" };
         private static readonly string[] Dizhis = { "子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥" };
         private static readonly Calendar LunisolarCalendar = Calendar.ReadOnly(new ChineseLunisolarCalendar());
+        public static DateTime MaxDateTime => LunisolarCalendar.MaxSupportedDateTime;
+        public static DateTime MinDateTime => LunisolarCalendar.MinSupportedDateTime;
         public static string GetLunisolarYear(this DateTime self)
         {
             var year = LunisolarCalendar.GetYear(self);
@@ -114,5 +122,6 @@ namespace Leisn.Xaml.Wpf.Extensions
             return $"{GetLunisolarYear(self)}年 {GetLunisolarMonth(self)}月{GetLunisolarDay(self)}";
         }
         #endregion
+
     }
 }

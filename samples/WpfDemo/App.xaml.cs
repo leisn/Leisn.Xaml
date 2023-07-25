@@ -25,6 +25,7 @@ using System.Collections.ObjectModel;
 using Microsoft.VisualBasic;
 using System.Runtime.CompilerServices;
 using Leisn.Xaml.Wpf.Extensions;
+using System.Timers;
 
 namespace WpfDemo
 {
@@ -43,6 +44,26 @@ namespace WpfDemo
             // process.Start();
             // Console.SetOut(process.StandardInput);
             // Console.SetError(process.StandardInput);
+            var min = DateTimeEx.MinDateTime;
+            var max = DateTimeEx.MaxDateTime;
+            for (int i = 1902; i < 2100; i++)
+            {
+                var time = new DateTime(i, 1, 1);
+                if (time.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    Console.WriteLine(i);
+                }
+
+            }
+
+            for (int i = 2100; i > 2020; i--)
+            {
+                var time = new DateTime(i, 12, 31);
+                if (time.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    Console.WriteLine(i);
+                }
+            }
 
             Console.WriteLine("Lang init...");
             Lang.Initialize(Thread.CurrentThread.CurrentCulture.Name);
