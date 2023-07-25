@@ -10,21 +10,38 @@ namespace Leisn.Xaml.Wpf.Controls
 {
     public class DateTimePickerItem : Button
     {
-        public int Value
+        public DateTime Value
         {
-            get { return (int)GetValue(ValueProperty); }
+            get { return (DateTime)GetValue(ValueProperty); }
             set { SetValue(ValueProperty, value); }
         }
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(int), typeof(DateTimePickerItem), new PropertyMetadata(0));
+            DependencyProperty.Register("Value", typeof(DateTime), typeof(DateTimePickerItem), new PropertyMetadata(DateTime.MinValue));
 
-        public string Subtitle
+        public string Title
         {
-            get { return (string)GetValue(SubtitleProperty); }
+            get { return (string)GetValue(TitleProperty); }
+            set { SetValue(TitleProperty, value); }
+        }
+        public static readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register("Title", typeof(string), typeof(DateTimePickerItem), new PropertyMetadata(string.Empty));
+
+        public string? Subtitle
+        {
+            get { return (string?)GetValue(SubtitleProperty); }
             set { SetValue(SubtitleProperty, value); }
         }
         public static readonly DependencyProperty SubtitleProperty =
             DependencyProperty.Register("Subtitle", typeof(string), typeof(DateTimePickerItem), new PropertyMetadata(null));
+
+        public bool IsFirstDayOfLunisolarMonth
+        {
+            get { return (bool)GetValue(IsFirstDayOfLunisolarMonthProperty); }
+            set { SetValue(IsFirstDayOfLunisolarMonthProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsFirstDayOfLunisolarMonthProperty =
+             DependencyProperty.Register("IsFirstDayOfLunisolarMonth", typeof(bool), typeof(DateTimePickerItem), new PropertyMetadata(false));
 
         public bool IsSelected
         {
@@ -50,6 +67,12 @@ namespace Leisn.Xaml.Wpf.Controls
         public static readonly DependencyProperty IsActiveProperty =
             DependencyProperty.Register("IsActive", typeof(bool), typeof(DateTimePickerItem), new PropertyMetadata(true));
 
-
+        public bool IsDisplaying
+        {
+            get { return (bool)GetValue(IsDisplayingProperty); }
+            set { SetValue(IsDisplayingProperty, value); }
+        }
+        public static readonly DependencyProperty IsDisplayingProperty =
+            DependencyProperty.Register("IsDisplaying", typeof(bool), typeof(DateTimePickerItem), new PropertyMetadata(false));
     }
 }

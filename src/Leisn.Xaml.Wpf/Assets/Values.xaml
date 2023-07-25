@@ -7,7 +7,7 @@
   <FontFamily x:Key="FluentIconFontFamily">Segoe Fluent Icons</FontFamily>
 
   <sys:Double x:Key="DefaultFontSize">12</sys:Double>
-  <sys:Double x:Key="FontSize80">9</sys:Double>
+  <sys:Double x:Key="FontSize80">10</sys:Double>
   <sys:Double x:Key="FontSize50">6</sys:Double>
   <sys:Double x:Key="FontSize120">14</sys:Double>
   <sys:Double x:Key="FontSize140">16</sys:Double>

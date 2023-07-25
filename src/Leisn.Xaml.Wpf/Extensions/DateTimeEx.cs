@@ -21,10 +21,19 @@ namespace Leisn.Xaml.Wpf.Extensions
         {
             return new(year, month, day, self.Hour, self.Minute, self.Second, self.Millisecond, self.Kind);
         }
+        public static DateTime WithDate(this DateTime self, DateTime date)
+        {
+            return self.WithDate(date.Year, date.Month, date.Day);
+        }
 
         public static DateTime WithTime(this DateTime self, int hour, int minute, int second = 0, int millisecond = 0)
         {
             return new(self.Year, self.Month, self.Day, hour, minute, second, millisecond, self.Kind);
+        }
+
+        public static DateTime WithTime(this DateTime self, DateTime time)
+        {
+            return self.WithTime(time.Hour, time.Minute, time.Second, time.Millisecond);
         }
 
         public static DateTime WithDate(this DateTime self, DateOnly date)
@@ -35,6 +44,22 @@ namespace Leisn.Xaml.Wpf.Extensions
         public static DateTime WithTime(this DateTime self, TimeOnly time)
         {
             return self.WithTime(time.Hour, time.Minute, time.Second, time.Millisecond);
+        }
+
+        public static DateTime FirstDayOfMonth(this DateTime self)
+        {
+            return new(self.Year, self.Month, 1, self.Hour, self.Minute, self.Second);
+        }
+
+        public static DateTime LastDayOfMonth(this DateTime self)
+        {
+            var days = DateTime.DaysInMonth(self.Year, self.Month);
+            return new(self.Year, self.Month, days, self.Hour, self.Minute, self.Second);
+        }
+
+        public static int GetDaysOfMonth(this DateTime self)
+        {
+            return DateTime.DaysInMonth(self.Year, self.Month);
         }
 
         #region 农历
@@ -54,18 +79,22 @@ namespace Leisn.Xaml.Wpf.Extensions
             var dizhi = (LunisolarCalendar.GetYear(self) - 4) % 12;
             return Shengxiaos[dizhi];
         }
-        private static readonly string[] Yuefens = { "正", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "腊" };
+        private static readonly string[] Yuefens = { "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "腊" };
         public static string GetLunisolarMonth(this DateTime self)
         {
-            var mouth = LunisolarCalendar.GetMonth(self);
-            var leapMouth = LunisolarCalendar.GetLeapMonth(LunisolarCalendar.GetYear(self));
-            bool isLeap = mouth == leapMouth;
-            return isLeap ? $"闰{Yuefens[mouth - 1]}" : Yuefens[mouth > leapMouth ? mouth - 1 : mouth];
+            var month = LunisolarCalendar.GetMonth(self);
+            var year = LunisolarCalendar.GetYear(self);
+            var leapMonth = LunisolarCalendar.GetLeapMonth(year);
+            return month == leapMonth ? $"闰{Yuefens[month - 2]}" : Yuefens[month > leapMonth && leapMonth > 0 ? month - 2 : month - 1];
         }
 
         private static readonly string[] Riqis1 = { "初", "十", "廿", "三" };
-        private static readonly string[] Riqis2 = { "十", "一", "二", "三", "四", "五", "六", "七", "八", "九"};
+        private static readonly string[] Riqis2 = { "十", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
 
+        public static bool IsFirstDayOfLunisolarMonth(this DateTime self)
+        {
+            return LunisolarCalendar.GetDayOfMonth(self) == 1;
+        }
         public static string GetLunisolarDay(this DateTime self, bool getMonthOfFirstDay = false)
         {
             var day = LunisolarCalendar.GetDayOfMonth(self);

@@ -24,6 +24,7 @@ using System.Collections;
 using System.Collections.ObjectModel;
 using Microsoft.VisualBasic;
 using System.Runtime.CompilerServices;
+using Leisn.Xaml.Wpf.Extensions;
 
 namespace WpfDemo
 {
@@ -34,17 +35,6 @@ namespace WpfDemo
     {
         public App()
         {
-            var type0 = typeof(Dictionary<,>);
-            var methods = type0.GetMethods();
-            var rect = new Dictionary<string, int>() { ["Is"] = 1 };
-            foreach (var item in rect)
-            {
-                var type = item.GetType();
-                methods = type.GetMethods();
-                var fileds = type.GetFields();
-                var pros = type.GetProperties();
-            }
-
             // Process process = new();
             // process.StartInfo.UseShellExecute = false;
             // process.StartInfo.FileName = "cmd";

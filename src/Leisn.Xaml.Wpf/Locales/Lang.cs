@@ -20,6 +20,7 @@ namespace Leisn.Xaml.Wpf.Locales
         public static event Action? LangChanged;
         public static IReadOnlyList<string> Languages => Current._langDict.Keys.ToList().AsReadOnly();
         public static string CurrentLanguage => Current._currentLang;
+        public static CultureInfo CurrentCulture => new(CurrentLanguage);
         public static string Get(string key)
         {
             return Current.Values[key];

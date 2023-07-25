@@ -11,7 +11,7 @@
   <Color x:Key="PrimaryLightColor">#4575E5</Color>
   <Color x:Key="PrimaryDarkColor">#1060FD</Color>
   <Color x:Key="PrimaryTextColor">#FFE7E7E7</Color>
-  <Color x:Key="AccentColor">#f8491e</Color>
+  <Color x:Key="AccentColor">#f5cc84</Color>
   <Color x:Key="AccentTextColor">#FFE0E0E0</Color>
   <Color x:Key="InfoColor">#00bcd4</Color>
   <Color x:Key="InfoTextColor">#FFE0E0E0</Color>
@@ -21,7 +21,7 @@
   <Color x:Key="WarningTextColor">#FFE0E0E0</Color>
   <Color x:Key="DangerColor">#db3340</Color>
   <Color x:Key="DangerTextColor">#FFE0E0E0</Color>
-  <Color x:Key="HighlightColor">#EFEFEF</Color>
+  <Color x:Key="HighlightColor">#c2a168</Color>
   <Color x:Key="HighlightTextColor">#FF212121</Color>
   <Color x:Key="RegionLight3Color">#404040</Color>
   <Color x:Key="RegionLight2Color">#363636</Color>
@@ -39,7 +39,7 @@
   <FontFamily x:Key="SymbolFontFamily">Segoe MDL2 Assets</FontFamily>
   <FontFamily x:Key="FluentIconFontFamily">Segoe Fluent Icons</FontFamily>
   <sys:Double x:Key="DefaultFontSize">12</sys:Double>
-  <sys:Double x:Key="FontSize80">9</sys:Double>
+  <sys:Double x:Key="FontSize80">10</sys:Double>
   <sys:Double x:Key="FontSize50">6</sys:Double>
   <sys:Double x:Key="FontSize120">14</sys:Double>
   <sys:Double x:Key="FontSize140">16</sys:Double>
@@ -1929,18 +1929,30 @@
     </Setter>
   </Style>
   <Style TargetType="DatePicker" BasedOn="{StaticResource DatePickerBaseStyle}" />
+  <Style x:Key="DateTimePickerWeekStyle" TargetType="TextBlock">
+    <Setter Property="FontFamily" Value="Verdana" />
+    <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
+    <Setter Property="Opacity" Value=".8" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="TextAlignment" Value="Center" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
   <Style x:Key="DateTimePickerItemStyle" TargetType="{x:Type local:DateTimePickerItem}" BasedOn="{StaticResource ButtonBaseStyle}">
-    <Setter Property="Width" Value="40" />
-    <Setter Property="Height" Value="40" />
-    <Setter Property="local:ControlAttach.CornerRadius" Value="20" />
+    <Setter Property="MinWidth" Value="30" />
+    <Setter Property="MinHeight" Value="30" />
     <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}" />
+    <Setter Property="FontFamily" Value="Verdana" />
+    <Setter Property="Padding" Value="5" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:DateTimePickerItem}">
-          <Border x:Name="bd" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" BorderBrush="{StaticResource BorderBrush}">
+          <Border x:Name="bd" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
             <StackPanel VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
-              <TextBlock TextAlignment="Center" Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=Value}" />
-              <TextBlock TextAlignment="Center" Text="{TemplateBinding Subtitle}" Foreground="{DynamicResource TextDarkBrush}" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Subtitle,Converter={StaticResource ObjectVisibilityConverter}}" />
+              <TextBlock Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}" Text="{TemplateBinding Title}" TextAlignment="Center" FontSize="{StaticResource FontSize120}" />
+              <TextBlock x:Name="subTitle" FontFamily="{TemplateBinding FontFamily}" FontSize="{StaticResource FontSize80}" TextAlignment="Center" Text="{TemplateBinding Subtitle}" Foreground="{DynamicResource TextDarkBrush}" />
             </StackPanel>
           </Border>
           <ControlTemplate.Triggers>
@@ -1953,6 +1965,27 @@
             <Trigger Property="IsPressed" Value="True">
               <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="bd" />
             </Trigger>
+            <Trigger Property="Subtitle" Value="{x:Null}">
+              <Setter Property="Visibility" Value="Collapsed" TargetName="subTitle" />
+            </Trigger>
+            <Trigger Property="IsFirstDayOfLunisolarMonth" Value="True">
+              <Setter Property="Foreground" Value="{DynamicResource HighlightBrush}" TargetName="subTitle" />
+            </Trigger>
+            <Trigger Property="IsCurrent" Value="True">
+              <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
+              <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" TargetName="subTitle" />
+            </Trigger>
+            <Trigger Property="IsActive" Value="False">
+              <Setter Property="Opacity" Value=".75" TargetName="bd" />
+              <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
+            </Trigger>
+            <Trigger Property="IsDisplaying" Value="True">
+              <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" TargetName="bd" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+              <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" TargetName="bd" />
+              <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}" TargetName="bd" />
+            </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
@@ -1961,8 +1994,8 @@
   <Style TargetType="{x:Type local:DateTimePickerItem}" BasedOn="{StaticResource DateTimePickerItemStyle}" />
   <Style x:Key="DateTimePickerBaseStyle" TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="SnapsToDevicePixels" Value="True" />
-    <Setter Property="MinWidth" Value="100" />
-    <Setter Property="MinHeight" Value="100" />
+    <Setter Property="MinWidth" Value="324" />
+    <Setter Property="MinHeight" Value="400" />
     <Setter Property="Padding" Value="7,7,7,10" />
     <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
@@ -2002,10 +2035,10 @@
               </Button>
               <local:UniformGrid x:Name="PART_ItemHost" Margin="{TemplateBinding Padding}" Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3" />
               <UniformGrid Grid.Row="2" Grid.ColumnSpan="3" Rows="1">
-                <RadioButton x:Name="dateTab" Height="30" IsChecked="True" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,0,3">
+                <RadioButton x:Name="dateTab" Height="32" IsChecked="True" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,0,3">
                   <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=DisplayDateTime,StringFormat={}{0:yyyy/MM/dd}}" />
                 </RadioButton>
-                <RadioButton x:Name="timeTab" Height="30" IsChecked="False" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,3,0">
+                <RadioButton x:Name="timeTab" Height="32" IsChecked="False" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,3,0">
                   <TextBlock Text="{Binding DisplayDateTime, RelativeSource={RelativeSource Mode=TemplatedParent},StringFormat={}{0:HH:mm:ss}}" />
                 </RadioButton>
               </UniformGrid>

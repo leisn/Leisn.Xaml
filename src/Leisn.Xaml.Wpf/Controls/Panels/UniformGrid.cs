@@ -182,8 +182,8 @@ namespace Leisn.Xaml.Wpf.Controls
                 }
                 index++;
 
-                if (row >= _rows || col >= _columns) //忽略范围外的
-                    continue;
+                row = Math.Clamp(row, 0, _rows - 1);
+                col = Math.Clamp(col, 0, _columns - 1);
                 if (IsCurved)
                 {
                     if (Orientation == Orientation.Vertical && col % 2 == 1)//even col
