@@ -2033,18 +2033,18 @@
                   </Path>
                 </Grid>
               </Button>
-              <local:UniformGrid x:Name="PART_ItemHost" Margin="{TemplateBinding Padding}" Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3" />
+              <local:UniformGrid x:Name="PART_ItemHost" Margin="{TemplateBinding Padding}" Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3" Visibility="{Binding ElementName=dateTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}" />
+              <local:UniformGrid x:Name="PART_TimeItemHost" Margin="{TemplateBinding Padding}" Spacing="5" Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="3" Visibility="{Binding ElementName=timeTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter}}" />
               <UniformGrid Grid.Row="2" Grid.ColumnSpan="3" Rows="1">
                 <RadioButton x:Name="dateTab" Height="32" IsChecked="True" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,0,3">
                   <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=DisplayDateTime,StringFormat={}{0:yyyy/MM/dd}}" />
                 </RadioButton>
-                <RadioButton x:Name="timeTab" Height="32" IsChecked="False" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,3,0">
+                <RadioButton x:Name="timeTab" Height="32" IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IsNowTimeView,Mode=TwoWay}" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,3,0">
                   <TextBlock Text="{Binding DisplayDateTime, RelativeSource={RelativeSource Mode=TemplatedParent},StringFormat={}{0:HH:mm:ss}}" />
                 </RadioButton>
               </UniformGrid>
             </Grid>
           </Border>
-          <ControlTemplate.Triggers />
         </ControlTemplate>
       </Setter.Value>
     </Setter>

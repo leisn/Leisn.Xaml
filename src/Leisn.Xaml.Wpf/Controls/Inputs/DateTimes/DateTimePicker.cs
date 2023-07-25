@@ -221,7 +221,7 @@ namespace Leisn.Xaml.Wpf.Controls
             for (int i = 0; i < DISPLAY_SECONEDS; i++)
             {
                 var item = new DateTimePickerItem();
-                _itemHostGrid.Children.Add(item);
+                _timeItemHostGrid.Children.Add(item);
                 item.Click += OnTimeItemClicked;
             }
         }
@@ -462,7 +462,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void UpdateTimeHeader()
         {
-
+            if (_timeItemHostGrid == null)
+                return;
         }
     }
 }
