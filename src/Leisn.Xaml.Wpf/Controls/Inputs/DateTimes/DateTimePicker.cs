@@ -116,6 +116,19 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public override void OnApplyTemplate()
         {
+            if (_button != null)
+            {
+                _button.Click -= OnButtonClicked;
+            }
+            if (_applyButton != null)
+            {
+                _applyButton.Click -= OnApplyButtonClicked;
+            }
+            if (_closeButton != null)
+            {
+                _closeButton.Click -= OnCloseButtonClicked;
+            }
+
             base.OnApplyTemplate();
             _button = (ButtonBase)GetTemplateChild(PART_ButtonName);
             _popup = (Popup)GetTemplateChild(PART_PopupName);
@@ -170,6 +183,15 @@ namespace Leisn.Xaml.Wpf.Controls
                 _textBlock.Text = text;
             else
                 _button.Content = text;
+        }
+
+        protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
+        {
+            base.OnIsKeyboardFocusWithinChanged(e);
+            if (_popup.IsOpen && !IsKeyboardFocusWithin)
+            {
+                IsDropDownOpen = false;
+            }
         }
     }
 }

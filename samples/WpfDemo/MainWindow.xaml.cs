@@ -120,6 +120,10 @@ namespace WpfDemo
             public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
 
             public DateTime DateTime { get; set; } = DateTime.Now;
+            [DateTimePick(DateTimeSelectionMode.DateOnly)]
+            public DateTime OnlyDate { get; set; } = DateTime.Now;
+            [DateTimePick(DateTimeSelectionMode.TimeOnly)]
+            public DateTime OnlyTime { get; set; } = DateTime.Now;
             public DateTime? DateTime2 { get; set; }
             public DateOnly DateOnly { get; set; } = new DateOnly(2000, 02, 20);
             public TimeOnly TimeOnly { get; set; } = new TimeOnly(5, 12, 9);
