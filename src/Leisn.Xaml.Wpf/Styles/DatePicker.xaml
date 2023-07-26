@@ -105,7 +105,7 @@
                 <Button x:Name="clearButton" Grid.Column="1" Style="{StaticResource ClearButtonStyle}"
                         Background="{DynamicResource RegionBrush}"
                         CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}"
-                        Command="{x:Static internals:InternalCommands.ClearDatePickerCommand}"/>
+                        Command="{x:Static internals:InternalCommands.ClearDateTimeCommand}"/>
               </Grid>
               <Grid x:Name="PART_DisabledVisual" Grid.Column="0" Grid.ColumnSpan="2" IsHitTestVisible="False" Opacity="0" Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -147,7 +147,7 @@
     <Setter Property="VerticalAlignment" Value="Center"/>
   </Style>
 
-  <Style x:Key="DateTimePickerItemStyle" TargetType="{x:Type local:DateTimePickerItem}" BasedOn="{StaticResource ButtonBaseStyle}">
+  <Style x:Key="DateTimeCalendarItemStyle" TargetType="{x:Type local:DateTimeCalendarItem}" BasedOn="{StaticResource ButtonBaseStyle}">
     <Setter Property="MinWidth" Value="30"/>
     <Setter Property="MinHeight" Value="30"/>
     <Setter Property="Background" Value="Transparent"/>
@@ -158,7 +158,7 @@
     <Setter Property="Padding" Value="5"/>
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:DateTimePickerItem}">
+        <ControlTemplate TargetType="{x:Type local:DateTimeCalendarItem}">
           <Border x:Name="bd" Background="{TemplateBinding Background}"
                   BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
@@ -208,9 +208,9 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="{x:Type local:DateTimePickerItem}" BasedOn="{StaticResource DateTimePickerItemStyle}"/>
+  <Style TargetType="{x:Type local:DateTimeCalendarItem}" BasedOn="{StaticResource DateTimeCalendarItemStyle}"/>
 
-  <Style x:Key="DateTimePickerBaseStyle" TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource BaseInputStyle}">
+  <Style x:Key="DateTimeCalendarBaseStyle" TargetType="{x:Type local:DateTimeCalendar}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="MinWidth" Value="324"/>
     <Setter Property="MinHeight" Value="400"/>
@@ -219,7 +219,7 @@
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="{x:Type local:DateTimePicker}">
+        <ControlTemplate TargetType="{x:Type local:DateTimeCalendar}">
           <Border Background="{TemplateBinding Background}"
                   BorderThickness="{TemplateBinding BorderThickness}"
                   CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
@@ -268,12 +268,12 @@
                                  Visibility="{Binding ElementName=timeTab,Path=IsChecked,Converter={StaticResource BoolVisibilityConverter},ConverterParameter=FalseHidden}"/>
               <UniformGrid Grid.Row="2" Grid.ColumnSpan="3" Rows="1">
                 <RadioButton x:Name="dateTab" Height="32" IsChecked="True" Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,0,3">
-                  <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=DisplayDateTime,StringFormat={}{0:yyyy/MM/dd}}"/>
+                  <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=SelectedDateTime,StringFormat={}{0:yyyy/MM/dd}}"/>
                 </RadioButton>
                 <RadioButton x:Name="timeTab" Height="32"
                              IsChecked="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=IsNowTimeView,Mode=TwoWay}"
                              Style="{DynamicResource RadioToggleStyle}" local:ControlAttach.CornerRadius="0,0,3,0" >
-                  <TextBlock Text="{Binding DisplayDateTime, RelativeSource={RelativeSource Mode=TemplatedParent},StringFormat={}{0:HH:mm:ss}}"/>
+                  <TextBlock Text="{Binding SelectedDateTime, RelativeSource={RelativeSource Mode=TemplatedParent},StringFormat={}{0:HH:mm:ss}}"/>
                 </RadioButton>
               </UniformGrid>
             </Grid>
@@ -281,15 +281,109 @@
           <ControlTemplate.Triggers>
             <Trigger Property="IsNowTimeView" Value="True">
               <Setter Property="Visibility" Value="Hidden" TargetName="PART_PreviousButton"/>
-            </Trigger>
-            <Trigger Property="IsNowTimeView" Value="True">
               <Setter Property="Visibility" Value="Hidden" TargetName="PART_NextButton"/>
+            </Trigger>
+            <Trigger Property="SelectionMode" Value="DateOnly">
+              <Setter Property="IsNowTimeView" Value="False"/>
+              <Setter Property="Visibility" Value="Collapsed" TargetName="timeTab"/>
+              <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultBottomCornerRadius}" TargetName="dateTab"/>
+            </Trigger>
+            <Trigger Property="SelectionMode" Value="TimeOnly">
+              <Setter Property="IsNowTimeView" Value="True"/>
+              <Setter Property="Visibility" Value="Collapsed" TargetName="dateTab"/>
+              <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultBottomCornerRadius}" TargetName="timeTab"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource DateTimePickerBaseStyle}"/>
+  <Style TargetType="{x:Type local:DateTimeCalendar}" BasedOn="{StaticResource DateTimeCalendarBaseStyle}"/>
+
+  <Style x:Key="DateTimePickerBaseStyle" TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource BaseInputStyle}">
+    <Setter Property="Padding" Value="5,0"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:DateTimePicker}">
+          <Border Background="{TemplateBinding Background}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
+                  BorderBrush="{StaticResource BorderBrush}">
+            <Grid x:Name="templateRoot" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+              <Button x:Name="PART_Button" HorizontalContentAlignment="Stretch" Padding="0">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="28"/>
+                  </Grid.ColumnDefinitions>
+                  <local:FontIcon Grid.Column="1" Margin="0,1,0,-1"
+                                  FontFamily="{StaticResource SymbolFontFamily}" Glyph="&#xE787;" 
+                                  Foreground="{TemplateBinding Foreground}"
+                                  Visibility="{Binding ElementName=clearButton,Path=Visibility,Converter={StaticResource MutexVisilityConverter}}"/>
+                  <TextBlock x:Name="PART_TextBlock" Grid.Column="0" Margin="{TemplateBinding Padding}"
+                             HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                             TextTrimming="CharacterEllipsis"/>
+                </Grid>
+              </Button>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="28"/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="clearButton" Grid.Column="1" Style="{StaticResource ClearButtonStyle}"
+                        Background="{DynamicResource RegionBrush}"
+                        CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                        Command="{x:Static internals:InternalCommands.ClearDateTimeCommand}"/>
+              </Grid>
+              <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" VerticalOffset="-1"
+                   Placement="Top" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
+                   IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}"
+                      MinWidth="{Binding ActualWidth, ElementName=templateRoot}"
+                      Background="{TemplateBinding Background}" Margin="2"
+                      BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                      CornerRadius="{StaticResource DefaultCornerRadius}"
+                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                  <Grid RenderOptions.ClearTypeHint="Enabled">
+                    <Grid.RowDefinitions>
+                      <RowDefinition/>
+                      <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <local:DateTimeCalendar x:Name="PART_Calendar" KeyboardNavigation.DirectionalNavigation="Contained"
+                                            SelectionMode="{TemplateBinding SelectionMode}"/>
+                    <UniformGrid Rows="1" Height="40" Grid.Row="1">
+                      <Button x:Name="PART_CloseButton" Focusable="False">
+                        <Path Height="{TemplateBinding FontSize}" Stretch="Uniform" Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}"/>
+                      </Button>
+                      <Button x:Name="PART_ApplyButton" Focusable="False">
+                        <Path Height="{TemplateBinding FontSize}" Stretch="Uniform" Data="{StaticResource TickGeometry}" Fill="{TemplateBinding Foreground}"/>
+                      </Button>
+                    </UniformGrid>
+                  </Grid>
+                </Border>
+              </Popup>
+            </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="SelectedDateTime" Value="{x:Null}">
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearButton"/>
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearButton"/>
+            </Trigger>
+            <Trigger Property="local:ControlAttach.ShowClear" Value="False">
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearButton"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+              <Setter Property="Opacity" Value=".56" TargetName="templateRoot"/>
+              <Setter Property="Visibility" Value="Hidden" TargetName="clearButton"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style  TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource DateTimePickerBaseStyle}"/>
 
 </ResourceDictionary>

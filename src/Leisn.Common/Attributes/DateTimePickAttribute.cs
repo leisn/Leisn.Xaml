@@ -7,18 +7,18 @@ namespace Leisn.Common.Attributes
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
     public class DateTimePickAttribute : Attribute
     {
-        public DateTimeType DateTimeType { get; }
+        public DateTimeSelectionMode SelectionMode { get; }
 
-        public DateTimePickAttribute(DateTimeType type)
+        public DateTimePickAttribute(DateTimeSelectionMode mode)
         {
-            DateTimeType = type;
+            SelectionMode = mode;
         }
     }
 
-    public enum DateTimeType
+    public enum DateTimeSelectionMode
     {
+        DateTime,
         DateOnly,
         TimeOnly,
-        DateTime,
     }
 }

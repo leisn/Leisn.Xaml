@@ -43,7 +43,7 @@
                       BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                       CornerRadius="{StaticResource DefaultCornerRadius}"
                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
-                <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
+                <Grid RenderOptions.ClearTypeHint="Enabled">
                   <local:ColorPicker Style="{StaticResource ColorPickerBaseStyle}" x:Name="PART_ColorPicker"
                                        KeyboardNavigation.DirectionalNavigation="Contained"/>
                 </Grid>

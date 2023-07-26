@@ -8,7 +8,7 @@ using System.Windows.Controls;
 
 namespace Leisn.Xaml.Wpf.Controls
 {
-    public class DateTimePickerItem : Button
+    public class DateTimeCalendarItem : Button
     {
         public DateTime Value
         {
@@ -16,7 +16,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(ValueProperty, value); }
         }
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(DateTime), typeof(DateTimePickerItem), new PropertyMetadata(DateTime.MinValue));
+            DependencyProperty.Register("Value", typeof(DateTime), typeof(DateTimeCalendarItem), new PropertyMetadata(DateTime.MinValue));
 
         public string Title
         {
@@ -24,7 +24,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(TitleProperty, value); }
         }
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title", typeof(string), typeof(DateTimePickerItem), new PropertyMetadata(string.Empty));
+            DependencyProperty.Register("Title", typeof(string), typeof(DateTimeCalendarItem), new PropertyMetadata(string.Empty));
 
         public string? Subtitle
         {
@@ -32,7 +32,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(SubtitleProperty, value); }
         }
         public static readonly DependencyProperty SubtitleProperty =
-            DependencyProperty.Register("Subtitle", typeof(string), typeof(DateTimePickerItem), new PropertyMetadata(null));
+            DependencyProperty.Register("Subtitle", typeof(string), typeof(DateTimeCalendarItem), new PropertyMetadata(null));
 
         public bool IsFirstDayOfLunisolarMonth
         {
@@ -41,7 +41,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
 
         public static readonly DependencyProperty IsFirstDayOfLunisolarMonthProperty =
-             DependencyProperty.Register("IsFirstDayOfLunisolarMonth", typeof(bool), typeof(DateTimePickerItem), new PropertyMetadata(false));
+             DependencyProperty.Register("IsFirstDayOfLunisolarMonth", typeof(bool), typeof(DateTimeCalendarItem), new PropertyMetadata(false));
 
         public bool IsSelected
         {
@@ -49,7 +49,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(IsSelectedProperty, value); }
         }
         public static readonly DependencyProperty IsSelectedProperty =
-            DependencyProperty.Register("IsSelected", typeof(bool), typeof(DateTimePickerItem), new PropertyMetadata(false));
+            DependencyProperty.Register("IsSelected", typeof(bool), typeof(DateTimeCalendarItem), new PropertyMetadata(false));
 
         public bool IsCurrent
         {
@@ -57,7 +57,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(IsCurrentProperty, value); }
         }
         public static readonly DependencyProperty IsCurrentProperty =
-            DependencyProperty.Register("IsCurrent", typeof(bool), typeof(DateTimePickerItem), new PropertyMetadata(false));
+            DependencyProperty.Register("IsCurrent", typeof(bool), typeof(DateTimeCalendarItem), new PropertyMetadata(false));
 
         public bool IsActive
         {
@@ -65,7 +65,7 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(IsActiveProperty, value); }
         }
         public static readonly DependencyProperty IsActiveProperty =
-            DependencyProperty.Register("IsActive", typeof(bool), typeof(DateTimePickerItem), new PropertyMetadata(true));
+            DependencyProperty.Register("IsActive", typeof(bool), typeof(DateTimeCalendarItem), new PropertyMetadata(true));
 
         public bool IsDisplaying
         {
@@ -73,6 +73,6 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(IsDisplayingProperty, value); }
         }
         public static readonly DependencyProperty IsDisplayingProperty =
-            DependencyProperty.Register("IsDisplaying", typeof(bool), typeof(DateTimePickerItem), new PropertyMetadata(false));
+            DependencyProperty.Register("IsDisplaying", typeof(bool), typeof(DateTimeCalendarItem), new PropertyMetadata(false));
     }
 }

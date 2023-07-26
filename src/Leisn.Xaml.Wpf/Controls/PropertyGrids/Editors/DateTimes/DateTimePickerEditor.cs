@@ -14,30 +14,19 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         public FrameworkElement CreateElement(PropertyItem item)
         {
             FrameworkElement picker;
+            DateTimeSelectionMode mode = DateTimeSelectionMode.DateTime;
             if (item.Attributes.Attr<DateTimePickAttribute>() is DateTimePickAttribute kind)
             {
-                switch (kind.DateTimeType)
-                {
-                    case DateTimeType.DateTime:
-                        picker = new DateTimePicker();
-                        goto done;
-                    case DateTimeType.TimeOnly:
-                        picker = new TimeSelector();
-                        goto done;
-                    case DateTimeType.DateOnly:
-                    default:
-                        break;
-                }
+                mode = kind.SelectionMode;
             }
-            picker = new DatePicker();
-        done:
+            picker = new DateTimePicker { SelectionMode = mode };
             ControlAttach.SetShowClear(picker, item.PropertyType == typeof(DateTime?));
             return picker;
         }
 
         public DependencyProperty GetBindingProperty()
         {
-            return DatePicker.SelectedDateProperty;
+            return DateTimePicker.SelectedDateTimeProperty;
         }
     }
 }
