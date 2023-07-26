@@ -19,14 +19,25 @@ Styles/Window.xaml
 Styles/ToolTip.xaml
 Styles/ScrollViewer.xaml
 Styles/GroupBox.xaml
+Styles/TabControl.xaml
 Styles/Expander.xaml
 Styles/Button.xaml
+Styles/ToggleButton.xaml
+Styles/CheckBox.xaml
+Styles/RadioButton.xaml
 Styles/TextBox.xaml
+Styles/ProgressBar.xaml
 Styles/ComboBox.xaml
 Styles/ListBox.xaml
+Styles/Slider.xaml
 Styles/Calendar.xaml
 Styles/DateTimeSelector.xaml
 Styles/DatePicker.xaml
+Styles/TreeView.xaml
+Styles/ToolBar.xaml
+Styles/DataGrid.xaml
+Styles/DocumentViewer.xaml
+Styles/Frame.xaml
 
 #custom control styles
 Styles/NumericBox.xaml
