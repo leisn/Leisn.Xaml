@@ -51,118 +51,11 @@ namespace WpfDemo
             langsBox.ItemsSource = list;
             langsBox.SelectedItem = new CultureInfo(Lang.CurrentLanguage);
             langsBox.SelectionChanged += LangsBox_SelectionChanged;
-            perpertyGrid.Source = new PgTest();
         }
 
         private void ThemeButton_Click(object sender, RoutedEventArgs e)
         {
             //AppTheme.ChangeTheme(new Uri("/Leisn.Xaml.Wpf;component/Assets/ColorsLight.xaml", UriKind.Relative));
         }
-
-        public enum Enumv : byte
-        {
-            [Category("V1")]
-            [Description("V1 desc")]
-            Value1,
-            [Category("V2")]
-            [Description("V2 desc")]
-            Value2,
-        }
-
-        public class SubClass
-        {
-            [DisplayName("sbyte value 2")]
-            [Description("Range 4-10, Increment=2 \n{ValueRange}：[4,10]")]
-            [Range(4, 10)]
-            [Increment(2)]
-            public sbyte sbValue2 { get; set; }
-            [DisplayName("int value 1")]
-            [Description("int not limited")]
-            public int Value1 { get; set; }
-            public override string ToString()
-            {
-                return $"S{sbValue2},I{Value1}";
-            }
-        }
-        public class SubClass1 : SubClass
-        {
-            public string? StringValue { get; set; }
-            public override string ToString()
-            {
-                return $"S{sbValue2},I{Value1},SV{StringValue}";
-            }
-        }
-        public class SubClass2 : SubClass
-        {
-            public Enumv EnumValue { get; }
-            public override string ToString()
-            {
-                return $"S{sbValue2},I{Value1},E{EnumValue}";
-            }
-        }
-
-        private class PgTest
-        {
-            [InstanceTypes(typeof(SubClass1), typeof(SubClass2))]
-            public List<SubClass> SubClasses { get; set; } = new List<SubClass>();
-            public IEnumerable<string> ReadOnlyStrings { get; set; } = new ReadOnlyCollection<string>(new List<string> { "stri 1", "str 2" });
-            [PathSelect(Mode = PathSelectMode.Folder)]
-            public string[] FolderArray { get; set; } = new string[] { "stri 1", "str 2", "stri 3", "str 4" };
-            [StringLength(10)]
-            public List<string> ListStrings { get; set; } = new List<string>() { "stri 1", "str 2" };
-            [DataProvider(typeof(SampleTextProvider), DictionaryTarget = DictionaryTarget.Key)]
-            public Dictionary<string, List<SubClass>> DictionaryStrings { get; set; } = new Dictionary<string, List<SubClass>>();
-
-            [Range(1, 10)]
-            [Increment(1)]
-            [DefaultValue(9)]
-            public IEnumerable<int> IntValues { get; set; } = new List<int>() { 1, 2, 3, 4, 5 };
-            public List<Enumv> Enumvs { get; set; } = new List<Enumv>();
-
-            public DateTime DateTime { get; set; } = DateTime.Now;
-            [DateTimePick(DateTimeSelectionMode.DateOnly)]
-            public DateTime OnlyDate { get; set; } = DateTime.Now;
-            [DateTimePick(DateTimeSelectionMode.TimeOnly)]
-            public DateTime OnlyTime { get; set; } = DateTime.Now;
-            public DateTime? DateTime2 { get; set; }
-            public DateOnly DateOnly { get; set; } = new DateOnly(2000, 02, 20);
-            public TimeOnly TimeOnly { get; set; } = new TimeOnly(5, 12, 9);
-            public SubClass SubClass { get; set; } = new();
-            public bool? BoolNullable { get; set; }
-            public bool Bool { get; set; }
-            public Color Color { get; set; } = ColorEx.FromHex("#7805112c");
-            public Enumv EunmV { get; set; }
-
-            [PathSelect(Mode = PathSelectMode.Folder, DialogTitle = "选择一个文件夹{Ok}")]
-            [DisplayName("{Ask} him {Ok}")]
-            public string Folder { get; set; } = "";
-            [PathSelect(Mode = PathSelectMode.OpenFile)]
-            public string File { get; set; } = "D://";
-            [Range(1, 5)]
-            public int Number { get; set; }
-
-            [NumericUpDown(Increment = 0.1, Maximum = 1, Minimum = -1)]
-            [NumericFormat(Decimals = 3, Suffix = "m")]
-            public double Formart { get; set; }
-            [DisplayName("最多可以输入几个字呢")]
-            [Placeholder("输入字符{Ok}")]
-            public string Text { get; set; } = "input text";
-            [ReadOnly(true)]
-            public string ReadOnlyText { get; set; } = "ReadOnlyText 1";
-            [Category("DataProvider")]
-            [DataProvider(typeof(SampleTextProvider))]
-            public string TextProvider { get; set; } = "Sample Text5";
-            [Category("DataProvider")]
-            [DataProvider(typeof(SampleArrayProvider))]
-            public int? ArrayTextProvider { get; set; } = 2;
-            [Category("DataProvider")]
-            [DataProvider(typeof(SampleObjectProvider))]
-            public SampleObject? ObjectProvider { get; set; }
-
-            [Category("DataProvider")]
-            [DataProvider(typeof(SampleArrayProvider))]
-            public List<int> ArrayProviderTextList { get; set; } = new() { 1, 2, 3 };
-        }
-
     }
 }

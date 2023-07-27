@@ -5,43 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ln="https://leisn.com/xaml/wpf"
         xmlns:local="clr-namespace:WpfDemo"
+        xmlns:pages="clr-namespace:WpfDemo.Pages"
         mc:Ignorable="d" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="MainWindow" Height="550" Width="800"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" Style="{StaticResource WindowBaseStyle}" >
   <Grid Margin="10">
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition/>
-      <ColumnDefinition/>
-      <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
-    <ln:UniformGrid Columns="1">
-      <ln:UniformGrid Spacing="10" Columns="2" Rows="3" IsCurved="True" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Button Content="1"/>
-        <Button Content="2"/>
-        <Button Content="3"/>
-        <Button Content="4"/>
-        <Button Content="5" Grid.RowSpan="2"/>
-      </ln:UniformGrid>
-    </ln:UniformGrid>
-    <ln:StackPanel Grid.Column="1" Spacing="15" HorizontalAlignment="Center" VerticalAlignment="Center">
-      <ComboBox x:Name="langsBox" Width="{Binding ElementName=rangbox,Path=ActualWidth,Converter={StaticResource NumberOperateConverter}, ConverterParameter=-20}"/>
-      <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="200" Decimals="4"/>
-      <ComboBox IsEditable="True">
-        <ComboBox.ItemsSource>
-          <x:Array Type="sys:String">
-            <sys:String>ssss</sys:String>
-            <sys:String>1111</sys:String>
-            <sys:String>2222</sys:String>
-            <sys:String>3333</sys:String>
-          </x:Array>
-        </ComboBox.ItemsSource>
-      </ComboBox>
-      <Button Content="{ln:Lang Ask}"  HorizontalAlignment="Center" Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
-      <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"  HorizontalAlignment="Center" Height="22"/>
-      <ln:FontIcon FontFamily="{StaticResource FluentIconFontFamily}" Glyph="&#xE082;" Foreground="White"
-                   Background="Green" Padding="5" HorizontalAlignment="Center" CornerRadius="7"/>
-      <ln:DateTimeCalendar/>
-    </ln:StackPanel>
-    <ln:PropertyGrid Grid.Column="2" x:Name="perpertyGrid"/>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="auto"/>
+      <RowDefinition/>
+    </Grid.RowDefinitions>
+    <ComboBox x:Name="langsBox" HorizontalAlignment="Right" Width="{Binding ElementName=rangbox,Path=ActualWidth,Converter={StaticResource NumberOperateConverter}, ConverterParameter=-20}"/>
+
+    <TabControl Margin="0,10,0,0" Grid.Row="1">
+      <TabItem Header="UniformGrid">
+        <ln:UniformGrid Columns="1">
+          <ln:UniformGrid Spacing="10" Columns="2" Rows="3" IsCurved="True" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button Content="1"/>
+            <Button Content="2"/>
+            <Button Content="3"/>
+            <Button Content="4"/>
+            <Button Content="5" Grid.RowSpan="2"/>
+          </ln:UniformGrid>
+        </ln:UniformGrid>
+      </TabItem>
+      <TabItem Header="Input">
+        <pages:InputPage/>
+      </TabItem>
+      <TabItem Header="PropertyGrid">
+        <pages:PropertyGridPage/>
+      </TabItem>
+    </TabControl>
   </Grid>
 </Window>

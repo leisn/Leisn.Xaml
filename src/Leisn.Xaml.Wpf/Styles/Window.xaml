@@ -4,9 +4,18 @@
     <Setter Property="Background" Value="{DynamicResource RegionDark3Brush}"/>
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="BorderBrush" Value="{DynamicResource BorderLightBrush}"/>
-    <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="UseLayoutRounding" Value="True"/>
-    <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}"/>
+    <Setter Property="RenderOptions.ClearTypeHint" Value="Auto"/>
+    <Style.Triggers>
+      <Trigger Property="WindowStyle" Value="None">
+        <Setter Property="WindowChrome.WindowChrome">
+          <Setter.Value>
+            <WindowChrome UseAeroCaptionButtons="False"
+                          GlassFrameThickness="1"
+                          CaptionHeight="0"/>
+          </Setter.Value>
+        </Setter>
+      </Trigger>
+    </Style.Triggers>
   </Style>
-  <Style TargetType="Window" BasedOn="{StaticResource WindowBaseStyle}"/>
 </ResourceDictionary>
