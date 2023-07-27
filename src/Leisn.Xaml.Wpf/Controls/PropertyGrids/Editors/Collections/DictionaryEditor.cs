@@ -3,9 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,14 +38,20 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             _editorSelector = editorSelector;
 
             //pick attributes for key
-            var keyAttrList = new List<Attribute>();
-            var valueAttrList = new List<Attribute>();
+            List<Attribute> keyAttrList = new();
+            List<Attribute> valueAttrList = new();
             foreach (Attribute attr in propertyAttributes)
             {
                 if (attr is IDictionaryAttributeTarget forKey)
                 {
-                    if (forKey.DictionaryTarget is DictionaryTarget.Key) keyAttrList.Add(attr);
-                    else if (forKey.DictionaryTarget is DictionaryTarget.Value) valueAttrList.Add(attr);
+                    if (forKey.DictionaryTarget is DictionaryTarget.Key)
+                    {
+                        keyAttrList.Add(attr);
+                    }
+                    else if (forKey.DictionaryTarget is DictionaryTarget.Value)
+                    {
+                        valueAttrList.Add(attr);
+                    }
                     else if (forKey.DictionaryTarget is DictionaryTarget.Both)
                     {
                         keyAttrList.Add(attr);
@@ -94,23 +98,23 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private static void OnKeyValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var fe = (FrameworkElement)d;
-            var edtior = (DictionaryEditor)fe.Tag;
+            FrameworkElement fe = (FrameworkElement)d;
+            DictionaryEditor edtior = (DictionaryEditor)fe.Tag;
             edtior.UpdateCanAdd();
         }
 
         private static void OnValueValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var fe = (FrameworkElement)d;
-            var edtior = (DictionaryEditor)fe.Tag;
+            FrameworkElement fe = (FrameworkElement)d;
+            DictionaryEditor edtior = (DictionaryEditor)fe.Tag;
             edtior.UpdateValueToSource(fe);
         }
         #endregion
 
         private FrameworkElement CreateKeyElement(object? key, bool readOnly)
         {
-            var editor = _editorSelector.CreateEditor(_keyType, _keyAttributes);
-            var element = editor.CreateElement(new PropertyItem
+            IPropertyEditor editor = _editorSelector.CreateEditor(_keyType, _keyAttributes);
+            FrameworkElement element = editor.CreateElement(new PropertyItem
             {
                 Attributes = _keyAttributes,
                 PropertyType = _keyType,
@@ -130,8 +134,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private FrameworkElement CreateValueElement(object? value)
         {
-            var editor = _editorSelector.CreateEditor(_valueType, _valueAttributes);
-            var element = editor.CreateElement(new PropertyItem
+            IPropertyEditor editor = _editorSelector.CreateEditor(_valueType, _valueAttributes);
+            FrameworkElement element = editor.CreateElement(new PropertyItem
             {
                 Attributes = _valueAttributes,
                 PropertyType = _valueType,
@@ -149,12 +153,12 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             if (editor.UseExpanderStyle)
             {
                 element.Margin = new Thickness(7);
-                var elementType = element.GetType();
+                Type elementType = element.GetType();
                 if (elementType.IsTypeOf(typeof(CollectionEditorBase<>)))
                 {
                     ScrollViewer.SetCanContentScroll(element, true);
                 }
-                var button = new Button
+                Button button = new()
                 {
                     ToolTip = _valueType.ToString(),
                     Tag = element
@@ -168,9 +172,9 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private void EditButtonClicked(object sender, RoutedEventArgs e)
         {
-            var button = (Button)sender;
-            var element = (FrameworkElement)button.Tag;
-            var window = new Window
+            Button button = (Button)sender;
+            FrameworkElement element = (FrameworkElement)button.Tag;
+            Window window = new()
             {
                 Owner = Window.GetWindow(this),
                 WindowStartupLocation = WindowStartupLocation.CenterOwner,
@@ -185,7 +189,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override UIElement CreateOperationBar()
         {
-            var grid = new Grid { Margin = new Thickness(0, 5, 0, 0) };
+            Grid grid = new() { Margin = new Thickness(0, 5, 0, 0) };
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
@@ -193,13 +197,16 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
             grid.Children.Add(_addButton ??= CreateAddButton());
 
-            var defalutKey = typeof(string) == _keyType ? string.Empty : Activator.CreateInstance(_keyType);
+            object? defalutKey = typeof(string) == _keyType ? string.Empty : Activator.CreateInstance(_keyType);
             _keyElement = CreateKeyElement(defalutKey, false);
             if (_keyElement is ComboBox combo && combo.Items.Count > 0)
+            {
                 combo.SelectedIndex = 0;
+            }
+
             Grid.SetColumn(_keyElement, 2);
             grid.Children.Add(_keyElement);
-            var defaultValue = typeof(string) == _valueType ? string.Empty : Activator.CreateInstance(_valueType);
+            object? defaultValue = typeof(string) == _valueType ? string.Empty : Activator.CreateInstance(_valueType);
             _valueElement = CreateValueElement(defaultValue);
             Grid.SetColumn(_valueElement, 4);
             grid.Children.Add(_valueElement);
@@ -208,20 +215,20 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override UIElement? CreateHeader()
         {
-            var grid = new Grid { Margin = new Thickness(0, 0, 0, 5) };
+            Grid grid = new() { Margin = new Thickness(0, 0, 0, 5) };
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(5, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
 
-            var textColor = (Brush)FindResource("TextDarkBrush");
-            var keyText = new TextBlock { Foreground = textColor, TextAlignment = TextAlignment.Center };
+            Brush textColor = (Brush)FindResource("TextDarkBrush");
+            TextBlock keyText = new() { Foreground = textColor, TextAlignment = TextAlignment.Center };
             keyText.SetBindingLangKey(TextBlock.TextProperty, "Key");
             Grid.SetColumn(keyText, 2);
             grid.Children.Add(keyText);
 
-            var valueText = new TextBlock { Foreground = textColor, TextAlignment = TextAlignment.Center };
+            TextBlock valueText = new() { Foreground = textColor, TextAlignment = TextAlignment.Center };
             valueText.SetBindingLangKey(TextBlock.TextProperty, "Value");
             Grid.SetColumn(valueText, 4);
             grid.Children.Add(valueText);
@@ -230,20 +237,20 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override Panel CreateItemContaniner(int index, object? item)
         {
-            var grid = new Grid();
+            Grid grid = new();
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
 
-            var textBlock = new TextBlock
+            TextBlock textBlock = new()
             {
                 TextAlignment = TextAlignment.Right,
                 Margin = new Thickness(0, 0, 10, 0),
                 Text = $"{index + 1}."
             };
             Grid.SetColumn(textBlock, 1);
-            var itemElement = CreateItemElement(index, item);
+            Grid itemElement = CreateItemElement(index, item);
             Grid.SetColumn(itemElement, 2);
             Grid.SetColumnSpan(itemElement, 2);
             grid.Children.Add(textBlock);
@@ -257,21 +264,21 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             if (item is not ITuple tuple)
             {
                 //init values, KeyValuePair<,>
-                var type = item!.GetType();
-                var key = type.GetProperty("Key")!.GetValue(item);
-                var value = type.GetProperty("Value")!.GetValue(item);
+                Type type = item!.GetType();
+                object? key = type.GetProperty("Key")!.GetValue(item);
+                object? value = type.GetProperty("Value")!.GetValue(item);
                 tuple = (key, value);
             }
 
-            var grid = new Grid { IsEnabled = !IsCoerceReadOnly };
+            Grid grid = new() { IsEnabled = !IsCoerceReadOnly };
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(5, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
-            var keyControl = CreateKeyElement(tuple[0], true);
+            FrameworkElement keyControl = CreateKeyElement(tuple[0], true);
             Grid.SetColumn(keyControl, 0);
             grid.Children.Add(keyControl);
 
-            var valueControl = CreateValueElement(tuple[1]);
+            FrameworkElement valueControl = CreateValueElement(tuple[1]);
             Grid.SetColumn(valueControl, 2);
             grid.Children.Add(valueControl);
             return grid;
@@ -279,8 +286,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override object GetElementValue(Grid element)
         {
-            var keyElment = (FrameworkElement)element.Children[0];
-            var valueElement = (FrameworkElement)element.Children[1];
+            FrameworkElement keyElment = (FrameworkElement)element.Children[0];
+            FrameworkElement valueElement = (FrameworkElement)element.Children[1];
             return (GetKeyElementValue(keyElment), GetValueElementValue(valueElement));
         }
 
@@ -295,8 +302,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private object GetKeyFromValueElement(FrameworkElement valueElement)
         {
-            var grid = (Grid)valueElement.GetParent()!;
-            var keyElement = (FrameworkElement)grid.Children[0];
+            Grid grid = (Grid)valueElement.GetParent()!;
+            FrameworkElement keyElement = (FrameworkElement)grid.Children[0];
             return GetKeyElementValue(keyElement)!;
         }
 
@@ -307,10 +314,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override bool? AddItemToSource(object? item)
         {
-            var tuple = (item as ITuple)!;
-            var type = Source.GetType();
-            var method = type.GetMethod("ContainsKey");
-            var contanisKey = method?.Invoke(Source, new object[] { tuple[0]! });
+            ITuple tuple = (item as ITuple)!;
+            Type type = Source.GetType();
+            System.Reflection.MethodInfo? method = type.GetMethod("ContainsKey");
+            object? contanisKey = method?.Invoke(Source, new object[] { tuple[0]! });
             if (contanisKey is bool b && b)
             {
                 return false;
@@ -321,9 +328,14 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             {
                 object defaultValue;
                 if (item is ICloneable clone)
+                {
                     defaultValue = clone.Clone();
+                }
                 else
+                {
                     defaultValue = typeof(string) == _valueType ? string.Empty : Activator.CreateInstance(_valueType)!;
+                }
+
                 SetValueValue((_valueElement is Button button) ? (FrameworkElement)button.Tag : _valueElement, defaultValue);
             }
             UpdateCanAdd();
@@ -332,18 +344,22 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override bool DeleteItemFromSource(int index)
         {
-            var item = GetElementValue(GetElementAt(index));
-            var tuple = (item as ITuple)!;
-            var method = Source.GetType().GetMethod("Remove", new Type[] { _keyType });
-            var result = (bool)method?.Invoke(Source, new object[] { tuple[0]! })!;
-            if (result) UpdateCanAdd();
+            object item = GetElementValue(GetElementAt(index));
+            ITuple tuple = (item as ITuple)!;
+            System.Reflection.MethodInfo? method = Source.GetType().GetMethod("Remove", new Type[] { _keyType });
+            bool result = (bool)method?.Invoke(Source, new object[] { tuple[0]! })!;
+            if (result)
+            {
+                UpdateCanAdd();
+            }
+
             return result;
         }
 
         protected override void OnRemoveElement(Grid element)
         {
             //var keyElment = (FrameworkElement)element.Children[0];
-            var valueElement = (FrameworkElement)element.Children[1];
+            FrameworkElement valueElement = (FrameworkElement)element.Children[1];
             if (valueElement is Button button)
             {
                 button.Click -= EditButtonClicked;
@@ -357,24 +373,32 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private void UpdateCanAdd()
         {
-            if (Source == null || _keyElement == null) return;
-            var key = GetKeyElementValue(_keyElement);
+            if (Source == null || _keyElement == null)
+            {
+                return;
+            }
+
+            object? key = GetKeyElementValue(_keyElement);
             if (key == null)
             {
                 _addButton.IsEnabled = false;
                 return;
             }
-            var method = Source.GetType().GetMethod("ContainsKey");
-            var contanisKey = method?.Invoke(Source, new object[] { key! });
+            System.Reflection.MethodInfo? method = Source.GetType().GetMethod("ContainsKey");
+            object? contanisKey = method?.Invoke(Source, new object[] { key! });
             _addButton.IsEnabled = !(contanisKey is bool b && b);
         }
 
         private void UpdateValueToSource(FrameworkElement valueElememt)
         {
-            if (Source == null || valueElememt == _valueElement || valueElememt.GetParent() == null) return;
-            var key = GetKeyFromValueElement(valueElememt);
-            var value = GetValueElementValue(valueElememt);
-            var method = Source.GetType().GetMethod("set_Item");
+            if (Source == null || valueElememt == _valueElement || valueElememt.GetParent() == null)
+            {
+                return;
+            }
+
+            object key = GetKeyFromValueElement(valueElememt);
+            object? value = GetValueElementValue(valueElememt);
+            System.Reflection.MethodInfo? method = Source.GetType().GetMethod("set_Item");
             method?.Invoke(Source, new object[] { key, value! });
         }
     }

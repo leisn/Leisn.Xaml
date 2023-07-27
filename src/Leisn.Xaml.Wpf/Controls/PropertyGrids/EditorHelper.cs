@@ -27,11 +27,15 @@ namespace Leisn.Xaml.Wpf.Controls
         public static object? ConvertValue(object? value, Type targetType)
         {
             if (value is null)
+            {
                 return null;
+            }
 
-            var valueType = value.GetType();
+            Type valueType = value.GetType();
             if (valueType == targetType || valueType.IsAssignableTo(targetType))
+            {
                 return value;
+            }
 
             if (value is IConvertible cv)
             {
@@ -175,7 +179,10 @@ namespace Leisn.Xaml.Wpf.Controls
         public static List<PropertyItem> CreatePropertyItems(object source, IPropertyEditorSelector editorSelector)
         {
             if (source.GetType().IsEnumerable())
+            {
                 return new List<PropertyItem> { new PropertyItem { PropertyType = source.GetType() } };
+            }
+
             return TypeDescriptor.GetProperties(source)
                                  .OfType<PropertyDescriptor>()
                                  .Where(d => d.IsBrowsable)

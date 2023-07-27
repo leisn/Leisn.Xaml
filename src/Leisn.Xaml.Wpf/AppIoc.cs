@@ -1,9 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 
 namespace Leisn.Xaml.Wpf
 {

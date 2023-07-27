@@ -9,7 +9,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            var datas = EditorHelper.ResolveDataProvider(item.PropertyType);
+            System.Collections.Generic.IEnumerable<Common.Data.IDataDeclaration<object>> datas = EditorHelper.ResolveDataProvider(item.PropertyType);
             ComboBox box = EditorHelper.CreateComboBox(datas);
             box.IsReadOnly = item.IsReadOnly;
             return box;

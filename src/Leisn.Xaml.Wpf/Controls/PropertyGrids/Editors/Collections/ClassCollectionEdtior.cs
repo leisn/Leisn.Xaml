@@ -6,8 +6,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
@@ -37,7 +35,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
             if (propertyAttributes.Attr<InstanceTypeProviderAttribute>() is InstanceTypeProviderAttribute attr)
             {
-                var provider = AppIoc.GetRequired(attr.ProviderType) as IDataProvider<Type>
+                IDataProvider<Type> provider = AppIoc.GetRequired(attr.ProviderType) as IDataProvider<Type>
                     ?? throw new ArgumentException($"{attr.ProviderType} is null or not IDataProvider<Type>");
                 provider.GetData().ForEach(AddInstanceType);
             }
@@ -45,18 +43,24 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             void AddInstanceType(Type type)
             {
                 if (!type.IsTypeOf(elementType))
+                {
                     throw new InvalidOperationException($"{type} is not a subclass or implement of {elementType}");
+                }
+
                 if (type.GetConstructor(Type.EmptyTypes) is null)
+                {
                     throw new InvalidOperationException($"{type} must have a non-parameter constructor {elementType}");
+                }
+
                 _instanceTypes.Add(type);
             }
         }
 
         protected override UIElement CreateOperationBar()
         {
-            var grid = (Grid)base.CreateOperationBar();
+            Grid grid = (Grid)base.CreateOperationBar();
             grid.Margin = new Thickness(7, 6, 7, 0);
-            var typeTitle = new TextBlock
+            TextBlock typeTitle = new()
             {
                 Margin = new Thickness(0, 0, 10, 0),
                 TextAlignment = TextAlignment.Right,
@@ -66,14 +70,14 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             Grid.SetColumn(typeTitle, 1);
             typeTitle.SetBindingLangKey(TextBlock.TextProperty, "Type");
             grid.Children.Add(typeTitle);
-            var typeList = new List<DataDeclaration>();
+            List<DataDeclaration> typeList = new();
             _instanceTypes.ForEach(type => typeList.Add(new DataDeclaration
             {
                 DisplayName = type.Name,
                 Description = type.FullName,
                 Value = type
             }));
-            var comboBox = EditorHelper.CreateComboBox(typeList);
+            ComboBox comboBox = EditorHelper.CreateComboBox(typeList);
             comboBox.SelectedValue = _instanceTypes.FirstOrDefault();
             comboBox.SelectionChanged += TypeSelectionChanged;
             Grid.SetColumn(comboBox, 2);
@@ -84,19 +88,19 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private void TypeSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var comboBox = (ComboBox)sender;
+            ComboBox comboBox = (ComboBox)sender;
             _elementType = (Type)comboBox.SelectedValue;
         }
 
 
         protected override Panel CreateItemContaniner(int index, object? item)
         {
-            var grid = new Grid();
-            var stackPanel = new StackPanel { Spacing = 10, Orientation = Orientation.Horizontal };
+            Grid grid = new();
+            StackPanel stackPanel = new() { Spacing = 10, Orientation = Orientation.Horizontal };
             stackPanel.Children.Add(new TextBlock { Text = $"{index + 1}." });
             stackPanel.Children.Add(new TextBlock { Text = $"{item?.GetType().GetShortName()}" });
 
-            var expander = new Expander
+            Expander expander = new()
             {
                 Header = stackPanel,
                 Content = CreateItemElement(index, item),
@@ -105,7 +109,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             ControlAttach.SetPadding(expander, new Thickness(37, 3, 0, 0));
             Grid.SetColumn(expander, 1);
             grid.Children.Add(expander);
-            var deleteButton = CreateDeleteButton(index);
+            Button deleteButton = CreateDeleteButton(index);
             deleteButton.VerticalAlignment = VerticalAlignment.Top;
             deleteButton.Margin = new Thickness(7, 0, 0, 0);
             grid.Children.Add(deleteButton);
@@ -114,16 +118,16 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override PropertyGrid GetElementAt(int index)
         {
-            var grid = (Grid)GetContanier().Children[index];
-            var expaner = (Expander)grid.Children[0];
+            Grid grid = (Grid)GetContanier().Children[index];
+            Expander expaner = (Expander)grid.Children[0];
             return (PropertyGrid)expaner.Content;
         }
 
         protected override void UpdateIndexText(int index)
         {
-            var panel = (Panel)GetContanier().Children[index];
-            var expaner = (Expander)panel.Children[0];
-            var textBlock = (TextBlock)((StackPanel)expaner.Header).Children[0];
+            Panel panel = (Panel)GetContanier().Children[index];
+            Expander expaner = (Expander)panel.Children[0];
+            TextBlock textBlock = (TextBlock)((StackPanel)expaner.Header).Children[0];
             textBlock.Text = $"{index + 1}.";
         }
 

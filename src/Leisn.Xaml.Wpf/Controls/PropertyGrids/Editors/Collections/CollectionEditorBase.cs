@@ -75,8 +75,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         public IEnumerable Source
         {
-            get { return (IEnumerable)GetValue(SourceProperty); }
-            set { SetValue(SourceProperty, value); }
+            get => (IEnumerable)GetValue(SourceProperty);
+            set => SetValue(SourceProperty, value);
         }
         public static readonly DependencyProperty SourceProperty =
             DependencyProperty.Register("Source", typeof(IEnumerable), typeof(CollectionEditorBase<T>),
@@ -84,7 +84,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private static void OnSourceChagned(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var v = (CollectionEditorBase<T>)d;
+            CollectionEditorBase<T> v = (CollectionEditorBase<T>)d;
             v.OnSourceChanged();
         }
         protected virtual void OnSourceChanged()
@@ -92,7 +92,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             try
             {
                 if (Source == null)
+                {
                     return;
+                }
+
                 if (IsCoerceReadOnly)
                 {
                     ShowOperationButtons = false;
@@ -100,7 +103,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                     return;
                 }
 
-                var type = Source.GetType();
+                Type type = Source.GetType();
                 if (type.IsArray)
                 {
                     ShowOperationButtons = false;
@@ -110,8 +113,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
                 if (type.IsImplementOf(typeof(ICollection<>)))
                 {
-                    var flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
-                    var property = (type.GetProperty("IsReadOnly", flags)
+                    BindingFlags flags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+                    PropertyInfo? property = (type.GetProperty("IsReadOnly", flags)
                         ?? type.GetProperty("System.Collections.IList.IsReadOnly", flags))
                         ?? type.GetProperty("System.Collections.Generic.ICollection<T>.IsReadOnly", flags);
                     bool isReadOnly = property?.GetValue(Source) is bool b && b;
@@ -126,7 +129,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             finally
             {
                 GetContanier().Children.Clear();
-                foreach (var item in Source)
+                foreach (object? item in Source)
                 {
                     CreateAddElement(item);
                 }
@@ -136,18 +139,18 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         protected override void OnInitialized(EventArgs e)
         {
             DockPanel panel = new() { Margin = Padding, };
-            var header = CreateHeader();
+            UIElement? header = CreateHeader();
             if (header is not null)
             {
                 DockPanel.SetDock(header, Dock.Top);
                 panel.Children.Add(header);
             }
-            var operationBar = CreateOperationBar();
+            UIElement operationBar = CreateOperationBar();
             DockPanel.SetDock(operationBar, Dock.Bottom);
-            var scrollView = new ScrollViewer
+            ScrollViewer scrollView = new()
             {
                 Content = GetContanier(),
-                VerticalScrollBarVisibility = ScrollBarVisibility.Auto ,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                 HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden,
                 CanContentScroll = ScrollViewer.GetCanContentScroll(this),
                 PanningMode = PanningMode.VerticalOnly,
@@ -176,7 +179,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected virtual UIElement CreateOperationBar()
         {
-            var grid = new Grid { Margin = new Thickness(0, 5, 0, 0) };
+            Grid grid = new() { Margin = new Thickness(0, 5, 0, 0) };
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.4, GridUnitType.Star), MinWidth = 50 });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.6, GridUnitType.Star) });
@@ -187,7 +190,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected virtual Button CreateAddButton()
         {
-            var addButton = new Button
+            Button addButton = new()
             {
                 Style = (Style)FindResource("AddButtonStyle"),
                 Visibility = Visibility.Visible,
@@ -206,13 +209,13 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected virtual void RemoveItemAt(int index)
         {
-            var grid = (Grid)GetContanier().Children[index];
-            var button = (Button)grid.Children[^1];
+            Grid grid = (Grid)GetContanier().Children[index];
+            Button button = (Button)grid.Children[^1];
             button.Click -= DeleteButton_Click;
-            var element = GetElementAt(index);
+            T element = GetElementAt(index);
             OnRemoveElement(element);
             GetContanier().Children.RemoveAt(index);
-            var count = GetElementCount();
+            int count = GetElementCount();
             for (int i = index; i < count; i++)
             {
                 grid = (Grid)GetContanier().Children[i];
@@ -224,33 +227,33 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private void CreateAddElement(object? item)
         {
-            var count = GetElementCount();
+            int count = GetElementCount();
             GetContanier().Children.Add(CreateItemContaniner(count, item));
         }
 
         protected virtual void UpdateIndexText(int index)
         {
-            var panel = (Panel)GetContanier().Children[index];
-            var textBlock = (TextBlock)panel.Children[0];
+            Panel panel = (Panel)GetContanier().Children[index];
+            TextBlock textBlock = (TextBlock)panel.Children[0];
             textBlock.Text = $"{index + 1}.";
         }
 
         protected virtual Panel CreateItemContaniner(int index, object? item)
         {
-            var grid = new Grid();
+            Grid grid = new();
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.4, GridUnitType.Star), MinWidth = 50 });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.6, GridUnitType.Star) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
 
-            var textBlock = new TextBlock
+            TextBlock textBlock = new()
             {
                 TextAlignment = TextAlignment.Right,
                 Margin = new Thickness(0, 0, 10, 0),
                 Text = $"{index + 1}."
             };
             Grid.SetColumn(textBlock, 1);
-            var itemElement = CreateItemElement(index, item);
+            T itemElement = CreateItemElement(index, item);
             Grid.SetColumn(itemElement, 2);
             Grid.SetColumnSpan(itemElement, 2);
 
@@ -262,7 +265,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected Button CreateDeleteButton(int index)
         {
-            var button = new Button
+            Button button = new()
             {
                 Name = "deleteButton",
                 Tag = index,
@@ -283,8 +286,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            var item = CreateNewItem();
-            var result = AddItemToSource(item);
+            object item = CreateNewItem();
+            bool? result = AddItemToSource(item);
             if (result == true)
             {
                 CreateAddElement(item);
@@ -295,7 +298,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 return;
             }
 
-            var method = Source.GetType().GetMethod("Add");
+            MethodInfo? method = Source.GetType().GetMethod("Add");
             if (method is not null)
             {
                 object[] arguments;
@@ -318,13 +321,13 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            var index = (int)((Button)sender).Tag;
+            int index = (int)((Button)sender).Tag;
             if (DeleteItemFromSource(index))
             {
                 RemoveItemAt(index);
                 return;
             }
-            var method = Source.GetType().GetMethod("RemoveAt");
+            MethodInfo? method = Source.GetType().GetMethod("RemoveAt");
             if (method is not null)
             {
                 method.Invoke(Source, new object[] { index });
@@ -335,17 +338,23 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 //clear and add
                 method = Source.GetType().GetMethod("Clear");
                 if (method is null)
+                {
                     return;
+                }
+
                 method.Invoke(Source, Array.Empty<object>());
                 method = Source.GetType().GetMethod("Add");
                 if (method is null)
+                {
                     return;
+                }
+
                 RemoveItemAt(index);
-                var count = GetElementCount();
+                int count = GetElementCount();
                 for (int i = 0; i < count; i++)
                 {
-                    var element = GetElementAt(i);
-                    var value = GetElementValue(element);
+                    T element = GetElementAt(i);
+                    object value = GetElementValue(element);
                     method.Invoke(Source, new object[] { value });
                 }
             }
@@ -358,26 +367,28 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected virtual T GetElementAt(int index)
         {
-            var grid = (Grid)GetContanier().Children[index];
+            Grid grid = (Grid)GetContanier().Children[index];
             return (T)grid.Children[1];
         }
 
         protected virtual int GetElementIndex(T element)
         {
-            var count = GetElementCount();
+            int count = GetElementCount();
             for (int i = 0; i < count; i++)
             {
                 if (element == GetElementAt(i))
+                {
                     return i;
+                }
             }
             return -1;
         }
 
         protected virtual void UpdateItemValue(T element)
         {
-            var index = GetElementIndex(element);
-            var value = GetElementValue(element);
-            var type = Source.GetType();
+            int index = GetElementIndex(element);
+            object value = GetElementValue(element);
+            Type type = Source.GetType();
             MethodInfo? method;
             if (type.IsArray)
             {
@@ -396,15 +407,21 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             //clear and add
             method = Source.GetType().GetMethod("Clear");
             if (method is null)
+            {
                 return;
+            }
+
             method.Invoke(Source, Array.Empty<object>());
             method = Source.GetType().GetMethod("Add");
             if (method is null)
+            {
                 return;
-            var count = GetElementCount();
+            }
+
+            int count = GetElementCount();
             for (int i = 0; i < count; i++)
             {
-                var v = GetElementValue(GetElementAt(i));
+                object v = GetElementValue(GetElementAt(i));
                 method.Invoke(Source, new object[] { v });
             }
         }
@@ -430,7 +447,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
             if (!CanContentScroll)
+            {
                 return;
+            }
+
             base.OnMouseWheel(e);
         }
     }

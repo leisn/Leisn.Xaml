@@ -58,7 +58,7 @@ namespace Leisn.Xaml.Wpf.Extensions
 
         public static DateTime LastDayOfMonth(this DateTime self)
         {
-            var days = DateTime.DaysInMonth(self.Year, self.Month);
+            int days = DateTime.DaysInMonth(self.Year, self.Month);
             return new(self.Year, self.Month, days, self.Hour, self.Minute, self.Second);
         }
 
@@ -76,23 +76,23 @@ namespace Leisn.Xaml.Wpf.Extensions
         public static DateTime MinDateTime => LunisolarCalendar.MinSupportedDateTime;
         public static string GetLunisolarYear(this DateTime self)
         {
-            var year = LunisolarCalendar.GetYear(self);
-            var tiangan = (year - 4) % 10;
-            var dizhi = (year - 4) % 12;
+            int year = LunisolarCalendar.GetYear(self);
+            int tiangan = (year - 4) % 10;
+            int dizhi = (year - 4) % 12;
             return string.Concat(Tiangans[tiangan], Dizhis[dizhi]);
         }
         private static readonly string[] Shengxiaos = { "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
         public static string GetZodiac(this DateTime self)
         {
-            var dizhi = (LunisolarCalendar.GetYear(self) - 4) % 12;
+            int dizhi = (LunisolarCalendar.GetYear(self) - 4) % 12;
             return Shengxiaos[dizhi];
         }
         private static readonly string[] Yuefens = { "正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "腊" };
         public static string GetLunisolarMonth(this DateTime self)
         {
-            var month = LunisolarCalendar.GetMonth(self);
-            var year = LunisolarCalendar.GetYear(self);
-            var leapMonth = LunisolarCalendar.GetLeapMonth(year);
+            int month = LunisolarCalendar.GetMonth(self);
+            int year = LunisolarCalendar.GetYear(self);
+            int leapMonth = LunisolarCalendar.GetLeapMonth(year);
             return month == leapMonth ? $"闰{Yuefens[month - 2]}" : Yuefens[month > leapMonth && leapMonth > 0 ? month - 2 : month - 1];
         }
 
@@ -105,15 +105,24 @@ namespace Leisn.Xaml.Wpf.Extensions
         }
         public static string GetLunisolarDay(this DateTime self, bool getMonthOfFirstDay = false)
         {
-            var day = LunisolarCalendar.GetDayOfMonth(self);
+            int day = LunisolarCalendar.GetDayOfMonth(self);
             if (getMonthOfFirstDay && day == 1)
+            {
                 return string.Concat(GetLunisolarMonth(self), "月");
+            }
+
             if (day == 20)
+            {
                 return "二十";
+            }
+
             int d1 = (day - 1) / 10;
             int d2 = day % 10;
             if (d1 > 1 && d2 == 0)
+            {
                 return string.Concat(Riqis1[d1 + 1], Riqis2[d2]);
+            }
+
             return string.Concat(Riqis1[d1], Riqis2[d2]);
         }
 

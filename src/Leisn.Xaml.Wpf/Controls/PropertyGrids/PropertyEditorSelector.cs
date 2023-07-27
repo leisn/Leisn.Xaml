@@ -1,11 +1,8 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.DirectoryServices.ActiveDirectory;
-using System.Reflection;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
@@ -61,7 +58,10 @@ namespace Leisn.Xaml.Wpf.Controls
             if (propertyType.IsAssignableTo(typeof(IEnumerable<string>)))
             {
                 if (propertyAttributes.Attr<PathSelectAttribute>() is PathSelectAttribute pathSelectAttribute)
+                {
                     return new PathCollectionEditor(pathSelectAttribute);
+                }
+
                 return new StringCollectionEditor();
             }
 
@@ -85,36 +85,88 @@ namespace Leisn.Xaml.Wpf.Controls
 
             if (propertyType.GetGenericInterfaceTypeOf(typeof(IDictionary<,>)) is Type dictType)
             {
-                var arguments = dictType.GetGenericArguments();
-                var keyType = arguments[0];
-                var valueType = arguments[1];
+                Type[] arguments = dictType.GetGenericArguments();
+                Type keyType = arguments[0];
+                Type valueType = arguments[1];
                 if (DictionaryEditor.IsSupportType(keyType, valueType))
+                {
                     return new DictionaryEditor(keyType, valueType, propertyAttributes, this);
+                }
             }
 
             if (elementTypes?.Length == 1)
             {
-                var elementType = elementTypes[0];
-                if (elementType.IsEnum) return new ComboCollecitonEditor(elementType);
+                Type elementType = elementTypes[0];
+                if (elementType.IsEnum)
+                {
+                    return new ComboCollecitonEditor(elementType);
+                }
+
                 if (propertyAttributes.Attr<DataProviderAttribute>() is DataProviderAttribute providerAttribute)
+                {
                     return new ComboCollecitonEditor(providerAttribute.ProviderType);
-                if (elementType.IsNumericType()) return new NumericCollectionEditor(elementType);
-                if (elementType.IsClass) return new ClassCollectionEdtior(elementType, propertyAttributes);
+                }
+
+                if (elementType.IsNumericType())
+                {
+                    return new NumericCollectionEditor(elementType);
+                }
+
+                if (elementType.IsClass)
+                {
+                    return new ClassCollectionEdtior(elementType, propertyAttributes);
+                }
             }
             return null;
         }
 
         protected virtual IPropertyEditor CreateDefalutEditor(Type type, AttributeCollection propertyAttributes)
         {
-            if (type.IsEnum) return new EnumEditor();
-            if (type.IsNumericType()) return new NumericEditor(EditorHelper.ResolveTypeNumericParams(type));
-            if (type == typeof(string)) return new TextEditor();
-            if (type == typeof(bool) || type == typeof(bool?)) return new BoolEditor();
-            if (type == typeof(DateTime) || type == typeof(DateTime?)) return new DateTimePickerEditor();
-            if (type == typeof(TimeOnly)) return new TimeSelectorEditor();
-            if (type == typeof(DateOnly)) return new DateSelectorEditor();
-            if (type == typeof(Color)) return new ColorPickerEditor();
-            if (type.IsClass) return new ClassEditor();
+            if (type.IsEnum)
+            {
+                return new EnumEditor();
+            }
+
+            if (type.IsNumericType())
+            {
+                return new NumericEditor(EditorHelper.ResolveTypeNumericParams(type));
+            }
+
+            if (type == typeof(string))
+            {
+                return new TextEditor();
+            }
+
+            if (type == typeof(bool) || type == typeof(bool?))
+            {
+                return new BoolEditor();
+            }
+
+            if (type == typeof(DateTime) || type == typeof(DateTime?))
+            {
+                return new DateTimePickerEditor();
+            }
+
+            if (type == typeof(TimeOnly))
+            {
+                return new TimeSelectorEditor();
+            }
+
+            if (type == typeof(DateOnly))
+            {
+                return new DateSelectorEditor();
+            }
+
+            if (type == typeof(Color))
+            {
+                return new ColorPickerEditor();
+            }
+
+            if (type.IsClass)
+            {
+                return new ClassEditor();
+            }
+
             return new ReadOnlyTextEditor();
         }
     }

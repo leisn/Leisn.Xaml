@@ -2,8 +2,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.DirectoryServices.ActiveDirectory;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +9,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
 using Leisn.Common.Attributes;
-using Leisn.Common.Media;
 using Leisn.Xaml.Wpf.Extensions;
 using Leisn.Xaml.Wpf.Locales;
 
@@ -24,11 +21,11 @@ namespace Leisn.Xaml.Wpf.Controls
     [TemplatePart(Name = PART_TimeItemHostName, Type = typeof(UniformGrid))]
     public class DateTimeCalendar : Control
     {
-        const string PART_HeaderButtonName = "PART_HeaderButton";
-        const string PART_PreviousButtonName = "PART_PreviousButton";
-        const string PART_NextButtonName = "PART_NextButton";
-        const string PART_ItemHostName = "PART_ItemHost";
-        const string PART_TimeItemHostName = "PART_TimeItemHost";
+        private const string PART_HeaderButtonName = "PART_HeaderButton";
+        private const string PART_PreviousButtonName = "PART_PreviousButton";
+        private const string PART_NextButtonName = "PART_NextButton";
+        private const string PART_ItemHostName = "PART_ItemHost";
+        private const string PART_TimeItemHostName = "PART_TimeItemHost";
 
         public static readonly DateTime MaxDateTime = new(2095, 12, 31);
         public static readonly DateTime MinDateTime = new(1905, 1, 1);
@@ -58,8 +55,8 @@ namespace Leisn.Xaml.Wpf.Controls
 
         public DateTime SelectedDateTime
         {
-            get { return (DateTime)GetValue(SelectedDateTimeProperty); }
-            set { SetValue(SelectedDateTimeProperty, value); }
+            get => (DateTime)GetValue(SelectedDateTimeProperty);
+            set => SetValue(SelectedDateTimeProperty, value);
         }
         public static readonly DependencyProperty SelectedDateTimeProperty =
             DependencyProperty.Register("SelectedDateTime", typeof(DateTime), typeof(DateTimeCalendar),
@@ -69,7 +66,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static object CoerceSelectedDateValue(DependencyObject d, object baseValue)
         {
-            var time = (DateTime)baseValue;
+            DateTime time = (DateTime)baseValue;
             if (time < MinDateTime)
             {
                 return MinDateTime.WithTime(time);
@@ -83,14 +80,14 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnSelectedDateTimeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var ctrl = (DateTimeCalendar)d;
+            DateTimeCalendar ctrl = (DateTimeCalendar)d;
             ctrl.OnSelectedDateTimeChanged((DateTime)e.OldValue, (DateTime)e.NewValue);
         }
 
         internal DateTime DisplayDateTime
         {
-            get { return (DateTime)GetValue(DisplayDateTimeProperty); }
-            set { SetValue(DisplayDateTimeProperty, value); }
+            get => (DateTime)GetValue(DisplayDateTimeProperty);
+            set => SetValue(DisplayDateTimeProperty, value);
         }
         internal static readonly DependencyPropertyKey DisplayDateTimePropertyKey =
             DependencyProperty.RegisterReadOnly("DisplayDateTime", typeof(DateTime), typeof(DateTimeCalendar), new PropertyMetadata(DateTime.Now));
@@ -98,22 +95,22 @@ namespace Leisn.Xaml.Wpf.Controls
 
         internal bool IsNowTimeView
         {
-            get { return (bool)GetValue(IsNowTimeViewProperty); }
-            set { SetValue(IsNowTimeViewProperty, value); }
+            get => (bool)GetValue(IsNowTimeViewProperty);
+            set => SetValue(IsNowTimeViewProperty, value);
         }
         internal static readonly DependencyProperty IsNowTimeViewProperty =
             DependencyProperty.Register("IsNowTimeView", typeof(bool), typeof(DateTimeCalendar),
                 new PropertyMetadata(false, new PropertyChangedCallback(OnIsNowTimeViewChanged)));
         private static void OnIsNowTimeViewChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var ctrl = (DateTimeCalendar)d;
+            DateTimeCalendar ctrl = (DateTimeCalendar)d;
             ctrl.UpdateHeader();
         }
 
         public DateTimeSelectionMode SelectionMode
         {
-            get { return (DateTimeSelectionMode)GetValue(SelectionModeProperty); }
-            set { SetValue(SelectionModeProperty, value); }
+            get => (DateTimeSelectionMode)GetValue(SelectionModeProperty);
+            set => SetValue(SelectionModeProperty, value);
         }
         public static readonly DependencyProperty SelectionModeProperty =
             DependencyProperty.Register("SelectionMode", typeof(DateTimeSelectionMode), typeof(DateTimeCalendar),
@@ -121,7 +118,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private static void OnSelectionModeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var ctrl = (DateTimeCalendar)d;
+            DateTimeCalendar ctrl = (DateTimeCalendar)d;
             ctrl.OnSelectionModeChanged();
         }
 
@@ -171,7 +168,10 @@ namespace Leisn.Xaml.Wpf.Controls
         private void SetDateDisplayMode(CalendarMode mode)
         {
             if (mode == _dateDisplayMode)
+            {
                 return;
+            }
+
             _dateDisplayMode = mode;
             UpdateDateView(true);
         }
@@ -179,7 +179,10 @@ namespace Leisn.Xaml.Wpf.Controls
         private void SetTimeDisplayMode(CalendarMode mode)
         {
             if (mode == _timeDisplayMode)
+            {
                 return;
+            }
+
             _timeDisplayMode = mode;
             UpdateTimeView(true);
         }
@@ -269,8 +272,8 @@ namespace Leisn.Xaml.Wpf.Controls
             }
         }
 
-        const int DISPLAY_DAYS = 42;
-        const int DISPLAY_SECONEDS = 60;
+        private const int DISPLAY_DAYS = 42;
+        private const int DISPLAY_SECONEDS = 60;
         private void InitView()
         {
             Lang.LangChanged -= OnLangChanged;
@@ -284,13 +287,13 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             for (int i = 0; i < DISPLAY_DAYS; i++)
             {
-                var item = new DateTimeCalendarItem();
+                DateTimeCalendarItem item = new();
                 _itemHostGrid.Children.Add(item);
                 item.Click += OnDateItemClicked;
             }
             for (int i = 0; i < DISPLAY_SECONEDS; i++)
             {
-                var item = new DateTimeCalendarItem();
+                DateTimeCalendarItem item = new();
                 _timeItemHostGrid.Children.Add(item);
                 item.Click += OnTimeItemClicked;
             }
@@ -302,17 +305,20 @@ namespace Leisn.Xaml.Wpf.Controls
         private void OnDateItemClicked(object sender, RoutedEventArgs e)
         {
             if (_lastSelectedItem != null)
+            {
                 _lastSelectedItem.IsSelected = false;
-            var selected = (DateTimeCalendarItem)sender;
+            }
+
+            DateTimeCalendarItem selected = (DateTimeCalendarItem)sender;
             selected.IsSelected = true;
             _lastSelectedItem = selected;
 
-            var dateTime = DisplayDateTime;
+            DateTime dateTime = DisplayDateTime;
             switch (_dateDisplayMode)
             {
                 case CalendarMode.Year:
-                    var newTime = dateTime.WithDate(selected.Value.Year, dateTime.Month, 1);
-                    var days = newTime.GetDaysOfMonth();
+                    DateTime newTime = dateTime.WithDate(selected.Value.Year, dateTime.Month, 1);
+                    int days = newTime.GetDaysOfMonth();
                     SetDisplayDateTime(dateTime.WithDate(selected.Value.Year, dateTime.Month, Math.Min(dateTime.Day, days)));
                     SetDateDisplayMode(CalendarMode.Month);
                     break;
@@ -335,8 +341,11 @@ namespace Leisn.Xaml.Wpf.Controls
         private void OnTimeItemClicked(object sender, RoutedEventArgs e)
         {
             if (_lastSelectedTimeItem != null)
+            {
                 _lastSelectedTimeItem.IsSelected = false;
-            var selected = (DateTimeCalendarItem)sender;
+            }
+
+            DateTimeCalendarItem selected = (DateTimeCalendarItem)sender;
             selected.IsSelected = true;
             _lastSelectedTimeItem = selected;
 
@@ -361,11 +370,11 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void OnLangChanged()
         {
-            var dateFormat = Lang.CurrentCulture.DateTimeFormat;
-            var names = dateFormat.ShortestDayNames;
+            DateTimeFormatInfo dateFormat = Lang.CurrentCulture.DateTimeFormat;
+            string[] names = dateFormat.ShortestDayNames;
             for (int i = 0; i < 7; i++)
             {
-                var textBlock = (TextBlock)_itemHostGrid.Children[i];
+                TextBlock textBlock = (TextBlock)_itemHostGrid.Children[i];
                 textBlock.Text = names[i];
             }
             UpdateDateView(false);
@@ -376,7 +385,10 @@ namespace Leisn.Xaml.Wpf.Controls
         private void UpdateDateView(bool updateHeader)
         {
             if (_itemHostGrid == null)
+            {
                 return;
+            }
+
             switch (_dateDisplayMode)
             {
                 case CalendarMode.Month:
@@ -392,17 +404,22 @@ namespace Leisn.Xaml.Wpf.Controls
                     break;
             }
             if (updateHeader)
+            {
                 UpdateHeader();
+            }
         }
 
         private void UpdateDateHeader()
         {
             if (_headerButton == null)
+            {
                 return;
+            }
+
             _headerButton.IsEnabled = _dateDisplayMode is not CalendarMode.Year;
 
             DateTime start, end;
-            var format = Lang.CurrentCulture.DateTimeFormat;
+            DateTimeFormatInfo format = Lang.CurrentCulture.DateTimeFormat;
             switch (_dateDisplayMode)
             {
                 case CalendarMode.Year:
@@ -418,7 +435,7 @@ namespace Leisn.Xaml.Wpf.Controls
                     break;
 
                 case CalendarMode.Decade:
-                    var pickerItem = (DateTimeCalendarItem)_itemHostGrid.Children[7];
+                    DateTimeCalendarItem pickerItem = (DateTimeCalendarItem)_itemHostGrid.Children[7];
                     start = pickerItem.Value;
                     if (pickerItem.Visibility != Visibility.Visible)
                     {
@@ -438,8 +455,8 @@ namespace Leisn.Xaml.Wpf.Controls
             }
             string GetYearString()
             {
-                var yearString = start.GetLunisolarYear();
-                var endYearString = end.GetLunisolarYear();
+                string yearString = start.GetLunisolarYear();
+                string endYearString = end.GetLunisolarYear();
                 if (!Equals(yearString, endYearString))
                 {
                     yearString = string.Concat(yearString, " - ", endYearString);
@@ -449,9 +466,9 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private void UpdateYearsView()
         {
-            var year = Math.Max(DisplayDateTime.Year - 6, MinDateTime.Year);
+            int year = Math.Max(DisplayDateTime.Year - 6, MinDateTime.Year);
             _previousButton.IsEnabled = DisplayDateTime.Year - 6 > MinDateTime.Year;
-            var endYear = year + 15;
+            int endYear = year + 15;
             if (endYear > MaxDateTime.Year)
             {
                 year = MaxDateTime.Year - 15;
@@ -461,19 +478,19 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 _nextButton.IsEnabled = true;
             }
-            var start = new DateTime(year, 1, 1);
-            var format = Lang.CurrentCulture.DateTimeFormat;
+            DateTime start = new(year, 1, 1);
+            DateTimeFormatInfo format = Lang.CurrentCulture.DateTimeFormat;
             DateTime end, now = DateTime.Now.Date;
             for (int i = 0; i < 16; i++)
             {
                 end = start.AddYears(i);
-                var yearString = end.GetLunisolarYear();
-                var endYearString = end.WithDate(end.Year, 12, 31).GetLunisolarYear();
+                string yearString = end.GetLunisolarYear();
+                string endYearString = end.WithDate(end.Year, 12, 31).GetLunisolarYear();
                 if (!Equals(yearString, endYearString))
                 {
                     yearString = string.Concat(yearString, " - ", endYearString);
                 }
-                var item = (DateTimeCalendarItem)_itemHostGrid.Children[i + 7];
+                DateTimeCalendarItem item = (DateTimeCalendarItem)_itemHostGrid.Children[i + 7];
                 item.Value = end;
                 item.Title = end.Year.ToString(format);
                 item.Subtitle = string.Concat(yearString, "年");
@@ -488,13 +505,13 @@ namespace Leisn.Xaml.Wpf.Controls
             _itemHostGrid.Columns = 4;
             for (int i = 0; i < 49; i++)
             {
-                var control = _itemHostGrid.Children[i];
+                UIElement control = _itemHostGrid.Children[i];
                 control.Visibility = i is < 7 or > 22 ? Visibility.Collapsed : Visibility.Visible;
             }
         }
         private void UpdateMonthsView()
         {
-            var start = DisplayDateTime.WithDate(DisplayDateTime.Year, 1, 1); ;
+            DateTime start = DisplayDateTime.WithDate(DisplayDateTime.Year, 1, 1); ;
             if (DisplayDateTime.Year == MinDateTime.Year)
             {
                 _previousButton.IsEnabled = false;
@@ -513,20 +530,20 @@ namespace Leisn.Xaml.Wpf.Controls
             {
                 _nextButton.IsEnabled = true;
             }
-            var format = Lang.CurrentCulture.DateTimeFormat;
-            var monthNames = format.AbbreviatedMonthNames;
+            DateTimeFormatInfo format = Lang.CurrentCulture.DateTimeFormat;
+            string[]? monthNames = format.AbbreviatedMonthNames;
             DateTime end, now = DateTime.Now.Date;
             for (int i = 0; i < 16; i++)
             {
                 end = start.AddMonths(i);
-                var mouthString = end.GetLunisolarMonth();
-                var lastString = end.AddMonths(1).AddDays(-1).GetLunisolarMonth();
+                string mouthString = end.GetLunisolarMonth();
+                string lastString = end.AddMonths(1).AddDays(-1).GetLunisolarMonth();
                 if (!Equals(mouthString, lastString))
                 {
                     mouthString = string.Concat(mouthString, "月 - ", lastString, "月");
                 }
 
-                var item = (DateTimeCalendarItem)_itemHostGrid.Children[i + 7];
+                DateTimeCalendarItem item = (DateTimeCalendarItem)_itemHostGrid.Children[i + 7];
                 item.Value = end;
                 item.Title = monthNames != null && monthNames.Length > 0 ?
                     monthNames[(end.Month - 1) % monthNames.Length] : end.Month.ToString(format);
@@ -542,18 +559,18 @@ namespace Leisn.Xaml.Wpf.Controls
             _itemHostGrid.Columns = 4;
             for (int i = 0; i < 49; i++)
             {
-                var control = _itemHostGrid.Children[i];
+                UIElement control = _itemHostGrid.Children[i];
                 control.Visibility = i is < 7 or > 22 ? Visibility.Collapsed : Visibility.Visible;
             }
         }
         private void UpdateDaysView()
         {
-            var (start, startIndex, length, hiddenStart) = GetDisplayDaysFromMonth(DisplayDateTime);
+            (DateTime start, int startIndex, int length, bool hiddenStart) = GetDisplayDaysFromMonth(DisplayDateTime);
             DateTime end, now = DateTime.Now.Date;
-            var endIndex = startIndex + length;
+            int endIndex = startIndex + length;
             for (int i = 0; i < DISPLAY_DAYS; i++)
             {
-                var item = (DateTimeCalendarItem)_itemHostGrid.Children[i + 7];
+                DateTimeCalendarItem item = (DateTimeCalendarItem)_itemHostGrid.Children[i + 7];
                 item.Visibility = Visibility.Visible;
                 if (hiddenStart && i < startIndex)
                 {
@@ -580,22 +597,22 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private (DateTime Start, int StartIndex, int Length, bool HiddenStart) GetDisplayDaysFromMonth(DateTime date)
         {
-            var firstDay = date.FirstDayOfMonth();
-            var lastDay = date.LastDayOfMonth();
-            var dayInMonth = date.GetDaysOfMonth();
+            DateTime firstDay = date.FirstDayOfMonth();
+            DateTime lastDay = date.LastDayOfMonth();
+            int dayInMonth = date.GetDaysOfMonth();
             if (lastDay.Date.AddDays(7) > MaxDateTime)
             {
-                var first = MaxDateTime.AddDays(-41).WithTime(firstDay);
+                DateTime first = MaxDateTime.AddDays(-41).WithTime(firstDay);
                 _nextButton.IsEnabled = false;
                 return (first, 11, dayInMonth, false);
             }
             _nextButton.IsEnabled = true;
-            var firstWeek = (int)firstDay.DayOfWeek;
+            int firstWeek = (int)firstDay.DayOfWeek;
             DateTime start = firstDay;
             bool hiddenStart = false;
             if (firstWeek > 0)
             {
-                var min = MinDateTime.WithTime(start);
+                DateTime min = MinDateTime.WithTime(start);
                 if (min.AddDays(firstWeek) > start)
                 {
                     start = min;
@@ -614,7 +631,10 @@ namespace Leisn.Xaml.Wpf.Controls
         private void UpdateTimeView(bool updateHeader)
         {
             if (_timeItemHostGrid == null)
+            {
                 return;
+            }
+
             switch (_timeDisplayMode)
             {
                 case CalendarMode.Year:
@@ -630,16 +650,21 @@ namespace Leisn.Xaml.Wpf.Controls
                     break;
             }
             if (updateHeader)
+            {
                 UpdateHeader();
+            }
         }
 
         private void UpdateTimeHeader()
         {
             if (_headerButton == null)
+            {
                 return;
+            }
+
             _headerButton.IsEnabled = true;
-            var format = Lang.CurrentCulture.DateTimeFormat;
-            var dateString = string.Concat(DisplayDateTime.ToString(format.YearMonthPattern), DisplayDateTime.Day, Equals("zh-cn", Lang.CurrentLanguage) ? "日" : "");
+            DateTimeFormatInfo format = Lang.CurrentCulture.DateTimeFormat;
+            string dateString = string.Concat(DisplayDateTime.ToString(format.YearMonthPattern), DisplayDateTime.Day, Equals("zh-cn", Lang.CurrentLanguage) ? "日" : "");
             switch (_timeDisplayMode)
             {
                 case CalendarMode.Year:
@@ -657,14 +682,14 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private void UpdateHoursView()
         {
-            var start = DisplayDateTime.With(Hour: 0);
-            var now = DateTime.Now;
-            var format = Lang.CurrentCulture.DateTimeFormat;
+            DateTime start = DisplayDateTime.With(Hour: 0);
+            DateTime now = DateTime.Now;
+            DateTimeFormatInfo format = Lang.CurrentCulture.DateTimeFormat;
             DateTime end;
             for (int i = 0; i < 24; i++)
             {
                 end = start.AddHours(i);
-                var item = (DateTimeCalendarItem)_timeItemHostGrid.Children[i];
+                DateTimeCalendarItem item = (DateTimeCalendarItem)_timeItemHostGrid.Children[i];
                 item.Value = end;
                 item.Title = end.Hour.ToString(format);
                 item.Subtitle = null;
@@ -678,20 +703,20 @@ namespace Leisn.Xaml.Wpf.Controls
             _timeItemHostGrid.Columns = 5;
             for (int i = 24; i < _timeItemHostGrid.Children.Count; i++)
             {
-                var control = _timeItemHostGrid.Children[i];
+                UIElement control = _timeItemHostGrid.Children[i];
                 control.Visibility = Visibility.Collapsed;
             }
         }
         private void UpdateMinutesView()
         {
-            var start = DisplayDateTime.With(Minute: 0);
-            var now = DateTime.Now;
-            var format = Lang.CurrentCulture.DateTimeFormat;
+            DateTime start = DisplayDateTime.With(Minute: 0);
+            DateTime now = DateTime.Now;
+            DateTimeFormatInfo format = Lang.CurrentCulture.DateTimeFormat;
             DateTime end;
             for (int i = 0; i < DISPLAY_SECONEDS; i++)
             {
                 end = start.AddMinutes(i);
-                var item = (DateTimeCalendarItem)_timeItemHostGrid.Children[i];
+                DateTimeCalendarItem item = (DateTimeCalendarItem)_timeItemHostGrid.Children[i];
                 item.Visibility = Visibility.Visible;
                 item.Value = end;
                 item.Title = end.Minute.ToString(format);
@@ -707,14 +732,14 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         private void UpdateSecondsView()
         {
-            var start = DisplayDateTime.With(Second: 0);
-            var now = DateTime.Now;
-            var format = Lang.CurrentCulture.DateTimeFormat;
+            DateTime start = DisplayDateTime.With(Second: 0);
+            DateTime now = DateTime.Now;
+            DateTimeFormatInfo format = Lang.CurrentCulture.DateTimeFormat;
             DateTime end;
             for (int i = 0; i < DISPLAY_SECONEDS; i++)
             {
                 end = start.AddSeconds(i);
-                var item = (DateTimeCalendarItem)_timeItemHostGrid.Children[i];
+                DateTimeCalendarItem item = (DateTimeCalendarItem)_timeItemHostGrid.Children[i];
                 item.Visibility = Visibility.Visible;
                 item.Value = end;
                 item.Title = end.Second.ToString(format);

@@ -32,7 +32,7 @@ namespace Leisn.Xaml.Wpf.Controls
                     FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         [Bindable(true), Category("Layout")]
-        public bool IsCurved { get { return (bool)GetValue(IsCurvedProperty); } set { SetValue(IsCurvedProperty, value); } }
+        public bool IsCurved { get => (bool)GetValue(IsCurvedProperty); set => SetValue(IsCurvedProperty, value); }
         public static readonly DependencyProperty IsCurvedProperty =
             DependencyProperty.Register("IsCurved", typeof(bool), typeof(UniformGrid),
                new FrameworkPropertyMetadata(false,
@@ -140,7 +140,7 @@ namespace Leisn.Xaml.Wpf.Controls
             int row, col, rowSpan, colSpan;
             double left, top, width, height;
             bool[,] _cells = new bool[_rows, _columns];
-            var unArranged = new List<UIElement>();
+            List<UIElement> unArranged = new();
             //先放置含有Grid.row的，再放置其他，已被占据的位置不能再放置，超出边界的叠在最后一格里
             foreach (UIElement child in InternalChildren)
             {

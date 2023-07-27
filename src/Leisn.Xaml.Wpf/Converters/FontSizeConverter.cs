@@ -11,14 +11,14 @@ namespace Leisn.Xaml.Wpf.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double mutipy = ParseParam(parameter);
-            var v = (double)value;
+            double v = (double)value;
             return mutipy * v;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             double mutipy = ParseParam(parameter);
-            var v = (double)value;
+            double v = (double)value;
             return v / mutipy;
         }
 
@@ -27,11 +27,11 @@ namespace Leisn.Xaml.Wpf.Converters
             double mutipy = 1;
             if (parameter is not null)
             {
-                var pStr = parameter.ToString()!.Trim();
+                string pStr = parameter.ToString()!.Trim();
                 if (pStr.EndsWith('%'))
                 {
                     pStr = pStr.Substring(0, Math.Max(0, pStr.Length - 1));
-                    if (double.TryParse(pStr, out var precent))
+                    if (double.TryParse(pStr, out double precent))
                     {
                         mutipy = precent / 100;
                     }

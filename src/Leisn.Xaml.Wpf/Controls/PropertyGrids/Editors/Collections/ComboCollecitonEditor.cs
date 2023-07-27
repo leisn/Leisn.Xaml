@@ -1,19 +1,10 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
-using Leisn.Common.Attributes;
-using Leisn.Common.Collections;
 using Leisn.Common.Data;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
@@ -28,7 +19,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override ComboBox CreateItemElement(int index, object? item)
         {
-            var comboBox = EditorHelper.CreateComboBox(_dataSource);
+            ComboBox comboBox = EditorHelper.CreateComboBox(_dataSource);
             comboBox.SelectedValue = item;
             comboBox.SelectionChanged += ComboBox_SelectionChanged;
             return comboBox;

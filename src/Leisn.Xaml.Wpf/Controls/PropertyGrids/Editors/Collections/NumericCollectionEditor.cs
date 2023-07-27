@@ -28,7 +28,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override NumericUpDown CreateItemElement(int index, object? item)
         {
-            var control = new NumericUpDown
+            NumericUpDown control = new()
             {
                 Value = Convert.ToDouble(item),
                 IsReadOnly = IsCoerceReadOnly,
@@ -49,7 +49,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override object CreateNewItem()
         {
-            var value = _defaultVale ?? (_params.Minimum > 0 ? _params.Minimum : _params.Maximum < 0 ? _params.Maximum : 0);
+            double value = _defaultVale ?? (_params.Minimum > 0 ? _params.Minimum : _params.Maximum < 0 ? _params.Maximum : 0);
             return ((IConvertible)value).ToType(_numberType, null);
         }
 

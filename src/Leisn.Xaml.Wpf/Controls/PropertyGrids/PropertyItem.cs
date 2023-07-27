@@ -2,7 +2,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Security.AccessControl;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -146,7 +145,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged,
             };
 
-            var bindingProperty = Editor.GetBindingProperty();
+            DependencyProperty bindingProperty = Editor.GetBindingProperty();
             BindingOperations.SetBinding(EditorElement, bindingProperty, binding);
             //var elementValue = EditorHelper.ConvertValue(EditorElement.GetValue(bindingProperty), PropertyType);
             //var currentValue = GetPropertyValue();

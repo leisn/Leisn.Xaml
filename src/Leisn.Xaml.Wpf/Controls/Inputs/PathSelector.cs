@@ -1,6 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,7 +50,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty ModeProperty =
             DependencyProperty.Register("Mode", typeof(PathSelectMode), typeof(PathSelector), new PropertyMetadata(PathSelectMode.Folder));
-       
+
         private static void OnPathChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             PathSelector cs = (PathSelector)d;

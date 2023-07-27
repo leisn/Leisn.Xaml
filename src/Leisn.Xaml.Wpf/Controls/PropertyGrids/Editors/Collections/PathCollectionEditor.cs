@@ -1,12 +1,5 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-
 using Leisn.Common.Attributes;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
@@ -21,7 +14,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override PathSelector CreateItemElement(int index, object? item)
         {
-            var control = new PathSelector
+            PathSelector control = new()
             {
                 Mode = _selectAttr.Mode,
                 IsTextReadOnly = _selectAttr.IsTextReadOnly,

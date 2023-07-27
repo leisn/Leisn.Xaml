@@ -14,8 +14,8 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
     {
         public FrameworkElement CreateElement(PropertyItem item)
         {
-            var type = item.Attributes.Attr<DataProviderAttribute>()!.ProviderType;
-            var datas = EditorHelper.ResolveDataProvider(type);
+            Type type = item.Attributes.Attr<DataProviderAttribute>()!.ProviderType;
+            System.Collections.Generic.IEnumerable<Common.Data.IDataDeclaration<object>> datas = EditorHelper.ResolveDataProvider(type);
             ComboBox box = EditorHelper.CreateComboBox(datas);
             box.IsEditable = false; //Cannot edit
             box.IsReadOnly = item.IsReadOnly;
