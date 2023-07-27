@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 
 using Leisn.Common.Attributes;
+using Leisn.Xaml.Wpf.Controls.Editors;
 using Leisn.Xaml.Wpf.Extensions;
 
 namespace Leisn.Xaml.Wpf.Controls
@@ -44,6 +46,8 @@ namespace Leisn.Xaml.Wpf.Controls
         static DateTimePicker()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DateTimePicker), new FrameworkPropertyMetadata(typeof(DateTimePicker)));
+            EventManager.RegisterClassHandler(typeof(DateTimePicker), Mouse.LostMouseCaptureEvent, new MouseEventHandler(OnLostMouseCapture));
+            EventManager.RegisterClassHandler(typeof(DateTimePicker), Mouse.MouseDownEvent, new MouseButtonEventHandler(OnMouseButtonDown), true); // call us even if the transparent button in the style gets the click.
         }
 
         public static readonly RoutedEvent SelectedDateTimeChangedEvent =
@@ -96,7 +100,13 @@ namespace Leisn.Xaml.Wpf.Controls
             set { SetValue(IsDropDownOpenProperty, value); }
         }
         public static readonly DependencyProperty IsDropDownOpenProperty =
-            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(DateTimePicker), new PropertyMetadata(false));
+            DependencyProperty.Register("IsDropDownOpen", typeof(bool), typeof(DateTimePicker),
+                 new PropertyMetadata(false, new PropertyChangedCallback(OnIsDropDownOpenChanged)));
+        private static void OnIsDropDownOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            DateTimePicker picker = (DateTimePicker)d;
+            picker.OnIsDropDownChanged();
+        }
 
         public string DateTimeFormatString
         {
@@ -159,7 +169,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void OnButtonClicked(object sender, RoutedEventArgs e)
         {
-            IsDropDownOpen = true;
+            IsDropDownOpen = !IsDropDownOpen;
         }
 
         protected virtual void OnSelectedDateTimeChanged(DateTime? oldTime, DateTime? newTime)
@@ -185,6 +195,32 @@ namespace Leisn.Xaml.Wpf.Controls
                 _button.Content = text;
         }
 
+        #region IsDropDownOpen Popup
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                IsDropDownOpen = false;
+            }
+            else if (e.Key == Key.Enter)
+            {
+                IsDropDownOpen = true;
+            }
+        }
+
+        private void OnIsDropDownChanged()
+        {
+            if (IsDropDownOpen)
+            {
+                Mouse.Capture(this, CaptureMode.SubTree);
+            }
+            else if (Mouse.Captured == this)
+            {
+                Mouse.Capture(null);
+            }
+        }
+
+
         protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnIsKeyboardFocusWithinChanged(e);
@@ -193,5 +229,53 @@ namespace Leisn.Xaml.Wpf.Controls
                 IsDropDownOpen = false;
             }
         }
+
+        private static void OnMouseButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DateTimePicker editor = (DateTimePicker)sender;
+
+            if (!editor.IsKeyboardFocusWithin)
+            {
+                editor.Focus();
+            }
+            e.Handled = true;
+
+            if (Mouse.Captured == editor && e.OriginalSource == editor)
+            {
+                editor.IsDropDownOpen = false;
+            }
+        }
+
+        private static void OnLostMouseCapture(object sender, MouseEventArgs e)
+        {
+            DateTimePicker editor = (DateTimePicker)sender;
+            IInputElement captured = Mouse.Captured;
+            if (captured != editor)
+            {
+                if (e.OriginalSource == editor)
+                {
+                    if (captured == null || !editor.HasDescendant(captured as DependencyObject))
+                    {
+                        editor.IsDropDownOpen = false;
+                    }
+                }
+                else
+                {
+                    if (editor.HasDescendant(e.OriginalSource as DependencyObject))
+                    {
+                        if (editor.IsDropDownOpen && captured == null)
+                        {
+                            Mouse.Capture(editor, CaptureMode.SubTree);
+                            e.Handled = true;
+                        }
+                    }
+                    else
+                    {
+                        editor.IsDropDownOpen = false;
+                    }
+                }
+            }
+        }
+        #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:Leisn.Xaml.Wpf.Converters">
+  <converters:FontSizeConverter x:Key="FontSizeConverter"/>
   <converters:BoolReverseConverter x:Key="BoolReverseConverter"/>
   <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter"/>
   <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter"/>

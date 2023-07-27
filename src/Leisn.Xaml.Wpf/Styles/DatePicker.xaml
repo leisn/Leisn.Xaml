@@ -155,6 +155,7 @@
     <Setter Property="BorderThickness" Value="1"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}"/>
     <Setter Property="FontFamily" Value="Verdana"/>
+    <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}"/>
     <Setter Property="Padding" Value="5"/>
     <Setter Property="Template">
       <Setter.Value>
@@ -167,9 +168,11 @@
             <StackPanel VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
               <TextBlock Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}" 
-                         Text="{TemplateBinding Title}" TextAlignment="Center" FontSize="{StaticResource FontSize120}"/>
-              <TextBlock x:Name="subTitle" FontFamily="{TemplateBinding FontFamily}" FontSize="{StaticResource FontSize80}"
-                         TextAlignment="Center" Text="{TemplateBinding Subtitle}" Foreground="{DynamicResource TextDarkBrush}" />
+                         Text="{TemplateBinding Title}" TextAlignment="Center"
+                         FontSize="{TemplateBinding FontSize}"/>
+              <TextBlock x:Name="subTitle" FontFamily="{TemplateBinding FontFamily}" 
+                         TextAlignment="Center" Text="{TemplateBinding Subtitle}" Foreground="{DynamicResource TextDarkBrush}"
+                         FontSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=FontSize,Converter={StaticResource FontSizeConverter},ConverterParameter=0.7}"/>
             </StackPanel>
           </Border>
           <ControlTemplate.Triggers>
@@ -307,6 +310,7 @@
   <Style TargetType="{x:Type local:DateTimeCalendar}" BasedOn="{StaticResource DateTimeCalendarBaseStyle}"/>
 
   <Style x:Key="DateTimePickerBaseStyle" TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource BaseInputStyle}">
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="Padding" Value="5,0"/>
     <Setter Property="Template">
       <Setter.Value>
@@ -316,16 +320,19 @@
                   CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   BorderBrush="{StaticResource BorderBrush}">
             <Grid x:Name="templateRoot" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-              <Button x:Name="PART_Button" HorizontalContentAlignment="Stretch" Padding="0">
+              <Button x:Name="PART_Button" HorizontalContentAlignment="Stretch" Padding="0"
+                      Focusable="False" ClickMode="Press" IsTabStop="False">
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="28"/>
                   </Grid.ColumnDefinitions>
-                  <local:FontIcon Grid.Column="1" Margin="0,1,0,-1"
-                                  FontFamily="{StaticResource SymbolFontFamily}" Glyph="&#xE787;" 
-                                  Foreground="{TemplateBinding Foreground}"
+                  
+                  <local:FontIcon x:Name="fontIcon" Grid.Column="1" Margin="0,1,0,-1"
+                                  FontFamily="{StaticResource SymbolFontFamily}" Glyph="&#xEE93;" 
+                                  Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource FontSizeIcon}"
                                   Visibility="{Binding ElementName=clearButton,Path=Visibility,Converter={StaticResource MutexVisilityConverter}}"/>
+
                   <TextBlock x:Name="PART_TextBlock" Grid.Column="0" Margin="{TemplateBinding Padding}"
                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
@@ -349,7 +356,7 @@
                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" StaysOpen="False">
                 <Border MinWidth="{Binding ActualWidth, ElementName=templateRoot}"
                       Background="{DynamicResource RegionBrush}" Margin="2"
-                      BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                      BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1"
                       CornerRadius="{StaticResource DefaultCornerRadius}"
                       SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                   <Grid RenderOptions.ClearTypeHint="Enabled">
@@ -360,11 +367,13 @@
                     <local:DateTimeCalendar x:Name="PART_Calendar" KeyboardNavigation.DirectionalNavigation="Contained"
                                             SelectionMode="{TemplateBinding SelectionMode}"
                                             local:ControlAttach.CornerRadius="0"/>
-                    <UniformGrid Rows="1" Height="40" Grid.Row="1">
-                      <Button x:Name="PART_CloseButton" Focusable="False" local:ControlAttach.CornerRadius="0,0,0,3">
+                    <UniformGrid Rows="1" Height="34" Grid.Row="1">
+                      <Button x:Name="PART_CloseButton" Focusable="False" local:ControlAttach.CornerRadius="0,0,0,3"
+                              Background="{DynamicResource RegionBrush}">
                         <Path Height="{TemplateBinding FontSize}" Stretch="Uniform" Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}"/>
                       </Button>
-                      <Button x:Name="PART_ApplyButton" Focusable="False" local:ControlAttach.CornerRadius="0,0,3,0">
+                      <Button x:Name="PART_ApplyButton" Focusable="False" local:ControlAttach.CornerRadius="0,0,3,0"
+                              Background="{DynamicResource ControlDark1Brush}">
                         <Path Height="{TemplateBinding FontSize}" Stretch="Uniform" Data="{StaticResource TickGeometry}" Fill="{TemplateBinding Foreground}"/>
                       </Button>
                     </UniformGrid>
@@ -374,6 +383,12 @@
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
+            <Trigger Property="SelectionMode" Value="DateOnly">
+              <Setter Property="Glyph" Value="&#xE787;" TargetName="fontIcon"/>
+            </Trigger>
+            <Trigger Property="SelectionMode" Value="TimeOnly">
+              <Setter Property="Glyph" Value="&#xE2AD;" TargetName="fontIcon"/>
+            </Trigger>
             <Trigger Property="SelectedDateTime" Value="{x:Null}">
               <Setter Property="Visibility" Value="Hidden" TargetName="clearButton"/>
               <Setter Property="Visibility" Value="Hidden" TargetName="clearButton"/>

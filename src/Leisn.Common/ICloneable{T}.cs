@@ -12,6 +12,9 @@ namespace Leisn.Common
         /// </summary>
         /// <returns> A new {T} that is a copy of this instance.</returns>
         new T Clone();
-        object ICloneable.Clone() => Clone()!;
+        object ICloneable.Clone()
+        {
+            return Clone()!;
+        }
     }
 }

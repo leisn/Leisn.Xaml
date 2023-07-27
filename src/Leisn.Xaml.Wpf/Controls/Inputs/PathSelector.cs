@@ -99,7 +99,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void OnButtonClicked(object sender, RoutedEventArgs e)
         {
-            string dialogTitle = DialogTitle;
+            string? dialogTitle = DialogTitle;
             if (!string.IsNullOrEmpty(dialogTitle))
             {
                 string[] keys = StringHelper.ParseFormat(dialogTitle, out string? convertedFormat);

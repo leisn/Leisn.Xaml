@@ -6,18 +6,33 @@
   <FontFamily x:Key="SymbolFontFamily">Segoe MDL2 Assets</FontFamily>
   <FontFamily x:Key="FluentIconFontFamily">Segoe Fluent Icons</FontFamily>
 
-  <sys:Double x:Key="DefaultFontSize">12</sys:Double>
-  <sys:Double x:Key="FontSize80">10</sys:Double>
-  <sys:Double x:Key="FontSize50">6</sys:Double>
-  <sys:Double x:Key="FontSize120">14</sys:Double>
-  <sys:Double x:Key="FontSize140">16</sys:Double>
-  <sys:Double x:Key="FontSize160">20</sys:Double>
-  <sys:Double x:Key="FontSize180">22</sys:Double>
-  <sys:Double x:Key="FontSize200">24</sys:Double>
-  <sys:Double x:Key="FontSize250">30</sys:Double>
-  <sys:Double x:Key="FontSize300">36</sys:Double>
-  <sys:Double x:Key="FontSize400">48</sys:Double>
-  <sys:Double x:Key="FontSize500">60</sys:Double>
+  <sys:Double x:Key="FontSize6">6</sys:Double>
+  <sys:Double x:Key="FontSize10">10</sys:Double>
+  <sys:Double x:Key="FontSize12">12</sys:Double>
+  <sys:Double x:Key="FontSize14">14</sys:Double>
+  <sys:Double x:Key="FontSize16">16</sys:Double>
+  <sys:Double x:Key="FontSize18">18</sys:Double>
+  <sys:Double x:Key="FontSize20">20</sys:Double>
+  <sys:Double x:Key="FontSize22">22</sys:Double>
+  <sys:Double x:Key="FontSize24">24</sys:Double>
+  <sys:Double x:Key="FontSize30">30</sys:Double>
+  <sys:Double x:Key="FontSize36">36</sys:Double>
+  <sys:Double x:Key="FontSize48">48</sys:Double>
+  <sys:Double x:Key="FontSize60">60</sys:Double>
+  <sys:Double x:Key="FontSize72">72</sys:Double>
+
+  <sys:Double x:Key="FontSizeDefault">12</sys:Double>
+  <sys:Double x:Key="FontSizeMini">6</sys:Double>
+  <sys:Double x:Key="FontSizeSmall">10</sys:Double>
+  <sys:Double x:Key="FontSizeMedium">14</sys:Double>
+  <sys:Double x:Key="FontSizeLarge">18</sys:Double>
+  <sys:Double x:Key="FontSizeIcon">16</sys:Double>
+  <sys:Double x:Key="FontSizeHearder5">14</sys:Double>
+  <sys:Double x:Key="FontSizeHearder4">16</sys:Double>
+  <sys:Double x:Key="FontSizeHearder3">18</sys:Double>
+  <sys:Double x:Key="FontSizeHearder2">20</sys:Double>
+  <sys:Double x:Key="FontSizeHearder1">24</sys:Double>
+
 
   <sys:Double x:Key="DefaultRadius">3</sys:Double>
   <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>

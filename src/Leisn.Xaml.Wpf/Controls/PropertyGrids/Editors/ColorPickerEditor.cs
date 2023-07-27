@@ -121,7 +121,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 _colorPicker.SelectedColor = SelectedColor;
             }
         }
-
+        #region IsDropDownOpen Popup
         protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
@@ -201,5 +201,6 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 }
             }
         }
+        #endregion
     }
 }

@@ -38,18 +38,31 @@
   <Color x:Key="ControlDark2Color">#212121</Color>
   <FontFamily x:Key="SymbolFontFamily">Segoe MDL2 Assets</FontFamily>
   <FontFamily x:Key="FluentIconFontFamily">Segoe Fluent Icons</FontFamily>
-  <sys:Double x:Key="DefaultFontSize">12</sys:Double>
-  <sys:Double x:Key="FontSize80">10</sys:Double>
-  <sys:Double x:Key="FontSize50">6</sys:Double>
-  <sys:Double x:Key="FontSize120">14</sys:Double>
-  <sys:Double x:Key="FontSize140">16</sys:Double>
-  <sys:Double x:Key="FontSize160">20</sys:Double>
-  <sys:Double x:Key="FontSize180">22</sys:Double>
-  <sys:Double x:Key="FontSize200">24</sys:Double>
-  <sys:Double x:Key="FontSize250">30</sys:Double>
-  <sys:Double x:Key="FontSize300">36</sys:Double>
-  <sys:Double x:Key="FontSize400">48</sys:Double>
-  <sys:Double x:Key="FontSize500">60</sys:Double>
+  <sys:Double x:Key="FontSize6">6</sys:Double>
+  <sys:Double x:Key="FontSize10">10</sys:Double>
+  <sys:Double x:Key="FontSize12">12</sys:Double>
+  <sys:Double x:Key="FontSize14">14</sys:Double>
+  <sys:Double x:Key="FontSize16">16</sys:Double>
+  <sys:Double x:Key="FontSize18">18</sys:Double>
+  <sys:Double x:Key="FontSize20">20</sys:Double>
+  <sys:Double x:Key="FontSize22">22</sys:Double>
+  <sys:Double x:Key="FontSize24">24</sys:Double>
+  <sys:Double x:Key="FontSize30">30</sys:Double>
+  <sys:Double x:Key="FontSize36">36</sys:Double>
+  <sys:Double x:Key="FontSize48">48</sys:Double>
+  <sys:Double x:Key="FontSize60">60</sys:Double>
+  <sys:Double x:Key="FontSize72">72</sys:Double>
+  <sys:Double x:Key="FontSizeDefault">12</sys:Double>
+  <sys:Double x:Key="FontSizeMini">6</sys:Double>
+  <sys:Double x:Key="FontSizeSmall">10</sys:Double>
+  <sys:Double x:Key="FontSizeMedium">14</sys:Double>
+  <sys:Double x:Key="FontSizeLarge">18</sys:Double>
+  <sys:Double x:Key="FontSizeIcon">16</sys:Double>
+  <sys:Double x:Key="FontSizeHearder5">14</sys:Double>
+  <sys:Double x:Key="FontSizeHearder4">16</sys:Double>
+  <sys:Double x:Key="FontSizeHearder3">18</sys:Double>
+  <sys:Double x:Key="FontSizeHearder2">20</sys:Double>
+  <sys:Double x:Key="FontSizeHearder1">24</sys:Double>
   <sys:Double x:Key="DefaultRadius">3</sys:Double>
   <CornerRadius x:Key="DefaultCornerRadius">3</CornerRadius>
   <CornerRadius x:Key="DefaultLeftCornerRadius">3,0,0,3</CornerRadius>
@@ -183,6 +196,7 @@
       </DrawingGroup>
     </DrawingImage.Drawing>
   </DrawingImage>
+  <converters:FontSizeConverter x:Key="FontSizeConverter" />
   <converters:BoolReverseConverter x:Key="BoolReverseConverter" />
   <converters:BoolVisibilityConverter x:Key="BoolVisibilityConverter" />
   <converters:MultiBoolToBoolConverter x:Key="MultiBoolToBoolConverter" />
@@ -208,7 +222,7 @@
   <Style x:Key="BaseControlStyle" TargetType="Control">
     <Setter Property="Background" Value="{DynamicResource ControlBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource ControlTextBrush}" />
-    <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeDefault}" />
     <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
     <Setter Property="Height" Value="Auto" />
     <Setter Property="Width" Value="Auto" />
@@ -222,8 +236,8 @@
   </Style>
   <Style TargetType="TextBlock">
     <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    <Setter Property="Background" Value="{x:Null}" />
     <Setter Property="VerticalAlignment" Value="Center" />
-    <Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
   </Style>
   <Style x:Key="FontIconBaseStyle" TargetType="local:FontIcon">
     <Setter Property="CornerRadius" Value="0" />
@@ -2896,14 +2910,15 @@
     <Setter Property="BorderThickness" Value="1" />
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}" />
     <Setter Property="FontFamily" Value="Verdana" />
+    <Setter Property="FontSize" Value="{StaticResource FontSizeMedium}" />
     <Setter Property="Padding" Value="5" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:DateTimeCalendarItem}">
           <Border x:Name="bd" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}">
             <StackPanel VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
-              <TextBlock Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}" Text="{TemplateBinding Title}" TextAlignment="Center" FontSize="{StaticResource FontSize120}" />
-              <TextBlock x:Name="subTitle" FontFamily="{TemplateBinding FontFamily}" FontSize="{StaticResource FontSize80}" TextAlignment="Center" Text="{TemplateBinding Subtitle}" Foreground="{DynamicResource TextDarkBrush}" />
+              <TextBlock Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}" Text="{TemplateBinding Title}" TextAlignment="Center" FontSize="{TemplateBinding FontSize}" />
+              <TextBlock x:Name="subTitle" FontFamily="{TemplateBinding FontFamily}" TextAlignment="Center" Text="{TemplateBinding Subtitle}" Foreground="{DynamicResource TextDarkBrush}" FontSize="{Binding RelativeSource={RelativeSource Mode=TemplatedParent},Path=FontSize,Converter={StaticResource FontSizeConverter},ConverterParameter=0.7}" />
             </StackPanel>
           </Border>
           <ControlTemplate.Triggers>
@@ -3024,19 +3039,20 @@
   </Style>
   <Style TargetType="{x:Type local:DateTimeCalendar}" BasedOn="{StaticResource DateTimeCalendarBaseStyle}" />
   <Style x:Key="DateTimePickerBaseStyle" TargetType="{x:Type local:DateTimePicker}" BasedOn="{StaticResource BaseInputStyle}">
+    <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Padding" Value="5,0" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type local:DateTimePicker}">
           <Border Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" BorderBrush="{StaticResource BorderBrush}">
             <Grid x:Name="templateRoot" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-              <Button x:Name="PART_Button" HorizontalContentAlignment="Stretch" Padding="0">
+              <Button x:Name="PART_Button" HorizontalContentAlignment="Stretch" Padding="0" Focusable="False" ClickMode="Press" IsTabStop="False">
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="28" />
                   </Grid.ColumnDefinitions>
-                  <local:FontIcon Grid.Column="1" Margin="0,1,0,-1" FontFamily="{StaticResource SymbolFontFamily}" Glyph="" Foreground="{TemplateBinding Foreground}" Visibility="{Binding ElementName=clearButton,Path=Visibility,Converter={StaticResource MutexVisilityConverter}}" />
+                  <local:FontIcon x:Name="fontIcon" Grid.Column="1" Margin="0,1,0,-1" FontFamily="{StaticResource SymbolFontFamily}" Glyph="" Foreground="{TemplateBinding Foreground}" FontSize="{StaticResource FontSizeIcon}" Visibility="{Binding ElementName=clearButton,Path=Visibility,Converter={StaticResource MutexVisilityConverter}}" />
                   <TextBlock x:Name="PART_TextBlock" Grid.Column="0" Margin="{TemplateBinding Padding}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" TextTrimming="CharacterEllipsis" />
                 </Grid>
               </Button>
@@ -3048,18 +3064,18 @@
                 <Button x:Name="clearButton" Grid.Column="1" Style="{StaticResource ClearButtonStyle}" Background="{DynamicResource RegionBrush}" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearDateTimeCommand}" />
               </Grid>
               <Popup x:Name="PART_Popup" AllowsTransparency="true" VerticalOffset="-1" Placement="Top" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" StaysOpen="False">
-                <Border MinWidth="{Binding ActualWidth, ElementName=templateRoot}" Background="{DynamicResource RegionBrush}" Margin="2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource DefaultCornerRadius}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                <Border MinWidth="{Binding ActualWidth, ElementName=templateRoot}" Background="{DynamicResource RegionBrush}" Margin="2" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                   <Grid RenderOptions.ClearTypeHint="Enabled">
                     <Grid.RowDefinitions>
                       <RowDefinition />
                       <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
                     <local:DateTimeCalendar x:Name="PART_Calendar" KeyboardNavigation.DirectionalNavigation="Contained" SelectionMode="{TemplateBinding SelectionMode}" local:ControlAttach.CornerRadius="0" />
-                    <UniformGrid Rows="1" Height="40" Grid.Row="1">
-                      <Button x:Name="PART_CloseButton" Focusable="False" local:ControlAttach.CornerRadius="0,0,0,3">
+                    <UniformGrid Rows="1" Height="34" Grid.Row="1">
+                      <Button x:Name="PART_CloseButton" Focusable="False" local:ControlAttach.CornerRadius="0,0,0,3" Background="{DynamicResource RegionBrush}">
                         <Path Height="{TemplateBinding FontSize}" Stretch="Uniform" Data="{StaticResource CloseGeometry}" Fill="{TemplateBinding Foreground}" />
                       </Button>
-                      <Button x:Name="PART_ApplyButton" Focusable="False" local:ControlAttach.CornerRadius="0,0,3,0">
+                      <Button x:Name="PART_ApplyButton" Focusable="False" local:ControlAttach.CornerRadius="0,0,3,0" Background="{DynamicResource ControlDark1Brush}">
                         <Path Height="{TemplateBinding FontSize}" Stretch="Uniform" Data="{StaticResource TickGeometry}" Fill="{TemplateBinding Foreground}" />
                       </Button>
                     </UniformGrid>
@@ -3069,6 +3085,12 @@
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
+            <Trigger Property="SelectionMode" Value="DateOnly">
+              <Setter Property="Glyph" Value="" TargetName="fontIcon" />
+            </Trigger>
+            <Trigger Property="SelectionMode" Value="TimeOnly">
+              <Setter Property="Glyph" Value="" TargetName="fontIcon" />
+            </Trigger>
             <Trigger Property="SelectedDateTime" Value="{x:Null}">
               <Setter Property="Visibility" Value="Hidden" TargetName="clearButton" />
               <Setter Property="Visibility" Value="Hidden" TargetName="clearButton" />

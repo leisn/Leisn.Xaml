@@ -25,19 +25,28 @@ namespace System
         public static bool IsDerivedFrom(this Type type, Type parentType)
         {
             if (Equals(type, parentType) || type.IsSubclassOf(parentType))
+            {
                 return true;
+            }
 
-            var parentTypeDefinition = parentType.IsGenericType ? parentType.GetGenericTypeDefinition() : null;
+            Type? parentTypeDefinition = parentType.IsGenericType ? parentType.GetGenericTypeDefinition() : null;
             if (type.IsGenericType && Equals(parentTypeDefinition, type.GetGenericTypeDefinition()))
+            {
                 return true;
+            }
 
-            var inheritType = type.GetInheritTypes();
-            foreach (var item in inheritType)
+            List<Type> inheritType = type.GetInheritTypes();
+            foreach (Type item in inheritType)
             {
                 if (Equals(item, parentType))
+                {
                     return true;
+                }
+
                 if (item.IsGenericType && Equals(parentTypeDefinition, item.GetGenericTypeDefinition()))
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -48,9 +57,9 @@ namespace System
         /// <param name="interfaceType"> Type of interface</param>
         public static bool IsImplementOf(this Type type, Type interfaceType)
         {
-            var interfaces = type.GetInterfaces();
-            var interfaceTypeDefinition = interfaceType.IsGenericType ? interfaceType.GetGenericTypeDefinition() : null;
-            foreach (var item in interfaces)
+            Type[] interfaces = type.GetInterfaces();
+            Type? interfaceTypeDefinition = interfaceType.IsGenericType ? interfaceType.GetGenericTypeDefinition() : null;
+            foreach (Type? item in interfaces)
             {
                 if (Equals(interfaceType, item))
                 {
@@ -69,7 +78,7 @@ namespace System
         /// </summary>
         public static List<Type> GetInheritTypes(this Type type)
         {
-            var list = new List<Type>();
+            List<Type> list = new();
             Type temp = type;
             while (temp.BaseType != null)
             {
@@ -103,9 +112,12 @@ namespace System
         public static Type? GetGenericInterfaceTypeOf(this Type type, Type interfaceGenericTypeDefinition)
         {
             if (!interfaceGenericTypeDefinition.IsTypeDefinition)
+            {
                 throw new ArgumentException($"{interfaceGenericTypeDefinition} not type definition", nameof(interfaceGenericTypeDefinition));
-            var interfaces = type.GetInterfaces();
-            foreach (var item in interfaces)
+            }
+
+            Type[] interfaces = type.GetInterfaces();
+            foreach (Type? item in interfaces)
             {
                 if (item.IsGenericType &&
                     Equals(interfaceGenericTypeDefinition, item.GetGenericTypeDefinition()))
@@ -138,7 +150,10 @@ namespace System
         public static bool IsNumericType(this Type type)
         {
             if (!type.IsValueType || type.IsEnum)
+            {
                 return false;
+            }
+
             return Type.GetTypeCode(type) switch
             {
                 TypeCode.Byte
@@ -159,8 +174,11 @@ namespace System
         public static bool IsValueTuple(this Type type)
         {
             if (!type.IsConstructedGenericType || !type.IsValueType)
+            {
                 return false;
-            var typeDef = type.GetGenericTypeDefinition();
+            }
+
+            Type typeDef = type.GetGenericTypeDefinition();
             return Equals(typeDef, typeof(ValueTuple<>))
                      || Equals(typeDef, typeof(ValueTuple<,>))
                      || Equals(typeDef, typeof(ValueTuple<,,>))
@@ -174,8 +192,11 @@ namespace System
         public static bool IsTuple(this Type type)
         {
             if (!type.IsConstructedGenericType || type.IsValueType)
+            {
                 return false;
-            var typeDef = type.GetGenericTypeDefinition();
+            }
+
+            Type typeDef = type.GetGenericTypeDefinition();
             return Equals(typeDef, typeof(Tuple<>))
                      || Equals(typeDef, typeof(Tuple<,>))
                      || Equals(typeDef, typeof(Tuple<,,>))
