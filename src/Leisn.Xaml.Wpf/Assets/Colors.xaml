@@ -30,12 +30,11 @@
   <Color x:Key="RegionLight2Color">#363636</Color>
   <Color x:Key="RegionLight1Color">#303030</Color>
   <Color x:Key="RegionColor">#292929</Color>
-  <Color x:Key="RegionDark1Color">#232222</Color>
-  <Color x:Key="RegionDark2Color">#1f1f1f</Color>
+  <Color x:Key="RegionDark1Color">#222222</Color>
+  <Color x:Key="RegionDark2Color">#1D1D1D</Color>
   <Color x:Key="RegionDark3Color">#161616</Color>
 
   <Color x:Key="ControlColor">#545454</Color>
-  <Color x:Key="ControlTextColor">#FFE0E0E0</Color>
   <Color x:Key="ControlLight1Color">#656565</Color>
   <Color x:Key="ControlLight2Color">#797979</Color>
   <Color x:Key="ControlDark1Color">#444444</Color>

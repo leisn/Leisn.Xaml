@@ -35,7 +35,6 @@
   <SolidColorBrush x:Key="RegionDark3Brush" Color="{DynamicResource RegionDark3Color}"/>
 
   <SolidColorBrush x:Key="ControlBrush" Color="{DynamicResource ControlColor}"/>
-  <SolidColorBrush x:Key="ControlTextBrush" Color="{DynamicResource ControlTextColor}"/>
   <SolidColorBrush x:Key="ControlLight1Brush" Color="{DynamicResource ControlLight1Color}"/>
   <SolidColorBrush x:Key="ControlLight2Brush" Color="{DynamicResource ControlLight2Color}"/>
   <SolidColorBrush x:Key="ControlDark1Brush" Color="{DynamicResource ControlDark1Color}"/>

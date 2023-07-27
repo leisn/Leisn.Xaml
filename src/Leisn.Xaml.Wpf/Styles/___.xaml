@@ -15,7 +15,7 @@
 
   <Style x:Key="BaseControlStyle" TargetType="Control" >
     <Setter Property="Background" Value="{DynamicResource ControlBrush}"/>
-    <Setter Property="Foreground" Value="{DynamicResource ControlTextBrush}"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
     <Setter Property="FontSize" Value="{StaticResource FontSizeDefault}"/>
     <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
     <Setter Property="Height" Value="Auto"/>
