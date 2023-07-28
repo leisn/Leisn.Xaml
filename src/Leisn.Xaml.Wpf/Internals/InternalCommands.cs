@@ -32,6 +32,10 @@ namespace Leisn.Xaml.Wpf.Internals
             {
                 block.Text = null;
             }
+            else if (box is PasswordBox passwordbox)
+            {
+                passwordbox.Password = null;
+            }
         });
     }
 }

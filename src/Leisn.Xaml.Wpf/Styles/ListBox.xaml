@@ -2,10 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
 
-  <SolidColorBrush x:Key="Item.MouseOver.Background" Color="{DynamicResource RegionLight2Color}"/>
-  <SolidColorBrush x:Key="Item.MouseOver.Border" Color="{DynamicResource BorderColor}"/>
-  <SolidColorBrush x:Key="Item.Selected.Background" Color="{DynamicResource PrimaryColor}"/>
-  <SolidColorBrush x:Key="Item.Selected.Border" Color="{DynamicResource PrimaryLightColor}"/>
   <Style x:Key="ListBoxItemBaseStyle" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource BaseControlStyle}">
     <Setter Property="SnapsToDevicePixels" Value="True"/>
     <Setter Property="Padding" Value="4,1"/>
@@ -22,12 +18,12 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Item.MouseOver.Background}"/>
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource Item.MouseOver.Border}"/>
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource RegionLight2Brush}"/>
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource BorderBrush}"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Item.Selected.Background}"/>
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource Item.Selected.Border}"/>
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource PrimaryBrush}"/>
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource PrimaryLightBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource TextDarkBrush}"/>
@@ -99,12 +95,12 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Item.MouseOver.Background}"/>
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource Item.MouseOver.Border}"/>
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource RegionLight2Brush}"/>
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource BorderBrush}"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Item.Selected.Background}"/>
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource Item.Selected.Border}"/>
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource PrimaryBrush}"/>
+              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource PrimaryLightBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource TextDarkBrush}"/>

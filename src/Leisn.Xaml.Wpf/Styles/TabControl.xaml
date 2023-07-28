@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
 
-  <Style x:Key="TabControlItemBaseStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource BaseInputStyle}">
+  <Style x:Key="TabItemBaseStyle" TargetType="{x:Type TabItem}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
     <Setter Property="Background" Value="Transparent"/>
     <Setter Property="BorderBrush" Value="{DynamicResource RegionDark1Brush}"/>
@@ -32,7 +32,7 @@
               <Setter Property="Opacity" Value=".56" TargetName="mainBorder"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Foreground" Value="{DynamicResource TextLightBrush}"/>
+              <Setter Property="Background" TargetName="mainBorder" Value="{DynamicResource ControlBrush}" />
               <Setter Property="Opacity" Value="1" TargetName="mainBorder"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
@@ -69,7 +69,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="TabItem" BasedOn="{StaticResource TabControlItemBaseStyle}"/>
+  <Style TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyle}"/>
 
   <Style x:Key="TabControlBaseStyle" TargetType="{x:Type TabControl}"  BasedOn="{StaticResource BaseControlStyle}">
     <Setter Property="Padding" Value="2"/>

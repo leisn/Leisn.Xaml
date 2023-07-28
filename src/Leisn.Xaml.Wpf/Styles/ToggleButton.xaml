@@ -38,8 +38,9 @@
 
   <Style x:Key="ToggleSwitchStyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
-    <Setter Property="Foreground" Value="{StaticResource TextInverseBrush}"/>
+    <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
     <Setter Property="Height" Value="{StaticResource InputMinHeight}"/>
+    <Setter Property="HorizontalAlignment" Value="Left"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToggleButton">
@@ -120,9 +121,6 @@
               </MultiTrigger.Conditions>
               <Setter Property="Fill" TargetName="path" Value="{DynamicResource ControlLight2Brush}"/>
             </MultiTrigger>
-            <Trigger Property="IsChecked" Value="True">
-              <Setter Property="Fill" TargetName="path" Value="{DynamicResource HighlightBrush}"/>
-            </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter TargetName="bd" Property="Opacity" Value=".56"/>
             </Trigger>

@@ -128,7 +128,7 @@ namespace Leisn.Xaml.Wpf.Locales
         private class LangDict : IReadOnlyDictionary<string, string>
         {
             private readonly Dictionary<string, string> _values = new();
-
+            private readonly static System.Windows.DependencyObject _dependencyObject = new();
             public string this[string key]
             {
                 get
@@ -136,6 +136,11 @@ namespace Leisn.Xaml.Wpf.Locales
 #if DEBUG
                     if (!_values.ContainsKey(key))
                     {
+                        if (DesignerProperties.GetIsInDesignMode(_dependencyObject))
+                        {
+                            return key;
+                        }
+
                         throw new ArgumentOutOfRangeException(nameof(key), $"Cannot find locales for [{key}]");
                     }
 
