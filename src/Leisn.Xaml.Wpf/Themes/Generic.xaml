@@ -1365,7 +1365,6 @@
           <Border x:Name="root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
             <Grid>
               <ScrollViewer x:Name="PART_ContentHost" Focusable="False" Padding="{TemplateBinding Padding}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
-              <Button x:Name="clearButton" Style="{StaticResource ClearButtonStyle}" HorizontalAlignment="Right" Visibility="Collapsed" CommandParameter="{Binding .,RelativeSource={RelativeSource Mode=TemplatedParent}}" Command="{x:Static internals:InternalCommands.ClearTextCommand}" />
             </Grid>
           </Border>
           <ControlTemplate.Triggers>
@@ -1374,14 +1373,10 @@
             </Trigger>
             <Trigger Property="IsKeyboardFocused" Value="True">
               <Setter Property="Background" Value="{DynamicResource RegionDark2Brush}" TargetName="root" />
-              <Setter Property="Visibility" Value="Visible" TargetName="clearButton" />
             </Trigger>
-            <Trigger Property="local:ControlAttach.ShowClear" Value="False">
-              <Setter Property="Visibility" Value="Hidden" TargetName="clearButton" />
-            </Trigger>
+            <Trigger Property="local:ControlAttach.ShowClear" Value="False" />
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="Opacity" Value=".56" TargetName="root" />
-              <Setter Property="Visibility" Value="Collapsed" TargetName="clearButton" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

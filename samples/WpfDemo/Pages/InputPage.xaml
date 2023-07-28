@@ -12,17 +12,21 @@
     <ln:ToggleSwitch IsThreeState="True"/>
     <CheckBox Content="{ln:Lang Ok}" IsThreeState="True"/>
     <RadioButton Content="{ln:Lang Select}"/>
-    <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="200" Decimals="4"/>
+    <ln:NumericUpDown/>
+    <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="120" Decimals="4"/>
     <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"   Height="22"/>
     <ln:FontIcon FontFamily="{StaticResource FluentIconFontFamily}" Glyph="&#xE082;" Foreground="White"
                    Background="Green" Padding="5" CornerRadius="7"/>
-    <PasswordBox/>
+    <TextBox ln:ControlAttach.Placeholder="输入文字"/>
+    <PasswordBox Password="123"/>
+    <ln:NumericBox Text="123.5"/>
+    <Slider/>
     <ListBox>
       <ListBoxItem>123</ListBoxItem>
       <ListBoxItem>456</ListBoxItem>
       <ListBoxItem>789</ListBoxItem>
     </ListBox>
-    <ListView>
+    <ListView HorizontalAlignment="Stretch">
       <ListViewItem>123</ListViewItem>
       <ListViewItem>456</ListViewItem>
       <ListViewItem>789</ListViewItem>
