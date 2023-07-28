@@ -20,7 +20,7 @@
     <TextBox ln:ControlAttach.Placeholder="输入文字"/>
     <PasswordBox Password="123"/>
     <ln:NumericBox Text="123.5"/>
-    <Slider/>
+    <Slider Width="100"/>
     <ListBox>
       <ListBoxItem>123</ListBoxItem>
       <ListBoxItem>456</ListBoxItem>

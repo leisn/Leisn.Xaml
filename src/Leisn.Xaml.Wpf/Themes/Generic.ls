@@ -17,6 +17,7 @@ Styles/FontIcon.xaml
 #override styles
 Styles/Window.xaml
 Styles/ToolTip.xaml
+Styles/ContextMenu.xaml
 Styles/ScrollViewer.xaml
 Styles/GroupBox.xaml
 Styles/TabControl.xaml
@@ -35,9 +36,11 @@ Styles/DateTimeSelector.xaml
 Styles/DatePicker.xaml
 Styles/TreeView.xaml
 Styles/ToolBar.xaml
+Styles/StatusBar.xaml
 Styles/DataGrid.xaml
 Styles/DocumentViewer.xaml
 Styles/Frame.xaml
+Sytles/NavigationWindow.xaml
 
 #custom control styles
 Styles/NumericBox.xaml
