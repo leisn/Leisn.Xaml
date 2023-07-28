@@ -11,6 +11,7 @@
     <ToggleButton Content="ToggleButton"/>
     <ln:ToggleSwitch/>
     <CheckBox Content="{ln:Lang Ok}"/>
+    <CheckBox Content="三种状态" IsThreeState="True"/>
     <RadioButton Content="{ln:Lang Select}"/>
     <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="200" Decimals="4"/>
     <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"   Height="22"/>
