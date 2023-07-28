@@ -4,8 +4,6 @@
 
   <Style x:Key="CheckBoxBaseStyle" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}"/>
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="BorderBrush" Value="Transparent"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="Template">
       <Setter.Value>

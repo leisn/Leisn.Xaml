@@ -9,14 +9,23 @@
   <ln:WrapPanel Orientation="Vertical" Spacing="10" VerticalAlignment="Center"  HorizontalAlignment="Center">
     <Button Content="{ln:Lang Ask}"  Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
     <ToggleButton Content="ToggleButton"/>
-    <ln:ToggleSwitch/>
-    <CheckBox Content="{ln:Lang Ok}"/>
-    <CheckBox Content="三种状态" IsThreeState="True"/>
+    <ln:ToggleSwitch IsThreeState="True"/>
+    <CheckBox Content="{ln:Lang Ok}" IsThreeState="True"/>
     <RadioButton Content="{ln:Lang Select}"/>
     <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="200" Decimals="4"/>
     <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"   Height="22"/>
     <ln:FontIcon FontFamily="{StaticResource FluentIconFontFamily}" Glyph="&#xE082;" Foreground="White"
                    Background="Green" Padding="5" CornerRadius="7"/>
     <PasswordBox/>
+    <ListBox>
+      <ListBoxItem>123</ListBoxItem>
+      <ListBoxItem>456</ListBoxItem>
+      <ListBoxItem>789</ListBoxItem>
+    </ListBox>
+    <ListView>
+      <ListViewItem>123</ListViewItem>
+      <ListViewItem>456</ListViewItem>
+      <ListViewItem>789</ListViewItem>
+    </ListView>
   </ln:WrapPanel>
 </UserControl>

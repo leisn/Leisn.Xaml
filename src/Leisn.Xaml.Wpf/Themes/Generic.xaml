@@ -861,7 +861,7 @@
               <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}" TargetName="bd" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="bd" />
+              <Setter Property="Background" Value="{DynamicResource ControlDark1Brush}" TargetName="bd" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -1043,7 +1043,7 @@
           <Border x:Name="bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" local:ControlAttach.IsCircle="True" ClipToBounds="True">
             <Viewbox Height="{TemplateBinding Height}">
               <Canvas Width="68" Height="24">
-                <Ellipse x:Name="path" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2" Stroke="{StaticResource BorderBrush}" StrokeThickness="1" Fill="{TemplateBinding Foreground}" />
+                <Ellipse x:Name="path" Width="18" Height="18" Canvas.Left="3" Canvas.Top="3" Stroke="{StaticResource BorderBrush}" StrokeThickness="1" Fill="{TemplateBinding Foreground}" />
               </Canvas>
             </Viewbox>
             <VisualStateManager.VisualStateGroups>
@@ -1057,7 +1057,7 @@
                 <VisualState x:Name="Unchecked">
                   <Storyboard>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
-                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="2" />
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="3" />
                     </DoubleAnimationUsingKeyFrames>
                     <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="bd">
                       <EasingColorKeyFrame KeyTime="0:0:0.3" Value="{StaticResource ControlColor}" />
@@ -1067,7 +1067,7 @@
                 <VisualState x:Name="Indeterminate">
                   <Storyboard>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
-                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="24" />
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="25" />
                     </DoubleAnimationUsingKeyFrames>
                     <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="bd">
                       <EasingColorKeyFrame KeyTime="0:0:0.3" Value="{StaticResource ControlColor}" />
@@ -1077,7 +1077,7 @@
                 <VisualState x:Name="Checked">
                   <Storyboard>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
-                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="46" />
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48" />
                     </DoubleAnimationUsingKeyFrames>
                     <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" Storyboard.TargetName="bd">
                       <EasingColorKeyFrame KeyTime="0:0:0.3" Value="{StaticResource PrimaryColor}" />
@@ -1119,8 +1119,6 @@
   <Style TargetType="local:ToggleSwitch" BasedOn="{StaticResource ToggleSwitchStyle}" />
   <Style x:Key="CheckBoxBaseStyle" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}" />
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
       <Setter.Value>
@@ -1170,8 +1168,6 @@
   </Style>
   <Style TargetType="CheckBox" BasedOn="{StaticResource CheckBoxBaseStyle}" />
   <Style x:Key="RadioButtonBaseStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource BaseInputStyle}">
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
       <Setter.Value>
@@ -1685,9 +1681,9 @@
     </Style.Triggers>
   </Style>
   <Style TargetType="ComboBox" BasedOn="{StaticResource ComboBoxBaseStyle}" />
-  <Style x:Key="ListBoxItemBaseStyle" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource BaseControlStyle}">
+  <Style x:Key="ListBoxItemBaseStyle" TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="SnapsToDevicePixels" Value="True" />
-    <Setter Property="Padding" Value="4,1" />
+    <Setter Property="Padding" Value="5,1" />
     <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
     <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
     <Setter Property="Background" Value="Transparent" />
@@ -1696,7 +1692,7 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ListBoxItem}">
-          <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+          <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
           </Border>
           <ControlTemplate.Triggers>
@@ -1717,22 +1713,16 @@
     </Setter>
   </Style>
   <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemBaseStyle}" />
-  <SolidColorBrush x:Key="ListBox.Static.Background" Color="{DynamicResource RegionColor}" />
-  <SolidColorBrush x:Key="ListBox.Static.Border" Color="{DynamicResource BorderColor}" />
-  <SolidColorBrush x:Key="ListBox.Disabled.Background" Color="{DynamicResource RegionLight2Color}" />
-  <SolidColorBrush x:Key="ListBox.Disabled.Border" Color="{DynamicResource BorderDarkColor}" />
   <Style x:Key="ListBoxBaseStyle" TargetType="{x:Type ListBox}" BasedOn="{StaticResource BaseControlStyle}">
-    <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}" />
-    <Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}" />
-    <Setter Property="BorderThickness" Value="1" />
-    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+    <Setter Property="Background" Value="{StaticResource RegionDark2Brush}" />
+    <Setter Property="BorderThickness" Value="0" />
     <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
     <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
     <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
     <Setter Property="ScrollViewer.PanningMode" Value="Both" />
     <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
-    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ListBox}">
@@ -1743,8 +1733,7 @@
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource ListBox.Disabled.Background}" />
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource ListBox.Disabled.Border}" />
+              <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
@@ -1759,75 +1748,9 @@
     </Setter>
   </Style>
   <Style TargetType="ListBox" BasedOn="{StaticResource ListBoxBaseStyle}" />
-  <Style x:Key="ListViewItemBaseStyle" TargetType="{x:Type ListViewItem}">
-    <Setter Property="SnapsToDevicePixels" Value="True" />
-    <Setter Property="Padding" Value="4,1" />
-    <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-    <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-    <Setter Property="Background" Value="Transparent" />
-    <Setter Property="BorderBrush" Value="Transparent" />
-    <Setter Property="BorderThickness" Value="1" />
-    <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type ListViewItem}">
-          <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource RegionLight2Brush}" />
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource BorderBrush}" />
-            </Trigger>
-            <Trigger Property="IsSelected" Value="True">
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource PrimaryBrush}" />
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource PrimaryLightBrush}" />
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-              <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource TextDarkBrush}" />
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+  <Style x:Key="ListViewItemBaseStyle" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource ListBoxItemBaseStyle}" />
   <Style TargetType="ListViewItem" BasedOn="{StaticResource ListViewItemBaseStyle}" />
-  <Style x:Key="ListViewBaseStyle" TargetType="{x:Type ListView}">
-    <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}" />
-    <Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}" />
-    <Setter Property="BorderThickness" Value="1" />
-    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
-    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
-    <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
-    <Setter Property="ScrollViewer.PanningMode" Value="Both" />
-    <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-    <Setter Property="VerticalContentAlignment" Value="Center" />
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type ListView}">
-          <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="1" SnapsToDevicePixels="true">
-            <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
-              <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-            </ScrollViewer>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Background}" />
-              <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource ListBox.Disabled.Border}" />
-            </Trigger>
-            <MultiTrigger>
-              <MultiTrigger.Conditions>
-                <Condition Property="IsGrouping" Value="true" />
-                <Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="false" />
-              </MultiTrigger.Conditions>
-              <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
-            </MultiTrigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-  </Style>
+  <Style x:Key="ListViewBaseStyle" TargetType="{x:Type ListView}" BasedOn="{StaticResource ListBoxBaseStyle}" />
   <Style TargetType="ListView" BasedOn="{StaticResource ListViewBaseStyle}" />
   <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
     <Setter Property="OverridesDefaultStyle" Value="true" />

@@ -3,8 +3,6 @@
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
 
   <Style x:Key="RadioButtonBaseStyle" TargetType="{x:Type RadioButton}" BasedOn="{StaticResource BaseInputStyle}">
-    <Setter Property="BorderThickness" Value="0"/>
-    <Setter Property="BorderBrush" Value="Transparent"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="Template">
       <Setter.Value>

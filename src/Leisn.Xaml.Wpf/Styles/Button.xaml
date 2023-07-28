@@ -24,7 +24,7 @@
               <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}" TargetName="bd"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Background" Value="{DynamicResource RegionBrush}" TargetName="bd"/>
+              <Setter Property="Background" Value="{DynamicResource ControlDark1Brush}" TargetName="bd"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

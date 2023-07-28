@@ -51,7 +51,7 @@
                   local:ControlAttach.IsCircle="True" ClipToBounds="True">
             <Viewbox Height="{TemplateBinding Height}">
               <Canvas Width="68" Height="24">
-                <Ellipse x:Name="path" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"
+                <Ellipse x:Name="path" Width="18" Height="18" Canvas.Left="3" Canvas.Top="3"
                          Stroke="{StaticResource BorderBrush}" StrokeThickness="1"
                          Fill="{TemplateBinding Foreground}"/>
               </Canvas>
@@ -67,7 +67,7 @@
                 <VisualState x:Name="Unchecked">
                   <Storyboard>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
-                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="2"/>
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="3"/>
                     </DoubleAnimationUsingKeyFrames>
                     <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
                                             Storyboard.TargetName="bd">
@@ -78,7 +78,7 @@
                 <VisualState x:Name="Indeterminate">
                   <Storyboard>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
-                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="24"/>
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="25"/>
                     </DoubleAnimationUsingKeyFrames>
                     <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
                                                           Storyboard.TargetName="bd">
@@ -89,7 +89,7 @@
                 <VisualState x:Name="Checked">
                   <Storyboard>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
-                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="46"/>
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
                     </DoubleAnimationUsingKeyFrames>
                     <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
                                                           Storyboard.TargetName="bd">
