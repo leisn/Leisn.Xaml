@@ -21,6 +21,7 @@
     <PasswordBox Password="123"/>
     <ln:NumericBox Text="123.5"/>
     <Slider Width="100"/>
+    <Slider Orientation="Vertical" Height="100"/>
     <ListBox>
       <ListBoxItem>123</ListBoxItem>
       <ListBoxItem>456</ListBoxItem>

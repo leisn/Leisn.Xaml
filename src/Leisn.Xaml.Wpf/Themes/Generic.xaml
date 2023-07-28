@@ -1763,7 +1763,7 @@
   <Style TargetType="ListView" BasedOn="{StaticResource ListViewBaseStyle}" />
   <ControlTemplate x:Key="SliderThumbHorizontalDefault" TargetType="{x:Type Thumb}">
     <Grid UseLayoutRounding="True">
-      <Ellipse x:Name="grip" MinWidth="{TemplateBinding FontSize}" MinHeight="{TemplateBinding FontSize}" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}" SnapsToDevicePixels="True" Stretch="Fill" StrokeThickness="1" VerticalAlignment="Center" Height="{Binding RelativeSource={RelativeSource Self},Path=ActualWidth}" />
+      <Ellipse x:Name="grip" MinWidth="{TemplateBinding FontSize}" MinHeight="{TemplateBinding FontSize}" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True" Stretch="Fill" StrokeThickness="2" />
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="IsMouseOver" Value="true">
@@ -1779,7 +1779,7 @@
   </ControlTemplate>
   <ControlTemplate x:Key="SliderThumbHorizontalTop" TargetType="{x:Type Thumb}">
     <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-      <Path x:Name="grip" Data="M 0,6 C0,6 5.5,0 5.5,0 5.5,0 11,6 11,6 11,6 11,18 11,18 11,18 0,18 0,18 0,18 0,6 0,6 z" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}" SnapsToDevicePixels="True" Stretch="Uniform" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center" />
+      <Path x:Name="grip" Data="M 0,6 C0,6 5.5,0 5.5,0 5.5,0 11,6 11,6 11,6 11,18 11,18 11,18 0,18 0,18 0,18 0,6 0,6 z" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True" Stretch="Uniform" StrokeThickness="2" UseLayoutRounding="True" VerticalAlignment="Center" />
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="IsMouseOver" Value="true">
@@ -1795,7 +1795,7 @@
   </ControlTemplate>
   <ControlTemplate x:Key="SliderThumbHorizontalBottom" TargetType="{x:Type Thumb}">
     <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-      <Path x:Name="grip" Data="M 0,12 C0,12 5.5,18 5.5,18 5.5,18 11,12 11,12 11,12 11,0 11,0 11,0 0,0 0,0 0,0 0,12 0,12 z" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}" SnapsToDevicePixels="True" Stretch="Uniform" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center" />
+      <Path x:Name="grip" Data="M 0,12 C0,12 5.5,18 5.5,18 5.5,18 11,12 11,12 11,12 11,0 11,0 11,0 0,0 0,0 0,0 0,12 0,12 z" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True" Stretch="Uniform" StrokeThickness="2" UseLayoutRounding="True" VerticalAlignment="Center" />
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="IsMouseOver" Value="true">
@@ -1819,7 +1819,7 @@
         </Grid.RowDefinitions>
         <TickBar x:Name="TopTick" Fill="{TemplateBinding Background}" Height="4" Margin="0,0,0,2" Placement="Top" Grid.Row="0" Visibility="Collapsed" />
         <TickBar x:Name="BottomTick" Fill="{TemplateBinding Background}" Height="4" Margin="0,2,0,0" Placement="Bottom" Grid.Row="2" Visibility="Collapsed" />
-        <Border x:Name="TrackBackground" Grid.Row="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Height="3" Margin="5,0,5,0" VerticalAlignment="center">
+        <Border x:Name="TrackBackground" Grid.Row="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Height="3" Margin="5,0,5,0" VerticalAlignment="center" CornerRadius="1">
           <Canvas Margin="-6,0">
             <Rectangle x:Name="PART_SelectionRange" Fill="{DynamicResource AccentBrush}" Height="3" Visibility="Hidden" />
           </Canvas>
@@ -1832,7 +1832,7 @@
             <RepeatButton VerticalAlignment="Center" Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource RepeatButtonTransparent}" />
           </Track.IncreaseRepeatButton>
           <Track.Thumb>
-            <Thumb x:Name="Thumb" Focusable="False" Width="16" Height="18" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbHorizontalDefault}" VerticalAlignment="Center" Background="{TemplateBinding Foreground}" Foreground="{TemplateBinding Background}" />
+            <Thumb x:Name="Thumb" Focusable="False" Width="18" Height="18" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbHorizontalDefault}" VerticalAlignment="Center" Background="{TemplateBinding Foreground}" Foreground="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" />
           </Track.Thumb>
         </Track>
       </Grid>
@@ -1860,7 +1860,7 @@
   </ControlTemplate>
   <ControlTemplate x:Key="SliderThumbVerticalDefault" TargetType="{x:Type Thumb}">
     <Grid UseLayoutRounding="True">
-      <Ellipse x:Name="grip" MinWidth="{TemplateBinding FontSize}" MinHeight="{TemplateBinding FontSize}" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}" SnapsToDevicePixels="True" Stretch="Fill" StrokeThickness="1" HorizontalAlignment="Center" Width="{Binding RelativeSource={RelativeSource Self},Path=ActualHeight}" />
+      <Ellipse x:Name="grip" MinWidth="{TemplateBinding FontSize}" MinHeight="{TemplateBinding FontSize}" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True" Stretch="Fill" StrokeThickness="2" />
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="IsMouseOver" Value="true">
@@ -1876,7 +1876,7 @@
   </ControlTemplate>
   <ControlTemplate x:Key="SliderThumbVerticalLeft" TargetType="{x:Type Thumb}">
     <Grid HorizontalAlignment="Center" UseLayoutRounding="True" VerticalAlignment="Center">
-      <Path x:Name="grip" Data="M 6,11 C6,11 0,5.5 0,5.5 0,5.5 6,0 6,0 6,0 18,0 18,0 18,0 18,11 18,11 18,11 6,11 6,11 z" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding Foreground}" SnapsToDevicePixels="True" Stretch="Uniform" StrokeThickness="1" UseLayoutRounding="True" VerticalAlignment="Center" />
+      <Path x:Name="grip" Data="M 6,11 C6,11 0,5.5 0,5.5 0,5.5 6,0 6,0 6,0 18,0 18,0 18,0 18,11 18,11 18,11 6,11 6,11 z" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True" Stretch="Uniform" StrokeThickness="2" UseLayoutRounding="True" VerticalAlignment="Center" />
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="IsMouseOver" Value="true">
@@ -1916,7 +1916,7 @@
         </Grid.ColumnDefinitions>
         <TickBar x:Name="TopTick" Grid.Column="0" Fill="{TemplateBinding Background}" Margin="0,0,2,0" Placement="Left" Visibility="Collapsed" Width="4" />
         <TickBar x:Name="BottomTick" Grid.Column="2" Fill="{TemplateBinding Background}" Margin="2,0,0,0" Placement="Right" Visibility="Collapsed" Width="4" />
-        <Border x:Name="TrackBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="1" HorizontalAlignment="center" Margin="0,5" Width="3.0">
+        <Border x:Name="TrackBackground" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="1" HorizontalAlignment="center" Margin="0,5" Width="3.0" CornerRadius="1">
           <Canvas Margin="0,-6">
             <Rectangle x:Name="PART_SelectionRange" Fill="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Visibility="Hidden" Width="3.0" />
           </Canvas>
@@ -1929,7 +1929,7 @@
             <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource RepeatButtonTransparent}" />
           </Track.IncreaseRepeatButton>
           <Track.Thumb>
-            <Thumb x:Name="Thumb" Focusable="False" Height="16" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbVerticalDefault}" VerticalAlignment="Top" Width="18" Background="{TemplateBinding Foreground}" Foreground="{TemplateBinding Background}" />
+            <Thumb x:Name="Thumb" Focusable="False" Height="18" Width="18" OverridesDefaultStyle="True" Template="{StaticResource SliderThumbVerticalDefault}" VerticalAlignment="Top" Background="{TemplateBinding Foreground}" Foreground="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" />
           </Track.Thumb>
         </Track>
       </Grid>
@@ -1959,7 +1959,7 @@
     <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
     <Setter Property="Background" Value="{DynamicResource TextBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{DynamicResource TextBrush}" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="Template" Value="{StaticResource SliderHorizontal}" />
     <Style.Triggers>
