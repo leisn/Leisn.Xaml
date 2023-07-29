@@ -1,5 +1,6 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
+using System;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +18,14 @@ namespace Leisn.Xaml.Wpf.Controls
         public static readonly DependencyProperty OrientationProperty =
            System.Windows.Controls.StackPanel.OrientationProperty.AddOwner(typeof(SpacedPanelBase),
                 new FrameworkPropertyMetadata(Orientation.Vertical,
-                    FrameworkPropertyMetadataOptions.AffectsMeasure));
+                    FrameworkPropertyMetadataOptions.AffectsMeasure,
+                    new PropertyChangedCallback(OnOrientationChanged)));
+
+        private static void OnOrientationChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var panel= (SpacedPanelBase)d;
+            panel.OnOrientationChanged();
+        }
 
         [Bindable(true), Category("Layout")]
         public Thickness Padding
@@ -62,5 +70,9 @@ namespace Leisn.Xaml.Wpf.Controls
 
         internal double FinalHorizontalSpacing => double.IsNaN(Spacing) || Spacing == 0 ? HorizontalSpacing : Spacing;
         internal double FinalVerticalSpacing => double.IsNaN(Spacing) || Spacing == 0 ? VerticalSpacing : Spacing;
+
+        protected virtual void OnOrientationChanged()
+        {
+        }
     }
 }

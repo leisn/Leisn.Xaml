@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
   <ln:WrapPanel Orientation="Vertical" Spacing="10" Margin="10">
     <GroupBox Header="Buttons">
-      <ln:WrapPanel Orientation="Horizontal" Spacing="5" WrapEachItems="3">
+      <ln:WrapPanel Orientation="Horizontal" Spacing="5" WrapLength="3">
         <Button Content="{ln:Lang Ask}"  Height="22" Style="{StaticResource ButtonPrimaryStyle}"/>
         <ToggleButton Content="ToggleButton"/>
         <ln:ToggleSwitch IsThreeState="True"/>

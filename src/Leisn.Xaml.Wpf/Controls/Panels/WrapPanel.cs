@@ -11,13 +11,13 @@ namespace Leisn.Xaml.Wpf.Controls
         /// <summary>
         /// 每几个换一次行或列，默认0（自动换）
         /// </summary>
-        public int WrapEachItems
+        public int WrapLength
         {
-            get => (int)GetValue(WrapEachItemsProperty);
-            set => SetValue(WrapEachItemsProperty, value);
+            get => (int)GetValue(WrapLengthProperty);
+            set => SetValue(WrapLengthProperty, value);
         }
-        public static readonly DependencyProperty WrapEachItemsProperty =
-            DependencyProperty.Register("WrapEachItems", typeof(int), typeof(WrapPanel),
+        public static readonly DependencyProperty WrapLengthProperty =
+            DependencyProperty.Register("WrapLength", typeof(int), typeof(WrapPanel),
                 new FrameworkPropertyMetadata(0, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
         private readonly List<double> _rowOrColumMaxLenght = new();
@@ -32,9 +32,9 @@ namespace Leisn.Xaml.Wpf.Controls
             availableSize.Width -= Padding.Left + Padding.Right;
             availableSize.Height -= Padding.Top + Padding.Bottom;
 
-            double totalWidth = 0, totalHeight = 0;
             double wrapWidth = 0, wrapHeight = 0;
             int row = 0, column = 0;
+            Size finalSize = new();
 
             double hspace = FinalHorizontalSpacing;
             double vspace = FinalVerticalSpacing;
@@ -51,13 +51,13 @@ namespace Leisn.Xaml.Wpf.Controls
 
                 if (Orientation == System.Windows.Controls.Orientation.Vertical)//垂直方向
                 {
-                    bool needWrap = (WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0)
+                    bool needWrap = (WrapLength != 0 && row != 0 && row % WrapLength == 0)
                                         || wrapHeight + childSize.Height + vspace > availableSize.Height;
                     if (needWrap)
                     {
                         _rowOrColumMaxLenght.Add(wrapWidth);
-                        totalWidth += wrapWidth + (column == 0 ? 0 : hspace);
-                        totalHeight = Math.Max(wrapHeight, totalHeight);
+                        finalSize.Width += wrapWidth + (column == 0 ? 0 : hspace);
+                        finalSize.Height = Math.Max(wrapHeight, finalSize.Height);
                         wrapWidth = 0;
                         wrapHeight = 0;
                         row = 0;
@@ -69,13 +69,13 @@ namespace Leisn.Xaml.Wpf.Controls
                 }
                 else
                 {
-                    bool needWrap = (WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0)
+                    bool needWrap = (WrapLength != 0 && column != 0 && column % WrapLength == 0)
                                          || wrapWidth + childSize.Width + hspace > availableSize.Width;
                     if (needWrap)
                     {
                         _rowOrColumMaxLenght.Add(wrapHeight);
-                        totalHeight += wrapHeight + (row == 0 ? 0 : vspace);
-                        totalWidth = Math.Max(wrapWidth, totalWidth);
+                        finalSize.Height += wrapHeight + (row == 0 ? 0 : vspace);
+                        finalSize.Width = Math.Max(wrapWidth, finalSize.Width);
                         wrapWidth = 0;
                         wrapHeight = 0;
                         column = 0;
@@ -89,16 +89,28 @@ namespace Leisn.Xaml.Wpf.Controls
             if (Orientation == System.Windows.Controls.Orientation.Vertical)
             {
                 _rowOrColumMaxLenght.Add(wrapWidth);
-                totalWidth += wrapWidth + hspace;
-                totalHeight = Math.Max(wrapHeight, totalHeight);
+                finalSize.Width += wrapWidth + (column > 0 ? hspace : 0);
+                finalSize.Height = Math.Max(wrapHeight, finalSize.Height);
             }
             else
             {
                 _rowOrColumMaxLenght.Add(wrapHeight);
-                totalHeight += wrapHeight + vspace;
-                totalWidth = Math.Max(wrapWidth, totalWidth);
+                finalSize.Height += wrapHeight + (row > 0 ? vspace : 0);
+                finalSize.Width = Math.Max(wrapWidth, finalSize.Width);
+
             }
-            return new Size(Padding.Left + Padding.Right + totalWidth, Padding.Top + Padding.Bottom + totalHeight);
+            finalSize.Height += Padding.Top + Padding.Bottom;
+            finalSize.Width += Padding.Left + Padding.Right;
+
+            if (double.IsInfinity(availableSize.Width) && Orientation == System.Windows.Controls.Orientation.Vertical)
+            {
+                finalSize.Height = Math.Max(finalSize.Height, availableSize.Height);
+            }
+            if (double.IsInfinity(availableSize.Height) && Orientation == System.Windows.Controls.Orientation.Horizontal)
+            {
+                finalSize.Width = Math.Max(finalSize.Width, availableSize.Width);
+            }
+            return finalSize;
         }
 
         protected override Size ArrangeOverride(Size regionSize)
@@ -130,7 +142,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 if (Orientation == System.Windows.Controls.Orientation.Vertical)
                 {
                     childSize.Height = Math.Min(childSize.Height, paddingedSize.Height);
-                    bool needWrap = (WrapEachItems != 0 && row != 0 && row % WrapEachItems == 0)
+                    bool needWrap = (WrapLength != 0 && row != 0 && row % WrapLength == 0)
                                         || wrapHeight + childSize.Height + vspace > paddingedSize.Height && row != 0;
                     max = _rowOrColumMaxLenght[column];
                     if (needWrap)
@@ -153,7 +165,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 else
                 {
                     childSize.Width = Math.Min(childSize.Width, paddingedSize.Width);
-                    bool needWrap = (WrapEachItems != 0 && column != 0 && column % WrapEachItems == 0)
+                    bool needWrap = (WrapLength != 0 && column != 0 && column % WrapLength == 0)
                                          || wrapWidth + childSize.Width + hspace > paddingedSize.Width && column != 0;
                     max = _rowOrColumMaxLenght[row];
                     if (needWrap)
@@ -174,22 +186,9 @@ namespace Leisn.Xaml.Wpf.Controls
                     left += childSize.Width + (column == 0 ? 0 : hspace);
                 }
             }
-            var finalSize = new Size(right + Padding.Right, bottom + Padding.Bottom);
-            if (Orientation == System.Windows.Controls.Orientation.Vertical)
-            {
-                if (!double.IsInfinity(regionSize.Height))
-                {
-                    finalSize.Height = regionSize.Height;
-                }
-            }
-            else
-            {
-                if (!double.IsInfinity(regionSize.Width))
-                {
-                    finalSize.Width = regionSize.Width;
-                }
-            }
-            return finalSize;
+
+            return new Size(Math.Max(right + Padding.Right, regionSize.Width),
+                Math.Max(bottom + Padding.Bottom, regionSize.Height));
         }
     }
 }
