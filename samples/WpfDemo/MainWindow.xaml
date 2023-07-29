@@ -28,6 +28,9 @@
     <ComboBox x:Name="langsBox" HorizontalAlignment="Right" />
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
+      <TabItem Header="Frame">
+        <Frame NavigationUIVisibility="Visible"/>
+      </TabItem>
       <TabItem Header="Input">
         <pages:InputPage/>
       </TabItem>
