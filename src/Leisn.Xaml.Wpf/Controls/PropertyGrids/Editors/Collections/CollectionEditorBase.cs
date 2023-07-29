@@ -138,7 +138,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected override void OnInitialized(EventArgs e)
         {
-            DockPanel panel = new() {Margin = Padding, };
+            DockPanel panel = new() { Margin = Padding, };
             UIElement? header = CreateHeader();
             if (header is not null)
             {
@@ -146,6 +146,13 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
                 panel.Children.Add(header);
             }
             UIElement operationBar = CreateOperationBar();
+            BindingOperations.SetBinding(operationBar, VisibilityProperty, new Binding("ShowOperationButtons")
+            {
+                Source = this,
+                Converter = (IValueConverter)FindResource("BoolVisibilityConverter"),
+                ConverterParameter = BoolVisibilityConverterMode.FalseCollapsed,
+                Mode = BindingMode.OneWay,
+            });
             DockPanel.SetDock(operationBar, Dock.Bottom);
             ScrollViewer scrollView = new()
             {
@@ -179,7 +186,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
 
         protected virtual UIElement CreateOperationBar()
         {
-            Grid grid = new() { Margin = new Thickness(0, 0, 0, 0) };
+            Grid grid = new() { Margin = new Thickness(0, 5, 0, 0) };
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.4, GridUnitType.Star), MinWidth = 50 });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.6, GridUnitType.Star) });
@@ -192,18 +199,10 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         {
             Button addButton = new()
             {
-                Margin = new Thickness(0, 5, 0, 0),
                 Style = (Style)FindResource("AddButtonStyle"),
-                Visibility = Visibility.Visible,
                 HorizontalAlignment = HorizontalAlignment.Left,
                 VerticalAlignment = VerticalAlignment.Stretch,
             };
-            addButton.SetBinding(VisibilityProperty, new Binding("ShowOperationButtons")
-            {
-                Source = this,
-                Converter = (IValueConverter)FindResource("BoolVisibilityConverter"),
-                ConverterParameter = BoolVisibilityConverterMode.FalseCollapsed
-            });
             addButton.Click += AddButton_Click;
             return addButton;
         }

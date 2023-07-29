@@ -207,13 +207,6 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return grid;
         }
 
-        protected override Button CreateAddButton()
-        {
-            var button = base.CreateAddButton();
-            button.Margin = new Thickness(0);
-            return button;
-        }
-
         protected override UIElement CreateOperationBar()
         {
             Grid grid = new() { Margin = new Thickness(0, 5, 0, 0), IsEnabled = !IsCoerceReadOnly };

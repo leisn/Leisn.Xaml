@@ -21,7 +21,6 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         private readonly List<Type> _instanceTypes;
         public ClassCollectionEdtior(Type elementType, AttributeCollection propertyAttributes)
         {
-            Padding = new Thickness(0, 0, 0, 5);
             _elementType = elementType;
             _instanceTypes = new();
             if (!(_elementType.IsInterface || _elementType.IsAbstract)
@@ -59,7 +58,6 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         protected override UIElement CreateOperationBar()
         {
             Grid grid = (Grid)base.CreateOperationBar();
-            grid.Margin = new Thickness(7, 6, 7, 0);
             TextBlock typeTitle = new()
             {
                 Margin = new Thickness(0, 0, 10, 0),
@@ -111,7 +109,6 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             grid.Children.Add(expander);
             Button deleteButton = CreateDeleteButton(index);
             deleteButton.VerticalAlignment = VerticalAlignment.Top;
-            deleteButton.Margin = new Thickness(7, 0, 0, 0);
             grid.Children.Add(deleteButton);
             return grid;
         }
