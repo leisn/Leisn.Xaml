@@ -110,7 +110,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter || e.Key == Key.Escape)
             {
                 if (Keyboard.FocusedElement is UIElement element)
                 {
