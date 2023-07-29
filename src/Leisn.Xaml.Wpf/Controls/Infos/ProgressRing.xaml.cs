@@ -12,7 +12,6 @@ namespace Leisn.Xaml.Wpf.Controls
     /// </summary>
     public partial class ProgressRing : UserControl
     {
-
         public ProgressRing()
         {
             InitializeComponent();

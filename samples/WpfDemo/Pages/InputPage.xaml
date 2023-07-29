@@ -35,5 +35,8 @@
       <ListViewItem>456</ListViewItem>
       <ListViewItem>789</ListViewItem>
     </ListView>
+    <ln:ProgressRing IsActive="True"/>
+    <ProgressBar Height="20" Width="150" Value="50" Maximum="100"/>
+    <ProgressBar Height="20" IsIndeterminate="True"/>
   </ln:WrapPanel>
 </UserControl>

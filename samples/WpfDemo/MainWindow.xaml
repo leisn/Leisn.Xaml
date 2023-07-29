@@ -28,6 +28,12 @@
     <ComboBox x:Name="langsBox" HorizontalAlignment="Right" />
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
+      <TabItem Header="Input">
+        <pages:InputPage/>
+      </TabItem>
+      <TabItem Header="PropertyGrid">
+        <pages:PropertyGridPage Margin="5"/>
+      </TabItem>
       <TabItem Header="UniformGrid">
         <ln:UniformGrid Columns="1">
           <ln:UniformGrid Spacing="10" Columns="2" Rows="3" IsCurved="True" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -38,12 +44,6 @@
             <Button Content="5" Grid.RowSpan="2"/>
           </ln:UniformGrid>
         </ln:UniformGrid>
-      </TabItem>
-      <TabItem Header="Input">
-        <pages:InputPage/>
-      </TabItem>
-      <TabItem Header="PropertyGrid">
-        <pages:PropertyGridPage Margin="5"/>
       </TabItem>
     </TabControl>
   </Grid>
