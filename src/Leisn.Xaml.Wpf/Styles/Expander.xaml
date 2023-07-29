@@ -212,7 +212,7 @@
     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="local:ControlAttach.Padding" Value="0"/>
-    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+    <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type Expander}">

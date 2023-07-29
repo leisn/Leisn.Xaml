@@ -56,7 +56,7 @@
   <sys:Double x:Key="InputMinHeight">24</sys:Double>
 
   <sys:Double x:Key="ScrollBarMinWidth">6</sys:Double>
-  <sys:Double x:Key="ScrollBarWidth">8</sys:Double>
+  <sys:Double x:Key="ScrollBarWidth">7</sys:Double>
   <sys:Double x:Key="ExpenderArrowWidth">7</sys:Double>
   <Thickness x:Key="ComboBoxItemPadding">5,1</Thickness>
   <sys:Double x:Key="DateTimeSelectorPopupMaxHeight">398</sys:Double>

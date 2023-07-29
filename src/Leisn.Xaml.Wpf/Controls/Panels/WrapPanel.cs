@@ -174,7 +174,22 @@ namespace Leisn.Xaml.Wpf.Controls
                     left += childSize.Width + (column == 0 ? 0 : hspace);
                 }
             }
-            return new Size(right + Padding.Right, bottom + Padding.Bottom);
+            var finalSize = new Size(right + Padding.Right, bottom + Padding.Bottom);
+            if (Orientation == System.Windows.Controls.Orientation.Vertical)
+            {
+                if (!double.IsInfinity(regionSize.Height))
+                {
+                    finalSize.Height = regionSize.Height;
+                }
+            }
+            else
+            {
+                if (!double.IsInfinity(regionSize.Width))
+                {
+                    finalSize.Width = regionSize.Width;
+                }
+            }
+            return finalSize;
         }
     }
 }

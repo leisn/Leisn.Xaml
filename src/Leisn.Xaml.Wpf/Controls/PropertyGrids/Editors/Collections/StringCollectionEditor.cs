@@ -29,7 +29,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         private int _maxLength;
         public StringCollectionEditor()
         {
-            Padding = new Thickness(5, 0, 5, 5);
+            Padding = new Thickness(5, 0, 5, 0);
             DeleteItemCommand = new ControlCommand<int>(DoDelecteItem);
             AddItemCommand = new ControlCommand(DoAddItem);
         }

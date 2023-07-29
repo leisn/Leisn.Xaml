@@ -186,10 +186,37 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             BindingOperations.ClearBinding(button, ContentProperty);
             button.SetBindingLangFormat(ContentProperty, "{Edit} - " + GetValueElementValue(button)?.ToString());
         }
+        protected override UIElement? CreateHeader()
+        {
+            Grid grid = new() { Margin = new Thickness(0, 0, 0, 5) };
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(5, GridUnitType.Pixel) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
+            Brush textColor = (Brush)FindResource("TextDarkBrush");
+            TextBlock keyText = new() { Foreground = textColor, TextAlignment = TextAlignment.Center };
+            keyText.SetBindingLangKey(TextBlock.TextProperty, "Key");
+            Grid.SetColumn(keyText, 2);
+            grid.Children.Add(keyText);
+
+            TextBlock valueText = new() { Foreground = textColor, TextAlignment = TextAlignment.Center };
+            valueText.SetBindingLangKey(TextBlock.TextProperty, "Value");
+            Grid.SetColumn(valueText, 4);
+            grid.Children.Add(valueText);
+            return grid;
+        }
+
+        protected override Button CreateAddButton()
+        {
+            var button = base.CreateAddButton();
+            button.Margin = new Thickness(0);
+            return button;
+        }
 
         protected override UIElement CreateOperationBar()
         {
-            Grid grid = new() { Margin = new Thickness(0, 5, 0, 0) };
+            Grid grid = new() { Margin = new Thickness(0, 5, 0, 0), IsEnabled = !IsCoerceReadOnly };
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
@@ -213,36 +240,12 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             return grid;
         }
 
-        protected override UIElement? CreateHeader()
-        {
-            Grid grid = new() { Margin = new Thickness(0, 0, 0, 5) };
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(5, GridUnitType.Pixel) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(.5, GridUnitType.Star) });
-
-            Brush textColor = (Brush)FindResource("TextDarkBrush");
-            TextBlock keyText = new() { Foreground = textColor, TextAlignment = TextAlignment.Center };
-            keyText.SetBindingLangKey(TextBlock.TextProperty, "Key");
-            Grid.SetColumn(keyText, 2);
-            grid.Children.Add(keyText);
-
-            TextBlock valueText = new() { Foreground = textColor, TextAlignment = TextAlignment.Center };
-            valueText.SetBindingLangKey(TextBlock.TextProperty, "Value");
-            Grid.SetColumn(valueText, 4);
-            grid.Children.Add(valueText);
-            return grid;
-        }
-
         protected override Panel CreateItemContaniner(int index, object? item)
         {
             Grid grid = new();
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
             grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
-
             TextBlock textBlock = new()
             {
                 TextAlignment = TextAlignment.Right,
@@ -281,6 +284,7 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
             FrameworkElement valueControl = CreateValueElement(tuple[1]);
             Grid.SetColumn(valueControl, 2);
             grid.Children.Add(valueControl);
+            valueControl.SetBinding(WidthProperty, new Binding(nameof(ActualWidth)) { Source = keyControl });
             return grid;
         }
 
