@@ -19,6 +19,7 @@
         </Setter.Value>
       </Setter>
     </Style>
+    
   </Window.Resources>
   <Grid Margin="10">
     <Grid.RowDefinitions>
@@ -29,7 +30,9 @@
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
       <TabItem Header="Frame">
-        <Frame NavigationUIVisibility="Visible"/>
+        <DockPanel>
+          <DocumentViewer/>
+        </DockPanel>
       </TabItem>
       <TabItem Header="Input">
         <pages:InputPage/>

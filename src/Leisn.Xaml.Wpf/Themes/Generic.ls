@@ -39,8 +39,6 @@ Styles/ToolBar.xaml
 Styles/StatusBar.xaml
 Styles/DataGrid.xaml
 Styles/DocumentViewer.xaml
-Styles/Frame.xaml
-Sytles/NavigationWindow.xaml
 
 #custom control styles
 Styles/NumericBox.xaml

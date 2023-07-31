@@ -72,7 +72,7 @@
   <Style TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyle}"/>
 
   <Style x:Key="TabControlBaseStyle" TargetType="{x:Type TabControl}"  BasedOn="{StaticResource BaseControlStyle}">
-    <Setter Property="Padding" Value="2"/>
+    <Setter Property="Padding" Value="0"/>
     <Setter Property="HorizontalContentAlignment" Value="Left"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
