@@ -19,19 +19,61 @@
         </Setter.Value>
       </Setter>
     </Style>
-    
+    <SolidColorBrush x:Key="Menu.Static.Background" Color="#FFF0F0F0"/>
+
   </Window.Resources>
   <Grid Margin="10">
     <Grid.RowDefinitions>
       <RowDefinition Height="auto"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
+    <Menu HorizontalAlignment="Left">
+      <MenuItem Header="File">
+        <MenuItem.Icon>
+          <Image Source="{StaticResource Folder}"/>
+        </MenuItem.Icon>
+        <MenuItem Header="Open">
+          <MenuItem.Icon>
+            <Image Source="{StaticResource Folder}"/>
+          </MenuItem.Icon>
+          <MenuItem Header="Recent"/>
+        </MenuItem>
+        <MenuItem Header="New" >
+          <MenuItem.Icon>
+            <Image Source="{StaticResource Folder}"/>
+          </MenuItem.Icon>
+        </MenuItem>
+      </MenuItem>
+      <MenuItem Header="Edit" IsChecked="True" IsCheckable="True"/>
+      <MenuItem Header="View">
+        <MenuItem IsCheckable="True" Header="Check"/>
+        <MenuItem Header="Edit" IsChecked="True" IsCheckable="True"/>
+      </MenuItem>
+    </Menu>
     <ComboBox x:Name="langsBox" HorizontalAlignment="Right" />
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
       <TabItem Header="Frame">
         <DockPanel>
-          <DocumentViewer/>
+          <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar >
+              <Button Content=" b1"/>
+              <Button Content=" b2"/>
+            </ToolBar>
+            <ToolBar Band="1" BandIndex="2">
+              <Button Content="b3"/>
+              <Button Content="b4"/>
+              <Button Content="b5" ToolBar.OverflowMode="Always"/>
+              <Button Content="b6" ToolBar.OverflowMode="Always"/>
+            </ToolBar>
+            <ToolBar Band="1" BandIndex="1">
+              <Button Content="b5"/>
+              <Button Content="b6"/>
+              <Button Content="b5" ToolBar.OverflowMode="Always"/>
+              <Button Content="b6" ToolBar.OverflowMode="Always"/>
+            </ToolBar>
+          </ToolBarTray>
+          <DataGrid/>
         </DockPanel>
       </TabItem>
       <TabItem Header="Input">

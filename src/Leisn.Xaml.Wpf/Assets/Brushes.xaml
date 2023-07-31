@@ -24,7 +24,7 @@
   <SolidColorBrush x:Key="DangerTextBrush" Color="{DynamicResource DangerTextColor}"/>
   <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource HighlightColor}"/>
   <SolidColorBrush x:Key="HighlightTextBrush" Color="{DynamicResource HighlightTextColor}"/>
-
+  <SolidColorBrush x:Key="TranslucentBrush" Color="{DynamicResource TranslucentColor}"/>
 
   <SolidColorBrush x:Key="RegionLight3Brush" Color="{DynamicResource RegionLight3Color}"/>
   <SolidColorBrush x:Key="RegionLight2Brush" Color="{DynamicResource RegionLight2Color}"/>
