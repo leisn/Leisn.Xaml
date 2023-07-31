@@ -27,30 +27,32 @@
       <RowDefinition Height="auto"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
-    <Menu HorizontalAlignment="Left">
-      <MenuItem Header="File">
-        <MenuItem.Icon>
-          <Image Source="{StaticResource Folder}"/>
-        </MenuItem.Icon>
-        <MenuItem Header="Open">
+    <DockPanel>
+      <ComboBox x:Name="langsBox" DockPanel.Dock="Right" />
+      <Menu  DockPanel.Dock="Left">
+        <MenuItem Header="File">
           <MenuItem.Icon>
             <Image Source="{StaticResource Folder}"/>
           </MenuItem.Icon>
-          <MenuItem Header="Recent"/>
+          <MenuItem Header="Open">
+            <MenuItem.Icon>
+              <Image Source="{StaticResource Folder}"/>
+            </MenuItem.Icon>
+            <MenuItem Header="Recent"/>
+          </MenuItem>
+          <MenuItem Header="New" >
+            <MenuItem.Icon>
+              <Image Source="{StaticResource Folder}"/>
+            </MenuItem.Icon>
+          </MenuItem>
         </MenuItem>
-        <MenuItem Header="New" >
-          <MenuItem.Icon>
-            <Image Source="{StaticResource Folder}"/>
-          </MenuItem.Icon>
-        </MenuItem>
-      </MenuItem>
-      <MenuItem Header="Edit" IsChecked="True" IsCheckable="True"/>
-      <MenuItem Header="View">
-        <MenuItem IsCheckable="True" Header="Check"/>
         <MenuItem Header="Edit" IsChecked="True" IsCheckable="True"/>
-      </MenuItem>
-    </Menu>
-    <ComboBox x:Name="langsBox" HorizontalAlignment="Right" />
+        <MenuItem Header="View">
+          <MenuItem IsCheckable="True" Header="Check"/>
+          <MenuItem Header="Edit" IsChecked="True" IsCheckable="True"/>
+        </MenuItem>
+      </Menu>
+    </DockPanel>
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
       <TabItem Header="Frame">
@@ -58,7 +60,7 @@
           <ToolBarTray DockPanel.Dock="Top">
             <ToolBar >
               <Button Content=" b1"/>
-              <Button Content=" b2"/>
+              <ToggleButton Content=" b2"/>
             </ToolBar>
             <ToolBar Band="1" BandIndex="2">
               <Button Content="b3"/>

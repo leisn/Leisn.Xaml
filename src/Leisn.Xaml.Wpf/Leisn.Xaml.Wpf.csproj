@@ -8,6 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controls\Chats\**" />
+    <Compile Remove="Controls\Collections\**" />
+    <EmbeddedResource Remove="Controls\Chats\**" />
+    <EmbeddedResource Remove="Controls\Collections\**" />
+    <None Remove="Controls\Chats\**" />
+    <None Remove="Controls\Collections\**" />
+    <Page Remove="Controls\Chats\**" />
+    <Page Remove="Controls\Collections\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Leisn.Common\Leisn.Common.csproj" />
   </ItemGroup>
   
@@ -18,11 +29,6 @@
     <None Update="Locales\zh-cn.lang">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Controls\Chats\" />
-    <Folder Include="Controls\Collections\" />
   </ItemGroup>
   
   <ItemGroup>
