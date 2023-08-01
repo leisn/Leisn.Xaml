@@ -110,12 +110,13 @@
               <Button Content="b6" ToolBar.OverflowMode="Always"/>
             </ToolBar>
           </ToolBarTray>
-          <DataGrid x:Name="dataGrid">
+          <DataGrid x:Name="dataGrid" RowHeaderWidth="20">
             <DataGrid.Columns>
-              <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-              <DataGridCheckBoxColumn Header="CheckBox" Binding="{Binding Check}"/>
+              <DataGridTextColumn Header="Name" Binding="{Binding Name}" EditingElementStyle="{StaticResource DataGridTextBoxStyle}"/>
+              <DataGridCheckBoxColumn Header="CheckBox" Binding="{Binding Check}" ElementStyle="{StaticResource DataGridCheckBoxStyle}"/>
               <DataGridHyperlinkColumn Header="Hyperlink" Binding="{Binding Url}"/>
-              <DataGridComboBoxColumn Header="ComboBox" ItemsSource="{Binding Source={StaticResource Docks}}" SelectedItemBinding="{Binding Dock}"/>
+              <DataGridComboBoxColumn Header="ComboBox" ItemsSource="{Binding Source={StaticResource Docks}}" SelectedItemBinding="{Binding Dock}"
+                                      EditingElementStyle="{StaticResource DataGridComboBoxStyle}"/>
             </DataGrid.Columns>
           </DataGrid>
         </DockPanel>

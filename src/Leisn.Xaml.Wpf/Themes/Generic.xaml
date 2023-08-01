@@ -90,7 +90,6 @@
   <sys:Double x:Key="ScrollBarMinWidth">6</sys:Double>
   <sys:Double x:Key="ScrollBarWidth">7</sys:Double>
   <sys:Double x:Key="ExpenderArrowWidth">7</sys:Double>
-  <Thickness x:Key="ComboBoxItemPadding">5,1</Thickness>
   <sys:Double x:Key="DateTimeSelectorPopupMaxHeight">398</sys:Double>
   <PathGeometry x:Key="SpannerGeometry" o:Freeze="True" Figures="M1024.999766 343.865677c0 190.125732-155.339321 344.665365-345.465053 343.865678-24.290512-0.099961-47.981257-2.698946-70.772355-7.597032-21.091761-4.498243-43.083171 2.09918-58.377196 17.393205L270.094651 977.81804c-30.787973 30.787973-71.37212 46.18196-111.956268 46.18196s-81.168294-15.393987-111.956267-46.18196-46.18196-71.37212-46.18196-111.956267c0-40.584147 15.393987-81.168294 46.18196-111.956267l280.990239-280.990239c15.194065-15.194065 21.791488-37.085513 17.393205-58.077313-4.798126-22.791097-7.29715-46.481843-7.297149-70.672394C337.068489 154.539633 491.508161 0 681.134088 0c24.790316 0 48.980867 2.598985 72.37173 7.597032 6.197579 1.299492 12.395158 2.798907 18.492776 4.498243 23.590785 6.497462 31.387739 36.085904 14.094495 53.47911l-13.59469 13.59469-159.237798 159.137836c-22.991019 22.991019-35.68606 53.778993-35.68606 86.766107 0 32.887153 12.695041 63.675127 35.68606 86.666146 22.991019 22.991019 53.778993 35.68606 86.666146 35.686061 32.887153 0 63.675127-12.695041 86.766107-35.686061L959.425381 238.906677c17.293245-17.293245 46.981648-9.596251 53.479109 14.094494 1.699336 6.097618 3.19875 12.295197 4.498243 18.492777 4.998048 23.390863 7.597032 47.581414 7.597033 72.371729z" />
   <PathGeometry x:Key="RunGeometry" o:Freeze="True" Figures="M510.545882 63.815421c-246.710938 0-446.708971 199.999057-446.708971 446.708971S263.834944 957.234387 510.545882 957.234387 957.255877 757.23533 957.255877 510.525416 757.25682 63.815421 510.545882 63.815421zM754.661715 441.875896 400.205844 796.310278c-4.02364 4.02364-9.382695 6.109138-14.762215 6.109138-3.856841 0-7.756661-1.063215-11.197016-3.231601-8.257058-5.254677-11.738345-15.533788-8.402367-24.707728l73.226768-201.330378L281.192264 573.149708c-8.423857 0-16.034185-5.087878-19.265786-12.885472-3.231601-7.797593-1.438769-16.805758 4.52506-22.768563L579.205635 224.740554c6.547113-6.589069 16.638959-7.985882 24.77015-3.523243 8.132214 4.461615 12.322653 13.761422 10.321066 22.810518l-36.050054 162.319899 161.652703 0c8.423857 0 16.054651 5.045923 19.265786 12.82305C762.396887 426.968371 760.604054 435.913091 754.661715 441.875896z" />
@@ -1132,6 +1131,7 @@
   <Style x:Key="CheckBoxBaseStyle" TargetType="{x:Type CheckBox}" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource SmallCornerRadius}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type CheckBox}">
@@ -1140,7 +1140,7 @@
               <ColumnDefinition Width="Auto" />
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border x:Name="checkBoxBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
+            <Border x:Name="checkBoxBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Margin="2" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}">
               <Grid x:Name="markGrid" Margin="3">
                 <Path x:Name="optionMark" Fill="{DynamicResource TextBrush}" Data="F1 M 9.97498,1.22334L 4.6983,9.09834L 4.52164,9.09834L 0,5.19331L 1.27664,3.52165L 4.255,6.08833L 8.33331,1.52588e-005L 9.97498,1.22334 Z" Stretch="Uniform" Opacity="0" Width="{TemplateBinding FontSize}" Height="{TemplateBinding FontSize}" />
                 <Border x:Name="indeterminateMark" Background="{DynamicResource TextDarkBrush}" Margin="2" Opacity="0" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" />
@@ -1503,20 +1503,19 @@
   </Style>
   <Style TargetType="ProgressBar" BasedOn="{StaticResource ProgressBarBaseStyle}" />
   <Style x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
-    <Setter Property="OverridesDefaultStyle" Value="true" />
+    <Setter Property="MinHeight" Value="20" />
     <Setter Property="IsTabStop" Value="false" />
     <Setter Property="Focusable" Value="false" />
     <Setter Property="ClickMode" Value="Press" />
     <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}" />
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ToggleButton}">
-          <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+          <Border x:Name="templateRoot" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
             <Border x:Name="splitBorder" BorderBrush="Transparent" BorderThickness="1" HorizontalAlignment="Right" Margin="0" SnapsToDevicePixels="true">
-              <Path x:Name="arrow" Data="{StaticResource DownGeometry}" Width="12" Stretch="Uniform" Fill="{TemplateBinding  Foreground}" HorizontalAlignment="Center" Margin="{StaticResource ComboBoxItemPadding}" VerticalAlignment="Center" />
+              <Path x:Name="arrow" Data="{StaticResource DownGeometry}" Width="12" Stretch="Uniform" Fill="{TemplateBinding  Foreground}" HorizontalAlignment="Center" Margin="{TemplateBinding Padding}" VerticalAlignment="Center" />
             </Border>
           </Border>
           <ControlTemplate.Triggers>
@@ -1557,9 +1556,9 @@
           </Border>
         </theme:SystemDropShadowChrome>
       </Popup>
-      <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}" />
+      <ToggleButton x:Name="toggleButton" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}" />
       <Border x:Name="border" Margin="{TemplateBinding BorderThickness}">
-        <TextBox x:Name="PART_EditableTextBox" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="0,0,6,0" Background="Transparent" Padding="{StaticResource ComboBoxItemPadding}" local:ControlAttach.CornerRadius="{StaticResource DefaultLeftCornerRadius }" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+        <TextBox x:Name="PART_EditableTextBox" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="0,0,6,0" Background="Transparent" Padding="{TemplateBinding Padding}" local:ControlAttach.CornerRadius="{StaticResource DefaultLeftCornerRadius }" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
       </Border>
     </Grid>
     <ControlTemplate.Triggers>
@@ -1594,7 +1593,7 @@
       </Grid.ColumnDefinitions>
       <Popup x:Name="PART_Popup" AllowsTransparency="true" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Placement="Bottom" PopupAnimation="{StaticResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}">
         <theme:SystemDropShadowChrome x:Name="shadow" Color="Transparent" MinWidth="{Binding ActualWidth, ElementName=templateRoot}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
-          <Border x:Name="dropDownBorder" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource DefaultBottomCornerRadius}">
+          <Border x:Name="dropDownBorder" Padding="3" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{StaticResource DefaultBottomCornerRadius}">
             <ScrollViewer x:Name="DropDownScrollViewer">
               <Grid x:Name="grid" RenderOptions.ClearTypeHint="Enabled">
                 <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
@@ -1606,10 +1605,8 @@
           </Border>
         </theme:SystemDropShadowChrome>
       </Popup>
-      <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}" />
-      <Grid Margin="{TemplateBinding Padding}">
-        <ContentPresenter x:Name="contentPresenter" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Content="{TemplateBinding SelectionBoxItem}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="false" Margin="{StaticResource ComboBoxItemPadding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-      </Grid>
+      <ToggleButton x:Name="toggleButton" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" BorderBrush="{TemplateBinding BorderBrush}" Padding="{TemplateBinding Padding}" BorderThickness="{TemplateBinding BorderThickness}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" Style="{StaticResource ComboBoxToggleButton}" />
+      <ContentPresenter x:Name="contentPresenter" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Content="{TemplateBinding SelectionBoxItem}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="false" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
     </Grid>
     <ControlTemplate.Triggers>
       <Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="true">
@@ -1632,7 +1629,7 @@
       </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
-  <Style x:Key="ComboBoxItemBaseStyle" TargetType="ComboBoxItem">
+  <Style x:Key="ComboBoxItemBaseStyle" TargetType="ComboBoxItem" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="SnapsToDevicePixels" Value="True" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderBrush" Value="Transparent" />
@@ -1641,7 +1638,7 @@
     <Setter Property="FocusVisualStyle" Value="{x:Null}" />
     <Setter Property="local:ControlAttach.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
-    <Setter Property="Padding" Value="{StaticResource ComboBoxItemPadding}" />
+    <Setter Property="Padding" Value="5,1" />
     <Setter Property="Margin" Value="0,0,0,3" />
     <Setter Property="Template">
       <Setter.Value>
@@ -1678,7 +1675,8 @@
     <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
     <Setter Property="Template" Value="{StaticResource ComboBoxTemplate}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
-    <Setter Property="Padding" Value="3" />
+    <Setter Property="Padding" Value="5,1" />
+    <Setter Property="BorderThickness" Value="0" />
     <Style.Triggers>
       <Trigger Property="IsEditable" Value="True">
         <Setter Property="IsTabStop" Value="false" />
@@ -3072,7 +3070,7 @@
   </Style>
   <Style TargetType="DataGridRowHeader" BasedOn="{StaticResource DataGridRowHeaderBaseStyle}" />
   <Style x:Key="DataGridRowBaseStyle" TargetType="{x:Type DataGridRow}">
-    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+    <Setter Property="Background" Value="Transparent" />
     <Setter Property="SnapsToDevicePixels" Value="true" />
     <Setter Property="Validation.ErrorTemplate" Value="{x:Null}" />
     <Setter Property="ValidationErrorTemplate">
@@ -3110,28 +3108,33 @@
     </Style.Triggers>
   </Style>
   <Style TargetType="DataGridRow" BasedOn="{StaticResource DataGridRowBaseStyle}" />
-  <SolidColorBrush x:Key="{x:Static DataGrid.FocusBorderBrushKey}" Color="#FF000000" />
   <Style x:Key="DataGridCellBaseStyle" TargetType="{x:Type DataGridCell}">
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderBrush" Value="Transparent" />
     <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+    <Setter Property="HorizontalAlignment" Value="Stretch" />
+    <Setter Property="VerticalAlignment" Value="Stretch" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type DataGridCell}">
-          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True">
-            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
           </Border>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
     <Style.Triggers>
       <Trigger Property="IsSelected" Value="True">
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+        <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLightBrush}" />
       </Trigger>
       <Trigger Property="IsKeyboardFocusWithin" Value="True">
-        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static DataGrid.FocusBorderBrushKey}}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryTextBrush}" />
+      </Trigger>
+      <Trigger Property="IsEditing" Value="False">
+        <Setter Property="VerticalContentAlignment" Value="Center" />
       </Trigger>
       <MultiTrigger>
         <MultiTrigger.Conditions>
@@ -3143,7 +3146,7 @@
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}}" />
       </MultiTrigger>
       <Trigger Property="IsEnabled" Value="false">
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
       </Trigger>
     </Style.Triggers>
   </Style>
@@ -3158,10 +3161,10 @@
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Stroke" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
+              <Setter Property="Stroke" TargetName="Border" Value="{DynamicResource PrimaryLightBrush}" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Fill" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
+              <Setter Property="Fill" TargetName="Border" Value="{DynamicResource PrimaryBrush}" />
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">
               <Setter Property="Visibility" TargetName="Arrow" Value="Collapsed" />
@@ -3171,11 +3174,20 @@
       </Setter.Value>
     </Setter>
   </Style>
+  <Style x:Key="DataGridCheckBoxStyle" TargetType="CheckBox" BasedOn="{StaticResource CheckBoxBaseStyle}">
+    <Setter Property="HorizontalAlignment" Value="Center" />
+  </Style>
+  <Style x:Key="DataGridComboBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource ComboBoxBaseStyle}">
+    <Setter Property="MinHeight" Value="20" />
+  </Style>
+  <Style x:Key="DataGridTextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource TextBoxBaseStyle}" />
   <Style x:Key="DataGridBaseStyle" TargetType="{x:Type DataGrid}">
-    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
-    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-    <Setter Property="BorderBrush" Value="#FF688CAF" />
+    <Setter Property="Background" Value="{DynamicResource RegionDark2Brush}" />
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
     <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="MinRowHeight" Value="24" />
+    <Setter Property="MinColumnWidth" Value="24" />
     <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
     <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
     <Setter Property="ScrollViewer.PanningMode" Value="Both" />
