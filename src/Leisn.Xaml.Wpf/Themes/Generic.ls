@@ -34,10 +34,10 @@ Styles/Calendar.xaml
 Styles/DateTimeSelector.xaml
 Styles/DatePicker.xaml
 Styles/TreeView.xaml
-Styles/ToolBar.xaml
 Styles/StatusBar.xaml
 Styles/DataGrid.xaml
 Styles/Menu.xaml
+Styles/ToolBar.xaml
 
 #custom control styles
 Styles/NumericBox.xaml

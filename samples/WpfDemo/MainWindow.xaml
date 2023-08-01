@@ -55,12 +55,42 @@
     </DockPanel>
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
-      <TabItem Header="Frame">
+      <TabItem Header="DataGrid">
         <DockPanel>
           <ToolBarTray DockPanel.Dock="Top">
             <ToolBar >
-              <Button Content=" b1"/>
-              <ToggleButton Content=" b2"/>
+              <Button Content="b1"/>
+              <ToggleButton Content="b2"/>
+              <CheckBox Content="Check"/>
+              <RadioButton Content="Radio"/>
+              <Separator/>
+              <TextBox Width="50"/>
+              <ComboBox Width="80">
+                <ComboBoxItem>Combox</ComboBoxItem>
+              </ComboBox>
+              <Separator/>
+              <Menu >
+                <MenuItem Header="File">
+                  <MenuItem.Icon>
+                    <Image Source="{StaticResource Folder}"/>
+                  </MenuItem.Icon>
+                  <MenuItem Header="Open">
+                    <MenuItem.Icon>
+                      <Image Source="{StaticResource Folder}"/>
+                    </MenuItem.Icon>
+                    <MenuItem Header="Recent"/>
+                  </MenuItem>
+                  <MenuItem Header="New" >
+                    <MenuItem.Icon>
+                      <Image Source="{StaticResource Folder}"/>
+                    </MenuItem.Icon>
+                  </MenuItem>
+                </MenuItem>
+                <MenuItem Header="View">
+                  <MenuItem IsCheckable="True" Header="Check"/>
+                  <MenuItem Header="Edit" IsChecked="True" IsCheckable="True"/>
+                </MenuItem>
+              </Menu>
             </ToolBar>
             <ToolBar Band="1" BandIndex="2">
               <Button Content="b3"/>

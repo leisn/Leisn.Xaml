@@ -26,6 +26,11 @@
   <Color x:Key="HighlightColor">#c2a168</Color>
   <Color x:Key="HighlightTextColor">#FF212121</Color>
   <Color x:Key="TranslucentColor">#1A000000</Color>
+  <Color x:Key="TranslucentMediumColor">#3A000000</Color>
+  <Color x:Key="TranslucentHardColor">#7A000000</Color>
+  <Color x:Key="TranslucentWhiteColor">#1AFFFFFF</Color>
+  <Color x:Key="TranslucentWhiteMediumColor">#3AFFFFFF</Color>
+  <Color x:Key="TranslucentWhiteHardColor">#3AFFFFFF</Color>
 
   <Color x:Key="RegionLight3Color">#404040</Color>
   <Color x:Key="RegionLight2Color">#363636</Color>

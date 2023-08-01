@@ -53,7 +53,7 @@
   <CornerRadius x:Key="LargeBottomCornerRadius">0,0,8,8</CornerRadius>
   <CornerRadius x:Key="LargeRightCornerRadius">0,8,8,0</CornerRadius>
 
-  <sys:Double x:Key="InputMinHeight">20</sys:Double>
+  <sys:Double x:Key="InputMinHeight">22</sys:Double>
 
   <sys:Double x:Key="ScrollBarMinWidth">6</sys:Double>
   <sys:Double x:Key="ScrollBarWidth">7</sys:Double>

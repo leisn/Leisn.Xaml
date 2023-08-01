@@ -21,10 +21,10 @@
               <Setter Property="Opacity" Value=".5" TargetName="bd"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}" TargetName="bd"/>
+              <Setter Property="Background" Value="{DynamicResource ControlLight1Brush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Background" Value="{DynamicResource ControlDark1Brush}" TargetName="bd"/>
+              <Setter Property="Background" Value="{DynamicResource ControlDark1Brush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

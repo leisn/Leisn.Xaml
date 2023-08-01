@@ -26,6 +26,12 @@
   <SolidColorBrush x:Key="HighlightTextBrush" Color="{DynamicResource HighlightTextColor}"/>
   <SolidColorBrush x:Key="TranslucentBrush" Color="{DynamicResource TranslucentColor}"/>
 
+  <SolidColorBrush x:Key="TranslucentMediumBrush" Color="{DynamicResource TranslucentMediumColor}"/>
+  <SolidColorBrush x:Key="TranslucentHardBrush" Color="{DynamicResource TranslucentHardColor}"/>
+  <SolidColorBrush x:Key="TranslucentWhiteBrush" Color="{DynamicResource TranslucentWhiteColor}"/>
+  <SolidColorBrush x:Key="TranslucentWhiteMediumBrush" Color="{DynamicResource TranslucentWhiteMediumColor}"/>
+  <SolidColorBrush x:Key="TranslucentWhiteHardBrush" Color="{DynamicResource TranslucentWhiteHardColor}"/>
+
   <SolidColorBrush x:Key="RegionLight3Brush" Color="{DynamicResource RegionLight3Color}"/>
   <SolidColorBrush x:Key="RegionLight2Brush" Color="{DynamicResource RegionLight2Color}"/>
   <SolidColorBrush x:Key="RegionLight1Brush" Color="{DynamicResource RegionLight1Color}"/>

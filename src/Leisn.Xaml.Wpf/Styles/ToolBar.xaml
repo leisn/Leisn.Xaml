@@ -2,27 +2,65 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls"
                     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
-  
-  <SolidColorBrush x:Key="ToolBarTrayBackground" Color="#FFEEF5FD"/>
+
   <Style x:Key="ToolBarTrayBaseStyle" TargetType="{x:Type ToolBarTray}">
-    <Setter Property="Background" Value="{StaticResource ToolBarTrayBackground}"/>
+    <Setter Property="Background" Value="Transparent"/>
     <Style.Triggers>
       <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
       </DataTrigger>
     </Style.Triggers>
   </Style>
   <Style TargetType="ToolBarTray" BasedOn="{StaticResource ToolBarTrayBaseStyle}"/>
 
+  <Style x:Key="{x:Static ToolBar.ButtonStyleKey}" BasedOn="{StaticResource ButtonBaseStyle}" TargetType="Button" >
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Margin" Value="1"/>
+    <Setter Property="Padding" Value="3"/>
+  </Style>
 
-  <SolidColorBrush x:Key="ToolBarButtonHover" Color="#210080FF"/>
-  <SolidColorBrush x:Key="ToolBarMenuBorder" Color="#FFB6BDC5"/>
-  <SolidColorBrush x:Key="ToolBarSubMenuBackground" Color="#FFEEF5FD"/>
-  <SolidColorBrush x:Key="ToolBarHorizontalBackground" Color="#FFEEF5FD"/>
-  <SolidColorBrush x:Key="ToolBarVerticalBackground" Color="#FFEEF5FD"/>
-  <SolidColorBrush x:Key="ToolBarGripper" Color="#FF6D6D6D"/>
-  <SolidColorBrush x:Key="ToolBarToggleButtonHorizontalBackground" Color="#FFEEF5FD"/>
-  <SolidColorBrush x:Key="ToolBarToggleButtonVerticalBackground" Color="#FFEEF5FD"/>
+  <Style x:Key="{x:Static ToolBar.CheckBoxStyleKey}" BasedOn="{StaticResource CheckBoxBaseStyle}" TargetType="CheckBox">
+    <Setter Property="Margin" Value="1"/>
+  </Style>
+
+  <Style x:Key="{x:Static ToolBar.RadioButtonStyleKey}" BasedOn="{StaticResource RadioButtonBaseStyle}" TargetType="RadioButton">
+    <Setter Property="Margin" Value="1"/>
+  </Style>
+
+  <Style x:Key="{x:Static ToolBar.ComboBoxStyleKey}" BasedOn="{StaticResource ComboBoxBaseStyle}" TargetType="ComboBox">
+    <Setter Property="Margin" Value="1"/>
+  </Style>
+
+  <Style x:Key="{x:Static ToolBar.TextBoxStyleKey}" BasedOn="{StaticResource TextBoxBaseStyle}" TargetType="TextBox">
+    <Setter Property="Margin" Value="1"/>
+  </Style>
+
+  <Style x:Key="{x:Static ToolBar.MenuStyleKey}" BasedOn="{StaticResource MenuBaseStyle}" TargetType="Menu">
+    <Setter Property="Margin" Value="1"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Menu}">
+          <ControlTemplate.Resources>
+            <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItemBaseStyle}"/>
+          </ControlTemplate.Resources>
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
+                  Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style x:Key="{x:Static ToolBar.ToggleButtonStyleKey}" BasedOn="{StaticResource ToggleButtonBaseStyle}" TargetType="ToggleButton">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Margin" Value="1"/>
+    <Setter Property="Padding" Value="3"/>
+  </Style>
+
   <Style x:Key="ToolBarMainPanelBorderStyle" TargetType="{x:Type Border}">
     <Setter Property="Margin" Value="0,0,11,0"/>
     <Setter Property="CornerRadius" Value="3,3,3,3"/>
@@ -32,6 +70,76 @@
       </DataTrigger>
     </Style.Triggers>
   </Style>
+  
+  <Style x:Key="ToolBarHorizontalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="MinHeight" Value="0"/>
+    <Setter Property="MinWidth" Value="0"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ToggleButton}">
+          <Border x:Name="Bd" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+            <Canvas HorizontalAlignment="Right" Height="7" Margin="7,2,2,2" SnapsToDevicePixels="true" VerticalAlignment="Bottom" Width="6">
+              <Path Data="M 0 0.5 L 5 0.5" Stroke="{TemplateBinding Foreground}"/>
+              <Path Data="M -0.5 3 L 5.5 3 L 2.5 6 Z" Fill="{TemplateBinding Foreground}" StrokeThickness="0"/>
+            </Canvas>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource TranslucentWhiteMediumBrush}"/>
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="true">
+              <Setter Property="Background" TargetName="Bd" Value="{StaticResource TranslucentWhiteMediumBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value=".56" TargetName="Bd"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
+        <Setter Property="Background" Value="{DynamicResource RegionLight2Brush}"/>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+  <Style x:Key="ToolBarVerticalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+    <Setter Property="MinHeight" Value="0"/>
+    <Setter Property="MinWidth" Value="0"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ToggleButton}">
+          <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="0,0,3,3" SnapsToDevicePixels="true">
+            <Canvas HorizontalAlignment="Right" Height="6" Margin="2,7,2,2" SnapsToDevicePixels="true" VerticalAlignment="Bottom" Width="7">
+              <Path Data="M 0.5 0 L 0.5 5" Stroke="{TemplateBinding Foreground}"/>
+              <Path Data="M 3 -0.5 L 6 2.5 L 3 5.5 Z" Fill="{TemplateBinding Foreground}"/>
+            </Canvas>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Background" TargetName="Bd" Value="{StaticResource TranslucentWhiteMediumBrush}"/>
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="true">
+              <Setter Property="Background" TargetName="Bd" Value="{StaticResource TranslucentWhiteMediumBrush}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value=".56" TargetName="Bd"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Style.Triggers>
+      <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
+        <Setter Property="Background" Value="{DynamicResource RegionLight2Brush}"/>
+      </DataTrigger>
+    </Style.Triggers>
+  </Style>
+
   <Style x:Key="ToolBarThumbStyle" TargetType="{x:Type Thumb}">
     <Setter Property="Template">
       <Setter.Value>
@@ -39,11 +147,11 @@
           <Border Background="Transparent" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
             <Rectangle>
               <Rectangle.Fill>
-                <DrawingBrush TileMode="Tile" ViewboxUnits="Absolute" Viewbox="0,0,4,4" ViewportUnits="Absolute" Viewport="0,0,4,4">
+                <DrawingBrush TileMode="Tile" ViewboxUnits="Absolute" Viewbox="0,0,6,5" ViewportUnits="Absolute" Viewport="0,0,6,5">
                   <DrawingBrush.Drawing>
                     <DrawingGroup>
-                      <GeometryDrawing Brush="White" Geometry="M 1 1 L 1 3 L 3 3 L 3 1 z"/>
-                      <GeometryDrawing Brush="{StaticResource ToolBarGripper}" Geometry="M 0 0 L 0 2 L 2 2 L 2 0 z"/>
+                      <GeometryDrawing Brush="{StaticResource TextBrush}" Geometry="M 1 1 L 1 3 L 3 3 L 3 1 z"/>
+                      <GeometryDrawing Brush="{StaticResource TextBrush}" Geometry="M 4 3 L 4 5 L 6 5 L 6 3 z"/>
                     </DrawingGroup>
                   </DrawingBrush.Drawing>
                 </DrawingBrush>
@@ -59,95 +167,37 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="ToolBarHorizontalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
-    <Setter Property="Background" Value="{StaticResource ToolBarToggleButtonHorizontalBackground}"/>
-    <Setter Property="MinHeight" Value="0"/>
-    <Setter Property="MinWidth" Value="0"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type ToggleButton}">
-          <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="0,3,3,0" SnapsToDevicePixels="true">
-            <Canvas HorizontalAlignment="Right" Height="7" Margin="7,2,2,2" SnapsToDevicePixels="true" VerticalAlignment="Bottom" Width="6">
-              <Path Data="M 1 1.5 L 6 1.5" Stroke="White"/>
-              <Path Data="M 0 0.5 L 5 0.5" Stroke="{TemplateBinding Foreground}"/>
-              <Path Data="M 0.5 4 L 6.5 4 L 3.5 7 Z" Fill="White"/>
-              <Path Data="M -0.5 3 L 5.5 3 L 2.5 6 Z" Fill="{TemplateBinding Foreground}"/>
-            </Canvas>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource ToolBarButtonHover}"/>
-            </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="true">
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource ToolBarButtonHover}"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Foreground" Value="{StaticResource ToolBarGripper}"/>
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-    <Style.Triggers>
-      <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-      </DataTrigger>
-    </Style.Triggers>
-  </Style>
-  <Style x:Key="ToolBarVerticalOverflowButtonStyle" TargetType="{x:Type ToggleButton}">
-    <Setter Property="Background" Value="{StaticResource ToolBarToggleButtonVerticalBackground}"/>
-    <Setter Property="MinHeight" Value="0"/>
-    <Setter Property="MinWidth" Value="0"/>
-    <Setter Property="Template">
-      <Setter.Value>
-        <ControlTemplate TargetType="{x:Type ToggleButton}">
-          <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="0,0,3,3" SnapsToDevicePixels="true">
-            <Canvas HorizontalAlignment="Right" Height="6" Margin="2,7,2,2" SnapsToDevicePixels="true" VerticalAlignment="Bottom" Width="7">
-              <Path Data="M 1.5 1 L 1.5 6" Stroke="White"/>
-              <Path Data="M 0.5 0 L 0.5 5" Stroke="{TemplateBinding Foreground}"/>
-              <Path Data="M 3.5 0.5 L 7 3.5 L 4 6.5 Z" Fill="White"/>
-              <Path Data="M 3 -0.5 L 6 2.5 L 3 5.5 Z" Fill="{TemplateBinding Foreground}"/>
-            </Canvas>
-          </Border>
-          <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource ToolBarButtonHover}"/>
-            </Trigger>
-            <Trigger Property="IsKeyboardFocused" Value="true">
-              <Setter Property="Background" TargetName="Bd" Value="{StaticResource ToolBarButtonHover}"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Foreground" Value="{StaticResource ToolBarGripper}"/>
-            </Trigger>
-          </ControlTemplate.Triggers>
-        </ControlTemplate>
-      </Setter.Value>
-    </Setter>
-    <Style.Triggers>
-      <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-      </DataTrigger>
-    </Style.Triggers>
-  </Style>
   <Style x:Key="ToolBarBaseStyle" TargetType="{x:Type ToolBar}">
-    <Setter Property="Background" Value="{StaticResource ToolBarHorizontalBackground}"/>
+    <Setter Property="Background" Value="Transparent"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="{x:Type ToolBar}">
           <Grid x:Name="Grid" Margin="3,1,1,1" SnapsToDevicePixels="true">
             <Grid x:Name="OverflowGrid" HorizontalAlignment="Right">
-              <ToggleButton x:Name="OverflowButton" ClickMode="Press" FocusVisualStyle="{x:Null}" IsChecked="{Binding IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" IsEnabled="{TemplateBinding HasOverflowItems}" Style="{StaticResource ToolBarHorizontalOverflowButtonStyle}"/>
-              <Popup x:Name="OverflowPopup" AllowsTransparency="true" Focusable="false" IsOpen="{Binding IsOverflowOpen, RelativeSource={RelativeSource Mode=TemplatedParent}}" Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" StaysOpen="false">
+              <ToggleButton x:Name="OverflowButton" ClickMode="Press" FocusVisualStyle="{x:Null}"
+                            IsChecked="{Binding IsOverflowOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                            IsEnabled="{TemplateBinding HasOverflowItems}"
+                            Style="{StaticResource ToolBarHorizontalOverflowButtonStyle}"/>
+              <Popup x:Name="OverflowPopup" AllowsTransparency="true" Focusable="false"
+                     IsOpen="{Binding IsOverflowOpen, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                     Placement="Bottom" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" StaysOpen="false">
                 <theme:SystemDropShadowChrome x:Name="Shdw" Color="Transparent">
-                  <Border x:Name="ToolBarSubMenuBorder" Background="{StaticResource ToolBarSubMenuBackground}" BorderBrush="{StaticResource ToolBarMenuBorder}" BorderThickness="1" RenderOptions.ClearTypeHint="Enabled">
-                    <ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel" KeyboardNavigation.DirectionalNavigation="Cycle" FocusVisualStyle="{x:Null}" Focusable="true" Margin="2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" KeyboardNavigation.TabNavigation="Cycle" WrapWidth="200"/>
+                  <Border x:Name="ToolBarSubMenuBorder"
+                          Background="{StaticResource RegionBrush}"
+                          BorderBrush="{StaticResource BorderBrush}"
+                          BorderThickness="0" RenderOptions.ClearTypeHint="Enabled"
+                          CornerRadius="{DynamicResource SmallCornerRadius}">
+                    <ToolBarOverflowPanel x:Name="PART_ToolBarOverflowPanel" KeyboardNavigation.DirectionalNavigation="Cycle"
+                                          FocusVisualStyle="{x:Null}" Focusable="true" Margin="2"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                          KeyboardNavigation.TabNavigation="Cycle" WrapWidth="200"/>
                   </Border>
                 </theme:SystemDropShadowChrome>
               </Popup>
             </Grid>
             <Border x:Name="MainPanelBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" Style="{StaticResource ToolBarMainPanelBorderStyle}">
               <DockPanel KeyboardNavigation.TabIndex="1" KeyboardNavigation.TabNavigation="Local">
-                <Thumb x:Name="ToolBarThumb" Margin="-3,-1,0,0" Padding="6,5,1,6" Style="{StaticResource ToolBarThumbStyle}" Width="10"/>
+                <Thumb x:Name="ToolBarThumb" Margin="0,0,5,0" Padding="2,4" Style="{StaticResource ToolBarThumbStyle}" Width="10"/>
                 <ContentPresenter x:Name="ToolBarHeader" ContentSource="Header" HorizontalAlignment="Center" Margin="4,0,4,0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center"/>
                 <ToolBarPanel x:Name="PART_ToolBarPanel" IsItemsHost="true" Margin="0,1,2,2" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
               </DockPanel>
@@ -183,10 +233,9 @@
               <Setter Property="VerticalAlignment" TargetName="OverflowGrid" Value="Bottom"/>
               <Setter Property="Placement" TargetName="OverflowPopup" Value="Right"/>
               <Setter Property="Margin" TargetName="MainPanelBorder" Value="0,0,0,11"/>
-              <Setter Property="Background" Value="{StaticResource ToolBarVerticalBackground}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="false">
-              <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+              <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -194,7 +243,7 @@
     </Setter>
     <Style.Triggers>
       <DataTrigger Binding="{Binding Source={x:Static SystemParameters.HighContrast}}" Value="true">
-        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+        <Setter Property="Background" Value="{DynamicResource RegionLight1Brush}"/>
       </DataTrigger>
     </Style.Triggers>
   </Style>

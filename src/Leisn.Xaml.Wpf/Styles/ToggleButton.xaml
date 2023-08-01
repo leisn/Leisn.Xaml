@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
 
-  <Style x:Key="ToggleButtonBaseSyle" TargetType="ToggleButton" BasedOn="{StaticResource ButtonBaseStyle}">
+  <Style x:Key="ToggleButtonBaseStyle" TargetType="ToggleButton" BasedOn="{StaticResource ButtonBaseStyle}">
     <Setter Property="Padding" Value="5,1"/>
     <Setter Property="Template">
       <Setter.Value>
@@ -34,7 +34,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleButtonBaseSyle}"/>
+  <Style TargetType="ToggleButton" BasedOn="{StaticResource ToggleButtonBaseStyle}"/>
 
   <Style x:Key="ToggleSwitchStyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
