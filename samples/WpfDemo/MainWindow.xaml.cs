@@ -51,11 +51,22 @@ namespace WpfDemo
             langsBox.ItemsSource = list;
             langsBox.SelectedItem = new CultureInfo(Lang.CurrentLanguage);
             langsBox.SelectionChanged += LangsBox_SelectionChanged;
+
+            dataGrid.ItemsSource = new List<DataGridModel> {
+                new DataGridModel(),new DataGridModel(),new DataGridModel(),new DataGridModel(),new DataGridModel(),
+            };
         }
 
         private void ThemeButton_Click(object sender, RoutedEventArgs e)
         {
             //AppTheme.ChangeTheme(new Uri("/Leisn.Xaml.Wpf;component/Assets/ColorsLight.xaml", UriKind.Relative));
         }
+    }
+    class DataGridModel
+    {
+        public bool Check { get; set; }
+        public string Name { get; set; } = "Name";
+        public string Url { get; set; } = @"https://bing.com";
+        public Dock Dock { get; set; }
     }
 }

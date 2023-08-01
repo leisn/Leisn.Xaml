@@ -10,6 +10,11 @@
         Title="MainWindow" Height="550" Width="800"
         WindowStartupLocation="CenterScreen" Style="{StaticResource WindowBaseStyle}" >
   <Window.Resources>
+    <ObjectDataProvider x:Key="Docks" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+      <ObjectDataProvider.MethodParameters>
+        <x:Type Type="{x:Type Dock}" />
+      </ObjectDataProvider.MethodParameters>
+    </ObjectDataProvider>
     <Style TargetType="TabItem" BasedOn="{StaticResource TabItemBaseStyle}">
       <Setter Property="HeaderTemplate">
         <Setter.Value>
@@ -105,7 +110,14 @@
               <Button Content="b6" ToolBar.OverflowMode="Always"/>
             </ToolBar>
           </ToolBarTray>
-          <DataGrid/>
+          <DataGrid x:Name="dataGrid">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+              <DataGridCheckBoxColumn Header="CheckBox" Binding="{Binding Check}"/>
+              <DataGridHyperlinkColumn Header="Hyperlink" Binding="{Binding Url}"/>
+              <DataGridComboBoxColumn Header="ComboBox" ItemsSource="{Binding Source={StaticResource Docks}}" SelectedItemBinding="{Binding Dock}"/>
+            </DataGrid.Columns>
+          </DataGrid>
         </DockPanel>
       </TabItem>
       <TabItem Header="Input">
