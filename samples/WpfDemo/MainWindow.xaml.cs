@@ -51,10 +51,18 @@ namespace WpfDemo
             langsBox.ItemsSource = list;
             langsBox.SelectedItem = new CultureInfo(Lang.CurrentLanguage);
             langsBox.SelectionChanged += LangsBox_SelectionChanged;
-
+            dataGrid.LoadingRow += DataGrid_LoadingRow;
             dataGrid.ItemsSource = new List<DataGridModel> {
-                new DataGridModel(),new DataGridModel(),new DataGridModel(),new DataGridModel(),new DataGridModel(),
+                new DataGridModel{ Name="Name1"},new DataGridModel{ Name="Name2"},
+                new DataGridModel{ Name="Name3"},new DataGridModel{ Name="Name4"},
+                new DataGridModel{ Name="Name5"},
             };
+
+        }
+
+        private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = e.Row.GetIndex() + 1;
         }
 
         private void ThemeButton_Click(object sender, RoutedEventArgs e)
