@@ -3022,9 +3022,9 @@
     </Setter>
   </Style>
   <Style x:Key="DataGridColumnHeaderBaseStyle" TargetType="{x:Type DataGridColumnHeader}">
-    <Setter Property="Background" Value="{DynamicResource RegionLight2Brush}" />
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
-    <Setter Property="SeparatorBrush" Value="{DynamicResource RegionBrush}" />
+    <Setter Property="SeparatorBrush" Value="{DynamicResource RegionDark1Brush}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="Padding" Value="5,3" />
     <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}" />
@@ -3072,8 +3072,9 @@
     </Setter>
   </Style>
   <Style x:Key="DataGridRowHeaderBaseStyle" TargetType="{x:Type DataGridRowHeader}">
-    <Setter Property="Background" Value="{DynamicResource RegionLight2Brush}" />
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
     <Setter Property="Foreground" Value="{DynamicResource TextDarkBrush}" />
+    <Setter Property="SeparatorBrush" Value="{DynamicResource RegionDark1Brush}" />
     <Setter Property="HorizontalContentAlignment" Value="Center" />
     <Setter Property="VerticalContentAlignment" Value="Stretch" />
     <Setter Property="MinWidth" Value="{StaticResource InputMinHeight}" />
@@ -3184,8 +3185,8 @@
   </Style>
   <Style TargetType="DataGridCell" BasedOn="{StaticResource DataGridCellBaseStyle}" />
   <Style x:Key="{ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonBaseStyle}">
-    <Setter Property="Background" Value="{DynamicResource RegionLight2Brush}" />
-    <Setter Property="BorderBrush" Value="{DynamicResource RegionLight2Brush}" />
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource RegionBrush}" />
     <Setter Property="local:ControlAttach.CornerRadius" Value="2,0,0,0" />
     <Setter Property="Template">
       <Setter.Value>
