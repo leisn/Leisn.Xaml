@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ln="https://leisn.com/xaml/wpf"
         xmlns:local="clr-namespace:WpfDemo"
+        xmlns:sk="clr-namespace:SkiaSharp.Views.WPF;assembly=SkiaSharp.Views.WPF"
         xmlns:pages="clr-namespace:WpfDemo.Pages"
         mc:Ignorable="d" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         Title="MainWindow" Height="550" Width="800"
@@ -34,7 +35,7 @@
     </Grid.RowDefinitions>
     <DockPanel>
       <ComboBox x:Name="langsBox" DockPanel.Dock="Right" />
-      <Menu  DockPanel.Dock="Left">
+      <Menu DockPanel.Dock="Left">
         <MenuItem Header="File">
           <MenuItem.Icon>
             <Image Source="{StaticResource Folder}"/>
@@ -60,6 +61,9 @@
     </DockPanel>
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
+      <TabItem Header="NodeEditor">
+        <sk:SKElement Margin="5" PaintSurface="SKElement_PaintSurface" />
+      </TabItem>
       <TabItem Header="DataGrid">
         <DockPanel>
           <ToolBarTray DockPanel.Dock="Top">

@@ -24,6 +24,7 @@ using System.Globalization;
 using Leisn.Common.Data;
 using System.Collections.ObjectModel;
 using System.Collections;
+using Leisn.NodeEditor;
 
 namespace WpfDemo
 {
@@ -32,6 +33,7 @@ namespace WpfDemo
     /// </summary>
     public partial class MainWindow : Window
     {
+        private NodeCanvas _nodeCanvas = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -68,6 +70,11 @@ namespace WpfDemo
         private void ThemeButton_Click(object sender, RoutedEventArgs e)
         {
             //AppTheme.ChangeTheme(new Uri("/Leisn.Xaml.Wpf;component/Assets/ColorsLight.xaml", UriKind.Relative));
+        }
+
+        private void SKElement_PaintSurface(object sender, SkiaSharp.Views.Desktop.SKPaintSurfaceEventArgs e)
+        {
+            _nodeCanvas.Draw(e.Surface, e.Info);
         }
     }
     class DataGridModel

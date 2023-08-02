@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Leisn.NodeEditor\Leisn.NodeEditor.csproj" />
     <ProjectReference Include="..\..\src\Leisn.Xaml.Wpf\Leisn.Xaml.Wpf.csproj" />
   </ItemGroup>
 
