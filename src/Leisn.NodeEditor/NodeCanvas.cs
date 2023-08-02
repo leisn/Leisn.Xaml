@@ -1,6 +1,7 @@
 ﻿// @Leisn (https://leisn.com , https://github.com/leisn)
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 
 using Leisn.NodeEditor.Controls;
@@ -9,10 +10,11 @@ using SkiaSharp;
 
 namespace Leisn.NodeEditor
 {
-    public class NodeCanvas : NodeElementBase
+    public class NodeCanvas
     {
         const float MaxScale = 5f;
         const float MinScale = .25f;
+        public float Scale = 1;
         public float ScaleStep { get; set; } = 0.25f;
         public float CellWidth { get; set; } = 10f;
         public SKColor GridAccentColor { get; set; } = SKColor.Parse("#0B0B0B");
@@ -22,104 +24,68 @@ namespace Leisn.NodeEditor
         public float GridAccentStrokeWidth { get; set; } = 1f;
 
         int times;
+
+        SKPoint _location = new(-30, -20);
+        SKSize _size;
+
         public void Draw(SKSurface surface, SKImageInfo info)
         {
-            Size = info.Rect.Size;
-            Draw(surface.Canvas);
-        }
-
-        public override void Draw(SKCanvas canvas)
-        {
-            times++;
+            _size = info.Size;
+            var canvas = surface.Canvas;
             canvas.Clear(BackgroundColor);
-            canvas.SetMatrix(SKMatrix.CreateTranslation(Bounds.Left, Bounds.Top));
-            DrawGrid(canvas);
-            canvas.SetMatrix(LocalTransform);
-            DrawSelf(canvas);
-
-            canvas.SetMatrix(SKMatrix.CreateTranslation(Size.Width - 40, 10));
-            canvas.DrawText(times.ToString(), new SKPoint(-10, 40), new SKPaint { IsAntialias = true, Color = SKColors.White });
+            DrawLines(canvas);
+            canvas.SetMatrix(SKMatrix.CreateScale(Scale, Scale).PostConcat(SKMatrix.CreateTranslation(_location.X, _location.Y)));
+            //draw children
+            canvas.SetMatrix(SKMatrix.CreateTranslation(_size.Width - 20, 10));
+            canvas.DrawText(times.ToString(), new SKPoint(-10, 20), new SKPaint { IsAntialias = true, Color = SKColors.White });
         }
-        private void DrawGrid(SKCanvas g)
+
+        private void DrawLines(SKCanvas canvas)
         {
-            var paint = new SKPaint { IsAntialias = false };
+            using var paint = new SKPaint { IsAntialias = false, Color = GridColor, StrokeWidth = GridStrokeWidth };
 
-            var left = -Location.X;
-            var top = -Location.Y;
-            var right = Bounds.Right - Location.X;
-            var bottom = Bounds.Bottom - Location.Y;
             var cellWidth = CellWidth * Scale;
+            var blockWidth = cellWidth * 5;
+            var left = -_location.X;
+            var top = -_location.Y;
+            var right = _size.Width;
+            var bottom = _size.Height;
 
-            //右侧垂直线
-            var start = new SKPoint(cellWidth, top);
-            var end = new SKPoint(cellWidth, bottom);
-            while (end.X < right)
-                drawLines("right");
-            //左侧垂直线
-            start = new SKPoint(-cellWidth, top);
-            end = new SKPoint(-cellWidth, bottom);
-            while (end.X > left)
-                drawLines("left");
-
-            //下方水平线
-            start = new SKPoint(left, cellWidth);
-            end = new SKPoint(right, cellWidth);
-            while (end.Y < bottom)
-                drawLines("down");
-            //上方水平线
-            start = new SKPoint(left, -cellWidth);
-            end = new SKPoint(right, -cellWidth);
-            while (end.Y > top)
-                drawLines("up");
-
-            paint.Color = SKColors.White;
-            paint.StrokeWidth = GridAccentStrokeWidth;
-            if (Location.X != 0)
-                g.DrawLine(0, top, 0, bottom, paint);
-            if (Location.Y != 0)
-                g.DrawLine(left, 0, right, 0, paint);
-
-            void drawLines(string direction)
+            while (top <= bottom)//水平线
             {
-                float xoffset = 0, yoffset = 0;
-                switch (direction)
-                {
-                    case "left":
-                        xoffset = -cellWidth;
-                        break;
-                    case "up":
-                        yoffset = -cellWidth;
-                        break;
-                    case "right":
-                        xoffset = cellWidth;
-                        break;
-                    case "down":
-                        yoffset = cellWidth;
-                        break;
-                }
-
-                paint.Color = GridColor;
-                paint.StrokeWidth = GridStrokeWidth;
-                for (int i = 0; i < 4; i++)
-                {
-                    g.DrawLine(start, end, paint);
-                    start.X += xoffset;
-                    end.X += xoffset;
-                    start.Y += yoffset;
-                    end.Y += yoffset;
-                }
                 paint.Color = GridAccentColor;
                 paint.StrokeWidth = GridAccentStrokeWidth;
-                g.DrawLine(start, end, paint);
-                start.X += xoffset;
-                end.X += xoffset;
-                start.Y += yoffset;
-                end.Y += yoffset;
+                canvas.DrawLine(0, top, right, top, paint);
+                paint.Color = GridColor;
+                paint.StrokeWidth = GridStrokeWidth;
+                for (int i = 1; i < 5; i++)
+                {
+                    top += cellWidth;
+                    canvas.DrawLine(0, top, right, top, paint);
+                }
             }
+
+            while (left <= right) //垂直线
+            {
+                paint.Color = GridAccentColor;
+                paint.StrokeWidth = GridAccentStrokeWidth;
+                canvas.DrawLine(left, 0, left, bottom, paint);
+                paint.Color = GridColor;
+                paint.StrokeWidth = GridStrokeWidth;
+                for (int i = 1; i < 5; i++)
+                {
+                    left += cellWidth;
+                    canvas.DrawLine(left, 0, left, bottom, paint);
+                }
+            }
+
+            //paint.Color = SKColors.White;
+            //paint.StrokeWidth = GridAccentStrokeWidth;
+            //if (Bounds.Left < 0 && Bounds.Right > 0)
+            //    canvas.DrawLine(Bounds.Left, Bounds.Top, Bounds.Left, Bounds.Bottom, paint);
+            //if (Bounds.Top < 0 && Bounds.Bottom > 0)
+            //    canvas.DrawLine(Bounds.Left, Bounds.Top, Bounds.Right, Bounds.Top, paint);
         }
 
-        protected override void DrawSelf(SKCanvas canvas)
-        {
-        }
     }
 }
