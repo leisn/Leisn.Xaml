@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Leisn.Common\Leisn.Common.csproj" />
+    <ProjectReference Include="..\Leisn.NodeEditor\Leisn.NodeEditor.csproj" />
   </ItemGroup>
   
   <ItemGroup>

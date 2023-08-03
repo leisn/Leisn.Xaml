@@ -30,6 +30,7 @@ namespace Leisn.NodeEditor
 
         public void Draw(SKSurface surface, SKImageInfo info)
         {
+            times++;
             _size = info.Size;
             var canvas = surface.Canvas;
             canvas.Clear(BackgroundColor);

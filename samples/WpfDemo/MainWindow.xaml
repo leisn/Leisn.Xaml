@@ -62,7 +62,7 @@
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
       <TabItem Header="NodeEditor">
-        <sk:SKElement Margin="5" PaintSurface="SKElement_PaintSurface" />
+        <ln:NodeEditor/>
       </TabItem>
       <TabItem Header="DataGrid">
         <DockPanel>
