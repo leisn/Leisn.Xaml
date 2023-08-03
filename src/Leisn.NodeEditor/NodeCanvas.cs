@@ -38,7 +38,8 @@ namespace Leisn.NodeEditor
             canvas.SetMatrix(SKMatrix.CreateScale(Scale, Scale).PostConcat(tanslation));
             //draw children
             canvas.SetMatrix(SKMatrix.CreateTranslation(_size.Width - 20, 10));
-            canvas.DrawText(times.ToString(), new SKPoint(-10, 20), new SKPaint { IsAntialias = true, Color = SKColors.White });
+            canvas.DrawText(times.ToString(), new SKPoint(-10, 10), new SKPaint { IsAntialias = true, Color = SKColors.White });
+            canvas.DrawText($"({_location.X},{_location.Y})", new SKPoint(-40, 30), new SKPaint { IsAntialias = true, Color = SKColors.White });
         }
 
         private void DrawLines(SKCanvas canvas)
@@ -51,10 +52,12 @@ namespace Leisn.NodeEditor
             var left = _location.X;
             var top = _location.Y;
 
-            if (left > 0) while (left >= 0) left -= blockWidth;
-            else if (left < 0) while (left + blockWidth <= 0) left += blockWidth;
-            if (top > 0) while (top >= 0) top -= blockWidth;
-            else if (top < 0) while (top + blockWidth <= 0) top += blockWidth;
+            left = left <= 0 ? left % blockWidth : left % blockWidth - blockWidth;
+            top = top <= 0 ? top % blockWidth : top % blockWidth - blockWidth;
+            //if (left > 0) while (left >= 0) left -= blockWidth;
+            //else if (left < 0) while (left + blockWidth <= 0) left += blockWidth;
+            //if (top > 0) while (top >= 0) top -= blockWidth;
+            //else if (top < 0) while (top + blockWidth <= 0) top += blockWidth;
 
             while (top <= bottom)//水平线
             {
