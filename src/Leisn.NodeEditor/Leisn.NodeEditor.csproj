@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <Folder Include="Graphics\" />
+    <Folder Include="Inputs\" />
   </ItemGroup>
 
 </Project>
