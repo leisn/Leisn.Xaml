@@ -13,7 +13,7 @@ using SkiaSharp.Views.WPF;
 namespace Leisn.Xaml.Wpf.Controls
 {
     [TemplatePart(Name = PART_CanvasName, Type = typeof(SKElement))]
-    public class NodeEditor : Control
+    public class SkNodeEditor : Control
     {
         const string PART_CanvasName = "PART_Canvas";
         private SKElement _canvas = null!;
@@ -21,7 +21,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private DpiScale _dpiScale;
 
-        public NodeEditor()
+        public SkNodeEditor()
         {
             _nodeCanvas = new NodeCanvas();
             _dpiScale = VisualEx.GetDpiScale();

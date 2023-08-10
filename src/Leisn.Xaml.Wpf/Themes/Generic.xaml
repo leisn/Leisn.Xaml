@@ -4084,10 +4084,10 @@
     </Setter>
   </Style>
   <Style TargetType="local:ColorPicker" BasedOn="{StaticResource ColorPickerBaseStyle}" />
-  <Style x:Key="NodeEditorBaseStyle" TargetType="local:NodeEditor">
+  <Style x:Key="NodeEditorBaseStyle" TargetType="local:SkNodeEditor">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="local:NodeEditor">
+        <ControlTemplate TargetType="local:SkNodeEditor">
           <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
             <skia:SKElement x:Name="PART_Canvas" Margin="{TemplateBinding Padding}" />
           </Border>
@@ -4095,7 +4095,7 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="local:NodeEditor" BasedOn="{StaticResource NodeEditorBaseStyle}" />
+  <Style TargetType="local:SkNodeEditor" BasedOn="{StaticResource NodeEditorBaseStyle}" />
   <Style x:Key="ColorPickerEditorToggleButtonStyle" TargetType="ToggleButton">
     <Setter Property="Template">
       <Setter.Value>

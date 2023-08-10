@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls"
                     xmlns:skia="clr-namespace:SkiaSharp.Views.WPF;assembly=SkiaSharp.Views.WPF">
-  <Style x:Key="NodeEditorBaseStyle" TargetType="local:NodeEditor">
+  <Style x:Key="NodeEditorBaseStyle" TargetType="local:SkNodeEditor">
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="local:NodeEditor">
+        <ControlTemplate TargetType="local:SkNodeEditor">
           <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
             <skia:SKElement x:Name="PART_Canvas" Margin="{TemplateBinding Padding}"/>
           </Border>
@@ -13,6 +13,6 @@
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="local:NodeEditor" BasedOn="{StaticResource NodeEditorBaseStyle}"/>
+  <Style TargetType="local:SkNodeEditor" BasedOn="{StaticResource NodeEditorBaseStyle}"/>
 
 </ResourceDictionary>
