@@ -8,7 +8,7 @@ using System.Numerics;
 using System.Windows.Input;
 
 using Leisn.NodeEditor.Controls;
-using Leisn.NodeEditor.Events;
+using Leisn.NodeEditor.Framework;
 
 using SkiaSharp;
 
@@ -31,7 +31,6 @@ namespace Leisn.NodeEditor
 
         SKPoint _location = new(60, 60);
         SKSize _size;
-        private SKCanvas _canvas = null!;
         public void Draw(SKSurface surface, SKImageInfo info)
         {
             times++;
@@ -141,6 +140,8 @@ namespace Leisn.NodeEditor
             var posScaled = new SKPoint(scale * posToSelf.X, scale * posToSelf.Y);
             var scaledOffset = posScaled - posToSelf;
             _location -= scaledOffset;
+            mouseWheelEvent.Handled = true;
+            mouseWheelEvent.NeedRedraw = true;
         }
         #endregion
     }

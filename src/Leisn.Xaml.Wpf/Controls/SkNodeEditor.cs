@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using Leisn.NodeEditor;
-using Leisn.NodeEditor.Events;
+using Leisn.NodeEditor.Framework;
 using Leisn.Xaml.Wpf.Extensions;
 
 using SkiaSharp.Views.WPF;
@@ -55,60 +55,60 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
-            var evt = new MouseEvent(GetButton(e), GetRealPoint(e.GetPosition(this)).ToSKPoint());
+            var evt = ConvertEvent(e);
             _nodeCanvas.OnMouseDown(evt);
             if (evt.NeedRedraw)
                 _canvas.InvalidateVisual();
         }
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            var evt = new MouseEvent(GetButton(e), GetRealPoint(e.GetPosition(this)).ToSKPoint());
+            var evt = ConvertEvent(e);
             _nodeCanvas.OnMouseMove(evt);
             if (evt.NeedRedraw)
                 _canvas.InvalidateVisual();
         }
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
-            var evt = new MouseEvent(GetButton(e), GetRealPoint(e.GetPosition(this)).ToSKPoint());
+            var evt = ConvertEvent(e);
             _nodeCanvas.OnMouseUp(evt);
             if (evt.NeedRedraw)
                 _canvas.InvalidateVisual();
         }
         protected override void OnMouseWheel(MouseWheelEventArgs e)
         {
-            _nodeCanvas.OnMouseWheel(new MouseWheelEvent(e.Delta, GetRealPoint(e.GetPosition(this)).ToSKPoint()));
-            _canvas.InvalidateVisual();
+            var evt = new MouseWheelEvent(e.Delta,
+                GetRealPoint(e.GetPosition(this)).ToSKPoint(), e.Timestamp,
+                Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl),
+                Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift),
+                Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt));
+            _nodeCanvas.OnMouseWheel(evt);
+            if (evt.NeedRedraw)
+                _canvas.InvalidateVisual();
         }
 
-        private static Leisn.NodeEditor.Events.MouseButton GetButton(MouseEventArgs e)
+        private MouseEvent ConvertEvent(MouseEventArgs e)
         {
-            var button = Leisn.NodeEditor.Events.MouseButton.None;
+            var button = Leisn.NodeEditor.Framework.MouseButton.None;
             if (e.LeftButton == MouseButtonState.Pressed)
             {
-                button |= Leisn.NodeEditor.Events.MouseButton.Left;
+                button |= Leisn.NodeEditor.Framework.MouseButton.Left;
             }
             if (e.RightButton == MouseButtonState.Pressed)
             {
-                button |= Leisn.NodeEditor.Events.MouseButton.Right;
+                button |= Leisn.NodeEditor.Framework.MouseButton.Right;
             }
             if (e.MiddleButton == MouseButtonState.Pressed)
             {
-                button |= Leisn.NodeEditor.Events.MouseButton.Middle;
+                button |= Leisn.NodeEditor.Framework.MouseButton.Middle;
             }
-            return button;
+            var evt = new MouseEvent(button,
+                GetRealPoint(e.GetPosition(this)).ToSKPoint(), e.Timestamp,
+                Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl),
+                Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift),
+                Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt));
+            return evt;
         }
         #endregion
 
-        #region keyboard actions
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            base.OnKeyDown(e);
-        }
-
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            base.OnKeyUp(e);
-        }
-        #endregion
     }
 }

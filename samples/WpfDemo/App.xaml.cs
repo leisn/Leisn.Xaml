@@ -34,8 +34,40 @@ namespace WpfDemo
     /// </summary>
     public partial class App : Application
     {
+        readonly struct Source
+        {
+            public readonly string Name;
+            public int Value { get; }
+            public Source(string name, int value)
+            {
+                Name = name;
+                Value = value;
+            }
+        }
+
+        class Target
+        {
+            public string Name { get; set; }
+            public int Value { get; set; }
+        }
+
         public App()
         {
+            var source = new Source("123", 456);
+            var target = new Target();
+            var sourceType = source.GetType();
+            var targetType = target.GetType();
+            var sourceFields = sourceType.GetFields(BindingFlags.Instance | BindingFlags.Public);
+            var sourceProperties = sourceType.GetProperties(BindingFlags.Instance | BindingFlags.Public).Where(x => x.CanRead);
+            foreach (var sourceField in sourceFields)
+            {
+                var value = sourceField.GetValue(source);
+                targetType.GetField(sourceField.Name)?
+                    .SetValue(target, value);
+                var property = targetType.GetProperty(sourceField.Name);
+                if (property?.CanWrite == true)
+                    property.SetValue(target, value);
+            }
 
             // Process process = new();
             // process.StartInfo.UseShellExecute = false;
