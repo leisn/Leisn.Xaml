@@ -62,7 +62,7 @@
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
       <TabItem Header="NodeEditor">
-        <ln:NodeEditor Margin="3"/>
+        <ln:SkNodeEditor Margin="3"/>
       </TabItem>
       <TabItem Header="DataGrid">
         <DockPanel>
