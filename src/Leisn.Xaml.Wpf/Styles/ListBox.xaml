@@ -26,6 +26,7 @@
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
               <Setter Property="Background" TargetName="Bd" Value="{DynamicResource PrimaryBrush}"/>
+              <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource PrimaryTextBrush}"/>
               <Setter Property="BorderBrush" TargetName="Bd" Value="{DynamicResource PrimaryLightBrush}"/>
             </Trigger>
             <Trigger Property="IsEnabled" Value="False">

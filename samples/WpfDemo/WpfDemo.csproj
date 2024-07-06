@@ -2,14 +2,25 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Locales\en-us.lang" />
+    <None Remove="Locales\zh-cn.lang" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="app.ico" />
+    <Content Include="Locales\en-us.lang">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Locales\zh-cn.lang">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -19,15 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Leisn.NodeEditor\Leisn.NodeEditor.csproj" />
     <ProjectReference Include="..\..\src\Leisn.Xaml.Wpf\Leisn.Xaml.Wpf.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Locales\en-us.lang">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Locales\zh-cn.lang">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

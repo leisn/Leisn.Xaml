@@ -77,7 +77,7 @@
                       local:ControlAttach.ShowClear="False"
                       CommandParameter="{Binding Tag,RelativeSource={RelativeSource Mode=TemplatedParent}}"
                       Command="{Binding RelativeSource={RelativeSource AncestorType=editor:StringCollectionEditor},Path=DeleteItemCommand}"
-                      Visibility="{Binding  RelativeSource={RelativeSource AncestorType=editor:StringCollectionEditor},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}"/>
+                      Visibility="{Binding RelativeSource={RelativeSource AncestorType=editor:StringCollectionEditor},Path=ShowOperationButtons,Converter={StaticResource BoolVisibilityConverter}}"/>
 
             </Grid>
           </Border>

@@ -52,6 +52,7 @@
               <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
               <Setter Property="Opacity" TargetName="indeterminateMark" Value="0"/>
               <Setter Property="Background" TargetName="checkBoxBorder" Value="{DynamicResource PrimaryBrush}"/>
+              <Setter Property="Fill" Value="{DynamicResource PrimaryTextBrush}" TargetName="optionMark"/>
             </Trigger>
             <Trigger Property="IsChecked" Value="{x:Null}">
               <Setter Property="Opacity" TargetName="optionMark" Value="0"/>

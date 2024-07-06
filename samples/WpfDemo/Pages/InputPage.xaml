@@ -26,7 +26,7 @@
         </ln:WrapPanel>
       </GroupBox>
       <ln:NumericUpDown/>
-      <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Width="120" Decimals="4"/>
+      <ln:RangeBox x:Name="rangbox" Minimum="-1" Title="RangeBox" Decimals="4"/>
       <Button Content="{ln:Lang ValueFormat,{Binding ElementName=rangbox,Path=Value}}"   Height="22"/>
       <ln:FontIcon FontFamily="{StaticResource FluentIconFontFamily}" Glyph="&#xE082;" Foreground="White"
                    Background="Green" Padding="5" CornerRadius="7"/>

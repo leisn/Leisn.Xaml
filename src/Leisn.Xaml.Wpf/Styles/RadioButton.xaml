@@ -45,6 +45,7 @@
               <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
               <Setter Property="Background" TargetName="radioButtonBorder" Value="{DynamicResource PrimaryBrush}"/>
               <Setter Property="BorderBrush" Value="{DynamicResource PrimaryLightBrush}" TargetName="radioButtonBorder"/>
+              <Setter Property="Fill" Value="{DynamicResource PrimaryTextBrush}" TargetName="optionMark"/>
             </Trigger>
             <Trigger Property="IsChecked" Value="{x:Null}">
               <Setter Property="Opacity" TargetName="optionMark" Value="0.56"/>

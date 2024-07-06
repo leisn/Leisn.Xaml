@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>
     <UseWPF>true</UseWPF>
@@ -19,17 +19,22 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Locales\en-us.lang" />
+    <None Remove="Locales\zh-cn.lang" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Locales\en-us.lang">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Locales\zh-cn.lang">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Leisn.Common\Leisn.Common.csproj" />
     <ProjectReference Include="..\Leisn.NodeEditor\Leisn.NodeEditor.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Update="Locales\en-us.lang">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Locales\zh-cn.lang">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   
   <ItemGroup>

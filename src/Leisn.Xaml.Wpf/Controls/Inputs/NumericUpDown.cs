@@ -167,7 +167,7 @@ namespace Leisn.Xaml.Wpf.Controls
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            SetValue(IncrementProperty, 1);
+           // SetValue(IncrementProperty, 1d);
             string text = _textBox.Text;
             object v = NumericFormatConverter.Instance.ConvertBack(text, typeof(double), Format, CultureInfo.InvariantCulture);
             if (v is double value && SetValue(value))

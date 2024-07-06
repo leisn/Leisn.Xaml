@@ -28,6 +28,7 @@
             </Trigger>
             <Trigger Property="IsChecked" Value="True">
               <Setter Property="Background" Value="{DynamicResource PrimaryBrush}"/>
+              <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -106,6 +107,9 @@
             </Trigger>
             <Trigger Property="IsChecked" Value="False">
               <Setter TargetName="path" Property="Fill"  Value="{DynamicResource ControlLight1Brush}"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter TargetName="path" Property="Fill"  Value="{DynamicResource PrimaryTextBrush}"/>
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>

@@ -25,6 +25,7 @@
   <Color x:Key="DangerTextColor">#FFE0E0E0</Color>
   <Color x:Key="HighlightColor">#c2a168</Color>
   <Color x:Key="HighlightTextColor">#FF212121</Color>
+  
   <Color x:Key="TranslucentColor">#1A000000</Color>
   <Color x:Key="TranslucentMediumColor">#3A000000</Color>
   <Color x:Key="TranslucentHardColor">#7A000000</Color>

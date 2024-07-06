@@ -1,7 +1,7 @@
 
 #assets
-Assets/Colors.xaml
-#Assets/ColorsLight.xaml
+#Assets/Colors.xaml
+Assets/ColorsLight.xaml
 Assets/Values.xaml
 Assets/Geometries.xaml
 Assets/Brushes.xaml
