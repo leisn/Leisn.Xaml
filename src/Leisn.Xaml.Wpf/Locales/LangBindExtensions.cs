@@ -7,7 +7,7 @@ using Leisn.Common.Helpers;
 
 namespace Leisn.Xaml.Wpf.Locales
 {
-    public static class LangBingdExtensions
+    public static class LangBindExtensions
     {
         public static void SetBindingLangKey(this DependencyObject targetObject, DependencyProperty targetProperty, string key, string? stringFormat = null)
         {

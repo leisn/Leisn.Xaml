@@ -58,7 +58,17 @@ namespace WpfDemo
                 new DataGridModel{ Name="Name3"},new DataGridModel{ Name="Name4"},
                 new DataGridModel{ Name="Name5"},
             };
-
+            nodeView.Inputs =
+            [
+               new NodeSlot { Header = "Input 1" },
+                new NodeSlot { Header = "Input 2" },
+                new NodeSlot { Header = "Input 3" }
+            ];
+            nodeView.Outputs =
+            [
+                new NodeSlot { Header = "Output 1" },
+                new NodeSlot { Header = "Output 2" },
+            ];
         }
 
         private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e)
@@ -69,6 +79,41 @@ namespace WpfDemo
         private void ThemeButton_Click(object sender, RoutedEventArgs e)
         {
             //AppTheme.ChangeTheme(new Uri("/Leisn.Xaml.Wpf;component/Assets/ColorsLight.xaml", UriKind.Relative));
+        }
+
+        private void Theme_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Application.Current.Resources.MergedDictionaries.RemoveAt(0);
+            var color = "/Leisn.Xaml.Wpf;component/Assets/ColorsLight.xaml";
+            if ((e.Source as ComboBox)?.SelectedIndex == 0)
+                color = "/Leisn.Xaml.Wpf;component/Assets/Colors.xaml";
+            var uri = new Uri($"pack://application:,,,{color}", UriKind.RelativeOrAbsolute);
+            var res = new ResourceDictionary();
+            res.BeginInit();
+            res.Source = uri;
+            res.EndInit();
+            Application.Current.Resources.MergedDictionaries.Insert(0, res);
+        }
+
+        private void RouletteTabItem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F && Keyboard.IsKeyDown(Key.LeftShift))
+            {
+                roulette.Visibility = Visibility.Visible;
+                roulette.SelectionChanged += Roulette_SelectionChanged;
+            }
+            else if (e.Key == Key.Escape)
+            {
+                roulette.SelectionChanged -= Roulette_SelectionChanged;
+                roulette.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void Roulette_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            roulette.SelectionChanged -= Roulette_SelectionChanged;
+            roulette.Visibility = Visibility.Collapsed;
+            rouletterText.Text = $"Selected: {roulette.SelectedItem}";
         }
     }
     class DataGridModel

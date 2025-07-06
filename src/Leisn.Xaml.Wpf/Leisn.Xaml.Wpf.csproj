@@ -1,27 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <TargetFrameworks>net9.0-windows;net8.0-windows;net6.0-windows</TargetFrameworks>
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Controls\Chats\**" />
-    <Compile Remove="Controls\Collections\**" />
-    <EmbeddedResource Remove="Controls\Chats\**" />
-    <EmbeddedResource Remove="Controls\Collections\**" />
-    <None Remove="Controls\Chats\**" />
-    <None Remove="Controls\Collections\**" />
-    <Page Remove="Controls\Chats\**" />
-    <Page Remove="Controls\Collections\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Locales\en-us.lang" />
-    <None Remove="Locales\zh-cn.lang" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Locales\en-us.lang">
@@ -38,7 +22,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.3" />
+    <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.9" />
     <PackageReference Include="System.Globalization.Calendars" Version="4.3.0" />
     <PackageReference Include="WindowsAPICodePack.Shell.CommonFileDialogs.Wpf" Version="1.1.5" />
   </ItemGroup>

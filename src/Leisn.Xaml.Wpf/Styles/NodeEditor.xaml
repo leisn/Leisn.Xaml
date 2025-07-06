@@ -1,18 +1,125 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls"
-                    xmlns:skia="clr-namespace:SkiaSharp.Views.WPF;assembly=SkiaSharp.Views.WPF">
-  <Style x:Key="NodeEditorBaseStyle" TargetType="local:SkNodeEditor">
+                    xmlns:local="clr-namespace:Leisn.Xaml.Wpf.Controls">
+
+  <Style x:Key="SlotBoxStyle" TargetType="{x:Type local:SlotBox}">
+    <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource RegionDark2Brush}"/>
+    <Setter Property="Cursor" Value="Hand"/>
     <Setter Property="Template">
       <Setter.Value>
-        <ControlTemplate TargetType="local:SkNodeEditor">
-          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-            <skia:SKElement x:Name="PART_Canvas" Margin="{TemplateBinding Padding}"/>
+        <ControlTemplate TargetType="{x:Type local:SlotBox}">
+          <Path Data="{TemplateBinding Shape}" Stretch="Uniform"
+                Fill="{TemplateBinding Background}"
+                Stroke="{TemplateBinding BorderBrush}"
+                StrokeThickness="{TemplateBinding StrokeWidth}"/>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Opacity" Value=".9"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="{x:Type local:SlotBox}" BasedOn="{StaticResource SlotBoxStyle}"/>
+
+  <Style x:Key="UnityStyle" TargetType="{x:Type local:NodeView}" BasedOn="{StaticResource BaseControlStyle}">
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource RegionDark2Brush}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="MinWidth" Value="180"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:NodeView}">
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="3">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="24"/>
+                <RowDefinition/>
+              </Grid.RowDefinitions>
+              <Border x:Name="PART_TitleBar" Grid.ColumnSpan="2" CornerRadius="3,3,0,0" Background="{DynamicResource RegionLight2Brush}">
+                <TextBlock Text="{TemplateBinding Header}" Margin="10,0,0,0" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center" />
+              </Border>
+              <Border Grid.Row="1" Margin="0,1,0,0" Background="{DynamicResource RegionLight2Brush}" CornerRadius="0,0,0,3">
+                <ItemsControl Margin="-6,8,4,7" ItemsSource="{TemplateBinding Inputs}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <DockPanel Margin="0,2">
+                        <local:SlotBox Width="11" Height="11" StrokeWidth="1" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                        <local:RangeBox Title="{Binding Header}" Margin="4,0,6,0"/>
+                      </DockPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </Border>
+              <Border Grid.Row="1" Grid.Column="1" Margin="0,1,0,0" CornerRadius="0,0,3,0">
+                <ItemsControl  Margin="4,8,-6,7" ItemsSource="{TemplateBinding Outputs}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <DockPanel Margin="0,2">
+                        <local:SlotBox Background="{DynamicResource PrimaryLightBrush}" Width="11" Height="11" StrokeWidth="1" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                        <TextBlock Text="{Binding Header}" Margin="6,0,4,0" TextAlignment="Right"/>
+                      </DockPanel>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </Border>
+            </Grid>
           </Border>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
   </Style>
-  <Style TargetType="local:SkNodeEditor" BasedOn="{StaticResource NodeEditorBaseStyle}"/>
+  <Style x:Key="BlenderStyle" TargetType="{x:Type local:NodeView}" BasedOn="{StaticResource BaseControlStyle}">
+    <Setter Property="Background" Value="{DynamicResource RegionBrush}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource RegionDark2Brush}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="MinWidth" Value="180"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type local:NodeView}">
+          <Border Background="{TemplateBinding Background}"
+                  BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}"
+                  CornerRadius="3">
+            <StackPanel>
+              <Border x:Name="PART_TitleBar" Height="24" Grid.ColumnSpan="2" CornerRadius="3,3,0,0" Background="{DynamicResource RegionLight2Brush}">
+                <TextBlock Text="{TemplateBinding Header}" Margin="10,0,0,0" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center" />
+              </Border>
+              <ItemsControl Margin="5,8,-6,5" ItemsSource="{TemplateBinding Outputs}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <DockPanel Margin="0,2">
+                      <local:SlotBox Background="{DynamicResource PrimaryLightBrush}" Width="11" Height="11" StrokeWidth="1" DockPanel.Dock="Right" VerticalAlignment="Center"/>
+                      <TextBlock Text="{Binding Header}" Margin="4,0,6,0" TextAlignment="Right"/>
+                    </DockPanel>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+              <ItemsControl Margin="-6,4,4,7" ItemsSource="{TemplateBinding Inputs}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <DockPanel Margin="0,2">
+                      <local:SlotBox Width="11" Height="11" StrokeWidth="1" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+                      <local:RangeBox Title="{Binding Header}" Margin="6,0,4,0" Decimals="3"/>
+                    </DockPanel>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </StackPanel>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="{x:Type local:NodeView}" BasedOn="{StaticResource BlenderStyle}"/>
 
 </ResourceDictionary>

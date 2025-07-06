@@ -95,7 +95,7 @@ namespace Leisn.Xaml.Wpf.Controls
         }
         public static readonly DependencyProperty DecimalsProperty =
             DependencyProperty.Register("Decimals", typeof(int), typeof(RangeBox),
-                new FrameworkPropertyMetadata(-1, new PropertyChangedCallback(OnDecimalsChanged), new CoerceValueCallback(CoerceDecimals)));
+                new FrameworkPropertyMetadata(3, new PropertyChangedCallback(OnDecimalsChanged), new CoerceValueCallback(CoerceDecimals)));
         private static void OnDecimalsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             RangeBox slider = (RangeBox)d;
@@ -279,6 +279,7 @@ namespace Leisn.Xaml.Wpf.Controls
             startPoint = e.GetPosition(this);
             startValue = Value;
             dragging = true;
+            e.Handled = true;
         }
 
         protected override void OnMouseMove(MouseEventArgs e)
@@ -295,6 +296,7 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             UpdateValueWhenDrag(e.GetPosition(this));
+            e.Handled = true;
         }
 
         protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
@@ -311,6 +313,7 @@ namespace Leisn.Xaml.Wpf.Controls
                 {
                     UpdateValueWhenDrag(e.GetPosition(this));
                 }
+                e.Handled = true;
             }
             finally
             {

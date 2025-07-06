@@ -39,7 +39,7 @@
   <Color x:Key="RegionColor">#292929</Color>
   <Color x:Key="RegionDark1Color">#222222</Color>
   <Color x:Key="RegionDark2Color">#1D1D1D</Color>
-  <Color x:Key="RegionDark3Color">#161616</Color>
+  <Color x:Key="RegionDark3Color">#111111</Color>
 
   <Color x:Key="ControlColor">#545454</Color>
   <Color x:Key="ControlLight1Color">#656565</Color>
@@ -47,4 +47,73 @@
   <Color x:Key="ControlDark1Color">#444444</Color>
   <Color x:Key="ControlDark2Color">#212121</Color>
 
+
+  <SolidColorBrush x:Key="BorderBrush" Color="{DynamicResource BorderColor}"/>
+  <SolidColorBrush x:Key="BorderLightBrush" Color="{DynamicResource BorderLightColor}"/>
+  <SolidColorBrush x:Key="BorderDarkBrush" Color="{DynamicResource BorderDarkColor}"/>
+
+  <SolidColorBrush x:Key="TextBrush" Color="{DynamicResource TextColor}"/>
+  <SolidColorBrush x:Key="TextLightBrush" Color="{DynamicResource TextLightColor}"/>
+  <SolidColorBrush x:Key="TextDarkBrush" Color="{DynamicResource TextDarkColor}"/>
+  <SolidColorBrush x:Key="TextInverseBrush" Color="{DynamicResource TextInverseColor}"/>
+
+  <SolidColorBrush x:Key="PrimaryBrush" Color="{DynamicResource PrimaryColor}"/>
+  <SolidColorBrush x:Key="PrimaryLightBrush" Color="{DynamicResource PrimaryLightColor}"/>
+  <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{DynamicResource PrimaryDarkColor}"/>
+  <SolidColorBrush x:Key="PrimaryTextBrush" Color="{DynamicResource PrimaryTextColor}"/>
+  <SolidColorBrush x:Key="AccentBrush" Color="{DynamicResource AccentColor}"/>
+  <SolidColorBrush x:Key="AccentTextBrush" Color="{DynamicResource AccentTextColor}"/>
+  <SolidColorBrush x:Key="InfoBrush" Color="{DynamicResource InfoColor}"/>
+  <SolidColorBrush x:Key="InfoTextBrush" Color="{DynamicResource InfoTextColor}"/>
+  <SolidColorBrush x:Key="SuccessBrush" Color="{DynamicResource SuccessColor}"/>
+  <SolidColorBrush x:Key="SuccessTextBrush" Color="{DynamicResource SuccessTextColor}"/>
+  <SolidColorBrush x:Key="WarningBrush" Color="{DynamicResource WarningColor}"/>
+  <SolidColorBrush x:Key="WarningTextBrush" Color="{DynamicResource WarningTextColor}"/>
+  <SolidColorBrush x:Key="DangerBrush" Color="{DynamicResource DangerColor}"/>
+  <SolidColorBrush x:Key="DangerTextBrush" Color="{DynamicResource DangerTextColor}"/>
+  <SolidColorBrush x:Key="HighlightBrush" Color="{DynamicResource HighlightColor}"/>
+  <SolidColorBrush x:Key="HighlightTextBrush" Color="{DynamicResource HighlightTextColor}"/>
+  <SolidColorBrush x:Key="TranslucentBrush" Color="{DynamicResource TranslucentColor}"/>
+
+  <SolidColorBrush x:Key="TranslucentMediumBrush" Color="{DynamicResource TranslucentMediumColor}"/>
+  <SolidColorBrush x:Key="TranslucentHardBrush" Color="{DynamicResource TranslucentHardColor}"/>
+  <SolidColorBrush x:Key="TranslucentWhiteBrush" Color="{DynamicResource TranslucentWhiteColor}"/>
+  <SolidColorBrush x:Key="TranslucentWhiteMediumBrush" Color="{DynamicResource TranslucentWhiteMediumColor}"/>
+  <SolidColorBrush x:Key="TranslucentWhiteHardBrush" Color="{DynamicResource TranslucentWhiteHardColor}"/>
+
+  <SolidColorBrush x:Key="RegionLight3Brush" Color="{DynamicResource RegionLight3Color}"/>
+  <SolidColorBrush x:Key="RegionLight2Brush" Color="{DynamicResource RegionLight2Color}"/>
+  <SolidColorBrush x:Key="RegionLight1Brush" Color="{DynamicResource RegionLight1Color}"/>
+  <SolidColorBrush x:Key="RegionBrush" Color="{DynamicResource RegionColor}"/>
+  <SolidColorBrush x:Key="RegionDark1Brush" Color="{DynamicResource RegionDark1Color}"/>
+  <SolidColorBrush x:Key="RegionDark2Brush" Color="{DynamicResource RegionDark2Color}"/>
+  <SolidColorBrush x:Key="RegionDark3Brush" Color="{DynamicResource RegionDark3Color}"/>
+
+  <SolidColorBrush x:Key="ControlBrush" Color="{DynamicResource ControlColor}"/>
+  <SolidColorBrush x:Key="ControlLight1Brush" Color="{DynamicResource ControlLight1Color}"/>
+  <SolidColorBrush x:Key="ControlLight2Brush" Color="{DynamicResource ControlLight2Color}"/>
+  <SolidColorBrush x:Key="ControlDark1Brush" Color="{DynamicResource ControlDark1Color}"/>
+  <SolidColorBrush x:Key="ControlDark2Brush" Color="{DynamicResource ControlDark2Color}"/>
+
+  <DrawingBrush x:Key="OpacityGridTileBrush" TileMode="Tile" Stretch="None" Viewport="0,0,16,16" ViewportUnits="Absolute">
+    <DrawingBrush.Drawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="{StaticResource ControlBrush}">
+          <GeometryDrawing.Geometry>
+            <RectangleGeometry Rect="0,0,16,16"/>
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="{StaticResource TextBrush}">
+          <GeometryDrawing.Geometry>
+            <GeometryGroup>
+              <RectangleGeometry Rect="4,0,8,4" />
+              <RectangleGeometry Rect="0,4,4,8" />
+              <RectangleGeometry Rect="12,4,4,8" />
+              <RectangleGeometry Rect="4,12,8,4" />
+            </GeometryGroup>
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingBrush.Drawing>
+  </DrawingBrush>
 </ResourceDictionary>

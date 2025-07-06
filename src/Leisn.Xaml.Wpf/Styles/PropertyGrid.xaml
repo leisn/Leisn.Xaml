@@ -175,7 +175,7 @@
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="header" Grid.ColumnSpan="2" Margin="0,0,10,0" Text="{TemplateBinding DisplayName}" TextTrimming="CharacterEllipsis" TextAlignment="Right">
           <TextBlock.ToolTip>
-            <ToolTip Style="{StaticResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
+            <ToolTip Style="{DynamicResource PropertyItemToolTipBaseStyle}" Content="{TemplateBinding Description}"/>
           </TextBlock.ToolTip>
         </TextBlock>
         <ContentPresenter Grid.Column="2" Grid.ColumnSpan="2" ContentSource="EditorElement"
@@ -212,24 +212,24 @@
 
   <Style x:Key="PropertyItemBaseStyle" TargetType="local:PropertyItem">
     <Setter Property="Focusable" Value="False"/>
-    <Setter Property="MinHeight" Value="{StaticResource InputMinHeight}"/>
+    <Setter Property="MinHeight" Value="{DynamicResource InputMinHeight}"/>
     <Setter Property="Height" Value="auto"/>
     <Setter Property="Padding" Value="0"/>
     <Setter Property="Background" Value="Transparent"/>
     <Setter Property="BorderBrush" Value="{DynamicResource PrimaryBrush}"/>
     <Setter Property="BorderThickness" Value="0"/>
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-    <Setter Property="Template" Value="{StaticResource PropertyItemNormalTemplate}"/>
+    <Setter Property="Template" Value="{DynamicResource PropertyItemNormalTemplate}"/>
     <Style.Triggers>
       <Trigger Property="UseExpanderStyle" Value="True">
-        <Setter Property="Template" Value="{StaticResource PropertyItemExpanderTemplate}"/>
+        <Setter Property="Template" Value="{DynamicResource PropertyItemExpanderTemplate}"/>
         <Setter Property="Background" Value="{DynamicResource RegionLight2Brush}"/>
       </Trigger>
     </Style.Triggers>
   </Style>
 
   <Style x:Key="PropertyItemsControlBaseStyle" TargetType="local:PropertyItemsControl">
-    <Setter Property="ItemContainerStyle" Value="{StaticResource PropertyItemBaseStyle}"/>
+    <Setter Property="ItemContainerStyle" Value="{DynamicResource PropertyItemBaseStyle}"/>
     <Setter Property="Focusable" Value="False"/>
     <Setter Property="ItemsPanel">
       <Setter.Value>

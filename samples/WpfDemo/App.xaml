@@ -6,6 +6,7 @@
   <Application.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Leisn.Xaml.Wpf;component/Assets/Colors.xaml" />
         <ResourceDictionary Source="/Leisn.Xaml.Wpf;component/Themes/Generic.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>

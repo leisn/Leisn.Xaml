@@ -8,6 +8,9 @@ namespace System.Windows
 {
     public static class RectEx
     {
+        public static Rect Create(double left, double top, double right, double bottom)
+            => new(left, top, right - left, bottom - top);
+
         public static bool IsEmpty(this Rect self)
         {
             return self.IsEmpty || self.Width == 0 || self.Height == 0;

@@ -15,6 +15,7 @@ namespace Leisn.Xaml.Wpf.Controls
             }
 
             Size size = new();
+            int count = 0;
             for (int i = 0; i < Children.Count; i++)
             {
                 FrameworkElement child = (FrameworkElement)Children[i];
@@ -27,27 +28,26 @@ namespace Leisn.Xaml.Wpf.Controls
                 {
                     continue;
                 }
-
+                count++;
                 child.Measure(availableSize);
                 Size childSize = child.DesiredSize;
                 if (Orientation == System.Windows.Controls.Orientation.Vertical)
                 {
                     size.Height += childSize.Height;
                     size.Width = Math.Max(size.Width, childSize.Width);
-                    if (i > 0)
-                    {
-                        size.Height += FinalVerticalSpacing;
-                    }
                 }
                 else
                 {
                     size.Width += childSize.Width;
                     size.Height = Math.Max(size.Height, childSize.Height);
-                    if (i > 0)
-                    {
-                        size.Width += FinalHorizontalSpacing;
-                    }
                 }
+            }
+            if (count > 1)
+            {
+                if (Orientation == System.Windows.Controls.Orientation.Vertical)
+                    size.Height += (count - 1) * FinalVerticalSpacing;
+                else
+                    size.Width += (count - 1) * FinalHorizontalSpacing;
             }
             size.Width += Padding.Left + Padding.Right;
             size.Height += Padding.Top + Padding.Bottom;

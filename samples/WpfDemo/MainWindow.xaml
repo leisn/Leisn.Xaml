@@ -34,7 +34,14 @@
       <RowDefinition/>
     </Grid.RowDefinitions>
     <DockPanel>
-      <ComboBox x:Name="langsBox" DockPanel.Dock="Right" />
+      <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+        <ComboBox x:Name="langsBox"  />
+        <ComboBox SelectedIndex="0" Margin="20,0,0,0" Width="60" SelectionChanged="Theme_SelectionChanged">
+          <ComboBoxItem>Dark</ComboBoxItem>
+          <ComboBoxItem>Light</ComboBoxItem>
+        </ComboBox>
+      </StackPanel>
+
       <Menu DockPanel.Dock="Left">
         <MenuItem Header="File">
           <MenuItem.Icon>
@@ -62,7 +69,9 @@
 
     <TabControl Margin="0,10,0,0" Grid.Row="1" TabStripPlacement="Top">
       <TabItem Header="NodeEditor">
-        <ln:SkNodeEditor Margin="3"/>
+        <ln:NodeCanvas>
+          <ln:NodeView x:Name="nodeView" Header="Node View" Canvas.Top="100" Canvas.Left="100"/>
+        </ln:NodeCanvas>
       </TabItem>
       <TabItem Header="DataGrid">
         <DockPanel>
@@ -141,6 +150,40 @@
             <Button Content="5" Grid.RowSpan="2"/>
           </ln:UniformGrid>
         </ln:UniformGrid>
+      </TabItem>
+      <TabItem Header="Roulette" KeyDown="RouletteTabItem_KeyDown">
+        <Grid>
+          <ln:Roulette x:Name="roulette" Visibility="Collapsed">
+            <sys:String>Func1</sys:String>
+            <sys:String>Func2</sys:String>
+            <sys:String>Func3</sys:String>
+            <sys:String>Func4</sys:String>
+            <sys:String>Func5</sys:String>
+            <sys:String>Func6</sys:String>
+            <sys:String>Func7</sys:String>
+            <sys:String>Func8</sys:String>
+          </ln:Roulette>
+          <!--<ItemsControl HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ItemsControl.ItemsPanel>
+              <ItemsPanelTemplate>
+                <ln:RoulettePanel Radius="150"/>
+              </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <Ellipse Width="10" Height="10" Fill="RoyalBlue"/>
+            <Ellipse Width="10" Height="10" Fill="RoyalBlue"/>
+            <Ellipse Width="10" Height="10" Fill="RoyalBlue"/>
+            <Ellipse Width="10" Height="10" Fill="RoyalBlue"/>
+            <Ellipse Width="10" Height="10" Fill="RoyalBlue"/>
+            <Ellipse Width="10" Height="10" Fill="RoyalBlue"/>
+            <Ellipse Width="10" Height="10" Fill="RoyalBlue"/>
+            <Ellipse Width="10" Height="10" Fill="RoyalBlue"/>
+          </ItemsControl>-->
+          <!--<Rectangle Height="1" Fill="White" HorizontalAlignment="Stretch"/>
+          <Rectangle Width="1" Fill="White" VerticalAlignment="Stretch"/>-->
+          <!--<Ellipse Width="300" Height="300" Stroke="White" StrokeThickness="1"/>-->
+
+          <TextBlock x:Name="rouletterText" Text="Shift+F" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+        </Grid>
       </TabItem>
     </TabControl>
   </Grid>

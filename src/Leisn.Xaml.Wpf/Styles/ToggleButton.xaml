@@ -50,13 +50,6 @@
                   BorderThickness="{TemplateBinding BorderThickness}"
                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                   local:ControlAttach.IsCircle="True" ClipToBounds="True">
-            <Viewbox Height="{TemplateBinding Height}">
-              <Canvas Width="68" Height="24">
-                <Ellipse x:Name="path" Width="18" Height="18" Canvas.Left="3" Canvas.Top="3"
-                         Stroke="{StaticResource BorderBrush}" StrokeThickness="1"
-                         Fill="{TemplateBinding Foreground}"/>
-              </Canvas>
-            </Viewbox>
             <VisualStateManager.VisualStateGroups>
               <VisualStateGroup x:Name="CommonStates">
                 <VisualState x:Name="Normal"/>
@@ -67,22 +60,22 @@
               <VisualStateGroup x:Name="CheckStates">
                 <VisualState x:Name="Unchecked">
                   <Storyboard>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="path" Storyboard.TargetProperty="(Canvas.Left)" >
                       <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="3"/>
                     </DoubleAnimationUsingKeyFrames>
-                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                            Storyboard.TargetName="bd">
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="bd"
+                                                  Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
                       <EasingColorKeyFrame KeyTime="0:0:0.3" Value="{StaticResource ControlColor}"/>
                     </ColorAnimationUsingKeyFrames>
                   </Storyboard>
                 </VisualState>
                 <VisualState x:Name="Indeterminate">
                   <Storyboard>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
+                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="path" Storyboard.TargetProperty="(Canvas.Left)" >
                       <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="25"/>
                     </DoubleAnimationUsingKeyFrames>
-                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                          Storyboard.TargetName="bd">
+                    <ColorAnimationUsingKeyFrames  Storyboard.TargetName="bd"
+                                                   Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
                       <EasingColorKeyFrame KeyTime="0:0:0.3" Value="{StaticResource ControlColor}"/>
                     </ColorAnimationUsingKeyFrames>
                   </Storyboard>
@@ -92,14 +85,21 @@
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
                       <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
                     </DoubleAnimationUsingKeyFrames>
-                    <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
-                                                          Storyboard.TargetName="bd">
+                    <ColorAnimationUsingKeyFrames Storyboard.TargetName="bd"
+                                                  Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
                       <EasingColorKeyFrame KeyTime="0:0:0.3" Value="{StaticResource PrimaryColor}"/>
                     </ColorAnimationUsingKeyFrames>
                   </Storyboard>
                 </VisualState>
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
+            <Viewbox Height="{TemplateBinding Height}">
+              <Canvas Width="68" Height="24">
+                <Ellipse x:Name="path" Width="18" Height="18" Canvas.Left="3" Canvas.Top="3"
+                         Stroke="{StaticResource BorderBrush}" StrokeThickness="1"
+                         Fill="{TemplateBinding Foreground}"/>
+              </Canvas>
+            </Viewbox>
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="{x:Null}">

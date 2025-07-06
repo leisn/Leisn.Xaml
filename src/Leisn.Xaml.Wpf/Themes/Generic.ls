@@ -1,10 +1,9 @@
 
 #assets
 #Assets/Colors.xaml
-Assets/ColorsLight.xaml
+#Assets/ColorsLight.xaml
 Assets/Values.xaml
 Assets/Geometries.xaml
-Assets/Brushes.xaml
 Assets/Images.xaml
 
 #conveters
@@ -45,5 +44,7 @@ Styles/RangeBox.xaml
 Styles/NumericUpDown.xaml
 Styles/PathSelector.xaml
 Styles/ColorPicker.xaml
-Styles/NodeEditor.xaml
 Styles/PropertyGrid.xaml
+Styles/Roulette.xaml
+Styles/NodeEditor.xaml
+

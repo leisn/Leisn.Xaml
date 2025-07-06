@@ -43,7 +43,7 @@ namespace Leisn.Xaml.Wpf.Locales
             }
             if (Binding is Binding b)
             {
-                LangValueConverter converter = new(b.Converter, b.ConverterParameter);
+                LangValueConverter converter = new(b.Converter, b.ConverterParameter, b.StringFormat);
                 b.Converter = converter;
                 b.ConverterParameter = Key;
             }

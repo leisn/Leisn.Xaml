@@ -10,14 +10,20 @@ namespace Leisn.Xaml.Wpf.Locales
     {
         private readonly IValueConverter? _converter;
         private readonly object? _parameter;
-        public LangValueConverter(IValueConverter? converter, object? parameter)
+        private readonly string? _stringFormat;
+        public LangValueConverter(IValueConverter? converter, object? parameter, string? stringFormat)
         {
             _converter = converter;
             _parameter = parameter;
+            _stringFormat = stringFormat;
         }
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            object v = _converter != null ? _converter.Convert(value, targetType, _parameter, culture) : value;
+            object v = value;
+            if (_converter != null)
+                v = _converter.Convert(value, targetType, parameter, culture);
+            if (!string.IsNullOrEmpty(_stringFormat) && v is IFormattable formattable)
+                v = formattable.ToString(_stringFormat, null);
             return string.Format(Lang.Get((string)parameter), v);
         }
 
