@@ -21,16 +21,27 @@ namespace Leisn.Xaml.Wpf.Controls;
 public class Roulette : ListBox
 {
     const string PART_IndicatorName = "PART_Indicator";
+    const string PART_IndicatorCanvasName = "PART_IndicatorCanvas";
     private FrameworkElement _indicator = null!;
+    private FrameworkElement _indicatorCanvas = null!;
     static Roulette()
     {
         DefaultStyleKeyProperty.OverrideMetadata(typeof(Roulette), new FrameworkPropertyMetadata(typeof(Roulette)));
     }
 
+    public string Header
+    {
+        get { return (string)GetValue(HeaderProperty); }
+        set { SetValue(HeaderProperty, value); }
+    }
+    public static readonly DependencyProperty HeaderProperty =
+        DependencyProperty.Register("Header", typeof(string), typeof(Roulette), new PropertyMetadata(string.Empty));
+
     public override void OnApplyTemplate()
     {
         base.OnApplyTemplate();
         _indicator = (FrameworkElement)GetTemplateChild(PART_IndicatorName);
+        _indicatorCanvas = (FrameworkElement)GetTemplateChild(PART_IndicatorCanvasName);
     }
 
     protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
@@ -130,7 +141,7 @@ public class Roulette : ListBox
         var count = Items.Count;
         var point = e.GetPosition(this);
         var index = GetMouseOnItemIndex(point, out var angle);
-        var left = Canvas.GetLeft(_indicator) / -2;
+        var left = _indicatorCanvas.Width / 2 - Canvas.GetLeft(_indicator);
         _indicator.RenderTransform = new RotateTransform(angle, left, 0);
         for (int i = 0; i < count; i++)
         {

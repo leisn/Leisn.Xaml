@@ -19,7 +19,7 @@ public class RoulettePanel : Panel
     }
     public static readonly DependencyProperty RadiusProperty =
         DependencyProperty.Register("Radius", typeof(double), typeof(RoulettePanel),
-            new FrameworkPropertyMetadata(200d, FrameworkPropertyMetadataOptions.AffectsMeasure));
+            new FrameworkPropertyMetadata(152d, FrameworkPropertyMetadataOptions.AffectsMeasure));
 
     protected override Size MeasureOverride(Size availableSize)
     {

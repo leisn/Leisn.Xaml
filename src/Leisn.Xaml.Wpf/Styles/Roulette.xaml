@@ -6,6 +6,7 @@
     <Setter Property="HorizontalContentAlignment" Value="Center"/>
     <Setter Property="VerticalContentAlignment" Value="Center"/>
     <Setter Property="local:ControlAttach.CornerRadius" Value="{DynamicResource DefaultCornerRadius}"/>
+    <Setter Property="Background" Value="{DynamicResource ControlDark2Brush}"/>
     <Setter Property="OverridesDefaultStyle" Value="True"/>
     <Setter Property="Padding" Value="10,3"/>
     <Setter Property="Template">
@@ -26,13 +27,13 @@
               <Setter Property="Opacity" Value=".5" TargetName="bd"/>
             </Trigger>
             <Trigger Property="IsHighlight" Value="True">
-              <Setter Property="Background" TargetName="bd" Value="{DynamicResource PrimaryLightBrush}"/>
+              <Setter Property="Background" TargetName="bd" Value="{DynamicResource ControlBrush}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="True">
-              <Setter Property="Background" TargetName="bd" Value="{DynamicResource ControlLight2Brush}"/>
+              <Setter Property="Background" TargetName="bd" Value="{DynamicResource ControlDark1Brush}"/>
             </Trigger>
             <Trigger Property="IsSelected" Value="True">
-              <Setter Property="Background" TargetName="bd" Value="{DynamicResource PrimaryBrush}"/>
+              <Setter Property="Background" TargetName="bd" Value="{DynamicResource ControlDark1Brush}"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
@@ -45,6 +46,7 @@
     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
     <Setter Property="VerticalContentAlignment" Value="Stretch"/>
     <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}"/>
     <Setter Property="VirtualizingPanel.IsContainerVirtualizable" Value="False"/>
     <Setter Property="ItemsPanel">
       <Setter.Value>
@@ -61,24 +63,33 @@
                   CornerRadius="{TemplateBinding local:ControlAttach.CornerRadius}"
                   SnapsToDevicePixels="True">
             <Grid>
+
               <ItemsPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               Margin="{TemplateBinding Padding}"
                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-              <Canvas HorizontalAlignment="Center" VerticalAlignment="Center" Width="60" Height="60">
-                <Path Fill="{DynamicResource ControlLight2Brush}">
-                  <Path.Data>
-                    <GeometryGroup FillRule="EvenOdd">
-                      <EllipseGeometry Center="30,30" RadiusX="26" RadiusY="26"/>
-                      <EllipseGeometry Center="30,30" RadiusX="23" RadiusY="23"/>
-                    </GeometryGroup>
-                  </Path.Data>
-                </Path>
-                <Ellipse x:Name="PART_Indicator" Fill="{DynamicResource AccentBrush}"
-                         Stroke="{DynamicResource ControlDark2Brush}" StrokeThickness="1"
-                         Width="12" Height="12" Canvas.Left="49" Canvas.Top="25"
-                         RenderTransformOrigin=".5,.5"/>
-              </Canvas>
+              <Grid  HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="20"/>
+                  <RowDefinition Height="60"/>
+                  <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{TemplateBinding Header}" TextAlignment="Center"/>
+                <Canvas  x:Name="PART_IndicatorCanvas" Grid.Row="1" Width="60" Height="60" HorizontalAlignment="Center">
+                  <Path Fill="{DynamicResource ControlDark2Brush}">
+                    <Path.Data>
+                      <GeometryGroup FillRule="EvenOdd">
+                        <EllipseGeometry Center="30,30" RadiusX="22" RadiusY="22"/>
+                        <EllipseGeometry Center="30,30" RadiusX="15" RadiusY="15"/>
+                      </GeometryGroup>
+                    </Path.Data>
+                  </Path>
+                  <Ellipse x:Name="PART_Indicator" Fill="{DynamicResource PrimaryBrush}"
+                         Stroke="{TemplateBinding Foreground}" StrokeThickness="0"
+                         Width="10" Height="10" Canvas.Left="44" Canvas.Top="25"
+                         RenderTransformOrigin="0,.5"/>
+                </Canvas>
+              </Grid>
             </Grid>
           </Border>
         </ControlTemplate>
