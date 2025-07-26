@@ -18,11 +18,9 @@
                     HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                     VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                     local:ControlAttach.IsCircle="True">
-              <Grid x:Name="markGrid" Margin="4">
+              <Grid x:Name="markGrid" Margin="3">
                 <Ellipse x:Name="optionMark" Fill="{DynamicResource TextBrush}"
-                         MinWidth="6" MinHeight="6" Opacity="0" Stretch="Uniform"
-                         Height="{TemplateBinding FontSize}"
-                         Width="{TemplateBinding FontSize}"/>
+                         MinWidth="6" MinHeight="6" Opacity="0" Stretch="Uniform"/>
               </Grid>
             </Border>
             <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>

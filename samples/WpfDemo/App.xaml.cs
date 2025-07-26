@@ -18,7 +18,6 @@ using System.Threading;
 using Leisn.Xaml.Wpf.Controls;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Leisn.Xaml.Wpf.Input;
 using System.Windows.Controls.Primitives;
 using System.Collections;
 using System.Collections.ObjectModel;

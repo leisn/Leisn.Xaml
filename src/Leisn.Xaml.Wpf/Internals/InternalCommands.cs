@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 using Leisn.Xaml.Wpf.Controls;
-using Leisn.Xaml.Wpf.Input;
 
 namespace Leisn.Xaml.Wpf.Internals
 {

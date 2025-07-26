@@ -40,8 +40,10 @@
   <Style x:Key="ToggleSwitchStyle" TargetType="ToggleButton" BasedOn="{StaticResource BaseInputStyle}">
     <Setter Property="Background" Value="{StaticResource ControlBrush}"/>
     <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-    <Setter Property="Height" Value="{StaticResource InputMinHeight}"/>
     <Setter Property="HorizontalAlignment" Value="Left"/>
+    <Setter Property="VerticalAlignment" Value="Center"/>
+    <Setter Property="MinHeight" Value="20"/>
+    <Setter Property="Height" Value="20"/>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToggleButton">
@@ -61,7 +63,7 @@
                 <VisualState x:Name="Unchecked">
                   <Storyboard>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetName="path" Storyboard.TargetProperty="(Canvas.Left)" >
-                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="3"/>
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="2"/>
                     </DoubleAnimationUsingKeyFrames>
                     <ColorAnimationUsingKeyFrames Storyboard.TargetName="bd"
                                                   Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
@@ -83,7 +85,7 @@
                 <VisualState x:Name="Checked">
                   <Storyboard>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.Left)" Storyboard.TargetName="path">
-                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="48"/>
+                      <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="46"/>
                     </DoubleAnimationUsingKeyFrames>
                     <ColorAnimationUsingKeyFrames Storyboard.TargetName="bd"
                                                   Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
@@ -94,8 +96,8 @@
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Viewbox Height="{TemplateBinding Height}">
-              <Canvas Width="68" Height="24">
-                <Ellipse x:Name="path" Width="18" Height="18" Canvas.Left="3" Canvas.Top="3"
+              <Canvas Width="68" Height="23">
+                <Ellipse x:Name="path" Width="20" Height="20" Canvas.Left="2" Canvas.Top="2"
                          Stroke="{StaticResource BorderBrush}" StrokeThickness="1"
                          Fill="{TemplateBinding Foreground}"/>
               </Canvas>

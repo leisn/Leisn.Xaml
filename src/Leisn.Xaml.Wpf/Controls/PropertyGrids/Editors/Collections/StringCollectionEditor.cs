@@ -10,7 +10,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 
-using Leisn.Xaml.Wpf.Input;
+using Leisn.Xaml.Wpf.Internals;
 
 namespace Leisn.Xaml.Wpf.Controls.Editors
 {
@@ -48,7 +48,6 @@ namespace Leisn.Xaml.Wpf.Controls.Editors
         {
             return ItemsSourceProperty;
         }
-
 
         public Style TextBoxStyle
         {

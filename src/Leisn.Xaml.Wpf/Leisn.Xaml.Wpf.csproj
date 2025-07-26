@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net9.0-windows;net8.0-windows;net6.0-windows</TargetFrameworks>
     <Nullable>enable</Nullable>
-    <LangVersion>10</LangVersion>
+    <LangVersion>Latest</LangVersion>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 

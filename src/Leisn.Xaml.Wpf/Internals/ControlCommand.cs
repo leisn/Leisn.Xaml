@@ -3,9 +3,35 @@
 using System;
 using System.Windows.Input;
 
-namespace Leisn.Xaml.Wpf.Input
+namespace Leisn.Xaml.Wpf.Internals
 {
-    public class ControlCommand<T> : ICommand<T>
+    internal class ControlCommand : ICommand
+    {
+        public event EventHandler? CanExecuteChanged;
+
+        private readonly Action _action;
+        private readonly Func<bool>? _canExecute;
+        public ControlCommand(Action action, Func<bool>? canExecute = null)
+        {
+            _action = action;
+            _canExecute = canExecute;
+        }
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        public virtual bool CanExecute(object? parameter)
+        {
+            return _canExecute == null || _canExecute();
+        }
+
+        public virtual void Execute(object? parameter)
+        {
+            _action?.Invoke();
+        }
+    }
+    internal class ControlCommand<T> : ICommand
     {
         public event EventHandler? CanExecuteChanged;
 
